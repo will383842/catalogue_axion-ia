@@ -1,0 +1,9 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Soft-proofs CMJN (régénérés à chaque build)
+catalogue-axion-ia-v2/export/apercu-cmyk/
+
+# Fichiers temporaires d'aperçu
+catalogue-axion-ia-v2/export/_preview-*.jpg

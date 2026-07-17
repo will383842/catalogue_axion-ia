@@ -1,0 +1,1446 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Catalogue de formations IA — Axion-IA · 2026-2027</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400;1,9..144,600&family=Inconsolata:wght@500;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   AXION-IA — Catalogue de formations IA · v2 (print-ready)
+   Format : A4 fermé (210×297) / A3 ouvert · livret 16 p. piqûre à cheval
+   Fond perdu : 3 mm · Page de travail : 216×303 mm
+   Marque : ivoire + bleu éditorial + terracotta accent + mocha
+   Typo : Manrope (texte) · Fraunces (display) · Inconsolata (chiffres)
+   ============================================================ */
+:root{
+  --ivory:#faf8f3; --paper:#ffffff; --sand:#f0e9da; --sand-deep:#e6dcc4;
+  --mocha:#2a2520; --mocha-fg:#f7f3ea;
+  --ink:#1a1815; --ink-soft:#524b41; --ink-muted:#6a5f52;
+  --blue:#1a4dd9; --blue-deep:#0f3aae; --blue-soft:#e6ecfb;
+  --terra:#c24a1b; --terra-deep:#8c3010; --terra-soft:#f5e3d8;
+  --sage:#5e6c54; --ochre:#b06a12; --plum:#7c4a63;
+  --line:#e6dcc4;
+  --bleed:3mm;
+  --safe:10mm;                 /* marge de sécurité depuis la coupe */
+  --pad: calc(var(--bleed) + var(--safe));   /* 13mm */
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:#8a8378;                     /* fond atelier (écran) */
+  font-family:'Manrope',system-ui,Arial,sans-serif;
+  color:var(--ink);
+  -webkit-print-color-adjust:exact; print-color-adjust:exact;
+}
+.deck{display:flex;flex-direction:column;align-items:center;gap:10mm;padding:12mm 0}
+
+/* ---- PAGE (avec fond perdu) ---- */
+.page{
+  position:relative;
+  width:216mm;height:303mm;               /* 210×297 + 3mm bleed / côté */
+  padding:var(--pad) var(--pad) 20mm;
+  background:var(--ivory);
+  overflow:hidden;
+  box-shadow:0 6mm 18mm rgba(0,0,0,.35);   /* écran seulement */
+}
+.page__bg{position:absolute;inset:0;z-index:0}   /* aplat pleine page (bord perdu) */
+.page > *:not(.page__bg):not(.footer):not(.trim):not(.foldline){position:relative;z-index:1}
+
+/* Repère de coupe (écran uniquement, masqué à l'impression) */
+.trim{position:absolute;inset:var(--bleed);border:.2mm dashed rgba(26,77,217,.35);pointer-events:none;z-index:5}
+.foldline{position:absolute;top:0;bottom:0;left:50%;border-left:.2mm dashed rgba(26,77,217,.25);z-index:5;pointer-events:none}
+
+/* ---- Typo utilitaires ---- */
+.display{font-family:'Fraunces',Georgia,serif;font-weight:600;line-height:1.02;letter-spacing:-.01em}
+.display-it{font-family:'Fraunces',Georgia,serif;font-style:italic;font-weight:400}
+.mono{font-family:'Inconsolata',monospace}
+.eyebrow{font-size:9pt;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--terra)}
+.rule{width:52px;height:4px;border-radius:3px;background:var(--terra)}
+
+/* ---- Header / footer courants ---- */
+.rt{display:flex;align-items:center;justify-content:space-between}
+.runhead{display:flex;align-items:center;justify-content:space-between;margin-bottom:9mm}
+.runhead img{height:11mm;width:auto;display:block}
+.runhead .sec{font-size:8.5pt;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-muted)}
+.footer{position:absolute;left:0;right:0;bottom:0;height:14mm;background:var(--mocha);
+  display:flex;align-items:center;justify-content:space-between;padding:0 var(--pad);z-index:2}
+.footer .l{font-size:9pt;font-weight:700;color:#fff}
+.footer .l b{color:#ffd166}
+.footer .r{font-size:8.5pt;font-weight:700;color:var(--sand)}
+
+/* ---- Badges ---- */
+.badge{display:inline-flex;align-items:center;gap:8px;background:var(--paper);
+  border:1px solid var(--line);border-radius:999px;padding:8px 16px;font-weight:700;font-size:10pt}
+.chip{display:inline-block;font-size:8pt;font-weight:800;letter-spacing:.08em;text-transform:uppercase;
+  padding:5px 12px;border-radius:999px}
+
+/* ---- Cartes ---- */
+.card{background:var(--paper);border:1px solid var(--line);border-radius:16px;
+  box-shadow:0 3mm 8mm -4mm rgba(42,37,32,.22)}
+
+/* ---- Sommaire ---- */
+.toc{list-style:none;margin:0;padding:0}
+.toc li{display:flex;align-items:baseline;gap:10px;padding:7px 0;border-bottom:1px solid var(--line);font-size:11.5pt}
+.toc li .t{font-weight:700}
+.toc li .d{flex:1;border-bottom:1px dotted var(--sand-deep);transform:translateY(-3px)}
+.toc li .pg{font-weight:800;color:var(--blue);font-family:'Inconsolata',monospace}
+
+/* ---- Étapes "comment ça marche" ---- */
+.steps{display:flex;flex-direction:column;gap:6mm}
+.step{display:flex;gap:6mm;align-items:flex-start}
+.step .n{flex:none;width:14mm;height:14mm;border-radius:50%;background:var(--blue);color:#fff;
+  font-family:'Fraunces',serif;font-weight:600;font-size:16pt;display:flex;align-items:center;justify-content:center}
+.step h4{margin:1mm 0 1.5mm;font-size:13pt;font-weight:800}
+.step p{margin:0;font-size:10.5pt;line-height:1.5;color:var(--ink-soft)}
+
+/* ---- Fiche formation ---- */
+.fcard{position:relative;padding:6mm 7mm;display:flex;flex-direction:column;border-radius:16px;
+  border:1px solid var(--line);background:var(--paper);box-shadow:0 3mm 7mm -5mm rgba(42,37,32,.25);overflow:hidden}
+.fcard::before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--gc,var(--terra))}
+.fcard .fc-top{display:flex;align-items:flex-start;justify-content:space-between;gap:6mm}
+.fcard .fc-meta{display:flex;gap:5px;flex-wrap:wrap;justify-content:flex-end;flex:none}
+.pill{display:inline-flex;align-items:center;gap:5px;font-size:8.5pt;font-weight:800;padding:4px 9px;border-radius:8px;white-space:nowrap}
+.pill.dur{background:var(--sand);color:var(--ink)}
+.pill.price{background:var(--gc,var(--terra));color:#fff}
+.fcard h3{margin:1mm 0 0;font-size:15pt;font-weight:800;letter-spacing:-.01em;line-height:1.05}
+.fcard .gname{font-size:8pt;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--gc,var(--terra))}
+.fcard .promise{margin:2mm 0 0;font-family:'Fraunces',serif;font-style:italic;font-size:11.5pt;line-height:1.25;color:var(--ink)}
+.fcard .fc-body{display:grid;grid-template-columns:1.15fr .85fr;gap:6mm;margin-top:3.5mm;padding-top:3.5mm;border-top:1px solid var(--line)}
+.fcard .lbl{font-size:8pt;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-muted);margin-bottom:2mm}
+.fcard ul{margin:0;padding-left:4.5mm;font-size:9.5pt;line-height:1.4;color:var(--ink-soft)}
+.fcard ul li{margin-bottom:1.2mm}
+.fcard .biz{font-size:9.5pt;line-height:1.45;color:var(--ink-soft)}
+.fcard .roi{margin-top:2.5mm;font-size:9pt;font-weight:700;color:var(--gc,var(--terra));display:flex;gap:5px;align-items:baseline}
+.fcard .star{position:absolute;top:0;right:0;background:var(--terra);color:#fff;font-size:7.5pt;font-weight:800;
+  letter-spacing:.08em;text-transform:uppercase;padding:4px 12px;border-bottom-left-radius:12px}
+.fcard.feat{border-color:var(--terra);box-shadow:0 3mm 10mm -4mm rgba(194,74,27,.4)}
+
+/* ---- Bandeau gamme ---- */
+.gband{border-radius:14px;padding:5mm 7mm;color:#fff;display:flex;align-items:center;justify-content:space-between;gap:6mm}
+.gband h2{margin:0;font-family:'Fraunces',serif;font-weight:600;font-size:18pt}
+.gband p{margin:1.5mm 0 0;font-size:10pt;line-height:1.4;opacity:.92;max-width:150mm}
+
+/* ---- Tarifs ---- */
+.ptable{width:100%;border-collapse:collapse;font-size:10.5pt}
+.ptable th,.ptable td{padding:4mm 5mm;text-align:left;border-bottom:1px solid var(--line)}
+.ptable thead th{background:var(--mocha);color:#fff;font-weight:700;font-size:9.5pt}
+.ptable thead th:first-child{border-top-left-radius:12px}
+.ptable thead th:last-child{border-top-right-radius:12px;text-align:right}
+.ptable td:last-child{text-align:right;font-family:'Inconsolata',monospace;font-weight:700;font-size:12pt;color:var(--terra)}
+.ptable tbody tr:nth-child(even){background:#fff}
+.ptable .g{font-weight:800}
+
+/* ---- Tableau automatisation ---- */
+.atable{width:100%;border-collapse:collapse;table-layout:fixed}
+.atable thead th{color:#fff;font-weight:800;font-size:8pt;letter-spacing:.03em;padding:3mm 2.6mm;text-align:left;vertical-align:middle;text-transform:uppercase}
+.atable thead th .hd{display:block;font-size:7pt;font-weight:600;letter-spacing:.02em;text-transform:none;opacity:.8;margin-top:.5mm}
+.atable td{padding:4.6mm 2.6mm;vertical-align:middle;border-bottom:1px solid var(--line);font-size:8.5pt;line-height:1.34}
+.atable tbody tr:nth-child(odd){background:#fff}
+.atable tbody tr:nth-child(even){background:var(--sand)}
+.atable .what{font-weight:800;color:var(--ink);font-size:8.5pt;line-height:1.2}
+.atable .ic{font-size:11pt;display:block;margin-bottom:1mm}
+.atable .noia{color:var(--ink-muted)}
+.atable .ax{color:var(--terra-deep);font-weight:600}
+.atable .gain{font-family:'Inconsolata',monospace;font-weight:700;color:#fff;background:var(--terra);
+  display:inline-block;padding:1.5mm 2mm;border-radius:7px;font-size:8.5pt;line-height:1.15}
+.atable .adv{color:var(--sage);font-weight:600}
+.atable .xm{color:#b4463a;font-weight:800}
+.atable .ck{color:var(--terra);font-weight:800}
+
+/* ---- Pills écosystème (couverture) ---- */
+.pill-o{display:inline-block;font-size:9pt;font-weight:700;color:var(--ink-soft);background:var(--paper);
+  border:1px solid var(--line);border-radius:999px;padding:4px 12px;white-space:nowrap}
+
+/* ---- Services ---- */
+.svc{display:flex;gap:5mm;align-items:flex-start;padding:4.5mm 0;border-bottom:1px solid var(--line)}
+.svc .ic{flex:none;width:11mm;height:11mm;border-radius:10px;background:var(--blue-soft);color:var(--blue);
+  display:flex;align-items:center;justify-content:center;font-size:15pt}
+.svc h4{margin:0 0 1mm;font-size:12.5pt;font-weight:800}
+.svc p{margin:0;font-size:10pt;line-height:1.45;color:var(--ink-soft)}
+
+@media print{
+  body{background:#fff}
+  .deck{gap:0;padding:0}
+  .page{box-shadow:none;margin:0;page-break-after:always;break-after:page}
+  .page:last-child{page-break-after:auto}
+  .screen-only,.trim,.foldline{display:none!important}
+}
+@page{size:216mm 303mm;margin:0}
+</style>
+</head>
+<body>
+<div class="deck">
+
+<!-- =====================================================================
+     PAGE 1 — COUVERTURE
+     ===================================================================== -->
+<section class="page" id="p1" style="display:flex;flex-direction:column">
+  <!-- HERO plein cadre (fond perdu) -->
+  <div style="margin:calc(-1*var(--pad)) calc(-1*var(--pad)) 0;height:160mm;position:relative;overflow:hidden;flex:none">
+    <img src="assets/team-photo.png" alt="Session de formation IA en entreprise" style="width:100%;height:100%;object-fit:cover;display:block">
+    <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(42,37,32,.42) 0%,rgba(42,37,32,0) 24%,rgba(42,37,32,.08) 52%,rgba(42,37,32,.88) 100%)"></div>
+
+    <div style="position:absolute;top:var(--pad);left:var(--pad);right:var(--pad);display:flex;align-items:center;justify-content:space-between">
+      <div style="background:#fff;border-radius:12px;padding:6px 13px;box-shadow:0 4mm 14mm -6mm rgba(0,0,0,.6)">
+        <img src="assets/axion-ia-logo.png" alt="Axion-IA" style="height:12mm;width:auto;display:block">
+      </div>
+      <span class="chip mono" style="background:var(--terra);color:#fff;font-size:12pt;letter-spacing:.02em;padding:8px 17px;box-shadow:0 4mm 14mm -6mm rgba(0,0,0,.5)">2026 · 2027</span>
+    </div>
+
+    <div style="position:absolute;left:var(--pad);right:var(--pad);bottom:12mm;color:#fff">
+      <div class="eyebrow" style="color:#ffcbb0">Catalogue de formations en entreprise</div>
+      <h1 class="display" style="font-size:62pt;margin:3mm 0 0;color:#fff;line-height:.95;letter-spacing:-.015em">
+        Formations <span class="display-it" style="color:#ff8f63">IA</span>
+      </h1>
+      <div style="font-size:13.5pt;font-weight:600;color:#f3e8df;margin-top:4mm">
+        Former · Accompagner · Auditer — <span style="color:#ffcbb0">de l'idée à l'impact.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- badges confiance -->
+  <div style="display:flex;gap:5mm;align-items:stretch;margin-top:9mm">
+    <div class="card" style="display:flex;align-items:center;justify-content:center;padding:8px 16px;flex:none">
+      <img src="assets/qualiopi-logo.png" alt="Qualiopi — actions de formation" style="height:17mm;width:auto;display:block">
+    </div>
+    <div class="card" style="flex:1;display:flex;flex-direction:column;justify-content:center;padding:10px 18px">
+      <span style="font-size:11.5pt;font-weight:800">Prise en charge OPCO possible</span>
+      <span style="font-size:9pt;color:var(--ink-muted)">selon votre situation · France&nbsp;Travail</span>
+    </div>
+    <div class="card" style="flex:1;display:flex;flex-direction:column;justify-content:center;padding:10px 18px;background:var(--mocha)">
+      <span style="font-size:11.5pt;font-weight:800;color:#fff">Formateur certifié Claude</span>
+      <span style="font-size:9pt;color:var(--sand)">+ ChatGPT · Gemini · agents</span>
+    </div>
+  </div>
+
+  <!-- écosystème couvert -->
+  <div style="margin-top:8mm;display:flex;align-items:center;gap:3mm;flex-wrap:wrap">
+    <span class="eyebrow" style="color:var(--blue);flex:none;margin-right:2mm">L'écosystème couvert</span>
+    <span class="pill-o">ChatGPT</span><span class="pill-o">Claude</span><span class="pill-o">Gemini</span><span class="pill-o">Copilot</span><span class="pill-o">Midjourney</span><span class="pill-o">n8n</span><span class="pill-o">Make</span>
+  </div>
+
+  <!-- visibilité offerte -->
+  <div style="margin-top:7mm;background:var(--terra-soft);border:1px solid #e9c9b6;border-radius:16px;padding:5mm 6mm;display:flex;align-items:center;gap:6mm">
+    <div style="flex:none;display:flex;flex-direction:column;align-items:center;gap:2mm">
+      <span style="font-size:24pt;line-height:1">🎙️</span>
+      <span class="chip" style="background:var(--terra);color:#fff;font-size:7.5pt;letter-spacing:.1em;padding:3px 10px">Offert</span>
+    </div>
+    <div style="flex:1">
+      <div style="font-family:'Fraunces',serif;font-weight:600;font-size:15pt;color:var(--terra-deep)">Un coup de projecteur offert à votre entreprise</div>
+      <div style="font-size:9.5pt;color:var(--ink-soft);margin-top:1.5mm;line-height:1.45">Avec chaque formation, si vous le souhaitez : <b>podcast en duo</b> · <b>interviews de vos équipes</b> · <b>page entreprise dédiée &amp; mise en avant</b> sur axion-ia.com, avec <b>backlink dofollow</b>, votre podcast et vos interviews.</div>
+    </div>
+  </div>
+
+  <!-- bas de couverture -->
+  <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:8mm;margin-top:auto">
+    <div>
+      <div class="display" style="font-size:24pt;color:var(--ink)">17 formations · 3 gammes</div>
+      <div style="font-size:10.5pt;color:var(--ink-muted);margin-top:1.5mm">Intra-entreprise · présentiel &amp; distanciel · sur vos vrais dossiers</div>
+      <div style="font-size:12pt;font-weight:800;color:var(--ink);margin-top:2mm">axion-ia.com</div>
+    </div>
+    <div style="display:flex;align-items:center;gap:9px;flex:none">
+      <span style="font-size:8.5pt;font-weight:700;color:var(--ink-muted);max-width:28mm;text-align:right;line-height:1.3">Scannez : toutes nos formations</span>
+      <div class="card" style="padding:7px"><svg role="img" aria-label="QR vers axion-ia.com/fr/formations" style="width:24mm;height:24mm;display:block" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 29 29" shape-rendering="crispEdges"><path fill="#ffffff" d="M0 0h29v29H0z"/><path stroke="#000000" d="M0 0.5h7m2 0h1m1 0h1m1 0h3m3 0h2m1 0h7M0 1.5h1m5 0h1m2 0h3m1 0h6m3 0h1m5 0h1M0 2.5h1m1 0h3m1 0h1m1 0h1m1 0h2m1 0h1m1 0h1m2 0h3m1 0h1m1 0h3m1 0h1M0 3.5h1m1 0h3m1 0h1m1 0h1m3 0h1m1 0h2m1 0h2m3 0h1m1 0h3m1 0h1M0 4.5h1m1 0h3m1 0h1m1 0h3m4 0h6m1 0h1m1 0h3m1 0h1M0 5.5h1m5 0h1m1 0h2m1 0h2m4 0h1m2 0h1m1 0h1m5 0h1M0 6.5h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7M8 7.5h2m1 0h1m2 0h1m1 0h1m2 0h2M0 8.5h1m1 0h5m2 0h3m5 0h1m1 0h1m2 0h5M2 9.5h2m4 0h1m1 0h2m1 0h3m2 0h2m1 0h4m3 0h1M1 10.5h7m1 0h1m3 0h5m2 0h1m1 0h2M1 11.5h2m1 0h1m2 0h2m4 0h1m4 0h1m1 0h4m1 0h1m1 0h1M6 12.5h1m1 0h1m1 0h2m2 0h4m1 0h1m1 0h1m3 0h2M2 13.5h3m3 0h2m6 0h9m3 0h1M1 14.5h3m1 0h3m2 0h3m2 0h1m1 0h1m2 0h1m1 0h5M0 15.5h4m5 0h1m1 0h1m2 0h1m1 0h1m2 0h2m6 0h1M1 16.5h2m2 0h2m3 0h1m6 0h1m1 0h1m5 0h2M0 17.5h2m1 0h2m2 0h2m2 0h1m1 0h2m1 0h1m2 0h6m1 0h1m1 0h1M0 18.5h1m1 0h6m2 0h2m1 0h6m1 0h3m1 0h1m1 0h1M0 19.5h1m2 0h1m1 0h1m5 0h3m2 0h1m1 0h2m7 0h1M0 20.5h1m2 0h8m3 0h1m2 0h1m2 0h5m1 0h3M8 21.5h2m6 0h3m1 0h1m3 0h5M0 22.5h7m2 0h4m2 0h2m2 0h2m1 0h1m1 0h3M0 23.5h1m5 0h1m1 0h1m1 0h1m3 0h2m3 0h2m3 0h1m2 0h2M0 24.5h1m1 0h3m1 0h1m1 0h2m1 0h1m5 0h1m2 0h5m1 0h2M0 25.5h1m1 0h3m1 0h1m1 0h1m1 0h3m1 0h1m1 0h1m1 0h1m1 0h1m2 0h1m1 0h4M0 26.5h1m1 0h3m1 0h1m1 0h1m1 0h3m2 0h1m2 0h10M0 27.5h1m5 0h1m2 0h2m3 0h3m3 0h2m1 0h3m1 0h1M0 28.5h7m1 0h1m1 0h1m2 0h1m1 0h3m6 0h1m1 0h1"/></svg></div>
+    </div>
+  </div>
+
+  <div class="trim screen-only"></div>
+</section>
+
+<!-- =====================================================================
+     PAGE 2 — ÉDITO (mot du fondateur) + SOMMAIRE
+     ===================================================================== -->
+<section class="page" id="p2">
+  <div class="runhead">
+    <img src="assets/axion-ia-logo.png" alt="Axion-IA">
+    <span class="sec">Catalogue 2026 · 2027</span>
+  </div>
+
+  <div class="eyebrow">Le mot du fondateur</div>
+  <div class="rule" style="margin-top:4mm"></div>
+
+  <div style="display:flex;gap:8mm;margin-top:8mm;align-items:flex-start">
+    <div style="flex:none;width:44mm">
+      <div style="border-radius:14px;overflow:hidden;border:1px solid var(--line)">
+        <img src="assets/williams-founder.png" alt="Williams Jullin" style="width:100%;display:block">
+      </div>
+      <div style="margin-top:3mm;font-weight:800;font-size:11pt">Williams Jullin</div>
+      <div style="font-size:9.5pt;color:var(--ink-muted)">Fondateur &amp; président — Axion-IA</div>
+    </div>
+    <div style="flex:1">
+      <p class="display-it" style="font-size:16pt;line-height:1.4;color:var(--ink);margin:0">
+        « Former ses équipes à l'IA, ce n'est pas cocher une case. C'est offrir à chacun des outils
+        qui rendent son travail plus léger — et redonner du temps pour ce qui compte : les gens.
+        Nos formations partent toujours de vos vrais dossiers, et chacun repart avec un livrable
+        terminé, pas avec des notes. »
+      </p>
+      <p style="font-size:10.5pt;line-height:1.55;color:var(--ink-soft);margin-top:5mm">
+        Axion-IA est le <b>cabinet IA opérationnel qui vous dit par où commencer</b> : formation,
+        audit, accompagnement individuel, implémentation et automatisation. Un seul partenaire,
+        de l'idée à l'impact.
+      </p>
+    </div>
+  </div>
+
+  <div style="margin-top:12mm">
+    <div class="eyebrow" style="color:var(--blue)">Dans ce catalogue</div>
+    <ul class="toc" style="margin-top:4mm">
+      <li><span class="t">Pourquoi former vos équipes à l'IA</span><span class="d"></span><span class="pg">03</span></li>
+      <li><span class="t">Comment ça se passe — notre méthode</span><span class="d"></span><span class="pg">04</span></li>
+      <li><span class="t">Trois gammes, un principe</span><span class="d"></span><span class="pg">05</span></li>
+      <li><span class="t">Gamme IA — de la découverte à la transformation</span><span class="d"></span><span class="pg">06</span></li>
+      <li><span class="t">Gamme Agents &amp; Automatisations · Gamme Claude</span><span class="d"></span><span class="pg">10</span></li>
+      <li><span class="t">Tarifs, financement &amp; certification Qualiopi</span><span class="d"></span><span class="pg">12</span></li>
+      <li><span class="t">Cas d'usage par secteur</span><span class="d"></span><span class="pg">13</span></li>
+      <li><span class="t">Nos autres offres : 1&nbsp;to&nbsp;1 · Audit IA</span><span class="d"></span><span class="pg">14</span></li>
+      <li><span class="t">Jusqu'où va l'automatisation — le moteur Axion-IA</span><span class="d"></span><span class="pg">15</span></li>
+      <li><span class="t">Visibilité offerte &amp; avis clients</span><span class="d"></span><span class="pg">19</span></li>
+      <li><span class="t">Nous contacter</span><span class="d"></span><span class="pg">20</span></li>
+    </ul>
+  </div>
+
+  <div class="footer">
+    <div class="l">Découvrez nos formations IA <b>→</b> axion-ia.com/fr/formations</div>
+    <div class="r">02 / 20</div>
+  </div>
+  <div class="trim screen-only"></div>
+</section>
+
+<!-- =====================================================================
+     PAGE 3 — POURQUOI FORMER VOS ÉQUIPES À L'IA
+     ===================================================================== -->
+<section class="page" id="p3">
+  <div class="runhead">
+    <img src="assets/axion-ia-logo.png" alt="Axion-IA">
+    <span class="sec">Pourquoi se former</span>
+  </div>
+
+  <div style="text-align:center">
+    <h2 class="display" style="font-size:34pt;margin:0">Pourquoi former vos équipes à l'IA
+      <span class="display-it" style="color:var(--terra)">maintenant</span></h2>
+    <p style="font-size:12pt;color:var(--ink-soft);max-width:150mm;margin:4mm auto 0">
+      Des bénéfices concrets et mesurables dès la première semaine — sur vos vrais dossiers, pas en théorie.</p>
+    <div class="rule" style="margin:5mm auto 0"></div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;grid-auto-rows:1fr;gap:6mm;margin-top:10mm">
+    <div class="card" style="padding:6mm">
+      <div style="font-family:'Fraunces',serif;font-size:26pt;color:var(--terra)">≈ 1 h / jour</div>
+      <h4 style="margin:2mm 0 1mm;font-size:13pt">Du temps gagné, tout de suite</h4>
+      <p style="margin:0;font-size:10pt;color:var(--ink-soft);line-height:1.5">Mails, comptes rendus, dossiers, devis : automatisés dès le lendemain. Sur une équipe de 8, l'équivalent d'un temps plein récupéré chaque mois.</p>
+    </div>
+    <div class="card" style="padding:6mm">
+      <div style="font-family:'Fraunces',serif;font-size:26pt;color:var(--blue)">ROI mesuré</div>
+      <h4 style="margin:2mm 0 1mm;font-size:13pt">Une productivité chiffrée</h4>
+      <p style="margin:0;font-size:10pt;color:var(--ink-soft);line-height:1.5">Chaque participant repart avec un livrable terminé et sa boîte à outils. On compte les tâches transformées, poste par poste.</p>
+    </div>
+    <div class="card" style="padding:6mm">
+      <div style="font-family:'Fraunces',serif;font-size:26pt;color:var(--terra)">Longueur d'avance</div>
+      <h4 style="margin:2mm 0 1mm;font-size:13pt">Un avantage concurrentiel</h4>
+      <p style="margin:0;font-size:10pt;color:var(--ink-soft);line-height:1.5">Répondre plus vite qu'un concurrent, c'est souvent signer avant lui. Les équipes formées prennent le terrain pendant que les autres hésitent.</p>
+    </div>
+    <div class="card" style="padding:6mm">
+      <div style="font-family:'Fraunces',serif;font-size:26pt;color:var(--blue)">Compétence durable</div>
+      <h4 style="margin:2mm 0 1mm;font-size:13pt">Une montée en compétence qui reste</h4>
+      <p style="margin:0;font-size:10pt;color:var(--ink-soft);line-height:1.5">Vos collaborateurs pratiquent sur leurs propres dossiers. Kits, gabarits et référents internes restent dans l'entreprise, même si quelqu'un part.</p>
+    </div>
+  </div>
+
+  <div style="margin-top:8mm;background:var(--mocha);border-radius:16px;padding:6mm 7mm;color:#fff;display:flex;gap:6mm;align-items:center">
+    <div style="flex:none;font-size:26pt">⚖️</div>
+    <div>
+      <h4 style="margin:0 0 1.5mm;font-size:13pt;color:var(--sand)">Conformité AI Act : anticiper plutôt que subir</h4>
+      <p style="margin:0;font-size:10.5pt;line-height:1.5;color:#fff">Depuis 2025, former ses équipes à un usage maîtrisé de l'IA devient une obligation d'employeur (AI Act, RGPD, droit du travail). Nos formations documentent les usages et alimentent votre dossier de conformité — une feuille de route claire, sans jargon.</p>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="l">Découvrez nos formations IA <b>→</b> axion-ia.com/fr/formations</div>
+    <div class="r">03 / 20</div>
+  </div>
+  <div class="trim screen-only"></div>
+</section>
+
+<!-- =====================================================================
+     PAGE 4 — COMMENT ÇA SE PASSE (parcours + méthode)
+     ===================================================================== -->
+<section class="page" id="p4">
+  <div class="runhead">
+    <img src="assets/axion-ia-logo.png" alt="Axion-IA">
+    <span class="sec">Comment ça se passe</span>
+  </div>
+
+  <div style="text-align:center">
+    <h2 class="display" style="font-size:34pt;margin:0">De la prise de contact
+      <span class="display-it" style="color:var(--terra)">au terrain</span></h2>
+    <p style="font-size:12pt;color:var(--ink-soft);max-width:150mm;margin:4mm auto 0">
+      Un parcours simple, accompagné de bout en bout — administratif compris.</p>
+    <div class="rule" style="margin:5mm auto 0"></div>
+  </div>
+
+  <div class="steps" style="margin-top:10mm">
+    <div class="step"><div class="n">1</div><div>
+      <h4>Échange &amp; cadrage — appel découverte 30 min</h4>
+      <p>On comprend vos métiers, vos tâches chronophages et vos contraintes. Sans engagement.</p></div></div>
+    <div class="step"><div class="n">2</div><div>
+      <h4>Proposition sur mesure &amp; montage du dossier OPCO</h4>
+      <p>On choisit ensemble la ou les formations, et on monte le dossier de prise en charge avec votre OPCO, de A à Z.</p></div></div>
+    <div class="step"><div class="n">3</div><div>
+      <h4>Formation sur vos vrais dossiers</h4>
+      <p>Dans vos locaux (distanciel possible), intra-entreprise. Chaque participant travaille sur ses affaires en cours, en séance.</p></div></div>
+    <div class="step"><div class="n">4</div><div>
+      <h4>Livrables &amp; kit qui restent à l'entreprise</h4>
+      <p>Gabarits, bibliothèques de prompts, outils construits, charte d'usage : le savoir-faire est structuré et vous appartient.</p></div></div>
+    <div class="step"><div class="n">5</div><div>
+      <h4>Attestations &amp; dossier de conformité</h4>
+      <p>Preuves de formation Qualiopi et documentation des usages viennent alimenter votre conformité AI Act.</p></div></div>
+    <div class="step"><div class="n">6</div><div>
+      <h4>Visibilité offerte</h4>
+      <p>Podcast, interviews de vos équipes et page dédiée sur axion-ia.com — inclus (voir p. 15).</p></div></div>
+  </div>
+
+  <div style="margin-top:9mm;background:var(--blue-soft);border-radius:16px;padding:5mm 7mm">
+    <div class="eyebrow" style="color:var(--blue)">Notre méthode, dans chaque formation</div>
+    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:3mm 8mm;margin-top:3mm;font-size:10pt;color:var(--ink-soft)">
+      <div>✓ <b>Sur vos vrais dossiers</b> — pas de cas théoriques</div>
+      <div>✓ <b>Un livrable terminé</b> par participant, pas des notes</div>
+      <div>✓ <b>Méthode CRFE</b> — demander à l'IA du premier coup</div>
+      <div>✓ <b>Liste rouge &amp; anonymisation</b> — sécurité intégrée</div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="l">Réservez un appel découverte <b>→</b> axion-ia.com/fr/appel</div>
+    <div class="r">04 / 20</div>
+  </div>
+  <div class="trim screen-only"></div>
+</section>
+
+<!-- =====================================================================
+     PAGE 5 — TROIS GAMMES, UN PRINCIPE (+ comment lire une fiche)
+     ===================================================================== -->
+<section class="page" id="p5" style="display:flex;flex-direction:column">
+  <div class="runhead">
+    <img src="assets/axion-ia-logo.png" alt="Axion-IA">
+    <span class="sec">Nos gammes</span>
+  </div>
+
+  <div style="text-align:center">
+    <h2 class="display" style="font-size:34pt;margin:0">Trois gammes,
+      <span class="display-it" style="color:var(--terra)">un principe</span></h2>
+    <p style="font-size:12pt;color:var(--ink-soft);max-width:155mm;margin:4mm auto 0">
+      Quelle que soit la gamme, chacun repart avec un outil ou un livrable opérationnel — pas avec des notes.</p>
+    <div class="rule" style="margin:5mm auto 0"></div>
+  </div>
+
+  <div style="flex:1;display:flex;flex-direction:column;justify-content:space-evenly">
+  <div style="display:flex;flex-direction:column;gap:6mm">
+    <div class="gband" style="background:var(--terra);padding:6mm 7mm">
+      <div><h2>Gamme IA</h2><p>Les formations IA générales, présentées par durée : de la découverte en 4 h à la transformation d'équipe en 3 jours. Tous postes, aucun pré-requis.</p></div>
+      <div style="text-align:right;flex:none"><div class="mono" style="font-size:22pt;font-weight:700">12</div><div style="font-size:9pt;opacity:.9">formations · p. 06-09</div></div>
+    </div>
+    <div class="gband" style="background:var(--sage);padding:6mm 7mm">
+      <div><h2>Agents &amp; Automatisations</h2><p>Vos équipes créent leurs propres automatisations en code qui appartient à l'entreprise — sans savoir coder, zéro abonnement. Groupes limités à 12.</p></div>
+      <div style="text-align:right;flex:none"><div class="mono" style="font-size:22pt;font-weight:700">2</div><div style="font-size:9pt;opacity:.9">formations · p. 10</div></div>
+    </div>
+    <div class="gband" style="background:var(--plum);padding:6mm 7mm">
+      <div><h2>Gamme Claude</h2><p>Formateur certifié de l'écosystème Claude : trois niveaux progressifs, chacun repart avec son outil construit — pas avec des notes.</p></div>
+      <div style="text-align:right;flex:none"><div class="mono" style="font-size:22pt;font-weight:700">3</div><div style="font-size:9pt;opacity:.9">formations · p. 10-11</div></div>
+    </div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1.3fr 1fr;gap:7mm;align-items:center">
+    <div>
+      <div class="eyebrow" style="color:var(--blue)">Comment lire une fiche</div>
+      <div style="font-size:10pt;color:var(--ink-soft);line-height:1.6;margin-top:3mm">
+        <div>⏱ <b>Durée</b> : 4 h (½ j) · 1 j (7 h) · 2 j · 3 j</div>
+        <div>💶 <b>Prix</b> : € HT par groupe, intra-entreprise — « à partir de » (petit groupe)</div>
+        <div>✓ <b>Ce que vos équipes sauront faire</b> : les compétences acquises</div>
+        <div>🏢 <b>Pour l'entreprise</b> : le bénéfice concret + le retour sur temps</div>
+      </div>
+    </div>
+    <div style="background:var(--sand);border-radius:14px;padding:5mm 6mm;font-size:9.5pt;color:var(--ink-soft);line-height:1.5">
+      <b>Modalités communes</b><br>Présentiel dans vos locaux · distanciel possible · intra-entreprise · accessibilité étudiée au cas par cas. Un ordinateur (ou un smartphone selon la formation) suffit.
+    </div>
+  </div>
+  </div>
+
+  <div class="footer">
+    <div class="l">Découvrez nos formations IA <b>→</b> axion-ia.com/fr/formations</div>
+    <div class="r">05 / 20</div>
+  </div>
+  <div class="trim screen-only"></div>
+</section>
+
+<!-- =====================================================================
+     PAGE 6 — GAMME IA (1/4)
+     ===================================================================== -->
+<section class="page" id="p6">
+  <div class="runhead"><img src="assets/axion-ia-logo.png" alt="Axion-IA"><span class="sec">Gamme IA · formations générales</span></div>
+  <div style="display:flex;align-items:baseline;gap:8px;margin-bottom:5mm">
+    <h2 class="display" style="font-size:24pt;margin:0">Gamme IA</h2>
+    <span style="font-size:10pt;color:var(--ink-muted)">— de la découverte à la transformation · <b>tarifs € HT / groupe</b></span>
+  </div>
+
+  <div style="display:flex;flex-direction:column;gap:4.5mm;flex:1">
+    <!-- IA Express -->
+    <article class="fcard" style="--gc:var(--terra)">
+      <div class="fc-top">
+        <div><div class="gname">IA standard · sans pré-requis</div><h3>IA Express</h3></div>
+        <div class="fc-meta"><span class="pill dur">⏱ 4 h · ½ j</span><span class="pill price">dès 1 200 € HT</span></div>
+      </div>
+      <div class="promise">« 4 heures pour que toute l'équipe travaille avec l'IA, dès demain. »</div>
+      <div class="fc-body">
+        <div><div class="lbl">Vos équipes sauront</div><ul>
+          <li>Produire un texte pro (clavier ou dictée vocale)</li>
+          <li>Formuler une demande efficace du 1<sup>er</sup> coup (méthode CRFE)</li>
+          <li>Comprendre vite un document long &amp; anonymiser en 30 s</li></ul></div>
+        <div><div class="lbl">Pour l'entreprise</div>
+          <div class="biz">Toute l'équipe au même niveau de base en une demi-journée, sans abonnement — pas de fracture entre initiés et autres.</div>
+          <div class="roi">→ 30-60 min gagnées/jour · rentabilisée en &lt; 2 semaines</div></div>
+      </div>
+    </article>
+
+    <!-- L'Art du Prompt -->
+    <article class="fcard" style="--gc:var(--terra)">
+      <div class="fc-top">
+        <div><div class="gname">IA standard · niveau 2 (usage IA requis)</div><h3>L'Art du Prompt</h3></div>
+        <div class="fc-meta"><span class="pill dur">⏱ 4 h · ½ j</span><span class="pill price">dès 1 200 € HT</span></div>
+      </div>
+      <div class="promise">« Savoir demander à l'IA : la compétence qui change tout. »</div>
+      <div class="fc-body">
+        <div><div class="lbl">Vos équipes sauront</div><ul>
+          <li>Construire une demande avec les 6 leviers d'un bon prompt</li>
+          <li>Itérer jusqu'à un résultat diffusable, adapter à 3 destinataires</li>
+          <li>Créer des gabarits réutilisables &amp; recadrer les inventions</li></ul></div>
+        <div><div class="lbl">Pour l'entreprise</div>
+          <div class="biz">Ceux qui « bidouillent » l'IA deviennent ceux qui la maîtrisent : résultats constants, fini la loterie.</div>
+          <div class="roi">→ chaque tâche IA 2-3× plus vite · rentabilisée en 1-2 semaines</div></div>
+      </div>
+    </article>
+
+    <!-- IA & Sécurité -->
+    <article class="fcard" style="--gc:var(--terra)">
+      <div class="fc-top">
+        <div><div class="gname">IA standard · sans pré-requis</div><h3>IA &amp; Sécurité</h3></div>
+        <div class="fc-meta"><span class="pill dur">⏱ 4 h · ½ j</span><span class="pill price">dès 1 200 € HT</span></div>
+      </div>
+      <div class="promise">« Utiliser l'IA sans mettre l'entreprise en danger. »</div>
+      <div class="fc-body">
+        <div><div class="lbl">Vos équipes sauront</div><ul>
+          <li>Identifier les données qui ne doivent jamais sortir</li>
+          <li>Anonymiser un document ou une photo ; distinguer outils sûrs / à risque</li>
+          <li>Vérifier avant diffusion &amp; appliquer les 4 réflexes RGPD</li></ul></div>
+        <div><div class="lbl">Pour l'entreprise</div>
+          <div class="biz">La ligne rouge est connue de tous : risque RGPD / confidentialité maîtrisé. <b>Livrable : votre charte d'usage IA.</b></div>
+          <div class="roi">→ un seul incident évité vaut des dizaines de fois le coût</div></div>
+      </div>
+    </article>
+  </div>
+
+  <div class="footer"><div class="l">Découvrez nos formations IA <b>→</b> axion-ia.com/fr/formations</div><div class="r">06 / 20</div></div>
+  <div class="trim screen-only"></div>
+</section>
+
+<!-- =====================================================================
+     PAGE 7 — GAMME IA (2/4)
+     ===================================================================== -->
+<section class="page" id="p7">
+  <div class="runhead"><img src="assets/axion-ia-logo.png" alt="Axion-IA"><span class="sec">Gamme IA · formations générales</span></div>
+  <div style="height:9mm"></div>
+
+  <div style="display:flex;flex-direction:column;gap:4.5mm;flex:1">
+    <!-- IA & Conformité (featured) -->
+    <article class="fcard feat" style="--gc:var(--terra)">
+      <div class="star">★ À la une</div>
+      <div class="fc-top">
+        <div><div class="gname">IA standard · sans pré-requis</div><h3>IA &amp; Conformité — AI Act</h3></div>
+        <div class="fc-meta"><span class="pill dur">⏱ 4 h · ½ j</span><span class="pill price">dès 1 200 € HT</span></div>
+      </div>
+      <div class="promise">« Transformer l'obligation AI Act en feuille de route, en une demi-journée. »</div>
+      <div class="fc-body">
+        <div><div class="lbl">Vos équipes sauront</div><ul>
+          <li>Identifier vos obligations (AI Act, RGPD, droit du travail), sans jargon</li>
+          <li>Cartographier et classer les usages IA (shadow AI compris)</li>
+          <li>Constituer le dossier de conformité &amp; piloter un plan 90 jours</li></ul></div>
+        <div><div class="lbl">Pour l'entreprise</div>
+          <div class="biz">Vous sortez avec <b>votre dossier de conformité démarré</b> : cartographie, registre v1, plan 90 jours, trame de communication.</div>
+          <div class="roi">→ 4 livrables construits en séance · plusieurs jours de conseil économisés</div></div>
+      </div>
+    </article>
+
+    <!-- IA Fondamentaux -->
+    <article class="fcard" style="--gc:var(--terra)">
+      <div class="fc-top">
+        <div><div class="gname">IA standard · sans pré-requis</div><h3>IA Fondamentaux</h3></div>
+        <div class="fc-meta"><span class="pill dur">⏱ 1 jour</span><span class="pill price">dès 1 900 € HT</span></div>
+      </div>
+      <div class="promise">« Passer toute l'équipe de débutant à autonome, en une journée. »</div>
+      <div class="fc-body">
+        <div><div class="lbl">Vos équipes sauront</div><ul>
+          <li>Analyser un document complexe → synthèse fiable et vérifiée</li>
+          <li>Produire un livrable complet de A à Z (brouillon → critique → version finale)</li>
+          <li>Choisir le bon outil &amp; se constituer sa boîte à outils</li></ul></div>
+        <div><div class="lbl">Pour l'entreprise</div>
+          <div class="biz">Une équipe réellement autonome, pas juste initiée — chacun repart avec un vrai livrable terminé.</div>
+          <div class="roi">→ ~1 h gagnée/jour/salarié · rentabilisée en &lt; 2 semaines</div></div>
+      </div>
+    </article>
+
+    <!-- IA & Commercial -->
+    <article class="fcard" style="--gc:var(--terra)">
+      <div class="fc-top">
+        <div><div class="gname">IA standard · sans pré-requis</div><h3>IA &amp; Commercial</h3></div>
+        <div class="fc-meta"><span class="pill dur">⏱ 1 jour</span><span class="pill price">dès 1 900 € HT</span></div>
+      </div>
+      <div class="promise">« Devis, propositions, relances : répondre plus vite et mieux que vos concurrents. »</div>
+      <div class="fc-body">
+        <div><div class="lbl">Vos équipes sauront</div><ul>
+          <li>Produire devis et propositions depuis leur gabarit (chiffres vérifiés)</li>
+          <li>Préparer un RDV en 10 min ; désamorcer une réclamation par écrit</li>
+          <li>Relancer avec des séquences personnalisées</li></ul></div>
+        <div><div class="lbl">Pour l'entreprise</div>
+          <div class="biz">Les réponses partent en heures, plus en jours — et le premier qui répond bien est souvent celui qui signe.</div>
+          <div class="roi">→ un seul devis signé en plus rembourse la formation</div></div>
+      </div>
+    </article>
+  </div>
+
+  <div class="footer"><div class="l">Découvrez nos formations IA <b>→</b> axion-ia.com/fr/formations</div><div class="r">07 / 20</div></div>
+  <div class="trim screen-only"></div>
+</section>
+
+<!-- =====================================================================
+     PAGE 8 — GAMME IA (3/4)
+     ===================================================================== -->
+<section class="page" id="p8">
+  <div class="runhead"><img src="assets/axion-ia-logo.png" alt="Axion-IA"><span class="sec">Gamme IA · formations métier</span></div>
+  <div style="height:9mm"></div>
+
+  <div style="display:flex;flex-direction:column;gap:4.5mm;flex:1">
+    <!-- IA au bureau -->
+    <article class="fcard" style="--gc:var(--terra)">
+      <div class="fc-top">
+        <div><div class="gname">IA standard · sans pré-requis</div><h3>IA au bureau</h3></div>
+        <div class="fc-meta"><span class="pill dur">⏱ 1 jour</span><span class="pill price">dès 1 900 € HT</span></div>
+      </div>
+      <div class="promise">« Documents, courriers, dossiers : produire deux fois plus vite. »</div>
+      <div class="fc-body">
+        <div><div class="lbl">Vos équipes sauront</div><ul>
+          <li>Créer leurs gabarits de documents et courriers récurrents</li>
+          <li>Transformer des notes en vrac en document propre &amp; dépouiller un dossier épais</li>
+          <li>Tenir un suivi sans ressaisie (échanges → tableau → relances)</li></ul></div>
+        <div><div class="lbl">Pour l'entreprise</div>
+          <div class="biz">L'administratif cesse d'être le goulot d'étranglement — la banque de gabarits reste dans l'entreprise, même si la personne part.</div>
+          <div class="roi">→ 1 à 2 h gagnées/jour · rentabilisée en ~10 jours ouvrés</div></div>
+      </div>
+    </article>
+
+    <!-- IA sur le terrain -->
+    <article class="fcard" style="--gc:var(--terra)">
+      <div class="fc-top">
+        <div><div class="gname">IA standard · un smartphone suffit</div><h3>IA sur le terrain</h3></div>
+        <div class="fc-meta"><span class="pill dur">⏱ 1 jour</span><span class="pill price">dès 1 900 € HT</span></div>
+      </div>
+      <div class="promise">« Comptes rendus, photos, dictée vocale : tout depuis son téléphone. »</div>
+      <div class="fc-body">
+        <div><div class="lbl">Vos équipes sauront</div><ul>
+          <li>Produire un compte rendu structuré à la voix en quittant le site</li>
+          <li>Rédiger un signalement exploitable depuis une photo</li>
+          <li>Reformuler un message délicat &amp; boucler le circuit terrain → bureau</li></ul></div>
+        <div><div class="lbl">Pour l'entreprise</div>
+          <div class="biz">Les comptes rendus arrivent le soir même, propres et exploitables. Une fiche poche est remise à chacun.</div>
+          <div class="roi">→ 30-45 min de paperasse en moins/jour · rentabilisée en 2-3 semaines</div></div>
+      </div>
+    </article>
+
+    <!-- Automatisations Découverte -->
+    <article class="fcard" style="--gc:var(--terra)">
+      <div class="fc-top">
+        <div><div class="gname">IA standard · sans pré-requis</div><h3>Automatisations IA — Découverte</h3></div>
+        <div class="fc-meta"><span class="pill dur">⏱ 1 jour</span><span class="pill price">dès 1 900 € HT</span></div>
+      </div>
+      <div class="promise">« Voir ce que l'automatisation peut faire pour votre entreprise. »</div>
+      <div class="fc-body">
+        <div><div class="lbl">Vos équipes sauront</div><ul>
+          <li>Identifier les tâches automatisables (et celles qui ne le sont pas)</li>
+          <li>Estimer les gains (temps, délais, erreurs)</li>
+          <li>Prioriser les 3-5 premières (matrice gain / difficulté)</li></ul></div>
+        <div><div class="lbl">Pour l'entreprise</div>
+          <div class="biz">Vous repartez avec un <b>plan d'automatisation priorisé et chiffré</b> par vos propres équipes — la feuille de route, pas un discours.</div>
+          <div class="roi">→ un plan chiffré qui aurait coûté plusieurs jours de conseil</div></div>
+      </div>
+    </article>
+  </div>
+
+  <div class="footer"><div class="l">Découvrez nos formations IA <b>→</b> axion-ia.com/fr/formations</div><div class="r">08 / 20</div></div>
+  <div class="trim screen-only"></div>
+</section>
+
+<!-- =====================================================================
+     PAGE 9 — GAMME IA (4/4) — formats longs
+     ===================================================================== -->
+<section class="page" id="p9">
+  <div class="runhead"><img src="assets/axion-ia-logo.png" alt="Axion-IA"><span class="sec">Gamme IA · intégration &amp; transformation</span></div>
+  <div style="height:9mm"></div>
+
+  <div style="display:flex;flex-direction:column;gap:4.5mm;flex:1">
+    <!-- IA Intégration métier -->
+    <article class="fcard" style="--gc:var(--terra)">
+      <div class="fc-top">
+        <div><div class="gname">IA standard · sans pré-requis</div><h3>IA Intégration métier</h3></div>
+        <div class="fc-meta"><span class="pill dur">⏱ 2 jours</span><span class="pill price">dès 3 600 € HT</span></div>
+      </div>
+      <div class="promise">« Vos 5 tâches les plus chronophages transformées avant la fin de la formation. »</div>
+      <div class="fc-body">
+        <div><div class="lbl">Vos équipes sauront</div><ul>
+          <li>Transformer 3 à 5 tâches chronophages en gabarits reproductibles</li>
+          <li>Fiabiliser systématiquement avant diffusion</li>
+          <li>Alimenter le kit d'équipe &amp; transmettre à un collègue</li></ul></div>
+        <div><div class="lbl">Pour l'entreprise</div>
+          <div class="biz">On ne repart pas avec des intentions : les méthodes de travail sont déjà transformées à la fin du jour 2. Le kit reste à l'entreprise.</div>
+          <div class="roi">→ 5 tâches accélérées de 50-80 % · rentabilisée en 3-4 semaines</div></div>
+      </div>
+    </article>
+
+    <!-- IA & Commercial avancé -->
+    <article class="fcard" style="--gc:var(--terra)">
+      <div class="fc-top">
+        <div><div class="gname">IA standard · sans pré-requis</div><h3>IA &amp; Commercial avancé</h3></div>
+        <div class="fc-meta"><span class="pill dur">⏱ 2 jours</span><span class="pill price">dès 3 600 € HT</span></div>
+      </div>
+      <div class="promise">« Tout le cycle de vente passé à l'IA : de la prospection à la signature. »</div>
+      <div class="fc-body">
+        <div><div class="lbl">Vos équipes sauront</div><ul>
+          <li>Prospecter en série personnalisée, dans les règles (déontologie)</li>
+          <li>Décortiquer un appel d'offres &amp; produire une proposition différenciante</li>
+          <li>Dérouler des séquences de relance &amp; faire vivre la bibliothèque d'équipe</li></ul></div>
+        <div><div class="lbl">Pour l'entreprise</div>
+          <div class="biz">Le jour 2 traite <b>vos affaires en cours</b> ; la bibliothèque commerciale reste même quand un commercial s'en va.</div>
+          <div class="roi">→ une seule affaire gagnée rembourse la formation plusieurs fois</div></div>
+      </div>
+    </article>
+
+    <!-- IA Transformation d'équipe -->
+    <article class="fcard" style="--gc:var(--terra)">
+      <div class="fc-top">
+        <div><div class="gname">IA standard · équipe + 1-2 référents</div><h3>IA Transformation d'équipe</h3></div>
+        <div class="fc-meta"><span class="pill dur">⏱ 3 jours</span><span class="pill price">dès 4 900 € HT</span></div>
+      </div>
+      <div class="promise">« Vos processus passés à l'IA, des référents formés, une équipe autonome. »</div>
+      <div class="fc-body">
+        <div><div class="lbl">Vos équipes sauront</div><ul>
+          <li>Outiller un processus complet de bout en bout (points de contrôle humain)</li>
+          <li>Couper les abonnements inutiles &amp; chiffrer les gains pour la direction</li>
+          <li>Former des référents internes qui intègrent les nouveaux arrivants</li></ul></div>
+        <div><div class="lbl">Pour l'entreprise</div>
+          <div class="biz">Autonomie complète : 2 processus transformés, référents internes, tableau de bord des gains. Plus besoin de prestataire pour les usages courants.</div>
+          <div class="roi">→ l'investissement formation le plus durable du catalogue</div></div>
+      </div>
+    </article>
+  </div>
+
+  <div class="footer"><div class="l">Découvrez nos formations IA <b>→</b> axion-ia.com/fr/formations</div><div class="r">09 / 20</div></div>
+  <div class="trim screen-only"></div>
+</section>
+
+<!-- =====================================================================
+     PAGE 10 — AGENTS & AUTOMATISATIONS (2) + CLAUDE (1/3)
+     ===================================================================== -->
+<section class="page" id="p10">
+  <div class="runhead"><img src="assets/axion-ia-logo.png" alt="Axion-IA"><span class="sec">Agents &amp; Automatisations · Claude</span></div>
+  <div style="height:9mm"></div>
+
+  <div style="display:flex;flex-direction:column;gap:4.5mm;flex:1">
+    <!-- Agents & Automatisations -->
+    <article class="fcard" style="--gc:var(--sage)">
+      <div class="fc-top">
+        <div><div class="gname">Agents &amp; Automatisations · groupe ≤ 12</div><h3>Agents &amp; Automatisations</h3></div>
+        <div class="fc-meta"><span class="pill dur">⏱ 2 jours</span><span class="pill price">dès 3 600 € HT</span></div>
+      </div>
+      <div class="promise">« Créez vos propres automatisations IA, sans savoir coder. »</div>
+      <div class="fc-body">
+        <div><div class="lbl">Vos équipes sauront</div><ul>
+          <li>Spécifier une automatisation en français (fiche de spec)</li>
+          <li>Faire écrire, lire, tester et corriger le code en dialoguant avec l'IA</li>
+          <li>Sécuriser les données ; livrer une automatisation qui appartient à l'entreprise</li></ul></div>
+        <div><div class="lbl">Pour l'entreprise</div>
+          <div class="biz">Des tâches répétitives qui tournent seules, créées par vos salariés : <b>zéro abonnement, le code vous appartient.</b></div>
+          <div class="roi">→ 30 min/jour automatisées = 100 h+ récupérées/an/participant</div></div>
+      </div>
+    </article>
+
+    <!-- Agents & Automatisations avancé -->
+    <article class="fcard" style="--gc:var(--sage)">
+      <div class="fc-top">
+        <div><div class="gname">Agents &amp; Automatisations · ≤ 12 · niveau 2 j requis</div><h3>Agents &amp; Automatisations avancé</h3></div>
+        <div class="fc-meta"><span class="pill dur">⏱ 3 jours</span><span class="pill price">dès 4 900 € HT</span></div>
+      </div>
+      <div class="promise">« Chacun construit ET déploie son automatisation — en fonctionnement le dernier jour. »</div>
+      <div class="fc-body">
+        <div><div class="lbl">Vos équipes sauront</div><ul>
+          <li>Étendre une automatisation (plusieurs étapes, plusieurs outils)</li>
+          <li>Fiabiliser : journal d'activité, alertes d'échec, vérification des résultats</li>
+          <li>Déployer en exécution récurrente &amp; créer la suivante seul</li></ul></div>
+        <div><div class="lbl">Pour l'entreprise</div>
+          <div class="biz">Des automatisations qui tournent <b>tous les jours</b> — testées au « chaos », déployées, inventoriées pour la DSI.</div>
+          <div class="roi">→ chaque automatisation interne aurait coûté plusieurs milliers d'€ en externe</div></div>
+      </div>
+    </article>
+
+    <!-- Claude Découverte -->
+    <article class="fcard" style="--gc:var(--plum)">
+      <div class="fc-top">
+        <div><div class="gname">Gamme Claude · formateur certifié</div><h3>Claude Découverte</h3></div>
+        <div class="fc-meta"><span class="pill dur">⏱ 1 jour</span><span class="pill price">dès 2 300 € HT</span></div>
+      </div>
+      <div class="promise">« Évaluer Claude sur pièces en une journée, avec un formateur certifié. »</div>
+      <div class="fc-body">
+        <div><div class="lbl">Vos équipes sauront</div><ul>
+          <li>Produire et analyser de vrais documents de travail avec Claude</li>
+          <li>Construire un livrable fini &amp; comprendre l'apport des Projets</li>
+          <li>Choisir l'outil adapté (Claude vs les autres) sur critères démontrés</li></ul></div>
+        <div><div class="lbl">Pour l'entreprise</div>
+          <div class="biz">Évaluer sur pièces, sans abonnement, si l'écosystème Claude est le bon investissement. Une expertise certifiée rare en France.</div>
+          <div class="roi">→ ~1 h gagnée/jour/salarié · rentabilisée en &lt; 2 semaines</div></div>
+      </div>
+    </article>
+  </div>
+
+  <div class="footer"><div class="l">Découvrez nos formations IA <b>→</b> axion-ia.com/fr/formations</div><div class="r">10 / 20</div></div>
+  <div class="trim screen-only"></div>
+</section>
+
+<!-- =====================================================================
+     PAGE 11 — GAMME CLAUDE (2/3, 3/3) + CTA
+     ===================================================================== -->
+<section class="page" id="p11">
+  <div class="runhead"><img src="assets/axion-ia-logo.png" alt="Axion-IA"><span class="sec">Gamme Claude · formateur certifié</span></div>
+  <div style="height:9mm"></div>
+
+  <div style="display:flex;flex-direction:column;gap:4.5mm;flex:1">
+    <!-- Claude Créateur -->
+    <article class="fcard" style="--gc:var(--plum)">
+      <div class="fc-top">
+        <div><div class="gname">Gamme Claude · ≤ 12 · comptes Pro/Team</div><h3>Claude Créateur</h3></div>
+        <div class="fc-meta"><span class="pill dur">⏱ 2 jours</span><span class="pill price">dès 4 300 € HT</span></div>
+      </div>
+      <div class="promise">« Chacun construit son propre outil IA pour son activité — et repart avec. »</div>
+      <div class="fc-body">
+        <div><div class="lbl">Vos équipes sauront</div><ul>
+          <li>Construire leur assistant personnalisé (métier, formats, ton)</li>
+          <li>Organiser leurs Projets + base documentaire</li>
+          <li>Industrialiser leurs tâches récurrentes &amp; protéger les données sensibles</li></ul></div>
+        <div><div class="lbl">Pour l'entreprise</div>
+          <div class="biz">Chaque salarié repart avec un outil opérationnel configuré pour son poste — un actif qui reste et que les collègues peuvent dupliquer.</div>
+          <div class="roi">→ tâches récurrentes 30 min → 5 min · rentabilisée en 3-4 semaines</div></div>
+      </div>
+    </article>
+
+    <!-- Claude Architecte -->
+    <article class="fcard" style="--gc:var(--plum)">
+      <div class="fc-top">
+        <div><div class="gname">Gamme Claude · ≤ 12 · comptes Pro/Team</div><h3>Claude Architecte</h3></div>
+        <div class="fc-meta"><span class="pill dur">⏱ 3 jours</span><span class="pill price">dès 5 900 € HT</span></div>
+      </div>
+      <div class="promise">« Son outil IA complet — assistant, automatisations, espaces — opérationnel le dernier jour. »</div>
+      <div class="fc-body">
+        <div><div class="lbl">Vos équipes sauront</div><ul>
+          <li>Connecter leur outil au travail réel (documents, données, flux entrants)</li>
+          <li>Construire leurs automatisations dans Claude</li>
+          <li>Fiabiliser et faire évoluer seul (versionnage, revue mensuelle)</li></ul></div>
+        <div><div class="lbl">Pour l'entreprise</div>
+          <div class="biz">Le niveau le plus avancé du marché : chacun possède son outil complet, qui travaille tous les jours sur ses flux réels — démontré devant vous.</div>
+          <div class="roi">→ un outil complet par participant, qu'il sait faire évoluer seul</div></div>
+      </div>
+    </article>
+
+    <!-- CTA orientation -->
+    <article class="fcard" style="--gc:var(--blue);background:var(--mocha);border-color:var(--mocha)">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:6mm">
+        <div>
+          <div class="gname" style="color:var(--sand)">Un doute sur la formation à choisir ?</div>
+          <h3 style="color:#fff;margin-top:1mm">On vous oriente en 30 minutes.</h3>
+          <div class="biz" style="color:var(--sand);margin-top:2mm">Appel découverte sans engagement : on cible la ou les formations utiles à vos équipes, et on chiffre la prise en charge OPCO.</div>
+          <div style="margin-top:3mm;font-weight:800;color:#fff">axion-ia.com/fr/appel &nbsp;·&nbsp; contact@axion-ia.com</div>
+        </div>
+        <div class="card" style="padding:7px;flex:none"><svg role="img" aria-label="QR réserver un appel" style="width:26mm;height:26mm;display:block" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 29 29" shape-rendering="crispEdges"><path fill="#ffffff" d="M0 0h29v29H0z"/><path stroke="#000000" d="M0 0.5h7m7 0h1m4 0h1m2 0h7M0 1.5h1m5 0h1m1 0h1m2 0h1m1 0h1m5 0h1m2 0h1m5 0h1M0 2.5h1m1 0h3m1 0h1m3 0h1m1 0h1m2 0h1m2 0h2m2 0h1m1 0h3m1 0h1M0 3.5h1m1 0h3m1 0h1m4 0h3m2 0h1m2 0h1m2 0h1m1 0h3m1 0h1M0 4.5h1m1 0h3m1 0h1m1 0h1m1 0h1m2 0h1m2 0h4m2 0h1m1 0h3m1 0h1M0 5.5h1m5 0h1m4 0h2m1 0h3m1 0h3m1 0h1m5 0h1M0 6.5h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7M11 7.5h1m3 0h1m1 0h2m1 0h1M0 8.5h1m1 0h1m1 0h1m1 0h1m3 0h3m3 0h2m1 0h2m3 0h1m2 0h1M7 9.5h5m1 0h1m1 0h3m3 0h2m2 0h1m2 0h1M1 10.5h3m1 0h4m1 0h1m3 0h3m1 0h1m2 0h1m1 0h1m2 0h3M0 11.5h1m2 0h3m2 0h1m2 0h4m1 0h7m1 0h1m2 0h1M1 12.5h3m2 0h5m3 0h2m1 0h1m1 0h2m1 0h1m2 0h1m1 0h2M0 13.5h1m7 0h2m2 0h1m1 0h2m1 0h2m1 0h3m2 0h1m2 0h1M1 14.5h1m2 0h1m1 0h2m1 0h3m1 0h1m4 0h1m2 0h1m1 0h3m1 0h2M2 15.5h2m4 0h3m4 0h1m1 0h1m2 0h1m2 0h3m1 0h1M0 16.5h2m2 0h1m1 0h3m2 0h2m3 0h2m1 0h4m2 0h1m1 0h2M1 17.5h1m2 0h1m2 0h1m1 0h1m1 0h1m1 0h1m1 0h4m1 0h3m2 0h2m1 0h1M0 18.5h1m1 0h5m3 0h1m3 0h3m1 0h1m5 0h1m2 0h2M1 19.5h1m1 0h1m3 0h3m1 0h1m1 0h2m1 0h2m5 0h3m1 0h1M0 20.5h1m1 0h1m3 0h1m1 0h2m1 0h1m2 0h2m1 0h1m2 0h5M8 21.5h1m5 0h2m1 0h1m1 0h2m3 0h1m1 0h3M0 22.5h7m2 0h5m5 0h2m1 0h1m1 0h2m1 0h2M0 23.5h1m5 0h1m4 0h1m3 0h1m1 0h2m1 0h1m3 0h2M0 24.5h1m1 0h3m1 0h1m1 0h2m6 0h2m2 0h5m2 0h1M0 25.5h1m1 0h3m1 0h1m2 0h5m1 0h2m2 0h2m3 0h1m1 0h1M0 26.5h1m1 0h3m1 0h1m1 0h3m1 0h2m1 0h2m2 0h1m3 0h3m2 0h1M0 27.5h1m5 0h1m2 0h1m2 0h1m3 0h2m1 0h3m5 0h1M0 28.5h7m1 0h1m2 0h1m1 0h4m1 0h1m1 0h3m1 0h1m2 0h2"/></svg></div>
+      </div>
+    </article>
+  </div>
+
+  <div class="footer"><div class="l">Réservez un appel découverte <b>→</b> axion-ia.com/fr/appel</div><div class="r">11 / 20</div></div>
+  <div class="trim screen-only"></div>
+</section>
+
+
+<!-- =====================================================================
+     PAGE 12 — TARIFS · FINANCEMENT · QUALIOPI
+     ===================================================================== -->
+<section class="page" id="p12">
+  <div class="runhead"><img src="assets/axion-ia-logo.png" alt="Axion-IA"><span class="sec">Tarifs &amp; financement</span></div>
+
+  <div style="text-align:center">
+    <h2 class="display" style="font-size:32pt;margin:0">Tarifs &amp;
+      <span class="display-it" style="color:var(--terra)">financement</span></h2>
+    <p style="font-size:11pt;color:var(--ink-soft);margin:3mm auto 0;max-width:150mm">
+      Prix <b>€ HT par groupe</b>, intra-entreprise — « à partir de » (petit groupe). Exonéré de TVA (art. 261-4-4° du CGI).</p>
+    <div class="rule" style="margin:4mm auto 0"></div>
+  </div>
+
+  <table class="ptable" style="margin-top:7mm">
+    <thead><tr><th>Formation</th><th>Durée</th><th>Groupe</th><th>À partir de</th></tr></thead>
+    <tbody>
+      <tr><td class="g" style="color:var(--terra)">Gamme IA — 4 h (½ j)</td><td>4 heures</td><td>2 à 15 pers.</td><td>1 200 €</td></tr>
+      <tr><td class="g" style="color:var(--terra)">Gamme IA — 1 jour</td><td>7 heures</td><td>2 à 15 pers.</td><td>1 900 €</td></tr>
+      <tr><td class="g" style="color:var(--terra)">Gamme IA — 2 jours</td><td>14 heures</td><td>2 à 15 pers.</td><td>3 600 €</td></tr>
+      <tr><td class="g" style="color:var(--terra)">Gamme IA — 3 jours</td><td>21 heures</td><td>2 à 15 pers.</td><td>4 900 €</td></tr>
+      <tr><td class="g" style="color:var(--sage)">Agents &amp; Automatisations — 2 j</td><td>14 heures</td><td>≤ 12 pers.</td><td>3 600 €</td></tr>
+      <tr><td class="g" style="color:var(--sage)">Agents &amp; Automatisations — 3 j</td><td>21 heures</td><td>≤ 12 pers.</td><td>4 900 €</td></tr>
+      <tr><td class="g" style="color:var(--plum)">Claude — 1 jour</td><td>7 heures</td><td>2 à 15 pers.</td><td>2 300 €</td></tr>
+      <tr><td class="g" style="color:var(--plum)">Claude — 2 jours</td><td>14 heures</td><td>≤ 12 pers.</td><td>4 300 €</td></tr>
+      <tr><td class="g" style="color:var(--plum)">Claude — 3 jours</td><td>21 heures</td><td>≤ 12 pers.</td><td>5 900 €</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:9pt;color:var(--ink-muted);margin-top:2.5mm">Grands groupes (16-30 pers.) sur les formats sans limite&nbsp;: tarif majoré, nous consulter. Accompagnement 1&nbsp;to&nbsp;1 dès 990&nbsp;€/j · Audit IA dès 1&nbsp;190&nbsp;€ (voir p. 14).</p>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:6mm;margin-top:7mm">
+    <div style="background:var(--blue-soft);border-radius:14px;padding:5mm 6mm">
+      <div class="eyebrow" style="color:var(--blue)">Financement</div>
+      <p style="font-size:10pt;line-height:1.5;color:var(--ink-soft);margin:3mm 0 0">
+        Prise en charge <b>possible</b> selon votre situation, via votre <b>OPCO</b> (opérateur de compétences)
+        ou <b>France Travail</b> (AIF, POEI). Nous montons le dossier avec vous, de A à Z.</p>
+      <p style="font-size:8.5pt;color:var(--ink-muted);margin:3mm 0 0">Actions non éligibles au CPF. Le montant réellement pris en charge dépend de votre OPCO et de votre situation.</p>
+    </div>
+    <div style="background:var(--mocha);border-radius:14px;padding:5mm 6mm;color:#fff;display:flex;gap:5mm;align-items:center">
+      <img src="assets/qualiopi-logo.png" alt="Qualiopi" style="height:22mm;width:auto;background:#fff;border-radius:8px;padding:4px">
+      <div>
+        <div style="font-weight:800;font-size:11pt;color:var(--sand)">Organisme certifié Qualiopi</div>
+        <p style="font-size:8.5pt;line-height:1.45;margin:2mm 0 0;color:#fff">La certification qualité a été délivrée au titre de la catégorie <b>ACTIONS DE FORMATION</b>.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer"><div class="l">Montage du dossier OPCO inclus <b>→</b> axion-ia.com/fr/appel</div><div class="r">12 / 20</div></div>
+  <div class="trim screen-only"></div>
+</section>
+
+<!-- =====================================================================
+     PAGE 13 — CAS D'USAGE PAR SECTEUR (exemples-types)
+     ===================================================================== -->
+<section class="page" id="p13">
+  <div class="runhead"><img src="assets/axion-ia-logo.png" alt="Axion-IA"><span class="sec">Cas d'usage</span></div>
+
+  <div style="text-align:center">
+    <h2 class="display" style="font-size:32pt;margin:0">Ce que ça change,
+      <span class="display-it" style="color:var(--terra)">concrètement</span></h2>
+    <p style="font-size:11pt;color:var(--ink-soft);margin:3mm auto 0;max-width:155mm">
+      Exemples-types d'usages, tous secteurs — les gains varient selon votre contexte et vos outils.</p>
+    <div class="rule" style="margin:4mm auto 0"></div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;grid-auto-rows:1fr;gap:5mm;margin-top:8mm">
+    <div class="card" style="padding:5mm">
+      <span class="chip" style="background:var(--sand);color:var(--ink)">Retail · Marketing</span>
+      <div style="font-family:'Fraunces',serif;font-size:15pt;color:var(--terra);margin-top:2mm">Fiche produit en 5 min</div>
+      <p style="font-size:9pt;color:var(--ink-soft);margin:2mm 0 0;line-height:1.45">Fiche, visuel et post réseaux générés à partir d'une photo et d'une référence. Avant : 45 min à la main.</p>
+    </div>
+    <div class="card" style="padding:5mm">
+      <span class="chip" style="background:var(--sand);color:var(--ink)">Finance &amp; pilotage</span>
+      <div style="font-family:'Fraunces',serif;font-size:15pt;color:var(--terra);margin-top:2mm">Reporting 2 j → 1 j</div>
+      <p style="font-size:9pt;color:var(--ink-soft);margin:2mm 0 0;line-height:1.45">Compilation des chiffres du mois et commentaire de gestion pré-rédigé. Avant : 2 jours de reporting mensuel.</p>
+    </div>
+    <div class="card" style="padding:5mm">
+      <span class="chip" style="background:var(--sand);color:var(--ink)">Immobilier · Vente</span>
+      <div style="font-family:'Fraunces',serif;font-size:15pt;color:var(--terra);margin-top:2mm">Chaque lead relancé</div>
+      <p style="font-size:9pt;color:var(--ink-soft);margin:2mm 0 0;line-height:1.45">Qualification et relance personnalisée de chaque lead entrant. Avant : relances manuelles, leads froids oubliés.</p>
+    </div>
+    <div class="card" style="padding:5mm">
+      <span class="chip" style="background:var(--sand);color:var(--ink)">RH &amp; recrutement</span>
+      <div style="font-family:'Fraunces',serif;font-size:15pt;color:var(--terra);margin-top:2mm">Présélection en 1 jour</div>
+      <p style="font-size:9pt;color:var(--ink-soft);margin:2mm 0 0;line-height:1.45">Tri des CV, pré-qualification et rédaction d'offres depuis la fiche de poste. Avant : plusieurs semaines.</p>
+    </div>
+    <div class="card" style="padding:5mm">
+      <span class="chip" style="background:var(--sand);color:var(--ink)">Assistanat &amp; admin.</span>
+      <div style="font-family:'Fraunces',serif;font-size:15pt;color:var(--terra);margin-top:2mm">CR de réunion automatisé</div>
+      <p style="font-size:9pt;color:var(--ink-soft);margin:2mm 0 0;line-height:1.45">Compte rendu, mails de suivi et to-do list depuis un enregistrement. Avant : 2 h/jour sur mails et CR.</p>
+    </div>
+    <div class="card" style="padding:5mm">
+      <span class="chip" style="background:var(--sand);color:var(--ink)">Commercial B2B</span>
+      <div style="font-family:'Fraunces',serif;font-size:15pt;color:var(--terra);margin-top:2mm">Devis le jour même</div>
+      <p style="font-size:9pt;color:var(--ink-soft);margin:2mm 0 0;line-height:1.45">Proposition complète et chiffrée depuis le catalogue et les échanges client. Avant : 1 h par devis.</p>
+    </div>
+    <div class="card" style="padding:5mm">
+      <span class="chip" style="background:var(--sand);color:var(--ink)">BTP · Construction</span>
+      <div style="font-family:'Fraunces',serif;font-size:15pt;color:var(--terra);margin-top:2mm">Conflits anticipés</div>
+      <p style="font-size:9pt;color:var(--ink-soft);margin:2mm 0 0;line-height:1.45">Croisement planning / livraisons / météo et alerte avant blocage. Avant : conflits découverts sur le terrain.</p>
+    </div>
+    <div class="card" style="padding:5mm">
+      <span class="chip" style="background:var(--sand);color:var(--ink)">Logistique · Transport</span>
+      <div style="font-family:'Fraunces',serif;font-size:15pt;color:var(--terra);margin-top:2mm">Moins d'appels au SAV</div>
+      <p style="font-size:9pt;color:var(--ink-soft);margin:2mm 0 0;line-height:1.45">Client prévenu par SMS d'un retard, avec nouveau créneau proposé. Avant : suivi manuel, clients qui appellent.</p>
+    </div>
+  </div>
+
+  <div class="footer"><div class="l">Et dans votre entreprise ? <b>→</b> axion-ia.com/fr/appel</div><div class="r">13 / 20</div></div>
+  <div class="trim screen-only"></div>
+</section>
+
+<!-- =====================================================================
+     PAGE 14 — AU-DELÀ DE LA FORMATION : NOS SERVICES
+     ===================================================================== -->
+<section class="page" id="p14">
+  <div class="runhead"><img src="assets/axion-ia-logo.png" alt="Axion-IA"><span class="sec">Nos services</span></div>
+
+  <div style="text-align:center">
+    <h2 class="display" style="font-size:32pt;margin:0">Trois façons de
+      <span class="display-it" style="color:var(--terra)">travailler ensemble</span></h2>
+    <p style="font-size:11pt;color:var(--ink-soft);margin:3mm auto 0;max-width:150mm">
+      Former vos équipes, accompagner vos dirigeants, auditer vos process — de l'idée à l'impact.</p>
+    <div class="rule" style="margin:4mm auto 0"></div>
+  </div>
+
+  <div style="margin-top:9mm">
+    <div class="svc">
+      <div class="ic">🎓</div>
+      <div style="flex:1"><h4>Formations IA</h4>
+        <p>Les 17 formations de ce catalogue, en intra-entreprise — présentiel ou distanciel, sur vos vrais dossiers.</p></div>
+      <div class="mono" style="font-weight:700;color:var(--terra);white-space:nowrap">dès 1 200 €</div>
+    </div>
+    <div class="svc">
+      <div class="ic">🤝</div>
+      <div style="flex:1"><h4>Accompagnement 1 to 1</h4>
+        <p>Coaching individuel dirigeant ou collaborateur : vision IA stratégique, montée en compétence sur mesure.</p></div>
+      <div class="mono" style="font-weight:700;color:var(--terra);white-space:nowrap">dès 990 €/j</div>
+    </div>
+    <div class="svc" style="border-bottom:none">
+      <div class="ic">🔍</div>
+      <div style="flex:1"><h4>Audit IA</h4>
+        <p>On identifie vos processus à automatiser en priorité, on chiffre les gains et on livre une feuille de route.</p></div>
+      <div class="mono" style="font-weight:700;color:var(--terra);white-space:nowrap">dès 1 190 €</div>
+    </div>
+  </div>
+
+  <div style="margin-top:8mm;background:var(--sand);border-radius:14px;padding:5mm 7mm;display:flex;align-items:center;gap:6mm;flex-wrap:wrap">
+    <span class="eyebrow" style="color:var(--terra);flex:none">Et aussi</span>
+    <span style="font-size:11pt;color:var(--ink-soft)"><b>Implémentation &amp; automatisation IA</b> &nbsp;·&nbsp; <b>Sites web &amp; SaaS « Native IA »</b> — nous les réalisons également pour nos clients. Parlons-en.</span>
+  </div>
+
+  <div style="margin-top:8mm;text-align:center">
+    <span style="font-family:'Fraunces',serif;font-style:italic;font-size:16pt;color:var(--ink)">« De l'idée à l'impact. Un seul partenaire IA. »</span>
+  </div>
+
+  <div class="footer"><div class="l">Discutons de votre projet <b>→</b> axion-ia.com/fr/contact</div><div class="r">14 / 20</div></div>
+  <div class="trim screen-only"></div>
+</section>
+
+<!-- =====================================================================
+     PAGE 15 — AUTOMATISATION · MANIFESTE
+     ===================================================================== -->
+<section class="page" id="p-auto1" style="display:flex;flex-direction:column">
+  <div class="runhead"><img src="assets/axion-ia-logo.png" alt="Axion-IA"><span class="sec">Le moteur Axion-IA</span></div>
+
+  <div style="text-align:center;margin-top:4mm">
+    <div class="eyebrow" style="color:var(--blue)">Jusqu'où va l'automatisation IA</div>
+    <h2 class="display" style="font-size:38pt;margin:4mm 0 0">Nous formons à l'IA.
+      <span class="display-it" style="color:var(--terra)">Nous en vivons.</span></h2>
+    <p style="font-size:12.5pt;color:var(--ink-soft);max-width:158mm;margin:5mm auto 0;line-height:1.55">
+      Chez Axion-IA, nous ne faisons pas que former à l'IA — <b>nous faisons tourner toute notre entreprise avec.</b>
+      Ce catalogue, nos 17 formations, notre prospection, notre comptabilité, notre conformité Qualiopi, nos vidéos :
+      conçus, générés ou automatisés par nos propres agents. La preuve, par l'exemple, de ce qui est possible.</p>
+    <div class="rule" style="margin:5mm auto 0"></div>
+  </div>
+
+  <div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:8mm">
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:5mm">
+      <div class="card" style="padding:5mm;text-align:center">
+        <div class="display" style="font-size:30pt;color:var(--terra)">40+</div>
+        <div style="font-size:9.5pt;color:var(--ink-soft);margin-top:1mm">processus automatisés en interne</div>
+      </div>
+      <div class="card" style="padding:5mm;text-align:center">
+        <div class="display" style="font-size:30pt;color:var(--blue)">100%</div>
+        <div style="font-size:9.5pt;color:var(--ink-soft);margin-top:1mm">de ce catalogue généré par IA</div>
+      </div>
+      <div class="card" style="padding:5mm;text-align:center">
+        <div class="display" style="font-size:30pt;color:var(--terra)">×10</div>
+        <div style="font-size:9.5pt;color:var(--ink-soft);margin-top:1mm">de production, à effectif constant</div>
+      </div>
+      <div class="card" style="padding:5mm;text-align:center">
+        <div class="display" style="font-size:30pt;color:var(--blue)">−70%</div>
+        <div style="font-size:9.5pt;color:var(--ink-soft);margin-top:1mm">de temps administratif</div>
+      </div>
+    </div>
+
+    <div style="background:var(--mocha);border-radius:18px;padding:7mm 9mm;display:flex;align-items:center;gap:7mm">
+      <div style="font-size:34pt;flex:none">📘</div>
+      <div>
+        <div style="font-family:'Fraunces',serif;font-weight:600;font-size:18pt;color:#fff">Vous tenez la preuve entre les mains.</div>
+        <div style="font-size:11pt;color:var(--sand);margin-top:1.5mm">Ce catalogue — textes, mise en page, fiches, tableaux, fichier prêt à imprimer — a été produit par notre propre système IA. Voici, page suivante, tout ce qu'il fait tourner.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer"><div class="l">Le moteur Axion-IA <b>→</b> ce que nous automatisons</div><div class="r">15 / 20</div></div>
+  <div class="trim screen-only"></div>
+</section>
+
+<!-- =====================================================================
+     PAGE 16 — AUTOMATISATION · TABLEAU (1/2)  [double-page avec p.17]
+     ===================================================================== -->
+<section class="page" id="p-auto2" style="display:flex;flex-direction:column">
+  <div class="runhead"><img src="assets/axion-ia-logo.png" alt="Axion-IA"><span class="sec">Ce que nous automatisons</span></div>
+  <div style="display:flex;align-items:baseline;gap:8px;margin-bottom:4mm">
+    <h2 class="display" style="font-size:23pt;margin:0">Le fonctionnement d'Axion-IA,
+      <span class="display-it" style="color:var(--terra)">automatisé</span></h2>
+    <span style="font-size:9.5pt;color:var(--ink-muted)">— exemples réels, tirés de notre propre entreprise</span>
+  </div>
+
+  <div style="flex:1;display:flex;flex-direction:column;margin-bottom:2mm">
+  <table class="atable" style="height:100%">
+    <colgroup><col style="width:16%"><col style="width:23%"><col style="width:25%"><col style="width:14%"><col style="width:22%"></colgroup>
+    <thead><tr>
+      <th style="background:var(--mocha)">Le processus</th>
+      <th style="background:#7a5148">Sans IA <span class="hd">à la main</span></th>
+      <th style="background:var(--terra)">Axion-IA automatise</th>
+      <th style="background:var(--terra-deep)">Gain</th>
+      <th style="background:#4f5a46">Avantage concret</th>
+    </tr></thead>
+    <tbody>
+      <tr>
+        <td class="what"><span class="ic">📘</span>Ce catalogue</td>
+        <td class="noia"><span class="xm">✗</span> Designer + rédacteur, plusieurs semaines</td>
+        <td class="ax"><span class="ck">✓</span> Contenu, mise en page et PDF prêt-à-imprimer générés</td>
+        <td><span class="gain">semaines → h</span></td>
+        <td class="adv">Mise à jour en une passe, zéro sous-traitance</td>
+      </tr>
+      <tr>
+        <td class="what"><span class="ic">🎓</span>Création des formations</td>
+        <td class="noia"><span class="xm">✗</span> Ingénierie pédagogique manuelle, des jours par module</td>
+        <td class="ax"><span class="ck">✓</span> Programmes, supports et quiz générés et harmonisés</td>
+        <td><span class="gain">×10</span></td>
+        <td class="adv">17 formations cohérentes, actualisables en continu</td>
+      </tr>
+      <tr>
+        <td class="what"><span class="ic">📋</span>Système Qualiopi</td>
+        <td class="noia"><span class="xm">✗</span> Consultant, des mois, 32 indicateurs à tenir</td>
+        <td class="ax"><span class="ck">✓</span> Registre, preuves et procédures générés et tenus à jour</td>
+        <td><span class="gain">mois → jours</span></td>
+        <td class="adv">Audit serein, conformité continue</td>
+      </tr>
+      <tr>
+        <td class="what"><span class="ic">🔎</span>Prospection &amp; scraping</td>
+        <td class="noia"><span class="xm">✗</span> Recherche manuelle, listes achetées</td>
+        <td class="ax"><span class="ck">✓</span> Agents qui identifient et qualifient les entreprises cibles</td>
+        <td><span class="gain">×100 volume</span></td>
+        <td class="adv">Pipeline qualifié qui se remplit seul</td>
+      </tr>
+      <tr>
+        <td class="what"><span class="ic">✉️</span>Cold email</td>
+        <td class="noia"><span class="xm">✗</span> Copier-coller, personnalisation faible</td>
+        <td class="ax"><span class="ck">✓</span> Séquences personnalisées par cible, à l'échelle</td>
+        <td><span class="gain">×20 réponses</span></td>
+        <td class="adv">Des RDV réguliers, zéro saisie</td>
+      </tr>
+      <tr>
+        <td class="what"><span class="ic">📣</span>Campagnes ads</td>
+        <td class="noia"><span class="xm">✗</span> Agence, itérations lentes et coûteuses</td>
+        <td class="ax"><span class="ck">✓</span> Visuels, accroches et variantes A/B générés</td>
+        <td><span class="gain">−70% coût</span></td>
+        <td class="adv">Plus de tests, meilleur retour sur pub</td>
+      </tr>
+      <tr>
+        <td class="what"><span class="ic">🎬</span>Scripts &amp; montage vidéo</td>
+        <td class="noia"><span class="xm">✗</span> Scénariste + monteur</td>
+        <td class="ax"><span class="ck">✓</span> Scripts, sous-titres et découpage générés</td>
+        <td><span class="gain">jours → h</span></td>
+        <td class="adv">Podcasts &amp; interviews clients livrés vite</td>
+      </tr>
+      <tr>
+        <td class="what"><span class="ic">📝</span>Articles SEO / blog</td>
+        <td class="noia"><span class="xm">✗</span> Rédacteur, quelques articles par mois</td>
+        <td class="ax"><span class="ck">✓</span> Articles optimisés générés et publiés</td>
+        <td><span class="gain">×15 volume</span></td>
+        <td class="adv">Une visibilité Google qui se cumule</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="footer"><div class="l">Le fonctionnement d'Axion-IA, automatisé</div><div class="r">16 / 20</div></div>
+  <div class="trim screen-only"></div>
+</section>
+
+<!-- =====================================================================
+     PAGE 17 — AUTOMATISATION · TABLEAU (2/2)
+     ===================================================================== -->
+<section class="page" id="p-auto3" style="display:flex;flex-direction:column">
+  <div class="runhead"><img src="assets/axion-ia-logo.png" alt="Axion-IA"><span class="sec">Ce que nous automatisons · suite</span></div>
+  <div style="display:flex;align-items:baseline;gap:8px;margin-bottom:4mm">
+    <h2 class="display" style="font-size:23pt;margin:0">…de la <span class="display-it" style="color:var(--terra)">compta</span> aux
+      <span class="display-it" style="color:var(--terra)">factures</span></h2>
+    <span style="font-size:9.5pt;color:var(--ink-muted)">— et tout ce que nous pouvons construire chez vous</span>
+  </div>
+
+  <div style="flex:1;display:flex;flex-direction:column;margin-bottom:2mm">
+  <table class="atable" style="height:100%">
+    <colgroup><col style="width:16%"><col style="width:23%"><col style="width:25%"><col style="width:14%"><col style="width:22%"></colgroup>
+    <thead><tr>
+      <th style="background:var(--mocha)">Le processus</th>
+      <th style="background:#7a5148">Sans IA <span class="hd">à la main</span></th>
+      <th style="background:var(--terra)">Axion-IA automatise</th>
+      <th style="background:var(--terra-deep)">Gain</th>
+      <th style="background:#4f5a46">Avantage concret</th>
+    </tr></thead>
+    <tbody>
+      <tr>
+        <td class="what"><span class="ic">📱</span>Réseaux sociaux</td>
+        <td class="noia"><span class="xm">✗</span> Community manager, publication manuelle</td>
+        <td class="ax"><span class="ck">✓</span> Calendrier, posts et visuels générés</td>
+        <td><span class="gain">−80% temps</span></td>
+        <td class="adv">Présence régulière, sans effort</td>
+      </tr>
+      <tr>
+        <td class="what"><span class="ic">🌐</span>Pages entreprise clients</td>
+        <td class="noia"><span class="xm">✗</span> Développeur + rédaction, page par page</td>
+        <td class="ax"><span class="ck">✓</span> Page dédiée générée après chaque tournage</td>
+        <td><span class="gain">h → min</span></td>
+        <td class="adv">La visibilité offerte, livrée automatiquement</td>
+      </tr>
+      <tr>
+        <td class="what"><span class="ic">🧾</span>Devis &amp; propositions</td>
+        <td class="noia"><span class="xm">✗</span> ~1 h par devis, ressaisie</td>
+        <td class="ax"><span class="ck">✓</span> Proposition chiffrée depuis l'échange client</td>
+        <td><span class="gain">×6</span></td>
+        <td class="adv">Envoyée le jour même</td>
+      </tr>
+      <tr>
+        <td class="what"><span class="ic">📂</span>Dossiers OPCO</td>
+        <td class="noia"><span class="xm">✗</span> Paperasse administrative chronophage</td>
+        <td class="ax"><span class="ck">✓</span> Montage assisté du dossier de prise en charge</td>
+        <td><span class="gain">−70% temps</span></td>
+        <td class="adv">Le client déchargé de l'administratif</td>
+      </tr>
+      <tr>
+        <td class="what"><span class="ic">🧮</span>Comptabilité courante</td>
+        <td class="noia"><span class="xm">✗</span> Saisie manuelle, retards</td>
+        <td class="ax"><span class="ck">✓</span> Catégorisation et rapprochement automatisés</td>
+        <td><span class="gain">h/mois</span></td>
+        <td class="adv">Une compta à jour en temps réel</td>
+      </tr>
+      <tr>
+        <td class="what"><span class="ic">📊</span>Documents comptables annuels</td>
+        <td class="noia"><span class="xm">✗</span> Allers-retours avec l'expert-comptable</td>
+        <td class="ax"><span class="ck">✓</span> Données consolidées, liasses préparées</td>
+        <td><span class="gain">jours → h</span></td>
+        <td class="adv">Le bilan sans stress</td>
+      </tr>
+      <tr>
+        <td class="what"><span class="ic">🗂️</span>Tri &amp; archivage des factures</td>
+        <td class="noia"><span class="xm">✗</span> Classement manuel, oublis, TVA à risque</td>
+        <td class="ax"><span class="ck">✓</span> Extraction, tri et archivage automatiques</td>
+        <td><span class="gain">100% classé</span></td>
+        <td class="adv">Zéro facture perdue, TVA carrée</td>
+      </tr>
+      <tr>
+        <td class="what"><span class="ic">💬</span>Support &amp; e-mails</td>
+        <td class="noia"><span class="xm">✗</span> Réponses une à une</td>
+        <td class="ax"><span class="ck">✓</span> Tri, brouillons de réponse, FAQ dynamique</td>
+        <td><span class="gain">−60% temps</span></td>
+        <td class="adv">Réactivité maximale, rien ne tombe</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="footer"><div class="l">…et une quarantaine d'autres processus en coulisses</div><div class="r">17 / 20</div></div>
+  <div class="trim screen-only"></div>
+</section>
+
+<!-- =====================================================================
+     PAGE 18 — AUTOMATISATION · ET CHEZ VOUS
+     ===================================================================== -->
+<section class="page" id="p-auto4" style="display:flex;flex-direction:column">
+  <div class="runhead"><img src="assets/axion-ia-logo.png" alt="Axion-IA"><span class="sec">Et chez vous ?</span></div>
+
+  <div style="text-align:center;margin-top:4mm">
+    <h2 class="display" style="font-size:36pt;margin:0">Et dans
+      <span class="display-it" style="color:var(--terra)">votre entreprise ?</span></h2>
+    <p style="font-size:12pt;color:var(--ink-soft);max-width:155mm;margin:5mm auto 0;line-height:1.55">
+      Ce que nous faisons pour nous, nous le mettons en place chez vous — à votre rythme, selon votre maturité.</p>
+    <div class="rule" style="margin:5mm auto 0"></div>
+  </div>
+
+  <div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:6mm">
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6mm">
+      <div class="card" style="padding:7mm;display:flex;flex-direction:column">
+        <div style="width:13mm;height:13mm;border-radius:12px;background:var(--blue-soft);color:var(--blue);display:flex;align-items:center;justify-content:center;font-size:17pt">🔎</div>
+        <h4 style="margin:4mm 0 2mm;font-size:14pt">1. On repère</h4>
+        <div style="font-size:10pt;color:var(--ink-soft);line-height:1.5">Un <b>Audit IA</b> identifie vos tâches automatisables, les chiffre et les priorise — la feuille de route.</div>
+        <div style="margin-top:auto;padding-top:3mm;font-family:'Inconsolata',monospace;font-weight:700;color:var(--terra)">dès 1 190 €</div>
+      </div>
+      <div class="card" style="padding:7mm;display:flex;flex-direction:column">
+        <div style="width:13mm;height:13mm;border-radius:12px;background:#e7ebe3;color:var(--sage);display:flex;align-items:center;justify-content:center;font-size:17pt">⚙️</div>
+        <h4 style="margin:4mm 0 2mm;font-size:14pt">2. Vos équipes créent</h4>
+        <div style="font-size:10pt;color:var(--ink-soft);line-height:1.5">La gamme <b>Agents &amp; Automatisations</b> forme vos équipes à construire leurs propres automatisations — <b>le code vous appartient</b>.</div>
+        <div style="margin-top:auto;padding-top:3mm;font-family:'Inconsolata',monospace;font-weight:700;color:var(--terra)">dès 3 600 €</div>
+      </div>
+      <div class="card" style="padding:7mm;display:flex;flex-direction:column;background:var(--mocha)">
+        <div style="width:13mm;height:13mm;border-radius:12px;background:rgba(255,255,255,.12);color:#fff;display:flex;align-items:center;justify-content:center;font-size:17pt">🚀</div>
+        <h4 style="margin:4mm 0 2mm;font-size:14pt;color:#fff">3. On construit pour vous</h4>
+        <div style="font-size:10pt;color:var(--sand);line-height:1.5">Vous préférez du clé en main ? Nous concevons et déployons vos automatisations. <span style="opacity:.8">(sur devis)</span></div>
+        <div style="margin-top:auto;padding-top:3mm;font-weight:700;color:#ffd166">Implémentation &amp; automatisation</div>
+      </div>
+    </div>
+
+    <div style="border-radius:18px;padding:7mm 9mm;background:var(--terra);color:#fff;display:flex;align-items:center;justify-content:space-between;gap:8mm">
+      <div>
+        <div style="font-family:'Fraunces',serif;font-weight:600;font-size:19pt">Par où commenceriez-vous ?</div>
+        <div style="font-size:11pt;color:#ffe3d1;margin-top:1.5mm">30 minutes pour repérer vos premières automatisations à fort impact. Sans engagement.</div>
+        <div style="margin-top:3mm;font-weight:800">axion-ia.com/fr/appel · contact@axion-ia.com</div>
+      </div>
+      <div class="card" style="padding:7px;flex:none;background:#fff"><svg role="img" aria-label="QR réserver un appel" style="width:26mm;height:26mm;display:block" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 29 29" shape-rendering="crispEdges"><path fill="#ffffff" d="M0 0h29v29H0z"/><path stroke="#000000" d="M0 0.5h7m7 0h1m4 0h1m2 0h7M0 1.5h1m5 0h1m1 0h1m2 0h1m1 0h1m5 0h1m2 0h1m5 0h1M0 2.5h1m1 0h3m1 0h1m3 0h1m1 0h1m2 0h1m2 0h2m2 0h1m1 0h3m1 0h1M0 3.5h1m1 0h3m1 0h1m4 0h3m2 0h1m2 0h1m2 0h1m1 0h3m1 0h1M0 4.5h1m1 0h3m1 0h1m1 0h1m1 0h1m2 0h1m2 0h4m2 0h1m1 0h3m1 0h1M0 5.5h1m5 0h1m2 0h5m1 0h1m1 0h2m3 0h1m5 0h1M0 6.5h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7M8 7.5h1m2 0h4m1 0h1m1 0h1M1 8.5h1m1 0h1m1 0h4m2 0h1m1 0h1m1 0h1m2 0h1m3 0h1m1 0h2M0 9.5h3m1 0h1m2 0h1m4 0h4m1 0h1m1 0h1m2 0h1m2 0h1M2 10.5h1m1 0h1m3 0h2m1 0h1m2 0h1m1 0h1m2 0h1m1 0h2m1 0h2M1 11.5h1m2 0h3m2 0h4m2 0h4m1 0h1m1 0h1M1 12.5h1m1 0h1m1 0h1m1 0h1m1 0h1m5 0h1m3 0h1m2 0h3M0 13.5h1m3 0h3m2 0h1m1 0h1m1 0h1m1 0h2m1 0h1m1 0h1m1 0h1m1 0h1M0 14.5h1m1 0h1m1 0h1m2 0h1m1 0h1m2 0h1m1 0h1m1 0h2m3 0h1m2 0h1M2 15.5h1m1 0h5m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m2 0h4M0 16.5h1m1 0h1m2 0h4m1 0h5m4 0h2m1 0h2M0 17.5h1m2 0h2m1 0h1m2 0h1m1 0h2m1 0h1m1 0h4m3 0h1M0 18.5h1m1 0h1m1 0h1m2 0h1m1 0h5m2 0h1m1 0h1m1 0h1m1 0h2M0 19.5h2m2 0h1m3 0h2m2 0h1m3 0h1m2 0h1m2 0h1M0 20.5h7m1 0h1m1 0h2m2 0h2m1 0h1m1 0h1m1 0h3M0 21.5h1m5 0h1m1 0h2m1 0h4m2 0h1m3 0h1m1 0h1M0 22.5h1m1 0h3m1 0h1m2 0h1m2 0h6m1 0h1m1 0h4M0 23.5h1m1 0h3m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m5 0h2M0 24.5h1m1 0h3m1 0h1m2 0h1m1 0h2m1 0h2m1 0h1m1 0h1m1 0h3M0 25.5h1m5 0h1m1 0h2m3 0h1m2 0h1m1 0h1m1 0h1M0 26.5h7m1 0h2m1 0h1m1 0h1m1 0h2m1 0h1m1 0h1m1 0h1"/></svg></div>
+    </div>
+  </div>
+
+  <div class="footer"><div class="l">Réservez un appel découverte <b>→</b> axion-ia.com/fr/appel</div><div class="r">18 / 20</div></div>
+  <div class="trim screen-only"></div>
+</section>
+
+<!-- =====================================================================
+     PAGE 19 — VISIBILITÉ OFFERTE + AVIS CLIENTS
+     ===================================================================== -->
+<section class="page" id="p15" style="display:flex;flex-direction:column">
+  <div class="runhead"><img src="assets/axion-ia-logo.png" alt="Axion-IA"><span class="sec">Inclus · visibilité offerte</span></div>
+
+  <div style="text-align:center">
+    <h2 class="display" style="font-size:32pt;margin:0">Un coup de projecteur,
+      <span class="display-it" style="color:var(--terra)">offert</span></h2>
+    <p style="font-size:11pt;color:var(--ink-soft);margin:3mm auto 0;max-width:150mm">
+      Inclus dans chaque formation : de la visibilité réelle pour votre entreprise.</p>
+    <div class="rule" style="margin:4mm auto 0"></div>
+  </div>
+
+  <div style="flex:1;display:flex;flex-direction:column;justify-content:space-evenly">
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6mm">
+    <div class="card" style="padding:6mm;min-height:56mm;display:flex;flex-direction:column">
+      <div style="width:13mm;height:13mm;border-radius:50%;background:var(--terra);color:#fff;font-family:'Fraunces',serif;font-size:16pt;display:flex;align-items:center;justify-content:center">01</div>
+      <h4 style="margin:4mm 0 2mm;font-size:13.5pt">Podcast en duo</h4>
+      <p style="margin:0;font-size:10pt;color:var(--ink-soft);line-height:1.5">Interview vidéo en studio avec Williams et votre dirigeant, 2 à 4 semaines après la formation.</p>
+    </div>
+    <div class="card" style="padding:6mm;min-height:56mm;display:flex;flex-direction:column">
+      <div style="width:13mm;height:13mm;border-radius:50%;background:var(--terra);color:#fff;font-family:'Fraunces',serif;font-size:16pt;display:flex;align-items:center;justify-content:center">02</div>
+      <h4 style="margin:4mm 0 2mm;font-size:13.5pt">Interview participants</h4>
+      <p style="margin:0;font-size:10pt;color:var(--ink-soft);line-height:1.5">Retours d'expérience filmés de vos équipes formées, le jour même de la formation.</p>
+    </div>
+    <div class="card" style="padding:6mm;min-height:56mm;display:flex;flex-direction:column">
+      <div style="width:13mm;height:13mm;border-radius:50%;background:var(--terra);color:#fff;font-family:'Fraunces',serif;font-size:16pt;display:flex;align-items:center;justify-content:center">03</div>
+      <h4 style="margin:4mm 0 2mm;font-size:13.5pt">Page entreprise + backlink dofollow</h4>
+      <p style="margin:0;font-size:10pt;color:var(--ink-soft);line-height:1.5">Une page dédiée et <b>mise en avant</b> sur axion-ia.com — votre podcast, vos interviews, et un <b>backlink dofollow</b> vers votre site (bon pour votre SEO).</p>
+    </div>
+  </div>
+
+  <div>
+    <div style="text-align:center;margin-bottom:5mm"><span class="eyebrow" style="color:var(--blue)">Ce qu'en disent nos clients</span></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:6mm">
+      <!-- EMPLACEMENT AVIS RÉEL 1 — à compléter (verbatim + nom + fonction + entreprise) -->
+      <div class="card" style="padding:6mm;min-height:46mm;border-style:dashed;background:#fff;display:flex;flex-direction:column">
+        <div style="letter-spacing:2px;color:#ffb300;font-size:14pt">★★★★★</div>
+        <p class="display-it" style="font-size:13pt;line-height:1.4;margin:3mm 0 auto;color:var(--ink-muted)">« [Avis client réel à insérer — verbatim] »</p>
+        <div style="margin-top:3mm;font-weight:800;font-size:10.5pt;color:var(--ink-muted)">Prénom N. — Fonction, Entreprise</div>
+        <div style="margin-top:2mm;font-size:8.5pt;color:var(--terra);font-weight:700">▢ QR interview vidéo — à venir après tournage</div>
+      </div>
+      <div class="card" style="padding:6mm;min-height:46mm;border-style:dashed;background:#fff;display:flex;flex-direction:column">
+        <div style="letter-spacing:2px;color:#ffb300;font-size:14pt">★★★★★</div>
+        <p class="display-it" style="font-size:13pt;line-height:1.4;margin:3mm 0 auto;color:var(--ink-muted)">« [Avis client réel à insérer — verbatim] »</p>
+        <div style="margin-top:3mm;font-weight:800;font-size:10.5pt;color:var(--ink-muted)">Prénom N. — Fonction, Entreprise</div>
+        <div style="margin-top:2mm;font-size:8.5pt;color:var(--terra);font-weight:700">▢ QR interview vidéo — à venir après tournage</div>
+      </div>
+    </div>
+    <p style="text-align:center;font-size:9pt;color:var(--ink-muted);margin-top:4mm">Avis vérifiés publiés sur axion-ia.com/fr/avis · interviews vidéo à venir.</p>
+  </div>
+
+  <div style="border-radius:16px;padding:6mm 8mm;background:var(--terra);color:#fff;display:flex;align-items:center;justify-content:space-between;gap:8mm">
+    <div>
+      <div style="font-family:'Fraunces',serif;font-size:16pt;font-weight:600">Ce coup de projecteur est inclus dans chaque formation.</div>
+      <div style="font-size:10.5pt;color:#ffe3d1;margin-top:1.5mm">Podcast, interviews et page dédiée — sans surcoût, pour valoriser votre démarche IA.</div>
+    </div>
+    <div style="flex:none;text-align:center">
+      <div style="font-family:'Fraunces',serif;font-size:30pt;font-weight:600;line-height:1">0 €</div>
+      <div style="font-size:8.5pt;color:#ffe3d1">inclus</div>
+    </div>
+  </div>
+  </div>
+
+  <div class="footer"><div class="l">Vos avis en vidéo <b>→</b> axion-ia.com/fr/avis</div><div class="r">19 / 20</div></div>
+  <div class="trim screen-only"></div>
+</section>
+
+<!-- =====================================================================
+     PAGE 16 — 4e DE COUVERTURE — CONTACT + MENTIONS
+     ===================================================================== -->
+<section class="page" id="p16">
+  <div class="page__bg" style="background:var(--mocha)"></div>
+
+  <div style="color:#fff;height:100%;display:flex;flex-direction:column">
+    <div style="display:flex;align-items:center;justify-content:space-between">
+      <img src="assets/axion-ia-logo.png" alt="Axion-IA" style="height:15mm;background:#fff;border-radius:8px;padding:6px 10px">
+      <span class="chip mono" style="background:var(--blue);color:#fff;font-size:11pt">2026 · 2027</span>
+    </div>
+
+    <div style="margin-top:20mm">
+      <h2 class="display" style="font-size:40pt;margin:0;color:#fff">Parlons de vos
+        <span class="display-it" style="color:var(--terra)">équipes.</span></h2>
+      <p style="font-size:13pt;color:var(--sand);max-width:150mm;margin:6mm 0 0;line-height:1.5">
+        Un appel découverte de 30 minutes suffit pour cibler la ou les formations utiles et chiffrer
+        la prise en charge OPCO. Sans engagement.</p>
+    </div>
+
+    <div style="display:flex;gap:10mm;margin-top:12mm;align-items:center">
+      <div style="flex:1;font-size:12pt;line-height:2.1">
+        <div>🌐 &nbsp;<b>axion-ia.com</b></div>
+        <div>📅 &nbsp;Réserver un appel — axion-ia.com/fr/appel</div>
+        <div>✉️ &nbsp;contact@axion-ia.com</div>
+        <div>📍 &nbsp;Grenoble · Auvergne-Rhône-Alpes</div>
+        <div>in &nbsp;linkedin.com/company/axion-ia</div>
+      </div>
+      <div style="display:flex;gap:6mm;flex:none">
+        <div style="text-align:center">
+          <div class="card" style="padding:6px;background:#fff"><svg role="img" aria-label="QR réserver un appel" style="width:30mm;height:30mm;display:block" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 29 29" shape-rendering="crispEdges"><path fill="#ffffff" d="M0 0h29v29H0z"/><path stroke="#000000" d="M0 0.5h7m7 0h1m4 0h1m2 0h7M0 1.5h1m5 0h1m1 0h1m2 0h1m1 0h1m5 0h1m2 0h1m5 0h1M0 2.5h1m1 0h3m1 0h1m3 0h1m1 0h1m2 0h1m2 0h2m2 0h1m1 0h3m1 0h1M0 3.5h1m1 0h3m1 0h1m4 0h3m2 0h1m2 0h1m2 0h1m1 0h3m1 0h1M0 4.5h1m1 0h3m1 0h1m1 0h1m1 0h1m2 0h1m2 0h4m2 0h1m1 0h3m1 0h1M0 5.5h1m5 0h1m4 0h2m1 0h3m1 0h3m1 0h1m5 0h1M0 6.5h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7M11 7.5h1m3 0h1m1 0h2m1 0h1M0 8.5h1m1 0h1m1 0h1m1 0h1m3 0h3m3 0h2m1 0h2m3 0h1m2 0h1M7 9.5h5m1 0h1m1 0h3m3 0h2m2 0h1m2 0h1M1 10.5h3m1 0h4m1 0h1m3 0h3m1 0h1m2 0h1m1 0h1m2 0h3M0 11.5h1m2 0h3m2 0h1m2 0h4m1 0h7m1 0h1m2 0h1M1 12.5h3m2 0h5m3 0h2m1 0h1m1 0h2m1 0h1m2 0h1m1 0h2M0 13.5h1m7 0h2m2 0h1m1 0h2m1 0h2m1 0h3m2 0h1m2 0h1M1 14.5h1m2 0h1m1 0h2m1 0h3m1 0h1m4 0h1m2 0h1m1 0h3m1 0h2M2 15.5h2m4 0h3m4 0h1m1 0h1m2 0h1m2 0h3m1 0h1M0 16.5h2m2 0h1m1 0h3m2 0h2m3 0h2m1 0h4m2 0h1m1 0h2M1 17.5h1m2 0h1m2 0h1m1 0h1m1 0h1m1 0h1m1 0h4m1 0h3m2 0h2m1 0h1M0 18.5h1m1 0h5m3 0h1m3 0h3m1 0h1m5 0h1m2 0h2M1 19.5h1m1 0h1m3 0h3m1 0h1m1 0h2m1 0h2m5 0h3m1 0h1M0 20.5h1m1 0h1m3 0h1m1 0h2m1 0h1m2 0h2m1 0h1m2 0h5M8 21.5h1m5 0h2m1 0h1m1 0h2m3 0h1m1 0h3M0 22.5h7m2 0h5m5 0h2m1 0h1m1 0h2m1 0h2M0 23.5h1m5 0h1m4 0h1m3 0h1m1 0h2m1 0h1m3 0h2M0 24.5h1m1 0h3m1 0h1m1 0h2m6 0h2m2 0h5m2 0h1M0 25.5h1m1 0h3m1 0h1m2 0h5m1 0h2m2 0h2m3 0h1m1 0h1M0 26.5h1m1 0h3m1 0h1m1 0h3m1 0h2m1 0h2m2 0h1m3 0h3m2 0h1M0 27.5h1m5 0h1m2 0h1m2 0h1m3 0h2m1 0h3m5 0h1M0 28.5h7m1 0h1m2 0h1m1 0h4m1 0h1m1 0h3m1 0h1m2 0h2"/></svg></div>
+          <div style="font-size:8.5pt;color:var(--sand);margin-top:2mm;font-weight:700">Réserver un appel</div>
+        </div>
+        <div style="text-align:center">
+          <div class="card" style="padding:6px;background:#fff"><svg role="img" aria-label="QR page LinkedIn Axion-IA" style="width:30mm;height:30mm;display:block" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 29 29" shape-rendering="crispEdges"><path fill="#ffffff" d="M0 0h29v29H0z"/><path stroke="#000000" d="M0 0.5h7m4 0h1m2 0h1m3 0h1m3 0h7M0 1.5h1m5 0h1m1 0h2m1 0h1m1 0h2m1 0h2m2 0h1m1 0h1m5 0h1M0 2.5h1m1 0h3m1 0h1m1 0h2m4 0h2m3 0h1m2 0h1m1 0h3m1 0h1M0 3.5h1m1 0h3m1 0h1m1 0h1m3 0h2m1 0h3m2 0h1m1 0h1m1 0h3m1 0h1M0 4.5h1m1 0h3m1 0h1m2 0h2m1 0h2m2 0h5m1 0h1m1 0h3m1 0h1M0 5.5h1m5 0h1m4 0h1m1 0h2m7 0h1m5 0h1M0 6.5h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7M8 7.5h5m6 0h2M0 8.5h1m5 0h1m1 0h2m3 0h1m2 0h4m1 0h2m2 0h3M4 9.5h1m3 0h4m1 0h3m1 0h4m2 0h2m1 0h2M0 10.5h2m1 0h1m1 0h3m6 0h4m4 0h1M1 11.5h4m2 0h1m2 0h3m1 0h1m4 0h2m2 0h1m1 0h1M2 12.5h1m1 0h1m1 0h2m1 0h1m5 0h2m3 0h1m1 0h2m4 0h1M0 13.5h1m1 0h1m4 0h1m4 0h2m1 0h2m1 0h3m1 0h1m1 0h1m2 0h2M2 14.5h1m1 0h4m1 0h2m4 0h4m1 0h4m1 0h2M1 15.5h2m2 0h1m9 0h1m4 0h5m1 0h1m1 0h1M0 16.5h1m1 0h1m1 0h6m1 0h4m2 0h1m1 0h1m3 0h1m1 0h2M0 17.5h1m2 0h1m7 0h1m3 0h1m1 0h4m1 0h3m1 0h3M0 18.5h8m2 0h1m1 0h4m3 0h2m4 0h1m2 0h1M0 19.5h1m1 0h1m4 0h6m1 0h1m5 0h1m1 0h3M0 20.5h1m1 0h1m1 0h6m2 0h1m3 0h2m2 0h5m1 0h3M8 21.5h1m2 0h5m1 0h2m1 0h1m3 0h2M0 22.5h7m2 0h7m3 0h2m1 0h1m1 0h3M0 23.5h1m5 0h1m3 0h1m1 0h2m1 0h2m2 0h2m3 0h1m2 0h1M0 24.5h1m1 0h3m1 0h1m2 0h1m2 0h2m2 0h1m2 0h7m1 0h1M0 25.5h1m1 0h3m1 0h1m2 0h1m1 0h1m1 0h1m1 0h2m2 0h1m1 0h1m1 0h1m1 0h2m1 0h1M0 26.5h1m1 0h3m1 0h1m3 0h1m2 0h1m1 0h2m1 0h2m1 0h7M0 27.5h1m5 0h1m3 0h1m3 0h1m1 0h1m1 0h1m4 0h1m1 0h2m1 0h1M0 28.5h7m1 0h1m3 0h2m1 0h1m1 0h1m1 0h1m2 0h5"/></svg></div>
+          <div style="font-size:8.5pt;color:var(--sand);margin-top:2mm;font-weight:700">LinkedIn</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="flex:1"></div>
+
+    <div style="display:flex;gap:6mm;align-items:center;margin-bottom:4mm">
+      <img src="assets/qualiopi-logo.png" alt="Qualiopi" style="height:20mm;background:#fff;border-radius:8px;padding:5px">
+      <div style="font-size:9pt;color:var(--sand);line-height:1.4">
+        Organisme de formation certifié Qualiopi.<br>
+        La certification qualité a été délivrée au titre de la catégorie <b style="color:#fff">ACTIONS DE FORMATION</b>.
+      </div>
+    </div>
+
+    <!-- BLOC MENTIONS LÉGALES — À COMPLÉTER (fourni par le client) -->
+    <div style="border-top:1px solid rgba(255,255,255,.2);padding-top:3mm;font-size:7.5pt;color:rgba(247,243,234,.6);line-height:1.5">
+      <b style="color:var(--sand)">Mentions légales — à compléter :</b>
+      Axion-IA SAS · SIRET 000&nbsp;000&nbsp;000&nbsp;00000 · Déclaration d'activité enregistrée sous le n° 00&nbsp;00&nbsp;00000&nbsp;00
+      auprès du préfet de région Auvergne-Rhône-Alpes (cet enregistrement ne vaut pas agrément de l'État) ·
+      Certification Qualiopi n° [organisme certificateur] · Exonéré de TVA (art. 261-4-4° du CGI) ·
+      Siège : [adresse] · Directeur de la publication : Williams Jullin.
+    </div>
+  </div>
+
+  <div class="trim screen-only"></div>
+</section>
+
+</div><!-- /deck -->
+</body>
+</html>
