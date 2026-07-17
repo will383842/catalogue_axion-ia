@@ -16,13 +16,13 @@
    Typo : Manrope (texte) · Fraunces (display) · Inconsolata (chiffres)
    ============================================================ */
 :root{
-  --ivory:#faf8f3; --paper:#ffffff; --sand:#f0e9da; --sand-deep:#e6dcc4;
+  --ivory:#ece0c9; --paper:#ffffff; --sand:#e2d1b0; --sand-deep:#d3bd97;
   --mocha:#2a2520; --mocha-fg:#f7f3ea;
   --ink:#1a1815; --ink-soft:#524b41; --ink-muted:#6a5f52;
   --blue:#1a4dd9; --blue-deep:#0f3aae; --blue-soft:#e6ecfb;
   --terra:#c24a1b; --terra-deep:#8c3010; --terra-soft:#f5e3d8;
   --sage:#5e6c54; --ochre:#b06a12; --plum:#7c4a63;
-  --line:#e6dcc4;
+  --line:#d0b78f;
   --bleed:3mm;
   --safe:10mm;                 /* marge de sécurité depuis la coupe */
   --pad: calc(var(--bleed) + var(--safe));   /* 13mm */
@@ -78,8 +78,8 @@ body{
   padding:5px 12px;border-radius:999px}
 
 /* ---- Cartes ---- */
-.card{background:var(--paper);border:1px solid var(--line);border-radius:16px;
-  box-shadow:0 3mm 8mm -4mm rgba(42,37,32,.22)}
+.card{background:var(--paper);border:1px solid #e7d7ba;border-radius:16px;
+  box-shadow:0 5mm 16mm -7mm rgba(42,37,32,.42)}
 
 /* ---- Sommaire ---- */
 .toc{list-style:none;margin:0;padding:0}
@@ -98,7 +98,7 @@ body{
 
 /* ---- Fiche formation ---- */
 .fcard{position:relative;padding:6mm 7mm;display:flex;flex-direction:column;border-radius:16px;
-  border:1px solid var(--line);background:var(--paper);box-shadow:0 3mm 7mm -5mm rgba(42,37,32,.25);overflow:hidden}
+  border:1px solid #e7d7ba;background:var(--paper);box-shadow:0 5mm 15mm -7mm rgba(42,37,32,.42);overflow:hidden}
 .fcard::before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--gc,var(--terra))}
 .fcard .fc-top{display:flex;align-items:flex-start;justify-content:space-between;gap:6mm}
 .fcard .fc-meta{display:flex;gap:5px;flex-wrap:wrap;justify-content:flex-end;flex:none}
@@ -179,72 +179,64 @@ body{
      ===================================================================== -->
 <section class="page" id="p1" style="display:flex;flex-direction:column">
   <!-- HERO plein cadre (fond perdu) -->
-  <div style="margin:calc(-1*var(--pad)) calc(-1*var(--pad)) 0;height:160mm;position:relative;overflow:hidden;flex:none">
+  <div style="margin:calc(-1*var(--pad)) calc(-1*var(--pad)) 0;height:170mm;position:relative;overflow:hidden;flex:none">
     <img src="assets/team-photo.png" alt="Session de formation IA en entreprise" style="width:100%;height:100%;object-fit:cover;display:block">
-    <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(42,37,32,.42) 0%,rgba(42,37,32,0) 24%,rgba(42,37,32,.08) 52%,rgba(42,37,32,.88) 100%)"></div>
+    <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(30,24,20,.55) 0%,rgba(30,24,20,0) 22%,rgba(30,24,20,.10) 48%,rgba(30,24,20,.92) 100%)"></div>
 
     <div style="position:absolute;top:var(--pad);left:var(--pad);right:var(--pad);display:flex;align-items:center;justify-content:space-between">
-      <div style="background:#fff;border-radius:12px;padding:6px 13px;box-shadow:0 4mm 14mm -6mm rgba(0,0,0,.6)">
+      <div style="background:#fff;border-radius:12px;padding:6px 13px;box-shadow:0 4mm 16mm -6mm rgba(0,0,0,.7)">
         <img src="assets/axion-ia-logo.png" alt="Axion-IA" style="height:12mm;width:auto;display:block">
       </div>
-      <span class="chip mono" style="background:var(--terra);color:#fff;font-size:12pt;letter-spacing:.02em;padding:8px 17px;box-shadow:0 4mm 14mm -6mm rgba(0,0,0,.5)">2026 · 2027</span>
+      <span class="chip mono" style="background:var(--terra);color:#fff;font-size:12pt;letter-spacing:.02em;padding:8px 17px;box-shadow:0 4mm 16mm -6mm rgba(0,0,0,.6)">2026 · 2027</span>
     </div>
 
-    <div style="position:absolute;left:var(--pad);right:var(--pad);bottom:12mm;color:#fff">
-      <div class="eyebrow" style="color:#ffcbb0">Catalogue de formations en entreprise</div>
-      <h1 class="display" style="font-size:62pt;margin:3mm 0 0;color:#fff;line-height:.95;letter-spacing:-.015em">
-        Formations <span class="display-it" style="color:#ff8f63">IA</span>
+    <div style="position:absolute;left:var(--pad);right:var(--pad);bottom:13mm;color:#fff">
+      <div class="eyebrow" style="color:#ffb894">Catalogue de formations en entreprise</div>
+      <h1 class="display" style="font-size:72pt;margin:3mm 0 0;color:#fff;line-height:.92;letter-spacing:-.02em;text-shadow:0 2mm 12mm rgba(0,0,0,.4)">
+        Formations <span class="display-it" style="color:#ff8f5e">IA</span>
       </h1>
-      <div style="font-size:13.5pt;font-weight:600;color:#f3e8df;margin-top:4mm">
-        Former · Accompagner · Auditer — <span style="color:#ffcbb0">de l'idée à l'impact.</span>
+      <div style="font-size:14pt;font-weight:600;color:#f3e8df;margin-top:4mm">
+        Former · Accompagner · Auditer — <span style="color:#ffb894">de l'idée à l'impact.</span>
       </div>
     </div>
   </div>
 
-  <!-- badges confiance -->
-  <div style="display:flex;gap:5mm;align-items:stretch;margin-top:9mm">
-    <div class="card" style="display:flex;align-items:center;justify-content:center;padding:8px 16px;flex:none">
-      <img src="assets/qualiopi-logo.png" alt="Qualiopi — actions de formation" style="height:17mm;width:auto;display:block">
-    </div>
-    <div class="card" style="flex:1;display:flex;flex-direction:column;justify-content:center;padding:10px 18px">
-      <span style="font-size:11.5pt;font-weight:800">Prise en charge OPCO possible</span>
-      <span style="font-size:9pt;color:var(--ink-muted)">selon votre situation · France&nbsp;Travail</span>
-    </div>
-    <div class="card" style="flex:1;display:flex;flex-direction:column;justify-content:center;padding:10px 18px;background:var(--mocha)">
-      <span style="font-size:11.5pt;font-weight:800;color:#fff">Formateur certifié Claude</span>
-      <span style="font-size:9pt;color:var(--sand)">+ ChatGPT · Gemini · agents</span>
+  <!-- RUBAN visibilité offerte -->
+  <div style="margin:0 calc(-1*var(--pad));background:var(--terra);color:#fff;padding:4mm var(--pad);display:flex;align-items:center;gap:5mm;flex:none">
+    <span style="font-size:19pt;line-height:1;flex:none">🎙️</span>
+    <div style="line-height:1.25">
+      <span style="font-weight:900;letter-spacing:.06em;font-size:10pt">VISIBILITÉ OFFERTE</span>
+      <span style="color:#ffe0d0;font-weight:600;font-size:10pt"> — podcast · interviews de vos équipes · page entreprise + <b style="color:#fff">backlink dofollow</b> sur axion-ia.com</span>
     </div>
   </div>
 
-  <!-- écosystème couvert -->
-  <div style="margin-top:8mm;display:flex;align-items:center;gap:3mm;flex-wrap:wrap">
-    <span class="eyebrow" style="color:var(--blue);flex:none;margin-right:2mm">L'écosystème couvert</span>
-    <span class="pill-o">ChatGPT</span><span class="pill-o">Claude</span><span class="pill-o">Gemini</span><span class="pill-o">Copilot</span><span class="pill-o">Midjourney</span><span class="pill-o">n8n</span><span class="pill-o">Make</span>
-  </div>
+  <!-- BLOC SOMBRE premium (fond perdu bas) -->
+  <div style="margin:0 calc(-1*var(--pad)) calc(-1*var(--pad));background:var(--mocha);color:#fff;padding:10mm var(--pad) 13mm;flex:1;display:flex;flex-direction:column;justify-content:space-between">
+    <div style="display:flex;gap:4mm;align-items:stretch">
+      <div style="background:#fff;border-radius:11px;padding:5px 13px;display:flex;align-items:center;flex:none">
+        <img src="assets/qualiopi-logo.png" alt="Qualiopi — actions de formation" style="height:14mm;width:auto;display:block">
+      </div>
+      <div style="flex:1;border:1px solid rgba(255,255,255,.28);border-radius:11px;padding:8px 15px;display:flex;flex-direction:column;justify-content:center">
+        <span style="font-size:11pt;font-weight:800;color:#fff">Prise en charge OPCO possible</span>
+        <span style="font-size:8.5pt;color:var(--sand)">selon votre situation · France&nbsp;Travail</span>
+      </div>
+      <div style="flex:1;background:var(--terra);border-radius:11px;padding:8px 15px;display:flex;flex-direction:column;justify-content:center">
+        <span style="font-size:11pt;font-weight:800;color:#fff">Formateur certifié Claude</span>
+        <span style="font-size:8.5pt;color:#ffe0d0">+ ChatGPT · Gemini · agents</span>
+      </div>
+    </div>
 
-  <!-- visibilité offerte -->
-  <div style="margin-top:7mm;background:var(--terra-soft);border:1px solid #e9c9b6;border-radius:16px;padding:5mm 6mm;display:flex;align-items:center;gap:6mm">
-    <div style="flex:none;display:flex;flex-direction:column;align-items:center;gap:2mm">
-      <span style="font-size:24pt;line-height:1">🎙️</span>
-      <span class="chip" style="background:var(--terra);color:#fff;font-size:7.5pt;letter-spacing:.1em;padding:3px 10px">Offert</span>
-    </div>
-    <div style="flex:1">
-      <div style="font-family:'Fraunces',serif;font-weight:600;font-size:15pt;color:var(--terra-deep)">Un coup de projecteur offert à votre entreprise</div>
-      <div style="font-size:9.5pt;color:var(--ink-soft);margin-top:1.5mm;line-height:1.45">Avec chaque formation, si vous le souhaitez : <b>podcast en duo</b> · <b>interviews de vos équipes</b> · <b>page entreprise dédiée &amp; mise en avant</b> sur axion-ia.com, avec <b>backlink dofollow</b>, votre podcast et vos interviews.</div>
-    </div>
-  </div>
-
-  <!-- bas de couverture -->
-  <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:8mm;margin-top:auto">
-    <div>
-      <div class="display" style="font-size:24pt;color:var(--ink)">17 formations · 3 gammes</div>
-      <div style="font-size:10.5pt;color:var(--ink-muted);margin-top:1.5mm">Intra-entreprise · présentiel &amp; distanciel · sur vos vrais dossiers</div>
-      <div style="font-size:12pt;font-weight:800;color:var(--ink);margin-top:2mm">axion-ia.com</div>
-    </div>
-    <div style="display:flex;align-items:center;gap:9px;flex:none">
-      <span style="font-size:8.5pt;font-weight:700;color:var(--ink-muted);max-width:28mm;text-align:right;line-height:1.3">Scannez : toutes nos formations</span>
+    <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:8mm">
+      <div>
+        <div class="display" style="font-size:30pt;color:#fff;line-height:1">17 formations<span style="color:#ff8f5e"> · </span>3 gammes</div>
+        <div style="font-size:10.5pt;color:var(--sand);margin-top:2.5mm">Intra-entreprise · présentiel &amp; distanciel · sur vos vrais dossiers</div>
+        <div style="font-size:13pt;font-weight:800;color:#fff;margin-top:2.5mm">axion-ia.com</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:9px;flex:none">
+        <span style="font-size:8.5pt;font-weight:700;color:var(--sand);max-width:26mm;text-align:right;line-height:1.3">Scannez : toutes nos formations</span>
       <div class="card" style="padding:7px"><svg role="img" aria-label="QR vers axion-ia.com/fr/formations" style="width:24mm;height:24mm;display:block" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 29 29" shape-rendering="crispEdges"><path fill="#ffffff" d="M0 0h29v29H0z"/><path stroke="#000000" d="M0 0.5h7m2 0h1m1 0h1m1 0h3m3 0h2m1 0h7M0 1.5h1m5 0h1m2 0h3m1 0h6m3 0h1m5 0h1M0 2.5h1m1 0h3m1 0h1m1 0h1m1 0h2m1 0h1m1 0h1m2 0h3m1 0h1m1 0h3m1 0h1M0 3.5h1m1 0h3m1 0h1m1 0h1m3 0h1m1 0h2m1 0h2m3 0h1m1 0h3m1 0h1M0 4.5h1m1 0h3m1 0h1m1 0h3m4 0h6m1 0h1m1 0h3m1 0h1M0 5.5h1m5 0h1m1 0h2m1 0h2m4 0h1m2 0h1m1 0h1m5 0h1M0 6.5h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7M8 7.5h2m1 0h1m2 0h1m1 0h1m2 0h2M0 8.5h1m1 0h5m2 0h3m5 0h1m1 0h1m2 0h5M2 9.5h2m4 0h1m1 0h2m1 0h3m2 0h2m1 0h4m3 0h1M1 10.5h7m1 0h1m3 0h5m2 0h1m1 0h2M1 11.5h2m1 0h1m2 0h2m4 0h1m4 0h1m1 0h4m1 0h1m1 0h1M6 12.5h1m1 0h1m1 0h2m2 0h4m1 0h1m1 0h1m3 0h2M2 13.5h3m3 0h2m6 0h9m3 0h1M1 14.5h3m1 0h3m2 0h3m2 0h1m1 0h1m2 0h1m1 0h5M0 15.5h4m5 0h1m1 0h1m2 0h1m1 0h1m2 0h2m6 0h1M1 16.5h2m2 0h2m3 0h1m6 0h1m1 0h1m5 0h2M0 17.5h2m1 0h2m2 0h2m2 0h1m1 0h2m1 0h1m2 0h6m1 0h1m1 0h1M0 18.5h1m1 0h6m2 0h2m1 0h6m1 0h3m1 0h1m1 0h1M0 19.5h1m2 0h1m1 0h1m5 0h3m2 0h1m1 0h2m7 0h1M0 20.5h1m2 0h8m3 0h1m2 0h1m2 0h5m1 0h3M8 21.5h2m6 0h3m1 0h1m3 0h5M0 22.5h7m2 0h4m2 0h2m2 0h2m1 0h1m1 0h3M0 23.5h1m5 0h1m1 0h1m1 0h1m3 0h2m3 0h2m3 0h1m2 0h2M0 24.5h1m1 0h3m1 0h1m1 0h2m1 0h1m5 0h1m2 0h5m1 0h2M0 25.5h1m1 0h3m1 0h1m1 0h1m1 0h3m1 0h1m1 0h1m1 0h1m1 0h1m2 0h1m1 0h4M0 26.5h1m1 0h3m1 0h1m1 0h1m1 0h3m2 0h1m2 0h10M0 27.5h1m5 0h1m2 0h2m3 0h3m3 0h2m1 0h3m1 0h1M0 28.5h7m1 0h1m1 0h1m2 0h1m1 0h3m6 0h1m1 0h1"/></svg></div>
     </div>
+  </div>
   </div>
 
   <div class="trim screen-only"></div>
@@ -1106,7 +1098,7 @@ body{
       <th style="background:#7a5148">Sans IA <span class="hd">à la main</span></th>
       <th style="background:var(--terra)">Axion-IA automatise</th>
       <th style="background:var(--terra-deep)">Gain</th>
-      <th style="background:#4f5a46">Avantage concret</th>
+      <th style="background:#4f5a46">Ce que ça vous apporterait</th>
     </tr></thead>
     <tbody>
       <tr>
@@ -1114,56 +1106,56 @@ body{
         <td class="noia"><span class="xm">✗</span> Designer + rédacteur, plusieurs semaines</td>
         <td class="ax"><span class="ck">✓</span> Contenu, mise en page et PDF prêt-à-imprimer générés</td>
         <td><span class="gain">semaines → h</span></td>
-        <td class="adv">Mise à jour en une passe, zéro sous-traitance</td>
+        <td class="adv">Vos supports pro, à jour en continu, sans agence</td>
       </tr>
       <tr>
         <td class="what"><span class="ic">🎓</span>Création des formations</td>
         <td class="noia"><span class="xm">✗</span> Ingénierie pédagogique manuelle, des jours par module</td>
         <td class="ax"><span class="ck">✓</span> Programmes, supports et quiz générés et harmonisés</td>
         <td><span class="gain">×10</span></td>
-        <td class="adv">17 formations cohérentes, actualisables en continu</td>
+        <td class="adv">Des contenus toujours à jour, sans y penser</td>
       </tr>
       <tr>
         <td class="what"><span class="ic">📋</span>Système Qualiopi</td>
         <td class="noia"><span class="xm">✗</span> Consultant, des mois, 32 indicateurs à tenir</td>
         <td class="ax"><span class="ck">✓</span> Registre, preuves et procédures générés et tenus à jour</td>
         <td><span class="gain">mois → jours</span></td>
-        <td class="adv">Audit serein, conformité continue</td>
+        <td class="adv">Vous passez l’audit sereinement, en continu</td>
       </tr>
       <tr>
         <td class="what"><span class="ic">🔎</span>Prospection &amp; scraping</td>
         <td class="noia"><span class="xm">✗</span> Recherche manuelle, listes achetées</td>
         <td class="ax"><span class="ck">✓</span> Agents qui identifient et qualifient les entreprises cibles</td>
         <td><span class="gain">×100 volume</span></td>
-        <td class="adv">Pipeline qualifié qui se remplit seul</td>
+        <td class="adv">Un flux de prospects qualifiés, sans effort</td>
       </tr>
       <tr>
         <td class="what"><span class="ic">✉️</span>Cold email</td>
         <td class="noia"><span class="xm">✗</span> Copier-coller, personnalisation faible</td>
         <td class="ax"><span class="ck">✓</span> Séquences personnalisées par cible, à l'échelle</td>
         <td><span class="gain">×20 réponses</span></td>
-        <td class="adv">Des RDV réguliers, zéro saisie</td>
+        <td class="adv">Plus de RDV, sans mobiliser vos commerciaux</td>
       </tr>
       <tr>
         <td class="what"><span class="ic">📣</span>Campagnes ads</td>
         <td class="noia"><span class="xm">✗</span> Agence, itérations lentes et coûteuses</td>
         <td class="ax"><span class="ck">✓</span> Visuels, accroches et variantes A/B générés</td>
         <td><span class="gain">−70% coût</span></td>
-        <td class="adv">Plus de tests, meilleur retour sur pub</td>
+        <td class="adv">Plus de leads pour chaque euro de pub</td>
       </tr>
       <tr>
         <td class="what"><span class="ic">🎬</span>Scripts &amp; montage vidéo</td>
         <td class="noia"><span class="xm">✗</span> Scénariste + monteur</td>
         <td class="ax"><span class="ck">✓</span> Scripts, sous-titres et découpage générés</td>
         <td><span class="gain">jours → h</span></td>
-        <td class="adv">Podcasts &amp; interviews clients livrés vite</td>
+        <td class="adv">Vos vidéos produites 10× plus vite</td>
       </tr>
       <tr>
         <td class="what"><span class="ic">📝</span>Articles SEO / blog</td>
         <td class="noia"><span class="xm">✗</span> Rédacteur, quelques articles par mois</td>
         <td class="ax"><span class="ck">✓</span> Articles optimisés générés et publiés</td>
         <td><span class="gain">×15 volume</span></td>
-        <td class="adv">Une visibilité Google qui se cumule</td>
+        <td class="adv">Vous remontez sur Google, durablement</td>
       </tr>
     </tbody>
   </table>
@@ -1192,7 +1184,7 @@ body{
       <th style="background:#7a5148">Sans IA <span class="hd">à la main</span></th>
       <th style="background:var(--terra)">Axion-IA automatise</th>
       <th style="background:var(--terra-deep)">Gain</th>
-      <th style="background:#4f5a46">Avantage concret</th>
+      <th style="background:#4f5a46">Ce que ça vous apporterait</th>
     </tr></thead>
     <tbody>
       <tr>
@@ -1200,42 +1192,42 @@ body{
         <td class="noia"><span class="xm">✗</span> Community manager, publication manuelle</td>
         <td class="ax"><span class="ck">✓</span> Calendrier, posts et visuels générés</td>
         <td><span class="gain">−80% temps</span></td>
-        <td class="adv">Présence régulière, sans effort</td>
+        <td class="adv">Une présence régulière, sans y passer de temps</td>
       </tr>
       <tr>
         <td class="what"><span class="ic">🌐</span>Pages entreprise clients</td>
         <td class="noia"><span class="xm">✗</span> Développeur + rédaction, page par page</td>
         <td class="ax"><span class="ck">✓</span> Page dédiée générée après chaque tournage</td>
         <td><span class="gain">h → min</span></td>
-        <td class="adv">La visibilité offerte, livrée automatiquement</td>
+        <td class="adv">Votre visibilité livrée sans lever le petit doigt</td>
       </tr>
       <tr>
         <td class="what"><span class="ic">🧾</span>Devis &amp; propositions</td>
         <td class="noia"><span class="xm">✗</span> ~1 h par devis, ressaisie</td>
         <td class="ax"><span class="ck">✓</span> Proposition chiffrée depuis l'échange client</td>
         <td><span class="gain">×6</span></td>
-        <td class="adv">Envoyée le jour même</td>
+        <td class="adv">Vos devis partent le jour même</td>
       </tr>
       <tr>
         <td class="what"><span class="ic">📂</span>Dossiers OPCO</td>
         <td class="noia"><span class="xm">✗</span> Paperasse administrative chronophage</td>
         <td class="ax"><span class="ck">✓</span> Montage assisté du dossier de prise en charge</td>
         <td><span class="gain">−70% temps</span></td>
-        <td class="adv">Le client déchargé de l'administratif</td>
+        <td class="adv">Vous êtes déchargé de tout l’administratif</td>
       </tr>
       <tr>
         <td class="what"><span class="ic">🧮</span>Comptabilité courante</td>
         <td class="noia"><span class="xm">✗</span> Saisie manuelle, retards</td>
         <td class="ax"><span class="ck">✓</span> Catégorisation et rapprochement automatisés</td>
         <td><span class="gain">h/mois</span></td>
-        <td class="adv">Une compta à jour en temps réel</td>
+        <td class="adv">Votre compta à jour en temps réel</td>
       </tr>
       <tr>
         <td class="what"><span class="ic">📊</span>Documents comptables annuels</td>
         <td class="noia"><span class="xm">✗</span> Allers-retours avec l'expert-comptable</td>
         <td class="ax"><span class="ck">✓</span> Données consolidées, liasses préparées</td>
         <td><span class="gain">jours → h</span></td>
-        <td class="adv">Le bilan sans stress</td>
+        <td class="adv">Votre bilan sans stress ni retard</td>
       </tr>
       <tr>
         <td class="what"><span class="ic">🗂️</span>Tri &amp; archivage des factures</td>
@@ -1249,7 +1241,7 @@ body{
         <td class="noia"><span class="xm">✗</span> Réponses une à une</td>
         <td class="ax"><span class="ck">✓</span> Tri, brouillons de réponse, FAQ dynamique</td>
         <td><span class="gain">−60% temps</span></td>
-        <td class="adv">Réactivité maximale, rien ne tombe</td>
+        <td class="adv">Vos clients répondus vite, rien ne tombe</td>
       </tr>
     </tbody>
   </table>
