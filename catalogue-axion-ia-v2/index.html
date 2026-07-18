@@ -97,7 +97,7 @@ body{
 .step p{margin:0;font-size:10.5pt;line-height:1.5;color:var(--ink-soft)}
 
 /* ---- Fiche formation ---- */
-.fcard{position:relative;padding:6mm 7mm;display:flex;flex-direction:column;border-radius:16px;
+.fcard{position:relative;padding:4.5mm 6.5mm;display:flex;flex-direction:column;border-radius:16px;
   border:1px solid #e7d7ba;background:var(--paper);box-shadow:0 5mm 15mm -7mm rgba(42,37,32,.42);overflow:hidden}
 .fcard::before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--gc,var(--terra))}
 .fcard .fc-top{display:flex;align-items:flex-start;justify-content:space-between;gap:6mm}
@@ -156,6 +156,12 @@ ul.fl li::before{content:"";position:absolute;left:0;top:1.6mm;width:2.6mm;heigh
 ul.fl.blue li::before{background:radial-gradient(circle at 35% 35%, #4d78e6, var(--blue))}
 .fchip{display:inline-block;font-size:8.5pt;font-weight:800;padding:3px 11px;border-radius:999px}
 .fchipline{display:flex;gap:3mm;flex-wrap:wrap;margin-top:3mm}
+/* pastille de niveau (parcours) */
+.lvl{display:inline-flex;align-items:center;gap:4px;font-weight:800;font-size:8.5pt;padding:3px 11px 3px 3px;
+  border-radius:999px;color:#fff;white-space:nowrap;letter-spacing:.02em}
+.lvl .n{width:4.6mm;height:4.6mm;border-radius:50%;background:rgba(255,255,255,.24);display:inline-flex;
+  align-items:center;justify-content:center;font-size:8pt;line-height:1;flex:none}
+.lvl1{background:var(--terra)} .lvl2{background:var(--terra-deep)} .lvl3{background:var(--mocha)}
 /* bandeau gain concret */
 .gainband{border-radius:14px;overflow:hidden;border:1.4px solid #43392f}
 .gainband .hd{background:var(--terra);color:#fff;padding:2.6mm 6mm;display:flex;align-items:center;gap:3mm;
@@ -584,7 +590,7 @@ ul.fl.blue li::before{background:radial-gradient(circle at 35% 35%, #4d78e6, var
       <div>
         <div class="fnum">Gamme IA · formation n°01</div>
         <h1 class="display" style="font-size:34pt;margin-top:2mm;color:var(--ink)">IA Express</h1>
-        <div class="fchipline">
+        <div class="fchipline"><span class="lvl lvl1"><span class="n">1</span> Découvrir</span>
           <span class="fchip" style="background:var(--sand);color:var(--ink)">⏱ 4 h · ½ journée</span>
           <span class="fchip" style="background:var(--mocha);color:#fff">Sans pré-requis</span>
           <span class="fchip" style="background:var(--terra);color:#fff">Tarif sur devis</span>
@@ -659,7 +665,7 @@ ul.fl.blue li::before{background:radial-gradient(circle at 35% 35%, #4d78e6, var
       <div>
         <div class="fnum">Gamme IA · formation n°04 · ★ à la une</div>
         <h1 class="display" style="font-size:34pt;margin-top:2mm;color:var(--ink)">IA &amp; Conformité <span class="display-it" style="color:var(--terra)">— AI Act</span></h1>
-        <div class="fchipline">
+        <div class="fchipline"><span class="lvl lvl1"><span class="n">1</span> Découvrir</span>
           <span class="fchip" style="background:var(--sand);color:var(--ink)">⏱ 4 h · ½ journée</span>
           <span class="fchip" style="background:var(--mocha);color:#fff">Sans pré-requis</span>
           <span class="fchip" style="background:var(--terra);color:#fff">Tarif sur devis</span>
@@ -735,7 +741,7 @@ ul.fl.blue li::before{background:radial-gradient(circle at 35% 35%, #4d78e6, var
       <div>
         <div class="fnum">Gamme IA · formation n°05</div>
         <h1 class="display" style="font-size:34pt;margin-top:2mm;color:var(--ink)">IA Fondamentaux</h1>
-        <div class="fchipline">
+        <div class="fchipline"><span class="lvl lvl2"><span class="n">2</span> Autonome</span>
           <span class="fchip" style="background:var(--sand);color:var(--ink)">⏱ 1 jour · 7 h</span>
           <span class="fchip" style="background:var(--mocha);color:#fff">Sans pré-requis</span>
           <span class="fchip" style="background:var(--terra);color:#fff">Tarif sur devis</span>
@@ -810,7 +816,7 @@ ul.fl.blue li::before{background:radial-gradient(circle at 35% 35%, #4d78e6, var
       <div>
         <div class="fnum">Gamme IA · formation n°11</div>
         <h1 class="display" style="font-size:31pt;margin-top:2mm;color:var(--ink)">IA Transformation <span class="display-it" style="color:var(--terra)">d'équipe</span></h1>
-        <div class="fchipline">
+        <div class="fchipline"><span class="lvl lvl3"><span class="n">3</span> Transformer</span>
           <span class="fchip" style="background:var(--sand);color:var(--ink)">⏱ 3 jours · 21 h</span>
           <span class="fchip" style="background:var(--mocha);color:#fff">Équipe + 1-2 référents</span>
           <span class="fchip" style="background:var(--terra);color:#fff">Tarif sur devis</span>
@@ -885,7 +891,7 @@ ul.fl.blue li::before{background:radial-gradient(circle at 35% 35%, #4d78e6, var
       <div>
         <div class="fnum" style="color:var(--sage)">Agents &amp; Automatisations · formation n°12</div>
         <h1 class="display" style="font-size:30pt;margin-top:2mm;color:var(--ink)">Agents &amp; <span class="display-it" style="color:var(--sage)">Automatisations</span></h1>
-        <div class="fchipline">
+        <div class="fchipline"><span class="lvl lvl1"><span class="n">1</span> Découvrir</span>
           <span class="fchip" style="background:var(--sand);color:var(--ink)">⏱ 2 jours · 14 h</span>
           <span class="fchip" style="background:var(--mocha);color:#fff">Groupe ≤ 12</span>
           <span class="fchip" style="background:var(--sage);color:#fff">Tarif sur devis</span>
@@ -960,7 +966,7 @@ ul.fl.blue li::before{background:radial-gradient(circle at 35% 35%, #4d78e6, var
       <div>
         <div class="fnum" style="color:var(--plum)">Gamme Claude · formation n°16 · formateur certifié</div>
         <h1 class="display" style="font-size:33pt;margin-top:2mm;color:var(--ink)">Claude <span class="display-it" style="color:var(--plum)">Architecte</span></h1>
-        <div class="fchipline">
+        <div class="fchipline"><span class="lvl lvl3"><span class="n">3</span> Transformer</span>
           <span class="fchip" style="background:var(--sand);color:var(--ink)">⏱ 3 jours · 21 h</span>
           <span class="fchip" style="background:var(--mocha);color:#fff">≤ 12 · comptes Pro/Team</span>
           <span class="fchip" style="background:var(--plum);color:#fff">Tarif sur devis</span>
@@ -1035,10 +1041,10 @@ ul.fl.blue li::before{background:radial-gradient(circle at 35% 35%, #4d78e6, var
     <h2 class="display" style="font-size:24pt;margin:0">Le reste du <span class="display-it" style="color:var(--terra)">catalogue</span></h2>
     <span style="font-size:9.5pt;color:var(--ink-muted)">— Gamme IA · tarif sur devis</span>
   </div>
-  <div style="display:flex;flex-direction:column;gap:4.5mm;flex:1">
+  <div style="display:flex;flex-direction:column;gap:3.2mm;flex:1">
 <article class="fcard" style="--gc:var(--terra)">
       <div class="fc-top">
-        <div><div class="gname">IA standard · niveau 2 (usage IA requis)</div><h3>L'Art du Prompt</h3></div>
+        <div><div style="margin-bottom:1mm"><span class="lvl lvl1"><span class="n">1</span> Découvrir</span></div><div class="gname">IA standard · niveau 2 (usage IA requis)</div><h3>L'Art du Prompt</h3></div>
         <div class="fc-meta"><span class="pill dur">⏱ 4 h · ½ j</span><span class="pill price">Sur devis</span></div>
       </div>
       <div class="promise">« Savoir demander à l'IA : la compétence qui change tout. »</div>
@@ -1054,7 +1060,7 @@ ul.fl.blue li::before{background:radial-gradient(circle at 35% 35%, #4d78e6, var
     </article>
 <article class="fcard" style="--gc:var(--terra)">
       <div class="fc-top">
-        <div><div class="gname">IA standard · sans pré-requis</div><h3>IA &amp; Sécurité</h3></div>
+        <div><div style="margin-bottom:1mm"><span class="lvl lvl1"><span class="n">1</span> Découvrir</span></div><div class="gname">IA standard · sans pré-requis</div><h3>IA &amp; Sécurité</h3></div>
         <div class="fc-meta"><span class="pill dur">⏱ 4 h · ½ j</span><span class="pill price">Sur devis</span></div>
       </div>
       <div class="promise">« Utiliser l'IA sans mettre l'entreprise en danger. »</div>
@@ -1070,7 +1076,7 @@ ul.fl.blue li::before{background:radial-gradient(circle at 35% 35%, #4d78e6, var
     </article>
 <article class="fcard" style="--gc:var(--terra)">
       <div class="fc-top">
-        <div><div class="gname">IA standard · sans pré-requis</div><h3>IA &amp; Commercial</h3></div>
+        <div><div style="margin-bottom:1mm"><span class="lvl lvl2"><span class="n">2</span> Autonome</span></div><div class="gname">IA standard · sans pré-requis</div><h3>IA &amp; Commercial</h3></div>
         <div class="fc-meta"><span class="pill dur">⏱ 1 jour</span><span class="pill price">Sur devis</span></div>
       </div>
       <div class="promise">« Devis, propositions, relances : répondre plus vite et mieux que vos concurrents. »</div>
@@ -1098,10 +1104,10 @@ ul.fl.blue li::before{background:radial-gradient(circle at 35% 35%, #4d78e6, var
     <h2 class="display" style="font-size:24pt;margin:0">Gamme IA <span class="display-it" style="color:var(--terra)">(suite)</span></h2>
     <span style="font-size:9.5pt;color:var(--ink-muted)">— tarif sur devis</span>
   </div>
-  <div style="display:flex;flex-direction:column;gap:4.5mm;flex:1">
+  <div style="display:flex;flex-direction:column;gap:3.2mm;flex:1">
 <article class="fcard" style="--gc:var(--terra)">
       <div class="fc-top">
-        <div><div class="gname">IA standard · sans pré-requis</div><h3>IA au bureau</h3></div>
+        <div><div style="margin-bottom:1mm"><span class="lvl lvl2"><span class="n">2</span> Autonome</span></div><div class="gname">IA standard · sans pré-requis</div><h3>IA au bureau</h3></div>
         <div class="fc-meta"><span class="pill dur">⏱ 1 jour</span><span class="pill price">Sur devis</span></div>
       </div>
       <div class="promise">« Documents, courriers, dossiers : produire deux fois plus vite. »</div>
@@ -1117,7 +1123,7 @@ ul.fl.blue li::before{background:radial-gradient(circle at 35% 35%, #4d78e6, var
     </article>
 <article class="fcard" style="--gc:var(--terra)">
       <div class="fc-top">
-        <div><div class="gname">IA standard · un smartphone suffit</div><h3>IA sur le terrain</h3></div>
+        <div><div style="margin-bottom:1mm"><span class="lvl lvl2"><span class="n">2</span> Autonome</span></div><div class="gname">IA standard · un smartphone suffit</div><h3>IA sur le terrain</h3></div>
         <div class="fc-meta"><span class="pill dur">⏱ 1 jour</span><span class="pill price">Sur devis</span></div>
       </div>
       <div class="promise">« Comptes rendus, photos, dictée vocale : tout depuis son téléphone. »</div>
@@ -1133,7 +1139,7 @@ ul.fl.blue li::before{background:radial-gradient(circle at 35% 35%, #4d78e6, var
     </article>
 <article class="fcard" style="--gc:var(--terra)">
       <div class="fc-top">
-        <div><div class="gname">IA standard · sans pré-requis</div><h3>Automatisations IA — Découverte</h3></div>
+        <div><div style="margin-bottom:1mm"><span class="lvl lvl2"><span class="n">2</span> Autonome</span></div><div class="gname">IA standard · sans pré-requis</div><h3>Automatisations IA — Découverte</h3></div>
         <div class="fc-meta"><span class="pill dur">⏱ 1 jour</span><span class="pill price">Sur devis</span></div>
       </div>
       <div class="promise">« Voir ce que l'automatisation peut faire pour votre entreprise. »</div>
@@ -1161,10 +1167,10 @@ ul.fl.blue li::before{background:radial-gradient(circle at 35% 35%, #4d78e6, var
     <h2 class="display" style="font-size:24pt;margin:0">Formats longs <span class="display-it" style="color:var(--terra)">&amp; Agents</span></h2>
     <span style="font-size:9.5pt;color:var(--ink-muted)">— tarif sur devis</span>
   </div>
-  <div style="display:flex;flex-direction:column;gap:4.5mm;flex:1">
+  <div style="display:flex;flex-direction:column;gap:3.2mm;flex:1">
 <article class="fcard" style="--gc:var(--terra)">
       <div class="fc-top">
-        <div><div class="gname">IA standard · sans pré-requis</div><h3>IA Intégration métier</h3></div>
+        <div><div style="margin-bottom:1mm"><span class="lvl lvl3"><span class="n">3</span> Transformer</span></div><div class="gname">IA standard · sans pré-requis</div><h3>IA Intégration métier</h3></div>
         <div class="fc-meta"><span class="pill dur">⏱ 2 jours</span><span class="pill price">Sur devis</span></div>
       </div>
       <div class="promise">« Vos 5 tâches les plus chronophages transformées avant la fin de la formation. »</div>
@@ -1180,7 +1186,7 @@ ul.fl.blue li::before{background:radial-gradient(circle at 35% 35%, #4d78e6, var
     </article>
 <article class="fcard" style="--gc:var(--terra)">
       <div class="fc-top">
-        <div><div class="gname">IA standard · sans pré-requis</div><h3>IA &amp; Commercial avancé</h3></div>
+        <div><div style="margin-bottom:1mm"><span class="lvl lvl3"><span class="n">3</span> Transformer</span></div><div class="gname">IA standard · sans pré-requis</div><h3>IA &amp; Commercial avancé</h3></div>
         <div class="fc-meta"><span class="pill dur">⏱ 2 jours</span><span class="pill price">Sur devis</span></div>
       </div>
       <div class="promise">« Tout le cycle de vente passé à l'IA : de la prospection à la signature. »</div>
@@ -1196,7 +1202,7 @@ ul.fl.blue li::before{background:radial-gradient(circle at 35% 35%, #4d78e6, var
     </article>
 <article class="fcard" style="--gc:var(--sage)">
       <div class="fc-top">
-        <div><div class="gname">Agents &amp; Automatisations · ≤ 12 · niveau 2 j requis</div><h3>Agents &amp; Automatisations avancé</h3></div>
+        <div><div style="margin-bottom:1mm"><span class="lvl lvl3"><span class="n">3</span> Transformer</span></div><div class="gname">Agents &amp; Automatisations · ≤ 12 · niveau 2 j requis</div><h3>Agents &amp; Automatisations avancé</h3></div>
         <div class="fc-meta"><span class="pill dur">⏱ 3 jours</span><span class="pill price">Sur devis</span></div>
       </div>
       <div class="promise">« Chacun construit ET déploie son automatisation — en fonctionnement le dernier jour. »</div>
@@ -1224,10 +1230,10 @@ ul.fl.blue li::before{background:radial-gradient(circle at 35% 35%, #4d78e6, var
     <h2 class="display" style="font-size:24pt;margin:0">Gamme <span class="display-it" style="color:var(--terra)">Claude</span></h2>
     <span style="font-size:9.5pt;color:var(--ink-muted)">— autres niveaux · tarif sur devis</span>
   </div>
-  <div style="display:flex;flex-direction:column;gap:4.5mm;flex:1">
+  <div style="display:flex;flex-direction:column;gap:3.2mm;flex:1">
 <article class="fcard" style="--gc:var(--plum)">
       <div class="fc-top">
-        <div><div class="gname">Gamme Claude · comptes gratuits suffisent · formateur certifié</div><h3>Claude Découverte</h3></div>
+        <div><div style="margin-bottom:1mm"><span class="lvl lvl2"><span class="n">2</span> Autonome</span></div><div class="gname">Gamme Claude · comptes gratuits suffisent · formateur certifié</div><h3>Claude Découverte</h3></div>
         <div class="fc-meta"><span class="pill dur">⏱ 1 jour</span><span class="pill price">Sur devis</span></div>
       </div>
       <div class="promise">« Évaluer Claude sur pièces en une journée, avec un formateur certifié. »</div>
@@ -1243,7 +1249,7 @@ ul.fl.blue li::before{background:radial-gradient(circle at 35% 35%, #4d78e6, var
     </article>
 <article class="fcard" style="--gc:var(--plum)">
       <div class="fc-top">
-        <div><div class="gname">Gamme Claude · ≤ 12 · comptes Pro/Team</div><h3>Claude Créateur</h3></div>
+        <div><div style="margin-bottom:1mm"><span class="lvl lvl3"><span class="n">3</span> Transformer</span></div><div class="gname">Gamme Claude · ≤ 12 · comptes Pro/Team</div><h3>Claude Créateur</h3></div>
         <div class="fc-meta"><span class="pill dur">⏱ 2 jours</span><span class="pill price">Sur devis</span></div>
       </div>
       <div class="promise">« Chacun construit son propre outil IA pour son activité — et repart avec. »</div>
