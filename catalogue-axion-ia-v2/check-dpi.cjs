@@ -21,6 +21,7 @@ const SEUIL = 300; // dpi minimum print
   const imgs = await page.evaluate(() => {
     const out = [];
     for (const img of document.querySelectorAll('img')) {
+      if (/\.svg$/i.test(img.getAttribute('src') || '')) continue; // vectoriel : pas de dpi
       const r = img.getBoundingClientRect();
       if (!r.width || !r.height || !img.naturalWidth) continue;
       const fit = getComputedStyle(img).objectFit;
