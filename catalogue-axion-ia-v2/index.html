@@ -170,7 +170,23 @@ ul.fl.blue li::before{background:radial-gradient(circle at 35% 35%, #4d78e6, var
 .minigain .mg-row{font-size:9pt;line-height:1.35;margin-bottom:1mm}
 .minigain .mg-row b{color:#ffc93c}
 
-/* ---- Tableau automatisation ---- */
+/* ---- Cartes automatisation (refonte) ---- */
+.agrid{display:grid;grid-template-columns:1fr 1fr;gap:5mm;grid-auto-rows:1fr;flex:1}
+.acard{background:var(--paper);border:1px solid #e7d7ba;border-radius:13px;box-shadow:0 4mm 12mm -7mm rgba(42,37,32,.42);
+  padding:4mm 4.5mm;display:flex;flex-direction:column}
+.acard .top{display:flex;align-items:center;gap:2.5mm;margin-bottom:2mm}
+.acard .ic{font-size:15pt;flex:none;line-height:1}
+.acard .nm{font-weight:800;font-size:10.5pt;flex:1;line-height:1.05;color:var(--ink)}
+.acard .gn{flex:none;background:var(--terra);color:#fff;font-family:'Inconsolata',monospace;font-weight:700;
+  font-size:9pt;padding:2px 8px;border-radius:7px;white-space:nowrap}
+.acard .ba{font-size:8.5pt;line-height:1.32;margin-bottom:1mm}
+.acard .ba.av{color:var(--ink-muted)}
+.acard .ba.ap{color:var(--ink-soft)}
+.acard .xx{color:#b4463a;font-weight:800} .acard .vv{color:var(--terra);font-weight:800}
+.acard .ben{margin-top:auto;background:var(--terra-soft);border-radius:8px;padding:2.4mm 3mm;
+  font-size:9pt;font-weight:700;color:var(--terra-deep);line-height:1.32}
+
+/* ---- Tableau automatisation (ancien, conservé) ---- */
 .atable{width:100%;border-collapse:collapse;table-layout:fixed}
 .atable thead th{color:#fff;font-weight:800;font-size:8pt;letter-spacing:.03em;padding:3mm 2.6mm;text-align:left;vertical-align:middle;text-transform:uppercase}
 .atable thead th .hd{display:block;font-size:7pt;font-weight:600;letter-spacing:.02em;text-transform:none;opacity:.8;margin-top:.5mm}
@@ -1404,174 +1420,128 @@ ul.fl.blue li::before{background:radial-gradient(circle at 35% 35%, #4d78e6, var
 </section>
 
 <!-- =====================================================================
-     PAGE 16 — AUTOMATISATION · TABLEAU (1/2)  [double-page avec p.17]
+     PAGE 20 — AUTOMATISATION · CARTES
      ===================================================================== -->
-<section class="page" id="p-auto2" style="display:flex;flex-direction:column">
+<section class="page" style="display:flex;flex-direction:column">
   <div class="runhead"><img src="assets/axion-ia-logo.png" alt="Axion-IA"><span class="sec">Ce que nous automatisons</span></div>
-  <div style="display:flex;align-items:baseline;gap:8px;margin-bottom:4mm">
-    <h2 class="display" style="font-size:23pt;margin:0">Le fonctionnement d'Axion-IA,
-      <span class="display-it" style="color:var(--terra)">automatisé</span></h2>
+  <div style="display:flex;align-items:baseline;gap:8px;margin-bottom:5mm">
+    <h2 class="display" style="font-size:23pt;margin:0">Le fonctionnement d'Axion-IA, <span class="display-it" style="color:var(--terra)">automatisé</span></h2>
     <span style="font-size:9.5pt;color:var(--ink-muted)">— exemples réels, tirés de notre propre entreprise</span>
   </div>
-
-  <div style="flex:1;display:flex;flex-direction:column;margin-bottom:2mm">
-  <table class="atable" style="height:100%">
-    <colgroup><col style="width:16%"><col style="width:23%"><col style="width:25%"><col style="width:14%"><col style="width:22%"></colgroup>
-    <thead><tr>
-      <th style="background:var(--mocha)">Le processus</th>
-      <th style="background:#7a5148">Sans IA <span class="hd">à la main</span></th>
-      <th style="background:var(--terra)">Axion-IA automatise</th>
-      <th style="background:var(--terra-deep)">Gain</th>
-      <th style="background:#4f5a46">Ce que ça vous apporterait</th>
-    </tr></thead>
-    <tbody>
-      <tr>
-        <td class="what"><span class="ic">📘</span>Ce catalogue</td>
-        <td class="noia"><span class="xm">✗</span> Designer + rédacteur, plusieurs semaines</td>
-        <td class="ax"><span class="ck">✓</span> Contenu, mise en page et PDF prêt-à-imprimer générés</td>
-        <td><span class="gain">semaines → h</span></td>
-        <td class="adv">Vos supports pro, à jour en continu, sans agence</td>
-      </tr>
-      <tr>
-        <td class="what"><span class="ic">🎓</span>Création des formations</td>
-        <td class="noia"><span class="xm">✗</span> Ingénierie pédagogique manuelle, des jours par module</td>
-        <td class="ax"><span class="ck">✓</span> Programmes, supports et quiz générés et harmonisés</td>
-        <td><span class="gain">×10</span></td>
-        <td class="adv">Des contenus toujours à jour, sans y penser</td>
-      </tr>
-      <tr>
-        <td class="what"><span class="ic">📋</span>Système Qualiopi</td>
-        <td class="noia"><span class="xm">✗</span> Consultant, des mois, 32 indicateurs à tenir</td>
-        <td class="ax"><span class="ck">✓</span> Registre, preuves et procédures générés et tenus à jour</td>
-        <td><span class="gain">mois → jours</span></td>
-        <td class="adv">Vous passez l’audit sereinement, en continu</td>
-      </tr>
-      <tr>
-        <td class="what"><span class="ic">🔎</span>Prospection &amp; scraping</td>
-        <td class="noia"><span class="xm">✗</span> Recherche manuelle, listes achetées</td>
-        <td class="ax"><span class="ck">✓</span> Agents qui identifient et qualifient les entreprises cibles</td>
-        <td><span class="gain">×100 volume</span></td>
-        <td class="adv">Un flux de prospects qualifiés, sans effort</td>
-      </tr>
-      <tr>
-        <td class="what"><span class="ic">✉️</span>Cold email</td>
-        <td class="noia"><span class="xm">✗</span> Copier-coller, personnalisation faible</td>
-        <td class="ax"><span class="ck">✓</span> Séquences personnalisées par cible, à l'échelle</td>
-        <td><span class="gain">×20 réponses</span></td>
-        <td class="adv">Plus de RDV, sans mobiliser vos commerciaux</td>
-      </tr>
-      <tr>
-        <td class="what"><span class="ic">📣</span>Campagnes ads</td>
-        <td class="noia"><span class="xm">✗</span> Agence, itérations lentes et coûteuses</td>
-        <td class="ax"><span class="ck">✓</span> Visuels, accroches et variantes A/B générés</td>
-        <td><span class="gain">−70% coût</span></td>
-        <td class="adv">Plus de leads pour chaque euro de pub</td>
-      </tr>
-      <tr>
-        <td class="what"><span class="ic">🎬</span>Scripts &amp; montage vidéo</td>
-        <td class="noia"><span class="xm">✗</span> Scénariste + monteur</td>
-        <td class="ax"><span class="ck">✓</span> Scripts, sous-titres et découpage générés</td>
-        <td><span class="gain">jours → h</span></td>
-        <td class="adv">Vos vidéos produites 10× plus vite</td>
-      </tr>
-      <tr>
-        <td class="what"><span class="ic">📝</span>Articles SEO / blog</td>
-        <td class="noia"><span class="xm">✗</span> Rédacteur, quelques articles par mois</td>
-        <td class="ax"><span class="ck">✓</span> Articles optimisés générés et publiés</td>
-        <td><span class="gain">×15 volume</span></td>
-        <td class="adv">Vous remontez sur Google, durablement</td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="agrid">
+    <div class="acard">
+      <div class="top"><span class="ic">📘</span><span class="nm">Ce catalogue</span><span class="gn">semaines → h</span></div>
+      <div class="ba av"><span class="xx">✗ Avant :</span> Designer + rédacteur, plusieurs semaines</div>
+      <div class="ba ap"><span class="vv">✓ Axion-IA :</span> Contenu, mise en page et PDF prêt-à-imprimer générés</div>
+      <div class="ben">✦ Pour vous : Vos supports pro à jour en continu, sans agence</div>
+    </div>
+    <div class="acard">
+      <div class="top"><span class="ic">🎓</span><span class="nm">Création des formations</span><span class="gn">×10</span></div>
+      <div class="ba av"><span class="xx">✗ Avant :</span> Ingénierie pédagogique manuelle, des jours par module</div>
+      <div class="ba ap"><span class="vv">✓ Axion-IA :</span> Programmes, supports et quiz générés et harmonisés</div>
+      <div class="ben">✦ Pour vous : Des contenus toujours à jour, sans y penser</div>
+    </div>
+    <div class="acard">
+      <div class="top"><span class="ic">📋</span><span class="nm">Système Qualiopi</span><span class="gn">mois → jours</span></div>
+      <div class="ba av"><span class="xx">✗ Avant :</span> Consultant, des mois, 32 indicateurs à tenir</div>
+      <div class="ba ap"><span class="vv">✓ Axion-IA :</span> Registre, preuves et procédures générés et tenus à jour</div>
+      <div class="ben">✦ Pour vous : Vous passez l'audit sereinement, en continu</div>
+    </div>
+    <div class="acard">
+      <div class="top"><span class="ic">🔎</span><span class="nm">Prospection &amp; scraping</span><span class="gn">×100</span></div>
+      <div class="ba av"><span class="xx">✗ Avant :</span> Recherche manuelle, listes achetées</div>
+      <div class="ba ap"><span class="vv">✓ Axion-IA :</span> Des agents identifient et qualifient les entreprises cibles</div>
+      <div class="ben">✦ Pour vous : Un flux de prospects qualifiés, sans effort</div>
+    </div>
+    <div class="acard">
+      <div class="top"><span class="ic">✉️</span><span class="nm">Cold email</span><span class="gn">×20 réponses</span></div>
+      <div class="ba av"><span class="xx">✗ Avant :</span> Copier-coller, personnalisation faible</div>
+      <div class="ba ap"><span class="vv">✓ Axion-IA :</span> Séquences personnalisées par cible, à l'échelle</div>
+      <div class="ben">✦ Pour vous : Plus de RDV, sans mobiliser vos commerciaux</div>
+    </div>
+    <div class="acard">
+      <div class="top"><span class="ic">📣</span><span class="nm">Campagnes ads</span><span class="gn">−70% coût</span></div>
+      <div class="ba av"><span class="xx">✗ Avant :</span> Agence, itérations lentes et coûteuses</div>
+      <div class="ba ap"><span class="vv">✓ Axion-IA :</span> Visuels, accroches et variantes A/B générés</div>
+      <div class="ben">✦ Pour vous : Plus de leads pour chaque euro de pub</div>
+    </div>
+    <div class="acard">
+      <div class="top"><span class="ic">🎬</span><span class="nm">Scripts &amp; montage vidéo</span><span class="gn">jours → h</span></div>
+      <div class="ba av"><span class="xx">✗ Avant :</span> Scénariste + monteur</div>
+      <div class="ba ap"><span class="vv">✓ Axion-IA :</span> Scripts, sous-titres et découpage générés</div>
+      <div class="ben">✦ Pour vous : Vos vidéos produites 10× plus vite</div>
+    </div>
+    <div class="acard">
+      <div class="top"><span class="ic">📝</span><span class="nm">Articles SEO / blog</span><span class="gn">×15</span></div>
+      <div class="ba av"><span class="xx">✗ Avant :</span> Rédacteur, quelques articles par mois</div>
+      <div class="ba ap"><span class="vv">✓ Axion-IA :</span> Articles optimisés générés et publiés</div>
+      <div class="ben">✦ Pour vous : Vous remontez sur Google, durablement</div>
+    </div>
   </div>
-
   <div class="footer"><div class="l">Le fonctionnement d'Axion-IA, automatisé</div><div class="r">20 / 24</div></div>
   <div class="trim screen-only"></div>
 </section>
 
 <!-- =====================================================================
-     PAGE 17 — AUTOMATISATION · TABLEAU (2/2)
+     PAGE 21 — AUTOMATISATION · CARTES
      ===================================================================== -->
-<section class="page" id="p-auto3" style="display:flex;flex-direction:column">
+<section class="page" style="display:flex;flex-direction:column">
   <div class="runhead"><img src="assets/axion-ia-logo.png" alt="Axion-IA"><span class="sec">Ce que nous automatisons · suite</span></div>
-  <div style="display:flex;align-items:baseline;gap:8px;margin-bottom:4mm">
-    <h2 class="display" style="font-size:23pt;margin:0">…de la <span class="display-it" style="color:var(--terra)">compta</span> aux
-      <span class="display-it" style="color:var(--terra)">factures</span></h2>
+  <div style="display:flex;align-items:baseline;gap:8px;margin-bottom:5mm">
+    <h2 class="display" style="font-size:23pt;margin:0">…de la compta <span class="display-it" style="color:var(--terra)">aux factures</span></h2>
     <span style="font-size:9.5pt;color:var(--ink-muted)">— et tout ce que nous pouvons construire chez vous</span>
   </div>
-
-  <div style="flex:1;display:flex;flex-direction:column;margin-bottom:2mm">
-  <table class="atable" style="height:100%">
-    <colgroup><col style="width:16%"><col style="width:23%"><col style="width:25%"><col style="width:14%"><col style="width:22%"></colgroup>
-    <thead><tr>
-      <th style="background:var(--mocha)">Le processus</th>
-      <th style="background:#7a5148">Sans IA <span class="hd">à la main</span></th>
-      <th style="background:var(--terra)">Axion-IA automatise</th>
-      <th style="background:var(--terra-deep)">Gain</th>
-      <th style="background:#4f5a46">Ce que ça vous apporterait</th>
-    </tr></thead>
-    <tbody>
-      <tr>
-        <td class="what"><span class="ic">📱</span>Réseaux sociaux</td>
-        <td class="noia"><span class="xm">✗</span> Community manager, publication manuelle</td>
-        <td class="ax"><span class="ck">✓</span> Calendrier, posts et visuels générés</td>
-        <td><span class="gain">−80% temps</span></td>
-        <td class="adv">Une présence régulière, sans y passer de temps</td>
-      </tr>
-      <tr>
-        <td class="what"><span class="ic">🌐</span>Pages entreprise clients</td>
-        <td class="noia"><span class="xm">✗</span> Développeur + rédaction, page par page</td>
-        <td class="ax"><span class="ck">✓</span> Page dédiée générée après chaque tournage</td>
-        <td><span class="gain">h → min</span></td>
-        <td class="adv">Votre visibilité livrée sans lever le petit doigt</td>
-      </tr>
-      <tr>
-        <td class="what"><span class="ic">🧾</span>Devis &amp; propositions</td>
-        <td class="noia"><span class="xm">✗</span> ~1 h par devis, ressaisie</td>
-        <td class="ax"><span class="ck">✓</span> Proposition chiffrée depuis l'échange client</td>
-        <td><span class="gain">×6</span></td>
-        <td class="adv">Vos devis partent le jour même</td>
-      </tr>
-      <tr>
-        <td class="what"><span class="ic">📂</span>Dossiers OPCO</td>
-        <td class="noia"><span class="xm">✗</span> Paperasse administrative chronophage</td>
-        <td class="ax"><span class="ck">✓</span> Montage assisté du dossier de prise en charge</td>
-        <td><span class="gain">−70% temps</span></td>
-        <td class="adv">Vous êtes déchargé de tout l’administratif</td>
-      </tr>
-      <tr>
-        <td class="what"><span class="ic">🧮</span>Comptabilité courante</td>
-        <td class="noia"><span class="xm">✗</span> Saisie manuelle, retards</td>
-        <td class="ax"><span class="ck">✓</span> Catégorisation et rapprochement automatisés</td>
-        <td><span class="gain">h/mois</span></td>
-        <td class="adv">Votre compta à jour en temps réel</td>
-      </tr>
-      <tr>
-        <td class="what"><span class="ic">📊</span>Documents comptables annuels</td>
-        <td class="noia"><span class="xm">✗</span> Allers-retours avec l'expert-comptable</td>
-        <td class="ax"><span class="ck">✓</span> Données consolidées, liasses préparées</td>
-        <td><span class="gain">jours → h</span></td>
-        <td class="adv">Votre bilan sans stress ni retard</td>
-      </tr>
-      <tr>
-        <td class="what"><span class="ic">🗂️</span>Tri &amp; archivage des factures</td>
-        <td class="noia"><span class="xm">✗</span> Classement manuel, oublis, TVA à risque</td>
-        <td class="ax"><span class="ck">✓</span> Extraction, tri et archivage automatiques</td>
-        <td><span class="gain">100% classé</span></td>
-        <td class="adv">Zéro facture perdue, TVA carrée</td>
-      </tr>
-      <tr>
-        <td class="what"><span class="ic">💬</span>Support &amp; e-mails</td>
-        <td class="noia"><span class="xm">✗</span> Réponses une à une</td>
-        <td class="ax"><span class="ck">✓</span> Tri, brouillons de réponse, FAQ dynamique</td>
-        <td><span class="gain">−60% temps</span></td>
-        <td class="adv">Vos clients répondus vite, rien ne tombe</td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="agrid">
+    <div class="acard">
+      <div class="top"><span class="ic">📱</span><span class="nm">Réseaux sociaux</span><span class="gn">−80% temps</span></div>
+      <div class="ba av"><span class="xx">✗ Avant :</span> Community manager, publication manuelle</div>
+      <div class="ba ap"><span class="vv">✓ Axion-IA :</span> Calendrier, posts et visuels générés</div>
+      <div class="ben">✦ Pour vous : Une présence régulière, sans y passer de temps</div>
+    </div>
+    <div class="acard">
+      <div class="top"><span class="ic">🌐</span><span class="nm">Pages entreprise clients</span><span class="gn">h → min</span></div>
+      <div class="ba av"><span class="xx">✗ Avant :</span> Développeur + rédaction, page par page</div>
+      <div class="ba ap"><span class="vv">✓ Axion-IA :</span> Page dédiée générée après chaque tournage</div>
+      <div class="ben">✦ Pour vous : Votre visibilité livrée sans lever le petit doigt</div>
+    </div>
+    <div class="acard">
+      <div class="top"><span class="ic">🧾</span><span class="nm">Devis &amp; propositions</span><span class="gn">×6</span></div>
+      <div class="ba av"><span class="xx">✗ Avant :</span> ~1 h par devis, ressaisie</div>
+      <div class="ba ap"><span class="vv">✓ Axion-IA :</span> Proposition chiffrée depuis l'échange client</div>
+      <div class="ben">✦ Pour vous : Vos devis partent le jour même</div>
+    </div>
+    <div class="acard">
+      <div class="top"><span class="ic">📂</span><span class="nm">Dossiers OPCO</span><span class="gn">−70% temps</span></div>
+      <div class="ba av"><span class="xx">✗ Avant :</span> Paperasse administrative chronophage</div>
+      <div class="ba ap"><span class="vv">✓ Axion-IA :</span> Montage assisté du dossier de prise en charge</div>
+      <div class="ben">✦ Pour vous : Vous êtes déchargé de tout l'administratif</div>
+    </div>
+    <div class="acard">
+      <div class="top"><span class="ic">🧮</span><span class="nm">Comptabilité courante</span><span class="gn">h/mois</span></div>
+      <div class="ba av"><span class="xx">✗ Avant :</span> Saisie manuelle, retards</div>
+      <div class="ba ap"><span class="vv">✓ Axion-IA :</span> Catégorisation et rapprochement automatisés</div>
+      <div class="ben">✦ Pour vous : Votre compta à jour en temps réel</div>
+    </div>
+    <div class="acard">
+      <div class="top"><span class="ic">📊</span><span class="nm">Documents comptables annuels</span><span class="gn">jours → h</span></div>
+      <div class="ba av"><span class="xx">✗ Avant :</span> Allers-retours avec l'expert-comptable</div>
+      <div class="ba ap"><span class="vv">✓ Axion-IA :</span> Données consolidées, liasses préparées</div>
+      <div class="ben">✦ Pour vous : Votre bilan sans stress ni retard</div>
+    </div>
+    <div class="acard">
+      <div class="top"><span class="ic">🗂️</span><span class="nm">Tri &amp; archivage des factures</span><span class="gn">100% classé</span></div>
+      <div class="ba av"><span class="xx">✗ Avant :</span> Classement manuel, oublis, TVA à risque</div>
+      <div class="ba ap"><span class="vv">✓ Axion-IA :</span> Extraction, tri et archivage automatiques</div>
+      <div class="ben">✦ Pour vous : Zéro facture perdue, TVA carrée</div>
+    </div>
+    <div class="acard">
+      <div class="top"><span class="ic">💬</span><span class="nm">Support &amp; e-mails</span><span class="gn">−60% temps</span></div>
+      <div class="ba av"><span class="xx">✗ Avant :</span> Réponses une à une</div>
+      <div class="ba ap"><span class="vv">✓ Axion-IA :</span> Tri, brouillons de réponse, FAQ dynamique</div>
+      <div class="ben">✦ Pour vous : Vos clients répondus vite, rien ne tombe</div>
+    </div>
   </div>
-
-  <div class="footer"><div class="l">…et une quarantaine d'autres processus en coulisses</div><div class="r">21 / 24</div></div>
+  <div class="footer"><div class="l">Le fonctionnement d'Axion-IA, automatisé</div><div class="r">21 / 24</div></div>
   <div class="trim screen-only"></div>
 </section>
 
