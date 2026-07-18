@@ -140,13 +140,13 @@ body{
 .fnum{font-family:'Fraunces',serif;font-weight:600;font-size:11pt;letter-spacing:.02em;color:var(--terra)}
 .forg{text-align:right;flex:none}
 .forg .lbl{font-size:8pt;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-muted)}
-.fsec{border:1.4px solid #43392f;border-radius:14px;background:var(--paper);position:relative;padding:7mm 7mm 6mm}
+.fsec{border:1.4px solid #43392f;border-radius:14px;background:var(--paper);position:relative;padding:5.5mm 6mm 5mm}
 .fsec-hd{position:absolute;top:-5.5mm;left:6mm;color:#fff;font-family:'Fraunces',serif;font-weight:600;
   font-size:13pt;letter-spacing:.02em;padding:2.5mm 6mm;border-radius:9px;line-height:1;box-shadow:0 3mm 8mm -5mm rgba(0,0,0,.5)}
 .ftwo{display:grid;grid-template-columns:1fr 1fr;gap:7mm}
 .fsub{font-family:'Fraunces',serif;font-style:italic;font-weight:600;font-size:11.5pt;margin:0 0 1.5mm}
 .fsub.b{color:var(--blue)} .fsub.o{color:var(--terra)} .fsub.g{color:var(--gold,#b06a12)}
-.fblk{margin-bottom:4mm}
+.fblk{margin-bottom:2.8mm}
 .ftxt{font-size:10pt;line-height:1.45;color:var(--ink-soft)}
 ul.fl{list-style:none;margin:1mm 0 0;padding:0}
 ul.fl li{position:relative;padding-left:6mm;font-size:10pt;line-height:1.4;color:var(--ink-soft);margin-bottom:1.6mm}
@@ -155,6 +155,20 @@ ul.fl li::before{content:"";position:absolute;left:0;top:1.6mm;width:2.6mm;heigh
 ul.fl.blue li::before{background:radial-gradient(circle at 35% 35%, #4d78e6, var(--blue))}
 .fchip{display:inline-block;font-size:8.5pt;font-weight:800;padding:3px 11px;border-radius:999px}
 .fchipline{display:flex;gap:3mm;flex-wrap:wrap;margin-top:3mm}
+/* bandeau gain concret */
+.gainband{border-radius:14px;overflow:hidden;border:1.4px solid #43392f}
+.gainband .hd{background:var(--terra);color:#fff;padding:2.6mm 6mm;display:flex;align-items:center;gap:3mm;
+  font-family:'Fraunces',serif;font-weight:600;font-size:12.5pt}
+.gainband .hd .tag{background:#fff;color:var(--terra);padding:1.5px 9px;border-radius:6px;font-size:8.5pt;font-weight:800;
+  letter-spacing:.05em;font-family:'Manrope',sans-serif;text-transform:uppercase}
+.gainband .body{background:var(--mocha);color:#fff;padding:4mm 6mm;display:grid;grid-template-columns:1fr 1fr;gap:7mm}
+.gainband .who{font-size:8.5pt;font-weight:800;letter-spacing:.06em;text-transform:uppercase}
+.gainband .gtxt{font-size:10pt;margin-top:1.5mm;line-height:1.42}
+/* mini-gain (cartes compactes) */
+.minigain{margin-top:auto;background:var(--mocha);border-radius:11px;padding:3.5mm 5mm;color:#fff}
+.minigain .mg-hd{font-size:8pt;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#ff8f5e;margin-bottom:1.5mm}
+.minigain .mg-row{font-size:9pt;line-height:1.35;margin-bottom:1mm}
+.minigain .mg-row b{color:#ffc93c}
 
 /* ---- Tableau automatisation ---- */
 .atable{width:100%;border-collapse:collapse;table-layout:fixed}
@@ -512,7 +526,7 @@ ul.fl.blue li::before{background:radial-gradient(circle at 35% 35%, #4d78e6, var
       <div style="font-size:8pt;color:var(--ink-muted);margin-top:1mm">Certifié Qualiopi · formateur certifié Claude</div></div>
   </div>
 
-  <div class="fsec" style="margin-top:11mm">
+  <div class="fsec" style="margin-top:7mm">
     <div class="fsec-hd" style="background:var(--terra)">L'organisme — Axion-IA</div>
     <div class="ftwo">
       <div><div class="fsub o">Notre spécialité</div><ul class="fl">
@@ -526,7 +540,7 @@ ul.fl.blue li::before{background:radial-gradient(circle at 35% 35%, #4d78e6, var
     </div>
   </div>
 
-  <div class="ftwo" style="margin-top:12mm;flex:1;align-items:stretch">
+  <div class="ftwo" style="margin-top:6mm;align-items:stretch">
     <div class="fsec">
       <div class="fsec-hd" style="background:var(--blue)">Le programme</div>
       <div class="fblk"><div class="fsub b">Format</div><div class="ftxt">Présentiel dans vos locaux · distanciel possible · intra-entreprise. Un smartphone suffit.</div></div>
@@ -550,6 +564,16 @@ ul.fl.blue li::before{background:radial-gradient(circle at 35% 35%, #4d78e6, var
         <li>Opérationnelle <b>dès le lendemain</b>, sans abonnement (comptes gratuits)</li>
         <li>30 à 60 min gagnées par jour et par salarié</li>
         <li>Rentabilisée en moins de 2 semaines</li></ul></div>
+    </div>
+  </div>
+
+  <div class="gainband" style="margin-top:auto">
+    <div class="hd">⚡ Le gain concret <span class="tag">dès le lendemain</span></div>
+    <div class="body">
+      <div><div class="who" style="color:#ff8f5e">👤 Pour le·la salarié·e formé·e</div>
+        <div class="gtxt">Rédige mails, comptes-rendus et recherches en <b>quelques minutes</b> — au clavier ou à la voix.</div></div>
+      <div><div class="who" style="color:#ffc93c">🏢 Pour l'entreprise</div>
+        <div class="gtxt">Toute l'équipe opérationnelle dès demain · <b>30 à 60 min gagnées/jour/salarié</b> · rentabilisée en &lt; 2 semaines.</div></div>
     </div>
   </div>
 
@@ -577,7 +601,7 @@ ul.fl.blue li::before{background:radial-gradient(circle at 35% 35%, #4d78e6, var
       <div style="font-size:8pt;color:var(--ink-muted);margin-top:1mm">Certifié Qualiopi · formateur certifié Claude</div></div>
   </div>
 
-  <div class="fsec" style="margin-top:11mm">
+  <div class="fsec" style="margin-top:7mm">
     <div class="fsec-hd" style="background:var(--terra)">L'organisme — Axion-IA</div>
     <div class="ftwo">
       <div><div class="fsub o">Notre spécialité</div><ul class="fl">
@@ -591,7 +615,7 @@ ul.fl.blue li::before{background:radial-gradient(circle at 35% 35%, #4d78e6, var
     </div>
   </div>
 
-  <div class="ftwo" style="margin-top:12mm;flex:1;align-items:stretch">
+  <div class="ftwo" style="margin-top:6mm;align-items:stretch">
     <div class="fsec">
       <div class="fsec-hd" style="background:var(--blue)">Le programme</div>
       <div class="fblk"><div class="fsub b">Format</div><div class="ftxt">Présentiel dans vos locaux · distanciel possible · intra-entreprise. Format collectif.</div></div>
@@ -619,6 +643,16 @@ ul.fl.blue li::before{background:radial-gradient(circle at 35% 35%, #4d78e6, var
     </div>
   </div>
 
+  <div class="gainband" style="margin-top:auto">
+    <div class="hd">⚡ Le gain concret <span class="tag">dès la ½ journée</span></div>
+    <div class="body">
+      <div><div class="who" style="color:#ff8f5e">👤 Pour le·la salarié·e formé·e</div>
+        <div class="gtxt">Sait quoi faire face à l'AI Act et repart avec <b>le dossier de conformité démarré</b>.</div></div>
+      <div><div class="who" style="color:#ffc93c">🏢 Pour l'entreprise</div>
+        <div class="gtxt">Cartographie, registre v1 et plan 90 jours <b>construits en séance</b> = plusieurs jours de conseil économisés.</div></div>
+    </div>
+  </div>
+
   <div class="footer"><div class="l">Découvrez nos formations IA <b>→</b> axion-ia.com/fr/formations</div><div class="r">07 / 24</div></div>
   <div class="trim screen-only"></div>
 </section>
@@ -643,7 +677,7 @@ ul.fl.blue li::before{background:radial-gradient(circle at 35% 35%, #4d78e6, var
       <div style="font-size:8pt;color:var(--ink-muted);margin-top:1mm">Certifié Qualiopi · formateur certifié Claude</div></div>
   </div>
 
-  <div class="fsec" style="margin-top:11mm">
+  <div class="fsec" style="margin-top:7mm">
     <div class="fsec-hd" style="background:var(--terra)">L'organisme — Axion-IA</div>
     <div class="ftwo">
       <div><div class="fsub o">Notre spécialité</div><ul class="fl">
@@ -657,7 +691,7 @@ ul.fl.blue li::before{background:radial-gradient(circle at 35% 35%, #4d78e6, var
     </div>
   </div>
 
-  <div class="ftwo" style="margin-top:12mm;flex:1;align-items:stretch">
+  <div class="ftwo" style="margin-top:6mm;align-items:stretch">
     <div class="fsec">
       <div class="fsec-hd" style="background:var(--blue)">Le programme</div>
       <div class="fblk"><div class="fsub b">Format</div><div class="ftxt">Présentiel dans vos locaux · distanciel possible · intra-entreprise. Une journée de pratique.</div></div>
@@ -681,6 +715,16 @@ ul.fl.blue li::before{background:radial-gradient(circle at 35% 35%, #4d78e6, var
         <li>Chacun repart avec un vrai livrable terminé + sa boîte à outils</li>
         <li>~1 h gagnée par jour et par salarié (équipe de 8 = 1 temps plein/mois)</li>
         <li>Rentabilisée en moins de 2 semaines</li></ul></div>
+    </div>
+  </div>
+
+  <div class="gainband" style="margin-top:auto">
+    <div class="hd">⚡ Le gain concret <span class="tag">dès le lendemain</span></div>
+    <div class="body">
+      <div><div class="who" style="color:#ff8f5e">👤 Pour le·la salarié·e formé·e</div>
+        <div class="gtxt">Produit <b>seul·e un livrable complet de A à Z</b>, et repart avec sa boîte à outils.</div></div>
+      <div><div class="who" style="color:#ffc93c">🏢 Pour l'entreprise</div>
+        <div class="gtxt">Équipe réellement autonome · <b>~1 h/jour/salarié</b> · équipe de 8 = 1 temps plein récupéré/mois.</div></div>
     </div>
   </div>
 
@@ -708,7 +752,7 @@ ul.fl.blue li::before{background:radial-gradient(circle at 35% 35%, #4d78e6, var
       <div style="font-size:8pt;color:var(--ink-muted);margin-top:1mm">Certifié Qualiopi · formateur certifié Claude</div></div>
   </div>
 
-  <div class="fsec" style="margin-top:11mm">
+  <div class="fsec" style="margin-top:7mm">
     <div class="fsec-hd" style="background:var(--terra)">L'organisme — Axion-IA</div>
     <div class="ftwo">
       <div><div class="fsub o">Notre spécialité</div><ul class="fl">
@@ -722,7 +766,7 @@ ul.fl.blue li::before{background:radial-gradient(circle at 35% 35%, #4d78e6, var
     </div>
   </div>
 
-  <div class="ftwo" style="margin-top:12mm;flex:1;align-items:stretch">
+  <div class="ftwo" style="margin-top:6mm;align-items:stretch">
     <div class="fsec">
       <div class="fsec-hd" style="background:var(--blue)">Le programme</div>
       <div class="fblk"><div class="fsub b">Format</div><div class="ftxt">Présentiel dans vos locaux · distanciel possible · intra-entreprise. Équipe constituée avec 1-2 référents.</div></div>
@@ -746,6 +790,16 @@ ul.fl.blue li::before{background:radial-gradient(circle at 35% 35%, #4d78e6, var
         <li>Des référents internes capables de former les suivants</li>
         <li>Un tableau de bord des gains + le dossier remis à la direction</li>
         <li>L'investissement formation le plus durable du catalogue</li></ul></div>
+    </div>
+  </div>
+
+  <div class="gainband" style="margin-top:auto">
+    <div class="hd">⚡ Le gain concret <span class="tag">dès le dernier jour</span></div>
+    <div class="body">
+      <div><div class="who" style="color:#ff8f5e">👤 Pour le·la salarié·e formé·e</div>
+        <div class="gtxt">Ses <b>5 tâches les plus lourdes transformées</b> ; certains deviennent référents IA.</div></div>
+      <div><div class="who" style="color:#ffc93c">🏢 Pour l'entreprise</div>
+        <div class="gtxt"><b>2 processus complets transformés</b> · référents internes formés · plus besoin de prestataire.</div></div>
     </div>
   </div>
 
@@ -773,7 +827,7 @@ ul.fl.blue li::before{background:radial-gradient(circle at 35% 35%, #4d78e6, var
       <div style="font-size:8pt;color:var(--ink-muted);margin-top:1mm">Certifié Qualiopi · formateur certifié Claude</div></div>
   </div>
 
-  <div class="fsec" style="margin-top:11mm">
+  <div class="fsec" style="margin-top:7mm">
     <div class="fsec-hd" style="background:var(--sage)">L'organisme — Axion-IA</div>
     <div class="ftwo">
       <div><div class="fsub" style="color:var(--sage)">Notre spécialité</div><ul class="fl" style="--terra:var(--sage)">
@@ -787,7 +841,7 @@ ul.fl.blue li::before{background:radial-gradient(circle at 35% 35%, #4d78e6, var
     </div>
   </div>
 
-  <div class="ftwo" style="margin-top:12mm;flex:1;align-items:stretch">
+  <div class="ftwo" style="margin-top:6mm;align-items:stretch">
     <div class="fsec">
       <div class="fsec-hd" style="background:var(--blue)">Le programme</div>
       <div class="fblk"><div class="fsub b">Format</div><div class="ftxt">Présentiel · distanciel possible · intra-entreprise. <b>Groupe limité à 12.</b> Prérequis : PC avec droits d'installation (réglé avec votre DSI).</div></div>
@@ -811,6 +865,16 @@ ul.fl.blue li::before{background:radial-gradient(circle at 35% 35%, #4d78e6, var
         <li><b>Zéro abonnement</b>, zéro dépendance : le code vous appartient</li>
         <li>Chaque participant ressort avec une automatisation réelle en fonctionnement</li>
         <li>30 min/jour automatisées = 100 h+ récupérées par an et par participant</li></ul></div>
+    </div>
+  </div>
+
+  <div class="gainband" style="margin-top:auto">
+    <div class="hd">⚡ Le gain concret <span class="tag">dès le dernier jour</span></div>
+    <div class="body">
+      <div><div class="who" style="color:#ff8f5e">👤 Pour le·la salarié·e formé·e</div>
+        <div class="gtxt">Repart avec <b>SA première automatisation</b> qui tourne toute seule.</div></div>
+      <div><div class="who" style="color:#ffc93c">🏢 Pour l'entreprise</div>
+        <div class="gtxt">Automatisations maison · <b>zéro abonnement, le code vous appartient</b> · 100 h+/an/participant.</div></div>
     </div>
   </div>
 
@@ -838,7 +902,7 @@ ul.fl.blue li::before{background:radial-gradient(circle at 35% 35%, #4d78e6, var
       <div style="font-size:8pt;color:var(--ink-muted);margin-top:1mm">Certifié Qualiopi · formateur certifié Claude</div></div>
   </div>
 
-  <div class="fsec" style="margin-top:11mm">
+  <div class="fsec" style="margin-top:7mm">
     <div class="fsec-hd" style="background:var(--plum)">L'organisme — Axion-IA</div>
     <div class="ftwo">
       <div><div class="fsub" style="color:var(--plum)">Notre spécialité</div><ul class="fl" style="--terra:var(--plum)">
@@ -852,7 +916,7 @@ ul.fl.blue li::before{background:radial-gradient(circle at 35% 35%, #4d78e6, var
     </div>
   </div>
 
-  <div class="ftwo" style="margin-top:12mm;flex:1;align-items:stretch">
+  <div class="ftwo" style="margin-top:6mm;align-items:stretch">
     <div class="fsec">
       <div class="fsec-hd" style="background:var(--blue)">Le programme</div>
       <div class="fblk"><div class="fsub b">Format</div><div class="ftxt">Présentiel · distanciel possible · intra-entreprise. <b>Groupe ≤ 12.</b> Prérequis : comptes Claude Pro/Team actifs + flux de travail réels identifiés au cadrage.</div></div>
@@ -875,6 +939,16 @@ ul.fl.blue li::before{background:radial-gradient(circle at 35% 35%, #4d78e6, var
         <li>Un outil qui travaille tous les jours sur ses flux réels — démontré devant vous</li>
         <li>La capacité de le faire évoluer seul : l'actif reste, le gain se cumule</li>
         <li>Un outil sur mesure qui aurait coûté plusieurs milliers d'€ en développement</li></ul></div>
+    </div>
+  </div>
+
+  <div class="gainband" style="margin-top:auto">
+    <div class="hd">⚡ Le gain concret <span class="tag">dès le dernier jour</span></div>
+    <div class="body">
+      <div><div class="who" style="color:#ff8f5e">👤 Pour le·la salarié·e formé·e</div>
+        <div class="gtxt">Repart avec <b>son outil IA complet, opérationnel</b>, qu'il fait évoluer seul.</div></div>
+      <div><div class="who" style="color:#ffc93c">🏢 Pour l'entreprise</div>
+        <div class="gtxt">Un <b>actif sur mesure par salarié</b> qui travaille chaque jour sur vos flux réels.</div></div>
     </div>
   </div>
 
