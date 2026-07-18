@@ -82,11 +82,11 @@ body{
   box-shadow:0 5mm 16mm -7mm rgba(42,37,32,.42)}
 
 /* ---- Sommaire ---- */
-.toc{list-style:none;margin:0;padding:0}
-.toc li{display:flex;align-items:baseline;gap:10px;padding:7px 0;border-bottom:1px solid var(--line);font-size:11.5pt}
-.toc li .t{font-weight:700}
-.toc li .d{flex:1;border-bottom:1px dotted var(--sand-deep);transform:translateY(-3px)}
-.toc li .pg{font-weight:800;color:var(--blue);font-family:'Inconsolata',monospace}
+.toc2{display:grid;grid-template-columns:1fr 1fr;gap:0 10mm}
+.toc2 .e{display:flex;gap:4.5mm;align-items:baseline;padding:2.8mm 0;border-bottom:1px solid var(--line)}
+.toc2 .pg{flex:none;width:10mm;font-family:'Fraunces',serif;font-weight:600;font-size:15pt;color:var(--terra);line-height:1}
+.toc2 .t{font-weight:800;font-size:10.5pt;line-height:1.2}
+.toc2 .s{font-size:8pt;color:var(--ink-muted);margin-top:.6mm}
 
 /* ---- Étapes "comment ça marche" ---- */
 .steps{display:flex;flex-direction:column;gap:6mm}
@@ -240,7 +240,7 @@ ul.fl.blue li::before{background:radial-gradient(circle at 35% 35%, #4d78e6, var
 <section class="page" id="p1" style="display:flex;flex-direction:column">
   <!-- HERO plein cadre (fond perdu) -->
   <div style="margin:calc(-1*var(--pad)) calc(-1*var(--pad)) 0;height:170mm;position:relative;overflow:hidden;flex:none">
-    <img src="assets/team-photo.png" alt="Session de formation IA en entreprise" style="width:100%;height:100%;object-fit:cover;display:block">
+    <img src="assets/team-photo.jpg" alt="Session de formation IA en entreprise" style="width:100%;height:100%;object-fit:cover;display:block">
     <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(30,24,20,.55) 0%,rgba(30,24,20,0) 22%,rgba(30,24,20,.10) 48%,rgba(30,24,20,.92) 100%)"></div>
 
     <div style="position:absolute;top:var(--pad);left:var(--pad);right:var(--pad);display:flex;align-items:center;justify-content:space-between">
@@ -337,22 +337,30 @@ ul.fl.blue li::before{background:radial-gradient(circle at 35% 35%, #4d78e6, var
     </div>
   </div>
 
-  <div style="margin-top:12mm">
-    <div class="eyebrow" style="color:var(--blue)">Dans ce catalogue</div>
-    <ul class="toc" style="margin-top:4mm">
-      <li><span class="t">Pourquoi former vos équipes à l'IA</span><span class="d"></span><span class="pg">03</span></li>
-      <li><span class="t">Comment ça se passe — notre méthode</span><span class="d"></span><span class="pg">04</span></li>
-      <li><span class="t">Quelle formation pour vous ? — le guide</span><span class="d"></span><span class="pg">05</span></li>
-      <li><span class="t">Nos formations phares — 5 fiches détaillées</span><span class="d"></span><span class="pg">06</span></li>
-      <li><span class="t">L'IA par métier &amp; gamme Claude</span><span class="d"></span><span class="pg">11</span></li>
-      <li><span class="t">Séminaire IA — toute l'entreprise</span><span class="d"></span><span class="pg">15</span></li>
-      <li><span class="t">Tarifs, financement &amp; certification Qualiopi</span><span class="d"></span><span class="pg">16</span></li>
-      <li><span class="t">Cas d'usage par secteur</span><span class="d"></span><span class="pg">17</span></li>
-      <li><span class="t">Nos autres offres : 1&nbsp;to&nbsp;1 · Audit IA</span><span class="d"></span><span class="pg">18</span></li>
-      <li><span class="t">Jusqu'où va l'automatisation — le moteur Axion-IA</span><span class="d"></span><span class="pg">19</span></li>
-      <li><span class="t">Visibilité offerte &amp; avis clients</span><span class="d"></span><span class="pg">23</span></li>
-      <li><span class="t">Nous contacter</span><span class="d"></span><span class="pg">24</span></li>
-    </ul>
+  <div style="margin-top:10mm">
+    <div style="display:flex;align-items:baseline;justify-content:space-between">
+      <div class="eyebrow" style="color:var(--blue)">Dans ce catalogue</div>
+      <span class="mono" style="font-size:8.5pt;color:var(--ink-muted);font-weight:700">24 pages · 18 formations</span>
+    </div>
+    <div class="rule" style="margin-top:3mm"></div>
+    <div class="toc2" style="margin-top:2mm">
+      <div>
+        <div class="e"><span class="pg">03</span><div><div class="t">Pourquoi former vos équipes à l'IA</div><div class="s">Temps gagné · ROI mesuré · conformité</div></div></div>
+        <div class="e"><span class="pg">04</span><div><div class="t">Comment ça se passe — notre méthode</div><div class="s">De l'appel découverte au terrain, OPCO compris</div></div></div>
+        <div class="e"><span class="pg">05</span><div><div class="t">Quelle formation pour vous ?</div><div class="s">Le guide pour choisir en une minute</div></div></div>
+        <div class="e"><span class="pg">06</span><div><div class="t">Nos formations phares</div><div class="s">5 fiches détaillées, programme complet</div></div></div>
+        <div class="e"><span class="pg">11</span><div><div class="t">L'IA par métier &amp; gamme Claude</div><div class="s">RH · Assistanat · Marketing · Vente · Finance…</div></div></div>
+        <div class="e"><span class="pg">15</span><div><div class="t">Séminaire IA — toute l'entreprise</div><div class="s">Jusqu'à 50 personnes, en une journée</div></div></div>
+      </div>
+      <div>
+        <div class="e"><span class="pg">16</span><div><div class="t">Tarifs, financement &amp; Qualiopi</div><div class="s">Prise en charge OPCO · sur devis</div></div></div>
+        <div class="e"><span class="pg">17</span><div><div class="t">Cas d'usage par secteur</div><div class="s">Des exemples concrets, métier par métier</div></div></div>
+        <div class="e"><span class="pg">18</span><div><div class="t">Nos autres offres</div><div class="s">Accompagnement 1-to-1 · Audit IA</div></div></div>
+        <div class="e"><span class="pg">19</span><div><div class="t">Le moteur Axion-IA</div><div class="s">Jusqu'où va l'automatisation — la preuve par nous</div></div></div>
+        <div class="e"><span class="pg">23</span><div><div class="t">Visibilité offerte &amp; avis clients</div><div class="s">Podcast · interviews · page entreprise + backlink</div></div></div>
+        <div class="e"><span class="pg">24</span><div><div class="t">Nous contacter</div><div class="s">Appel découverte — QR direct</div></div></div>
+      </div>
+    </div>
   </div>
 
   <div class="footer">
@@ -406,7 +414,7 @@ ul.fl.blue li::before{background:radial-gradient(circle at 35% 35%, #4d78e6, var
     <div style="flex:none;font-size:26pt">⚖️</div>
     <div>
       <h4 style="margin:0 0 1.5mm;font-size:13pt;color:var(--sand)">Conformité AI Act : anticiper plutôt que subir</h4>
-      <p style="margin:0;font-size:10.5pt;line-height:1.5;color:#fff">Depuis 2025, former ses équipes à un usage maîtrisé de l'IA devient une obligation d'employeur (AI Act, RGPD, droit du travail). Nos formations documentent les usages et alimentent votre dossier de conformité — une feuille de route claire, sans jargon.</p>
+      <p style="margin:0;font-size:10.5pt;line-height:1.5;color:#fff">L'AI Act s'applique par étapes : depuis février 2025, l'obligation de « maîtrise de l'IA » impose déjà de former les équipes — et au <b>2 août 2026</b>, l'essentiel des obligations entre en application. Nos formations documentent les usages et alimentent votre dossier de conformité — une feuille de route claire, sans jargon.</p>
     </div>
   </div>
 
@@ -489,40 +497,49 @@ ul.fl.blue li::before{background:radial-gradient(circle at 35% 35%, #4d78e6, var
 
     <div>
       <div class="eyebrow" style="color:var(--blue);margin-bottom:3mm">① Par niveau — un parcours en 3 temps</div>
-      <div style="display:flex;flex-direction:column;gap:3.2mm">
-      <div style="display:flex;align-items:center;gap:5mm;background:var(--paper);border:1px solid #e7d7ba;border-radius:13px;padding:3.3mm 5mm;box-shadow:0 4mm 12mm -7mm rgba(42,37,32,.4)">
-        <div style="flex:none;width:14mm;height:14mm;border-radius:11px;background:var(--terra);color:#fff;font-family:'Fraunces',serif;font-weight:600;font-size:19pt;display:flex;align-items:center;justify-content:center">1</div>
-        <div style="flex:none;width:38mm">
-          <div style="font-weight:800;font-size:12.5pt;color:var(--ink)">Découvrir</div>
-          <div class="mono" style="font-size:9pt;color:var(--terra);font-weight:700">4 h · ½ journée</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:5mm">
+        <div class="card" style="padding:0;overflow:hidden;display:flex;flex-direction:column">
+          <div style="position:relative;height:26mm;overflow:hidden">
+            <img src="assets/guide1.jpg" alt="Équipe découvrant l'IA autour d'un ordinateur" style="width:100%;height:100%;object-fit:cover;display:block">
+            <div style="position:absolute;top:3mm;left:3mm;width:10mm;height:10mm;border-radius:9px;background:var(--terra);color:#fff;font-family:'Fraunces',serif;font-weight:600;font-size:14pt;display:flex;align-items:center;justify-content:center;box-shadow:0 2mm 6mm rgba(0,0,0,.35)">1</div>
+          </div>
+          <div style="padding:3.5mm 4.5mm 4mm;display:flex;flex-direction:column;flex:1">
+            <div style="display:flex;align-items:baseline;justify-content:space-between;gap:2mm">
+              <div style="font-weight:800;font-size:12pt;color:var(--ink)">Découvrir</div>
+              <div class="mono" style="font-size:8.5pt;color:var(--terra);font-weight:700;white-space:nowrap">4 h · ½ journée</div>
+            </div>
+            <p style="margin:1.5mm 0 0;font-size:9pt;line-height:1.4;color:var(--ink-soft)">Démystifier l'IA et lever les blocages, sans désorganiser l'activité.</p>
+            <div style="margin-top:auto;padding-top:2.5mm;font-size:8.3pt;color:var(--ink-muted);line-height:1.4"><b>Bien démarrer avec l'IA · Prompts avancés &amp; assistants IA</b></div>
+          </div>
         </div>
-        <div style="flex:1">
-          <div style="font-size:9.5pt;color:var(--ink-soft);line-height:1.35">Démystifier l'IA et lever les blocages, sans désorganiser l'activité.</div>
-          <div style="font-size:9pt;color:var(--ink-muted);margin-top:1mm"><b>Bien démarrer avec l'IA · Prompts avancés &amp; assistants IA</b></div>
+        <div class="card" style="padding:0;overflow:hidden;display:flex;flex-direction:column">
+          <div style="position:relative;height:26mm;overflow:hidden">
+            <img src="assets/guide2.jpg" alt="Collaboratrice autonome travaillant avec l'IA" style="width:100%;height:100%;object-fit:cover;display:block">
+            <div style="position:absolute;top:3mm;left:3mm;width:10mm;height:10mm;border-radius:9px;background:var(--terra-deep);color:#fff;font-family:'Fraunces',serif;font-weight:600;font-size:14pt;display:flex;align-items:center;justify-content:center;box-shadow:0 2mm 6mm rgba(0,0,0,.35)">2</div>
+          </div>
+          <div style="padding:3.5mm 4.5mm 4mm;display:flex;flex-direction:column;flex:1">
+            <div style="display:flex;align-items:baseline;justify-content:space-between;gap:2mm">
+              <div style="font-weight:800;font-size:12pt;color:var(--ink)">Devenir autonome</div>
+              <div class="mono" style="font-size:8.5pt;color:var(--terra-deep);font-weight:700;white-space:nowrap">1 jour</div>
+            </div>
+            <p style="margin:1.5mm 0 0;font-size:9pt;line-height:1.4;color:var(--ink-soft)">Chacun repart avec un vrai livrable et des usages concrets pour son métier.</p>
+            <div style="margin-top:auto;padding-top:2.5mm;font-size:8.3pt;color:var(--ink-muted);line-height:1.4"><b>Gagner du temps · IA Act · IA par métier (RH · Assistanat · Marketing · Vente · Finance · Supply chain) · Claude — Prise en main</b></div>
+          </div>
         </div>
-      </div>
-      <div style="display:flex;align-items:center;gap:5mm;background:var(--paper);border:1px solid #e7d7ba;border-radius:13px;padding:3.3mm 5mm;box-shadow:0 4mm 12mm -7mm rgba(42,37,32,.4)">
-        <div style="flex:none;width:14mm;height:14mm;border-radius:11px;background:var(--terra-deep);color:#fff;font-family:'Fraunces',serif;font-weight:600;font-size:19pt;display:flex;align-items:center;justify-content:center">2</div>
-        <div style="flex:none;width:38mm">
-          <div style="font-weight:800;font-size:12.5pt;color:var(--ink)">Devenir autonome</div>
-          <div class="mono" style="font-size:9pt;color:var(--terra-deep);font-weight:700">1 jour</div>
+        <div class="card" style="padding:0;overflow:hidden;display:flex;flex-direction:column">
+          <div style="position:relative;height:26mm;overflow:hidden">
+            <img src="assets/guide3.jpg" alt="Réunion de pilotage de la stratégie IA" style="width:100%;height:100%;object-fit:cover;display:block">
+            <div style="position:absolute;top:3mm;left:3mm;width:10mm;height:10mm;border-radius:9px;background:var(--mocha);color:#fff;font-family:'Fraunces',serif;font-weight:600;font-size:14pt;display:flex;align-items:center;justify-content:center;box-shadow:0 2mm 6mm rgba(0,0,0,.35)">3</div>
+          </div>
+          <div style="padding:3.5mm 4.5mm 4mm;display:flex;flex-direction:column;flex:1">
+            <div style="display:flex;align-items:baseline;justify-content:space-between;gap:2mm">
+              <div style="font-weight:800;font-size:12pt;color:var(--ink)">Transformer &amp; piloter</div>
+              <div class="mono" style="font-size:8.5pt;color:var(--mocha);font-weight:700;white-space:nowrap">1 à 3 jours</div>
+            </div>
+            <p style="margin:1.5mm 0 0;font-size:9pt;line-height:1.4;color:var(--ink-soft)">Gouvernance, adoption d'équipe, environnement Claude, outil qui vous appartient.</p>
+            <div style="margin-top:auto;padding-top:2.5mm;font-size:8.3pt;color:var(--ink-muted);line-height:1.4"><b>Référent IA · Conduite du changement · Claude — Maîtrise avancée · Claude Code · Déployer l'IA en entreprise</b></div>
+          </div>
         </div>
-        <div style="flex:1">
-          <div style="font-size:9.5pt;color:var(--ink-soft);line-height:1.35">Chacun repart avec un vrai livrable et des usages concrets pour son métier.</div>
-          <div style="font-size:9pt;color:var(--ink-muted);margin-top:1mm"><b>Gagner du temps · IA Act · IA par métier (RH · Assistanat · Marketing · Vente · Finance · Supply chain) · Claude — Prise en main</b></div>
-        </div>
-      </div>
-      <div style="display:flex;align-items:center;gap:5mm;background:var(--paper);border:1px solid #e7d7ba;border-radius:13px;padding:3.3mm 5mm;box-shadow:0 4mm 12mm -7mm rgba(42,37,32,.4)">
-        <div style="flex:none;width:14mm;height:14mm;border-radius:11px;background:var(--mocha);color:#fff;font-family:'Fraunces',serif;font-weight:600;font-size:19pt;display:flex;align-items:center;justify-content:center">3</div>
-        <div style="flex:none;width:38mm">
-          <div style="font-weight:800;font-size:12.5pt;color:var(--ink)">Transformer &amp; piloter</div>
-          <div class="mono" style="font-size:9pt;color:var(--mocha);font-weight:700">1 à 3 jours</div>
-        </div>
-        <div style="flex:1">
-          <div style="font-size:9.5pt;color:var(--ink-soft);line-height:1.35">Gouvernance, adoption d'équipe, environnement Claude, outil qui vous appartient.</div>
-          <div style="font-size:9pt;color:var(--ink-muted);margin-top:1mm"><b>Référent IA · Conduite du changement · Claude — Maîtrise avancée · Claude Code · Déployer l'IA en entreprise</b></div>
-        </div>
-      </div>
       </div>
     </div>
 
@@ -530,48 +547,38 @@ ul.fl.blue li::before{background:radial-gradient(circle at 35% 35%, #4d78e6, var
       <div class="eyebrow" style="color:var(--blue);margin-bottom:2mm">② Par objectif — « je veux… »</div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:0 9mm">
         <div>
-      <div style="display:flex;align-items:baseline;gap:4px;font-size:9.3pt;padding:1.5mm 0;border-bottom:1px solid var(--line)">
-        <span style="color:var(--ink-soft)">Démystifier l'IA pour toute l'équipe</span>
-        <span style="flex:1;border-bottom:1px dotted var(--sand-deep);transform:translateY(-2px)"></span>
-        <span style="font-weight:800;color:var(--terra);white-space:nowrap">Bien démarrer</span></div>
-      <div style="display:flex;align-items:baseline;gap:4px;font-size:9.3pt;padding:1.5mm 0;border-bottom:1px solid var(--line)">
-        <span style="color:var(--ink-soft)">Gagner du temps au quotidien</span>
-        <span style="flex:1;border-bottom:1px dotted var(--sand-deep);transform:translateY(-2px)"></span>
-        <span style="font-weight:800;color:var(--terra);white-space:nowrap">Gagner du temps</span></div>
-      <div style="display:flex;align-items:baseline;gap:4px;font-size:9.3pt;padding:1.5mm 0;border-bottom:1px solid var(--line)">
-        <span style="color:var(--ink-soft)">Me mettre en règle (IA Act)</span>
-        <span style="flex:1;border-bottom:1px dotted var(--sand-deep);transform:translateY(-2px)"></span>
-        <span style="font-weight:800;color:var(--terra);white-space:nowrap">IA Act</span></div>
-      <div style="display:flex;align-items:baseline;gap:4px;font-size:9.3pt;padding:1.5mm 0;border-bottom:1px solid var(--line)">
-        <span style="color:var(--ink-soft)">Structurer ma gouvernance IA</span>
-        <span style="flex:1;border-bottom:1px dotted var(--sand-deep);transform:translateY(-2px)"></span>
-        <span style="font-weight:800;color:var(--terra);white-space:nowrap">Référent IA</span></div>
-      <div style="display:flex;align-items:baseline;gap:4px;font-size:9.3pt;padding:1.5mm 0;border-bottom:1px solid var(--line)">
-        <span style="color:var(--ink-soft)">Réussir l'adoption dans l'équipe</span>
-        <span style="flex:1;border-bottom:1px dotted var(--sand-deep);transform:translateY(-2px)"></span>
-        <span style="font-weight:800;color:var(--terra);white-space:nowrap">Conduite du changement</span></div>
+      <div style="display:flex;align-items:center;gap:3mm;font-size:9.3pt;padding:1.8mm 0;border-bottom:1px solid var(--line)">
+        <span style="flex:1;color:var(--ink-soft)">Démystifier l'IA pour toute l'équipe</span>
+        <span style="flex:none;font-weight:800;font-size:8.3pt;color:var(--terra);background:var(--sand);padding:2px 8px;border-radius:8px;white-space:nowrap">Bien démarrer</span></div>
+      <div style="display:flex;align-items:center;gap:3mm;font-size:9.3pt;padding:1.8mm 0;border-bottom:1px solid var(--line)">
+        <span style="flex:1;color:var(--ink-soft)">Gagner du temps au quotidien</span>
+        <span style="flex:none;font-weight:800;font-size:8.3pt;color:var(--terra);background:var(--sand);padding:2px 8px;border-radius:8px;white-space:nowrap">Gagner du temps</span></div>
+      <div style="display:flex;align-items:center;gap:3mm;font-size:9.3pt;padding:1.8mm 0;border-bottom:1px solid var(--line)">
+        <span style="flex:1;color:var(--ink-soft)">Me mettre en règle (IA Act)</span>
+        <span style="flex:none;font-weight:800;font-size:8.3pt;color:var(--terra);background:var(--sand);padding:2px 8px;border-radius:8px;white-space:nowrap">IA Act</span></div>
+      <div style="display:flex;align-items:center;gap:3mm;font-size:9.3pt;padding:1.8mm 0;border-bottom:1px solid var(--line)">
+        <span style="flex:1;color:var(--ink-soft)">Structurer ma gouvernance IA</span>
+        <span style="flex:none;font-weight:800;font-size:8.3pt;color:var(--terra);background:var(--sand);padding:2px 8px;border-radius:8px;white-space:nowrap">Référent IA</span></div>
+      <div style="display:flex;align-items:center;gap:3mm;font-size:9.3pt;padding:1.8mm 0;border-bottom:1px solid var(--line)">
+        <span style="flex:1;color:var(--ink-soft)">Réussir l'adoption dans l'équipe</span>
+        <span style="flex:none;font-weight:800;font-size:8.3pt;color:var(--terra);background:var(--sand);padding:2px 8px;border-radius:8px;white-space:nowrap">Conduite du changement</span></div>
         </div>
         <div>
-      <div style="display:flex;align-items:baseline;gap:4px;font-size:9.3pt;padding:1.5mm 0;border-bottom:1px solid var(--line)">
-        <span style="color:var(--ink-soft)">Outiller un métier (RH, vente…)</span>
-        <span style="flex:1;border-bottom:1px dotted var(--sand-deep);transform:translateY(-2px)"></span>
-        <span style="font-weight:800;color:var(--terra);white-space:nowrap">IA par métier</span></div>
-      <div style="display:flex;align-items:baseline;gap:4px;font-size:9.3pt;padding:1.5mm 0;border-bottom:1px solid var(--line)">
-        <span style="color:var(--ink-soft)">Aller plus loin en prompts &amp; assistants</span>
-        <span style="flex:1;border-bottom:1px dotted var(--sand-deep);transform:translateY(-2px)"></span>
-        <span style="font-weight:800;color:var(--terra);white-space:nowrap">Prompts avancés</span></div>
-      <div style="display:flex;align-items:baseline;gap:4px;font-size:9.3pt;padding:1.5mm 0;border-bottom:1px solid var(--line)">
-        <span style="color:var(--ink-soft)">Exploiter Claude à fond</span>
-        <span style="flex:1;border-bottom:1px dotted var(--sand-deep);transform:translateY(-2px)"></span>
-        <span style="font-weight:800;color:var(--plum);white-space:nowrap">Gamme Claude</span></div>
-      <div style="display:flex;align-items:baseline;gap:4px;font-size:9.3pt;padding:1.5mm 0;border-bottom:1px solid var(--line)">
-        <span style="color:var(--ink-soft)">Créer un outil, sans savoir coder</span>
-        <span style="flex:1;border-bottom:1px dotted var(--sand-deep);transform:translateY(-2px)"></span>
-        <span style="font-weight:800;color:var(--plum);white-space:nowrap">Claude Code</span></div>
-      <div style="display:flex;align-items:baseline;gap:4px;font-size:9.3pt;padding:1.5mm 0;border-bottom:1px solid var(--line)">
-        <span style="color:var(--ink-soft)">Bâtir ma stratégie de déploiement</span>
-        <span style="flex:1;border-bottom:1px dotted var(--sand-deep);transform:translateY(-2px)"></span>
-        <span style="font-weight:800;color:var(--terra);white-space:nowrap">Déployer l'IA</span></div>
+      <div style="display:flex;align-items:center;gap:3mm;font-size:9.3pt;padding:1.8mm 0;border-bottom:1px solid var(--line)">
+        <span style="flex:1;color:var(--ink-soft)">Outiller un métier (RH, vente…)</span>
+        <span style="flex:none;font-weight:800;font-size:8.3pt;color:var(--terra);background:var(--sand);padding:2px 8px;border-radius:8px;white-space:nowrap">IA par métier</span></div>
+      <div style="display:flex;align-items:center;gap:3mm;font-size:9.3pt;padding:1.8mm 0;border-bottom:1px solid var(--line)">
+        <span style="flex:1;color:var(--ink-soft)">Aller plus loin en prompts &amp; assistants</span>
+        <span style="flex:none;font-weight:800;font-size:8.3pt;color:var(--terra);background:var(--sand);padding:2px 8px;border-radius:8px;white-space:nowrap">Prompts avancés</span></div>
+      <div style="display:flex;align-items:center;gap:3mm;font-size:9.3pt;padding:1.8mm 0;border-bottom:1px solid var(--line)">
+        <span style="flex:1;color:var(--ink-soft)">Exploiter Claude à fond</span>
+        <span style="flex:none;font-weight:800;font-size:8.3pt;color:#fff;background:var(--plum);padding:2px 8px;border-radius:8px;white-space:nowrap">Gamme Claude</span></div>
+      <div style="display:flex;align-items:center;gap:3mm;font-size:9.3pt;padding:1.8mm 0;border-bottom:1px solid var(--line)">
+        <span style="flex:1;color:var(--ink-soft)">Créer un outil, sans savoir coder</span>
+        <span style="flex:none;font-weight:800;font-size:8.3pt;color:#fff;background:var(--plum);padding:2px 8px;border-radius:8px;white-space:nowrap">Claude Code</span></div>
+      <div style="display:flex;align-items:center;gap:3mm;font-size:9.3pt;padding:1.8mm 0;border-bottom:1px solid var(--line)">
+        <span style="flex:1;color:var(--ink-soft)">Bâtir ma stratégie de déploiement</span>
+        <span style="flex:none;font-weight:800;font-size:8.3pt;color:var(--terra);background:var(--sand);padding:2px 8px;border-radius:8px;white-space:nowrap">Déployer l'IA</span></div>
         </div>
       </div>
     </div>
@@ -580,7 +587,7 @@ ul.fl.blue li::before{background:radial-gradient(circle at 35% 35%, #4d78e6, var
       <div class="eyebrow" style="color:#ff8f5e;margin-bottom:2.5mm">③ Pas sûr par où commencer ? On vous guide</div>
       <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6mm">
         <div style="display:flex;gap:3mm;align-items:flex-start"><span style="font-size:16pt;flex:none">🔍</span><div><b style="font-size:11pt">Audit IA</b><div style="font-size:8.5pt;color:var(--sand);margin-top:.8mm;line-height:1.4">On cartographie vos usages et on priorise — 4 formules, du Flash terrain à l'audit stratégique. <span style="color:#ffc93c">Sur devis.</span></div></div></div>
-        <div style="display:flex;gap:3mm;align-items:flex-start"><span style="font-size:16pt;flex:none">🤝</span><div><b style="font-size:11pt">Accompagnement 1-to-1</b><div style="font-size:8.5pt;color:var(--sand);margin-top:.8mm;line-height:1.4">Coaching individuel dirigeant ou collaborateur, 100&nbsp;% sur mesure — voir p.&nbsp;18.</div></div></div>
+        <div style="display:flex;gap:3mm;align-items:flex-start"><span style="font-size:16pt;flex:none">🤝</span><div><b style="font-size:11pt">Accompagnement <span style="white-space:nowrap">1&#8209;to&#8209;1</span></b><div style="font-size:8.5pt;color:var(--sand);margin-top:.8mm;line-height:1.4">Coaching individuel dirigeant ou collaborateur, 100&nbsp;% sur mesure — voir p.&nbsp;18.</div></div></div>
         <div style="display:flex;gap:3mm;align-items:flex-start"><span style="font-size:16pt;flex:none">🎤</span><div><b style="font-size:11pt">Séminaire IA</b><div style="font-size:8.5pt;color:var(--sand);margin-top:.8mm;line-height:1.4">Toute l'entreprise au diapason en 1 journée, jusqu'à 50 personnes — voir p.&nbsp;15.</div></div></div>
       </div>
     </div>
