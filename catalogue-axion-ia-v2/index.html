@@ -143,7 +143,7 @@ body{
 
 /* ---- Tarifs ---- */
 .ptable{width:100%;border-collapse:collapse;font-size:10.5pt}
-.ptable th,.ptable td{padding:4mm 5mm;text-align:left;border-bottom:1px solid var(--line)}
+.ptable th,.ptable td{padding:3.1mm 5mm;text-align:left;border-bottom:1px solid var(--line)}
 .ptable thead th{background:var(--mocha);color:#fff;font-weight:700;font-size:9.5pt}
 .ptable thead th:first-child{border-top-left-radius:12px}
 .ptable thead th:last-child{border-top-right-radius:12px;text-align:right}
@@ -289,17 +289,27 @@ ul.fl.blue li::before{background:radial-gradient(circle at 35% 35%, #4d78e6, var
 
   <!-- BLOC SOMBRE premium (fond perdu bas) -->
   <div style="margin:0 calc(-1*var(--pad)) calc(-1*var(--pad));background:var(--mocha);color:#fff;padding:10mm var(--pad) 13mm;flex:1;display:flex;flex-direction:column;justify-content:space-between">
-    <div style="display:flex;gap:4mm;align-items:stretch">
-      <div style="background:#fff;border-radius:11px;padding:5px 13px;display:flex;align-items:center;flex:none">
-        <img src="assets/qualiopi-logo.png" alt="Qualiopi — actions de formation" style="height:14mm;width:auto;display:block">
+    <div style="display:flex;gap:5mm;align-items:stretch">
+      <!-- OPCO 0 € — argument fort -->
+      <div style="flex:1;background:linear-gradient(135deg,var(--terra) 0%,var(--terra-deep) 100%);border-radius:14px;padding:5mm 7mm;display:flex;align-items:center;gap:6mm;box-shadow:0 4mm 14mm -6mm rgba(194,74,27,.6)">
+        <div style="flex:none;text-align:center">
+          <div class="display" style="font-size:46pt;color:#fff;line-height:.82">0&nbsp;€</div>
+          <div style="font-size:7pt;font-weight:800;letter-spacing:.09em;color:#ffe0d0;text-transform:uppercase;margin-top:1mm">reste à charge<br>possible</div>
+        </div>
+        <div style="border-left:1px solid rgba(255,255,255,.35);padding-left:6mm">
+          <div style="font-size:13.5pt;font-weight:800;color:#fff;line-height:1.15">Votre formation peut ne rien vous coûter</div>
+          <div style="font-size:9.5pt;color:#ffe9df;margin-top:2mm;line-height:1.45">Financée par votre <b style="color:#fff">OPCO</b> — vous avez déjà cotisé pour ça. Et <b style="color:#fff">nous montons tout le dossier pour vous</b>, de A à Z.</div>
+        </div>
       </div>
-      <div style="flex:1;border:1px solid rgba(255,255,255,.28);border-radius:11px;padding:8px 15px;display:flex;flex-direction:column;justify-content:center">
-        <span style="font-size:11pt;font-weight:800;color:#fff">Prise en charge OPCO possible</span>
-        <span style="font-size:8.5pt;color:var(--sand)">selon votre situation · France&nbsp;Travail</span>
-      </div>
-      <div style="flex:1;background:var(--terra);border-radius:11px;padding:8px 15px;display:flex;flex-direction:column;justify-content:center">
-        <span style="font-size:11pt;font-weight:800;color:#fff">Formateur expert Claude</span>
-        <span style="font-size:8.5pt;color:#ffe0d0">+ ChatGPT · Gemini · agents</span>
+      <!-- Qualiopi — bien plus visible -->
+      <div style="flex:none;display:flex;flex-direction:column;gap:3mm;width:47mm">
+        <div style="flex:1;background:#fff;border-radius:14px;padding:4mm 5mm;display:flex;align-items:center;justify-content:center">
+          <img src="assets/qualiopi-logo.png" alt="Qualiopi — actions de formation" style="height:21mm;width:auto;display:block">
+        </div>
+        <div style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.28);border-radius:11px;padding:4px 12px;text-align:center">
+          <span style="font-size:9.5pt;font-weight:800;color:#fff">Formateur expert Claude</span>
+          <span style="display:block;font-size:7.5pt;color:var(--sand)">+ ChatGPT · Gemini · agents</span>
+        </div>
       </div>
     </div>
 
@@ -690,7 +700,7 @@ ul.fl.blue li::before{background:radial-gradient(circle at 35% 35%, #4d78e6, var
     <div class="ftitle">
       <div class="fbar"></div>
       <div>
-        <div class="fnum">Offre générale · nº 1 · ★ à la une</div>
+        <div class="fnum">Offre générale · nº 1</div>
         <h1 class="display" style="font-size:34pt;margin-top:2mm;color:var(--ink)">IA pour bien commencer</h1>
         <div class="fchipline"><span class="fchip" style="background:var(--terra-soft);color:var(--terra-deep)">Offre générale</span>
           <span class="fchip" style="background:var(--sand);color:var(--ink)">⏱ 4 h · ½ journée</span>
@@ -763,7 +773,8 @@ ul.fl.blue li::before{background:radial-gradient(circle at 35% 35%, #4d78e6, var
       <div>
         <div class="fnum">Offre générale · nº 2</div>
         <h1 class="display" style="font-size:30pt;margin-top:2mm;color:var(--ink)">Bien commencer <span class="display-it" style="color:var(--terra)">— journée complète</span></h1>
-        <div class="fchipline"><span class="fchip" style="background:var(--terra-soft);color:var(--terra-deep)">Offre générale</span>
+        <div class="fchipline"><span class="fchip" style="background:var(--terra);color:#fff;box-shadow:0 2mm 7mm -2mm rgba(194,74,27,.55)">★ À LA UNE</span>
+          <span class="fchip" style="background:var(--terra-soft);color:var(--terra-deep)">Offre générale</span>
           <span class="fchip" style="background:var(--sand);color:var(--ink)">⏱ 1 jour · 7 h</span>
           <span class="fchip" style="background:var(--mocha);color:#fff">Sans pré-requis</span>
           <span class="fchip" style="background:var(--terra);color:#fff">1 900 € HT / groupe</span>
@@ -1357,7 +1368,7 @@ ul.fl.blue li::before{background:radial-gradient(circle at 35% 35%, #4d78e6, var
     <div class="rule" style="margin:4mm auto 0"></div>
   </div>
 
-  <table class="ptable" style="margin-top:7mm">
+  <table class="ptable" style="margin-top:5mm">
     <thead><tr><th>Catégorie</th><th>Durée</th><th>Groupe</th><th>Tarif HT / groupe</th></tr></thead>
     <tbody>
       <tr><td class="g" style="color:var(--terra)">Offres générales — 4 h (½ j)</td><td>4 heures</td><td>2 à 15 pers.</td><td>1 200 €</td></tr>
@@ -1371,13 +1382,15 @@ ul.fl.blue li::before{background:radial-gradient(circle at 35% 35%, #4d78e6, var
   </table>
   <p style="font-size:9pt;color:var(--ink-muted);margin-top:2.5mm">Séminaire IA jusqu'à 50 pers. (voir p.&nbsp;15) et formations 100&nbsp;% sur mesure : sur devis. Les formations 2 jours sont <b>scindables en 2 × 1 jour</b>. Accompagnement 1-to-1 &amp; Audit IA : sur devis (voir p.&nbsp;18).</p>
 
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:6mm;margin-top:7mm">
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:6mm;margin-top:5mm">
     <div style="background:var(--blue-soft);border-radius:14px;padding:5mm 6mm">
       <div class="eyebrow" style="color:var(--blue)">Financement</div>
-      <p style="font-size:10pt;line-height:1.5;color:var(--ink-soft);margin:3mm 0 0">
-        Prise en charge <b>possible</b> selon votre situation, via votre <b>OPCO</b> (opérateur de compétences)
-        ou <b>France Travail</b> (AIF, POEI). Nous montons le dossier avec vous, de A à Z.</p>
-      <p style="font-size:8.5pt;color:var(--ink-muted);margin:3mm 0 0">Actions non éligibles au CPF. Le montant réellement pris en charge dépend de votre OPCO et de votre situation.</p>
+      <div style="font-family:'Fraunces',serif;font-weight:600;font-size:16pt;color:var(--blue-deep);line-height:1.1;margin-top:2.5mm">Jusqu'à 100 % financé par votre OPCO</div>
+      <p style="font-size:9.5pt;line-height:1.5;color:var(--ink-soft);margin:2.5mm 0 0">
+        Vous <b>cotisez déjà</b> à un OPCO : cette formation peut être prise en charge <b>jusqu'à 100 %</b> —
+        soit <b>0 € de reste à charge</b>. Et <b>nous montons tout le dossier pour vous</b>, de A à Z
+        (OPCO ou France&nbsp;Travail : AIF, POEI).</p>
+      <p style="font-size:8pt;color:var(--ink-muted);margin:2.5mm 0 0">Actions non éligibles au CPF. Le montant réellement pris en charge dépend de votre OPCO et de votre situation.</p>
     </div>
     <div style="background:var(--mocha);border-radius:14px;padding:5mm 6mm;color:#fff;display:flex;gap:5mm;align-items:center">
       <img src="assets/qualiopi-logo.png" alt="Qualiopi" style="height:22mm;width:auto;background:#fff;border-radius:8px;padding:4px">
@@ -1388,16 +1401,19 @@ ul.fl.blue li::before{background:radial-gradient(circle at 35% 35%, #4d78e6, var
     </div>
   </div>
 
-  <div style="margin-top:6mm;background:var(--paper);border:1px solid #e7d7ba;border-radius:14px;padding:4mm 6mm;display:flex;align-items:center;gap:6mm">
-    <span class="eyebrow" style="color:var(--blue);flex:none">Nous formons sur</span>
-    <div style="flex:1;display:flex;align-items:center;justify-content:space-between;gap:4mm">
-      <span style="display:flex;align-items:center;gap:2.5mm"><img src="assets/logos/openai.svg" alt="" style="height:5.5mm"><b style="font-size:9.5pt">ChatGPT</b></span>
-      <span style="display:flex;align-items:center;gap:2.5mm"><img src="assets/logos/anthropic.svg" alt="" style="height:4.5mm"><b style="font-size:9.5pt">Claude</b></span>
-      <span style="display:flex;align-items:center;gap:2.5mm"><img src="assets/logos/googlegemini.svg" alt="" style="height:5.5mm"><b style="font-size:9.5pt">Gemini</b></span>
-      <span style="display:flex;align-items:center;gap:2.5mm"><img src="assets/logos/mistralai.svg" alt="" style="height:5.5mm"><b style="font-size:9.5pt">Mistral</b></span>
-      <span style="display:flex;align-items:center;gap:2.5mm"><img src="assets/logos/githubcopilot.svg" alt="" style="height:5.5mm"><b style="font-size:9.5pt">Copilot</b></span>
-      <span style="font-size:8.5pt;color:var(--ink-muted)">… et vos outils métier</span>
+  <div style="margin-top:4mm;background:var(--paper);border:1px solid #e7d7ba;border-radius:14px;padding:3.5mm 6mm">
+    <div style="display:flex;align-items:center;gap:6mm">
+      <span class="eyebrow" style="color:var(--blue);flex:none">Nous formons sur</span>
+      <div style="flex:1;display:flex;align-items:center;justify-content:space-between;gap:4mm">
+        <span style="display:flex;align-items:center;gap:2.5mm"><img src="assets/logos/openai.svg" alt="" style="height:5.5mm"><b style="font-size:9.5pt">ChatGPT</b></span>
+        <span style="display:flex;align-items:center;gap:2.5mm"><img src="assets/logos/anthropic.svg" alt="" style="height:4.5mm"><b style="font-size:9.5pt">Claude</b></span>
+        <span style="display:flex;align-items:center;gap:2.5mm"><img src="assets/logos/googlegemini.svg" alt="" style="height:5.5mm"><b style="font-size:9.5pt">Gemini</b></span>
+        <span style="display:flex;align-items:center;gap:2.5mm"><img src="assets/logos/mistralai.svg" alt="" style="height:5.5mm"><b style="font-size:9.5pt">Mistral</b></span>
+        <span style="display:flex;align-items:center;gap:2.5mm"><img src="assets/logos/githubcopilot.svg" alt="" style="height:5.5mm"><b style="font-size:9.5pt">Copilot</b></span>
+        <span style="font-size:8.5pt;color:var(--ink-muted)">… et vos outils métier</span>
+      </div>
     </div>
+    <p style="font-size:9pt;color:var(--ink-soft);margin:2.8mm 0 0;line-height:1.4;border-top:1px solid var(--line);padding-top:2.8mm">Et nous faisons <b>découvrir à vos équipes les IA du moment</b> — les outils les plus récents et les plus utiles selon chaque métier.</p>
   </div>
 
   <div class="footer"><div class="l">Montage du dossier OPCO inclus <b>→</b> axion-ia.com/fr/appel</div><div class="r">16 / 24</div></div>
