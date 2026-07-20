@@ -9,7 +9,7 @@
 const path = require('path');
 const fs = require('fs');
 const { execFileSync } = require('child_process');
-const { chromium } = require('C:/Users/willi/Documents/Projets/Axion-IA/axionia/node_modules/playwright');
+const { chromium } = require('playwright');
 
 const GS = 'C:/Users/willi/gs10040/bin/gswin64c.exe';
 const DIR = __dirname;

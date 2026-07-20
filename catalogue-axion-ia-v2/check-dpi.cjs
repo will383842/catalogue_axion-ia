@@ -8,7 +8,7 @@
    Exit code 1 si une photo passe sous 300 dpi.
    ============================================================= */
 const path = require('path');
-const { chromium } = require('C:/Users/willi/Documents/Projets/Axion-IA/axionia/node_modules/playwright');
+const { chromium } = require('playwright');
 
 const fileUrl = 'file:///' + path.join(__dirname, 'index.html').replace(/\\/g, '/');
 const SEUIL = 300; // dpi minimum print

@@ -1,5 +1,5 @@
 /* Aperçu rapide de pages précises : node preview.cjs 1 15 16  (index 1-based) */
-const { chromium } = require('C:/Users/willi/Documents/Projets/Axion-IA/axionia/node_modules/playwright');
+const { chromium } = require('playwright');
 const path = require('path');
 const wanted = process.argv.slice(2).map(Number);
 const fileUrl = 'file:///' + path.join(__dirname, 'index.html').replace(/\\/g, '/');
