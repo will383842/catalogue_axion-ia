@@ -1,6 +1,8 @@
 # Catalogue de formations IA — Axion-IA (2026-2027)
 
-Catalogue **20 pages**, format A4 fermé / A3 ouvert (livret piqué à cheval), prêt pour l'impression (Exaprint / Vistaprint).
+Catalogue **24 pages**, format A4 fermé / A3 ouvert (livret piqué à cheval), prêt pour l'impression (Exaprint / Vistaprint).
+
+Contenu : **21 formations + 1 séminaire** en 3 catégories (4 offres générales · 9 par métier · 8 par secteur), plus les coachings 1-to-1 et les audits. Prix publics par groupe.
 
 ## Contenu du dépôt
 
@@ -12,8 +14,9 @@ Catalogue **20 pages**, format A4 fermé / A3 ouvert (livret piqué à cheval), 
 | `catalogue-axion-ia-v2/check-dpi.cjs` | Contrôle : toutes les images ≥ 300 dpi effectifs |
 | `catalogue-axion-ia-v2/check-tac.cjs` | Contrôle : taux d'encre total du PDF CMJN, page par page |
 | `catalogue-axion-ia-v2/assets/` | Logo, Qualiopi, photos |
-| `catalogue-axion-ia-v2/qr-*.svg` | QR codes vectoriels (formations, appel, LinkedIn) |
-| `catalogue-axion-ia-v2/export/` | **Livrables** : `catalogue-axion-ia-CMYK.pdf` (imprimeur), `-RGB.pdf` (écran), `page-01..20.jpg` (300 dpi) |
+| `catalogue-axion-ia-v2/qr-*.svg` | QR codes vectoriels — 5 slugs dynamiques : `formations`, `appel`, `linkedin`, `avis-catalogue-1`, `avis-catalogue-2` |
+| `catalogue-axion-ia-v2/scan-qr.cjs` | Décode les QR du catalogue pour vérifier leur destination |
+| `catalogue-axion-ia-v2/export/` | **Livrables** : `catalogue-axion-ia-CMYK.pdf` (imprimeur), `-RGB.pdf` (écran), `page-01..24.jpg` (300 dpi) |
 | `AUDIT-CATALOGUE-2026.md` | Audit de la maquette v1 d'origine |
 | `handoff_catalogue_axion_ia/` | Maquette v1 d'origine (Design Component) |
 
@@ -42,8 +45,19 @@ Le PDF CMJN est un export généré — on n'édite jamais le PDF à la main.
 - **CMJN** (conversion Ghostscript ; profil FOGRA39 / texte K-only à affiner côté imprimeur si besoin)
 - **Taux d'encre (TAC) : 305 % max** (page 23), 0 % de surface au-delà — sous la limite offset couché ≈ 330 %. Vérifié par `check-tac.cjs`
 - Polices embarquées (Manrope + Fraunces), QR vectoriels
-- Marque : ivoire `#faf8f3` + bleu `#1a4dd9` + terracotta `#c24a1b` + mocha `#2a2520`
+- Marque : sable profond `#ece0c9` + bleu `#1a4dd9` + terracotta `#c24a1b` + mocha `#2a2520`
+
+## QR dynamiques
+
+Tous les QR imprimés pointent sur `/qr/<slug>` — une redirection 302 **modifiable après impression** depuis la console admin du site, avec compteur de scans. Les 5 slugs imprimés (`formations`, `appel`, `linkedin`, `avis-catalogue-1`, `avis-catalogue-2`) **ne doivent jamais être renommés ni supprimés**.
+
+Les deux QR « avis » (p. 23) ont une destination **provisoire** (`/fr/avis`) : ils basculeront sur les vidéos interview et podcast une fois les tournages faits, sans réimprimer.
 
 ## À compléter avant impression finale
 
-Avis clients réels (p. 19), mentions légales (p. 20 : SIRET, n° NDA, adresse, organisme certificateur), téléphone, photos HD, puis **BAT / épreuve papier**.
+- **Mentions légales** (p. 24 : SIRET, n° NDA, adresse, organisme certificateur) et **téléphone** — à fournir par Will
+- Destinations réelles des QR « avis », quand les vidéos seront tournées
+- Optionnel : remplacer les photos Unsplash de substitution par de vraies photos client
+- Puis **BAT / épreuve papier** chez l'imprimeur
+
+> Pas d'avis clients inventés dans ce catalogue : la page 23 présente deux **teasers d'interview vidéo**, sans nom ni citation, puisqu'on ne connaît pas encore les personnes interviewées. Ne pas y ajouter de faux témoignages.
