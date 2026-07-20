@@ -12,13 +12,17 @@
    nomme l'élément fautif.
 
    Usage :
-       node check-overflow.cjs
+       node check-overflow.cjs [chemin.html]   (défaut : index.html)
+   Accepte un fichier en argument : sert donc aussi pour les flyers.
    Exit code 1 si une page déborde.
    ============================================================= */
 const path = require('path');
 const { chromium } = require('playwright');
 
-const fileUrl = 'file:///' + path.join(__dirname, 'index.html').replace(/\\/g, '/');
+const target = process.argv[2]
+  ? path.resolve(process.argv[2])
+  : path.join(__dirname, 'index.html');
+const fileUrl = 'file:///' + target.replace(/\\/g, '/');
 const TOLERANCE = 1; // px — arrondis de rendu
 
 (async () => {
