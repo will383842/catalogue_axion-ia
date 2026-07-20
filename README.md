@@ -9,6 +9,8 @@ Catalogue **20 pages**, format A4 fermé / A3 ouvert (livret piqué à cheval), 
 | `catalogue-axion-ia-v2/index.html` | **Source de vérité** — HTML autonome, s'ouvre au double-clic dans un navigateur |
 | `catalogue-axion-ia-v2/build.cjs` | Pipeline de build : Playwright → PDF RGB + JPEG 300 dpi, puis Ghostscript → PDF CMJN + soft-proofs |
 | `catalogue-axion-ia-v2/preview.cjs` | Aperçu rapide de pages précises : `node preview.cjs 1 15 16` |
+| `catalogue-axion-ia-v2/check-dpi.cjs` | Contrôle : toutes les images ≥ 300 dpi effectifs |
+| `catalogue-axion-ia-v2/check-tac.cjs` | Contrôle : taux d'encre total du PDF CMJN, page par page |
 | `catalogue-axion-ia-v2/assets/` | Logo, Qualiopi, photos |
 | `catalogue-axion-ia-v2/qr-*.svg` | QR codes vectoriels (formations, appel, LinkedIn) |
 | `catalogue-axion-ia-v2/export/` | **Livrables** : `catalogue-axion-ia-CMYK.pdf` (imprimeur), `-RGB.pdf` (écran), `page-01..20.jpg` (300 dpi) |
@@ -26,11 +28,19 @@ Le PDF CMJN est un export généré — on n'édite jamais le PDF à la main.
    node build.cjs
    ```
    → régénère PDF RGB, **PDF CMJN**, JPEG 300 dpi et soft-proofs CMJN.
+3. Contrôler avant d'envoyer à l'imprimeur :
+   ```bash
+   node check-dpi.cjs    # images ≥ 300 dpi effectifs
+   node check-tac.cjs    # taux d'encre du PDF CMJN (exit 1 si > 320 %)
+   ```
+   `check-tac.cjs` accepte aussi un PDF en argument — il sert donc pour les flyers :
+   `node check-tac.cjs ../../Prospectus_Axion_IA/export/prospectus-catalogue-CMYK.pdf`
 
 ## Caractéristiques d'impression
 
 - Format de travail **216 × 303 mm** (A4 210 × 297 + **3 mm de fond perdu**)
 - **CMJN** (conversion Ghostscript ; profil FOGRA39 / texte K-only à affiner côté imprimeur si besoin)
+- **Taux d'encre (TAC) : 305 % max** (page 23), 0 % de surface au-delà — sous la limite offset couché ≈ 330 %. Vérifié par `check-tac.cjs`
 - Polices embarquées (Manrope + Fraunces), QR vectoriels
 - Marque : ivoire `#faf8f3` + bleu `#1a4dd9` + terracotta `#c24a1b` + mocha `#2a2520`
 
