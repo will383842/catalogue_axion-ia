@@ -31,6 +31,7 @@ node probe-dest.cjs         # chaque destination de QR répond-elle 200 ?
 node build-webpdf.cjs       # PDF + /PageLayout doubles pages (enchaîné)
 node build-planches.cjs     # PDF de RELECTURE en planches doubles réelles
 node check-harmonie.cjs     # A4 vs livre KDP : prix, titres, décomptes
+node check-maquette.cjs     # remplissage, marges de coupe, corps, dpi des images
 ```
 
 **Idempotent** : deux passes complètes donnent le même `index.html` à l'octet près.
@@ -74,6 +75,13 @@ node check-harmonie.cjs     # A4 vs livre KDP : prix, titres, décomptes
 - **Harmonie A4 ↔ livre KDP vérifiée** (`check-harmonie.cjs`) : 0 divergence sur
   les décomptes (21 + 1 + 12), les 5 prix de formation, les 10 prix de conseil,
   les 12 titres de prestation ; aucun montant orphelin.
+- **Sommaire réparé** : cinq renvois sur douze pointaient à côté après la
+  réorganisation. Chaque entrée porte désormais un MARQUEUR vérifié au build
+  (`renvois vérifiés : 12/12`). La garde des renvois existait mais ne
+  contrôlait qu'une des DEUX listes.
+- **Bande de section réparée** : son libellé était à **1,1 mm du trait de
+  coupe**, donc rogné au façonnage. Bande élargie à 13 mm, retrait 4,5 mm →
+  le texte revient à 3,9 mm. Trouvé par `check-maquette.cjs`.
 - **Audit rendu** : 107 agents, 48 constats, 45 retenus. 3 reprises appliquées
   (niveau d'audit fantôme « Flash terrain » p.7, renvoi circulaire p.18, prix
   d'appel 790 € impayable p.6). Synthèse : `scratchpad/AUDIT-SYNTHESE.md`.
@@ -105,8 +113,20 @@ node check-harmonie.cjs     # A4 vs livre KDP : prix, titres, décomptes
 5. **Fichiers d'impression périmés** : `catalogue-axion-ia-CMYK.pdf` et
    `-RGB.pdf` datent du 21 juillet et font encore **24 pages**. Contrôle
    d'encre (`check-tac.cjs`) non relancé.
-6. **40 pages sur 48 jamais regardées visuellement.** « Ne déborde pas » ≠
-   « bien composé ».
+6. **40 pages sur 48 jamais regardées visuellement.** Un contrôle automatique
+   (`check-maquette.cjs`) couvre désormais remplissage, marges de coupe, corps
+   de texte et résolution des images — aucune page sous 80 % de remplissage,
+   aucun contenu courant trop près du bord, aucune image sous 300 dpi. Mais
+   il ne juge pas la COMPOSITION : ça reste à faire à l'œil, sur le PDF de
+   planches.
+7. ⚠️ **Le texte du bandeau de pied est à 1,8-2 mm du trait de coupe**
+   (« → », folio, accroche). C'est la maquette d'origine, elle a déjà été
+   imprimée ainsi — mais c'est tendu pour du texte. À valider avec l'imprimeur
+   au BAT, ou remonter le texte de 2 mm dans le bandeau.
+8. **Le QR de la page 3 mène au mauvais document** : il pointe sur
+   `/fr/catalogue`, qui sert le LIVRE KDP de 46 pages, pas le catalogue A4.
+   La page promet « Découvrez CE catalogue ». Soit on publie le A4, soit on
+   repointe le slug `cat-catalogue`.
 
 ### Décisions Will — ne pas revenir dessus
 

@@ -965,10 +965,17 @@ function injecteBande(htmlPage, bande, estPageImpaire) {
 /** Règles CSS de la bande, injectées dans le <head> pour ne pas toucher la source. */
 const CSS_BANDE = `
 /* ---- Bande de section (onglet de tranche) — injectée par build-conseil.cjs ---- */
-.sect-band{position:absolute;top:0;bottom:0;width:9mm;z-index:3;
+/* 13 mm dont 3 de fond perdu → 10 mm visibles après coupe.
+   ⚠️ La première version faisait 9 mm avec 3 mm de retrait, ce qui plaçait le
+   LIBELLÉ à 1,1 mm du trait de coupe — mesuré par check-maquette.cjs. Il aurait
+   été rogné au façonnage, d'autant qu'un livret de 48 pages perd encore de la
+   chasse en gouttière sur les cahiers centraux. Le retrait passe à 4,5 mm : le
+   texte revient à ~4,3 mm du trait. On ne dépasse pas 13 mm, parce que le
+   contenu courant commence exactement là (--pad) et serait recouvert. */
+.sect-band{position:absolute;top:0;bottom:0;width:13mm;z-index:3;
   display:flex;align-items:center;justify-content:center}
-.sect-band.right{right:0;padding-right:3mm}
-.sect-band.left{left:0;padding-left:3mm}
+.sect-band.right{right:0;padding-right:4.5mm}
+.sect-band.left{left:0;padding-left:4.5mm}
 .sect-band span{writing-mode:vertical-rl;font-weight:800;font-size:8pt;letter-spacing:.18em;
   text-transform:uppercase;color:#fff;white-space:nowrap}
 .sect-band.left span{transform:rotate(180deg)}
