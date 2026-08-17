@@ -26,7 +26,8 @@ cd C:\Users\willi\Documents\Projets\Catalogue_formations_Axion_IA\catalogue-axio
 node build-conseil.cjs      # lit pages-source.html → écrit index.html (48 p.)
 node renumber.cjs           # folios + sommaire, dérivés de l'ordre réel
 node check-overflow.cjs     # AUCUNE page ne doit être rognée
-node scan-qr.cjs            # décodage + résolution en prod — rouge aujourd'hui, voir §4
+node scan-qr.cjs            # décodage + résolution en prod — VERT
+node probe-dest.cjs         # chaque destination de QR répond-elle 200 ?
 node build-webpdf.cjs       # PDF + /PageLayout doubles pages (enchaîné)
 node build-planches.cjs     # PDF de RELECTURE en planches doubles réelles
 node check-harmonie.cjs     # A4 vs livre KDP : prix, titres, décomptes
@@ -52,7 +53,10 @@ node check-harmonie.cjs     # A4 vs livre KDP : prix, titres, décomptes
 - **48 pages**, multiple de 4 (contrainte piqué à cheval). Ordre : formations →
   séminaire → coaching → audit → implémentation ; Visibilité en 4e de couverture.
 - **Aucune page rognée** (`check-overflow`, les 48).
-- **22 QR** relus au décodeur, tous lisibles.
+- **35 QR** relus au décodeur, tous lisibles.
+- **Les 22 slugs `cat-*` sont CRÉÉS en production** (2026-08-17), classés
+  « Catalogue A4 · p.NN — … ». `scan-qr.cjs` est VERT : 27 slugs vivants,
+  0 anomalie. `probe-dest.cjs` confirme que les 17 destinations répondent 200.
 - **Bandes de section** pleine hauteur sur la tranche extérieure — 29 bandes,
   toutes du bon côté (droite sur impaires, gauche sur paires).
 - **PDF en doubles pages** : p.1 seule · (2-3) … (46-47) · p.48 seule.
@@ -88,10 +92,13 @@ node check-harmonie.cjs     # A4 vs livre KDP : prix, titres, décomptes
 
 ## 4. ⛔ CE QUI RESTE — reste Will
 
-1. **22 slugs QR `cat-*` à créer** dans la console admin. Tant qu'ils manquent,
-   ces QR sont imprimés **morts** (404). `scan-qr.cjs` rouge tant que ce n'est
-   pas fait — c'est voulu. Liste dans la constante `QR` de `build-conseil.cjs`.
-2. **Les 6 QR témoignages** pointent tous sur `/fr/avis` — à repointer un par un.
+1. ~~22 slugs QR `cat-*` à créer~~ — **FAIT le 2026-08-17.** Créés via l'action
+   serveur du formulaire admin ; le champ « Catégorie » est une énumération
+   FERMÉE de 4 valeurs, donc pas de sous-onglet dédié possible sans toucher au
+   code d'`axionia` : le classement passe par le libellé « Catalogue A4 · p.NN ».
+2. **Les 6 QR témoignages** pointent tous sur `/fr/avis` — à repointer un par un
+   quand les interviews seront tournées. C'est précisément ce que permet la
+   redirection dynamique : aucune réimpression.
 3. **Confirmer que la certification Qualiopi est délivrée.** Note de session du
    15/08 disant l'inverse. Irréversible une fois imprimé.
 4. **Organisme certificateur Qualiopi** — à nommer, une seule fois, p.47.
