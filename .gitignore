@@ -7,3 +7,10 @@ catalogue-axion-ia-v2/export/apercu-cmyk/
 
 # Fichiers temporaires d'aperçu
 catalogue-axion-ia-v2/export/_preview-*.jpg
+
+# Le livre KDP est un projet distinct qui vit dans ce dossier (165 Mo de PDF,
+# images et rendus). Il n'a pas à entrer dans l'historique du catalogue A4.
+catalogue-kdp/
+
+# Espace de travail de l'agent (93 Mo de transcriptions et de worktrees)
+.claude/
