@@ -350,7 +350,11 @@ function pageServices5() {
   <div style="flex:1;display:grid;grid-template-columns:1fr 1fr;grid-auto-rows:1fr;gap:4.5mm;margin-top:6mm">
     ${tuile({ ic: "🎓", nom: "Formations IA", prix: "Dès 1 200 € HT", c: "var(--terra)",
       txt: "<b>21 formations</b> en intra-entreprise, présentiel ou distanciel — et le <b>séminaire IA</b>, une journée pour mettre jusqu'à 50 personnes au diapason. Sur vos vraies tâches.",
-      detail: "4 générales · 9 par métier · 8 par secteur · 1 séminaire", pg: pp(P.formations) })}
+      // La plage va jusqu'au SÉMINAIRE, pas jusqu'à la dernière formation : la
+      // tuile annonce « 1 séminaire », elle doit donc couvrir sa page. Avec
+      // `P.formations` seul, elle s'arrêtait en 16 et le séminaire, en 17,
+      // tombait hors de la plage qui prétendait le contenir.
+      detail: "4 générales · 9 par métier · 8 par secteur · 1 séminaire", pg: pp([P.formations[0], P.seminaire]) })}
     ${tuile({ ic: "🤝", nom: "Accompagnement 1-to-1", prix: "Dès 990 € HT", c: "var(--ochre)",
       txt: "Une personne, un expert, une journée sur <b>ses propres dossiers</b> — ou 790 € / session en contrat régulier.",
       detail: "Dirigeant · collaborateur · suivi régulier", pg: pp(P.coaching) })}
@@ -772,7 +776,7 @@ function pageConformite() {
         Un seul incident — un contrat confidentiel déposé dans un outil public, un dossier client recopié dans un chat — coûte des dizaines de fois le prix d'une demi-journée de formation. <b>La confidentialité n'est pas un chapitre : c'est un réflexe qu'on installe.</b></div>
     </div>
     <div style="text-align:center">
-      <img src="assets/qualiopi.png" alt="Certification Qualiopi" style="max-width:100%;max-height:36mm;display:block;margin:0 auto">
+      <img src="assets/qualiopi-logo.png" alt="Certification Qualiopi" style="max-width:100%;max-height:33.5mm;display:block;margin:0 auto">
       <div style="font-size:8.2pt;color:var(--ink-muted);margin-top:2mm;line-height:1.4">La certification qualité a été délivrée au titre de la catégorie <b>ACTIONS DE FORMATION</b>.</div>
     </div>
   </div>
@@ -845,6 +849,36 @@ const RENVOIS_PERIMES = [
   { page: 7, de: "pages 10-12", vers: () => `pages ${P.metier[0]}-${P.metier[1]}` },
   { page: 7, de: "pages 13-14", vers: () => `pages ${P.secteur[0]}-${P.secteur[1]}` },
   { page: 11, de: "voir p. 19-22", vers: () => `voir p. ${P.moteur[0]}-${P.moteur[1]}` },
+
+  // ── Trois renvois de plus, trouvés en RELISANT LES 48 PAGES À L'ŒIL ──────
+  //
+  // Les cinq entrées ci-dessus ont été écrites en cherchant les renvois page
+  // par page dans la source. Ces trois-là y étaient aussi, et sont passés :
+  // deux portent une espace insécable (`p.&nbsp;15`), le troisième est glissé
+  // au milieu d'une phrase (« (2 jours, p. 9) »), sans le mot « voir » ni
+  // parenthèse isolée qui les rendait repérables.
+  //
+  // Leçon : un balayage qui cherche une TOURNURE rate ce qui ne l'emploie pas.
+  // D'où `check-renvois.cjs`, qui part des NUMÉROS et exige que chacun soit
+  // déclaré avec le repère attendu sur la page citée.
+  {
+    // `page` designe la page de SORTIE, pas celle de pages-source.html.
+    page: 7,
+    de: "jusqu'à 50 personnes — voir p.&nbsp;15.",
+    vers: () => `jusqu'à 50 personnes — voir ${pp(P.seminaire)}.`,
+  },
+  {
+    page: 18,
+    de: "Séminaire IA jusqu'à 50 pers. (voir p.&nbsp;15)",
+    vers: () => `Séminaire IA jusqu'à 50 pers. (voir ${pp(P.seminaire)})`,
+  },
+  {
+    // « IA pour l'automatisation » est la 4e et dernière offre générale : sa
+    // page est donc la borne haute de la plage, pas une constante à recopier.
+    page: 44,
+    de: "<b>IA pour l'automatisation</b> (2 jours, p.&nbsp;9)",
+    vers: () => `<b>IA pour l'automatisation</b> (2 jours, ${pp(P.generales[1])})`,
+  },
 ];
 
 // ---------------------------------------------------------------------------
@@ -1310,11 +1344,16 @@ function pageVisibilite(src) {
 
   // Renvois périmés hérités de la version 24 pages.
   let corriges = 0;
+  // Une reprise qui ne trouve plus sa cible ARRÊTE le build. Elle ne prévient
+  // pas : jusqu'ici elle écrivait un `console.warn` au milieu de vingt lignes
+  // de sortie, et le build finissait en vert avec un renvoi faux imprimé.
+  // Une garde qui n'a pas le pouvoir de rougir ne garde rien.
+  const manques = [];
   for (const r of RENVOIS_PERIMES) {
     const avant = ORDRE[r.page - 1];
     ORDRE[r.page - 1] = avant.split(r.de).join(r.vers());
     if (ORDRE[r.page - 1] !== avant) corriges++;
-    else console.warn(`  renvoi introuvable p.${r.page} : « ${r.de} »`);
+    else manques.push(`renvoi p.${r.page} : « ${r.de} »`);
   }
 
   // Reprises issues de l'audit multi-agents.
@@ -1323,7 +1362,15 @@ function pageVisibilite(src) {
     const avant = ORDRE[r.page - 1];
     ORDRE[r.page - 1] = avant.split(r.de).join(r.vers());
     if (ORDRE[r.page - 1] !== avant) audites++;
-    else console.warn(`  reprise audit introuvable p.${r.page} : « ${r.de.slice(0, 45)}… »`);
+    else manques.push(`reprise d'audit p.${r.page} : « ${r.de.slice(0, 60)}… »`);
+  }
+
+  if (manques.length) {
+    throw new Error(
+      `${manques.length} reprise(s) ne trouvent plus leur cible dans pages-source.html :\n` +
+        manques.map((m) => `    · ${m}`).join("\n") +
+        `\n  La page d'origine a changé sous la reprise. Le texte périmé serait IMPRIMÉ tel quel.`,
+    );
   }
 
   // Mention OPCO sur les pages formation + séminaire.
