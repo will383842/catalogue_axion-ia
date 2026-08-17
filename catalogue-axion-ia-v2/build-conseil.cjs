@@ -980,6 +980,19 @@ const CSS_BANDE = `
   text-transform:uppercase;color:#fff;white-space:nowrap}
 .sect-band.left span{transform:rotate(180deg)}
 
+/* ---- Folio dans la marge EXTÉRIEURE ----
+   Le bandeau de pied est composé « accroche à gauche, folio à droite » sur les
+   48 pages. Or sur une page de GAUCHE la marge extérieure est à GAUCHE : le
+   folio s'y retrouvait contre la pliure, et sur une double les deux numéros se
+   rejoignaient presque au centre. C'est exactement la faute que les bandes de
+   section évitent déjà en changeant de tranche selon la parité — le pied, lui,
+   ne l'évitait pas.
+
+   row-reverse sur les pages paires suffit : le folio passe à l'extérieur,
+   l'accroche rentre vers la pliure. Aucune page n'est réécrite, seule la règle
+   partagée change. */
+.page[data-parite="paire"] .footer{flex-direction:row-reverse}
+
 /* ---- Bandeau de pied : centrer le texte dans la partie VISIBLE ----
    Le bandeau descend jusqu'au bord de la feuille (fond perdu). Son texte était
    centré dans les 14 mm du bandeau ENTIER, donc dans une zone dont 3 mm
@@ -1271,12 +1284,28 @@ function pageVisibilite(src) {
     pageVisibilite(E[22]),                  // 48 Visibilité — mocha, comme la 1re de couv
   ];
 
-  // Bandes de section pleine hauteur (voir BANDES). Injectées ici plutôt que
-  // dans les pages : la source reste intacte, et les plages suivent l'ordre
-  // ci-dessus sans qu'on ait à les recopier page par page.
+  // Parité de chaque page, puis bandes de section pleine hauteur (voir BANDES).
+  // Injectées ici plutôt que dans les pages : la source reste intacte, et les
+  // plages suivent l'ordre ci-dessus sans qu'on ait à les recopier page à page.
+  //
+  // La classe de parité sert à tout ce qui doit se placer en marge EXTÉRIEURE —
+  // aujourd'hui le folio. Elle est posée sur la page elle-même pour qu'une
+  // règle CSS partagée suffise, sans toucher au contenu.
+  let paires = 0;
   for (let i = 0; i < ORDRE.length; i++) {
+    const impaire = (i + 1) % 2 === 1;
+    // ⚠️ NE PAS ajouter la parité dans `class` : une demi-douzaine de scripts
+    // découpent le document sur `/(?=<section class="page")/` — guillemet
+    // fermant compris. Une classe supplémentaire fait échouer le découpage et
+    // renumber.cjs a immédiatement déclaré tous les renvois hors document.
+    // Un ATTRIBUT laisse `class="page"` intact.
+    ORDRE[i] = ORDRE[i].replace(
+      /<section class="page"/,
+      `<section class="page" data-parite="${impaire ? "impaire" : "paire"}"`,
+    );
+    if (!impaire) paires++;
     const bande = bandePour(i + 1);
-    if (bande) ORDRE[i] = injecteBande(ORDRE[i], bande, (i + 1) % 2 === 1);
+    if (bande) ORDRE[i] = injecteBande(ORDRE[i], bande, impaire);
   }
 
   // Renvois périmés hérités de la version 24 pages.
@@ -1344,6 +1373,7 @@ function pageVisibilite(src) {
   console.log(`  renvois périmés corrigés : ${corriges}/${RENVOIS_PERIMES.length}`);
   console.log(`  reprises d'audit appliquées : ${audites}/${REPRISES_AUDIT.length}`);
   console.log(`  mention OPCO « sans avance » posée sur ${opco} pages formation`);
+  console.log(`  folio en marge extérieure : ${paires} pages paires passées en row-reverse`);
   console.log(`\nEnchaîner : node renumber.cjs && node scan-qr.cjs`);
 })().catch((e) => {
   console.error(e.message || e);

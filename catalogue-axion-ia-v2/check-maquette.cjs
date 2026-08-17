@@ -14,6 +14,9 @@
                        6 pt il est illisible pour beaucoup de lecteurs.
      · CHEVAUCHEMENTS — deux blocs de texte qui se recouvrent.
      · IMAGES         — résolution effective sous 300 dpi = flou à l'impression.
+     · FOLIO          — il doit tomber en marge EXTÉRIEURE : à gauche sur une
+                       page paire, à droite sur une impaire. Contre la pliure,
+                       les deux numéros d'une double se rejoignent au centre.
 
    Ne bloque pas le build : il RAPPORTE. Certaines pages sont volontairement
    aérées (couvertures, ouvreurs de section). C'est un guide de relecture, pas
@@ -104,8 +107,22 @@ const BLEED = 3 * MM;
           if (dpi < 300) images.push({ dpi, src: (img.getAttribute("src") || "").split("/").pop().slice(0, 34) });
         }
 
+        // Le FOLIO doit être en marge EXTÉRIEURE : à gauche sur une page paire
+        // (qui est une page de gauche), à droite sur une impaire. Contre la
+        // pliure, les deux numéros d'une double se rejoignent presque au centre.
+        let folio = null;
+        const pied = p.querySelector(".footer");
+        const num = pied && pied.querySelector(".r");
+        if (num && (num.textContent || "").trim()) {
+          const bn = num.getBoundingClientRect();
+          const cote = (bn.left + bn.right) / 2 - box.left < box.width / 2 ? "gauche" : "droite";
+          const attendu = (i + 1) % 2 === 0 ? "gauche" : "droite";
+          folio = { cote, attendu, ok: cote === attendu };
+        }
+
         return {
           n: i + 1,
+          folio,
           remplissage: +(remplissage * 100).toFixed(0),
           horsMarge: horsMarge.slice(0, 3),
           nbHorsMarge: horsMarge.length,
@@ -148,6 +165,16 @@ const BLEED = 3 * MM;
   for (const [txt, v] of [...parBandeau.entries()].sort((a, b) => a[1].mm - b[1].mm))
     console.log(`  ${v.mm < 3 ? "🔴" : "· "} ${String(v.mm).padStart(5)} mm  « ${txt} »  (au plus près p.${v.n})`);
 
+  console.log("\n=== FOLIO EN MARGE EXTÉRIEURE ===\n");
+  const avecFolio = rapport.filter((r) => r.folio);
+  const folioKo = avecFolio.filter((r) => !r.folio.ok);
+  if (!folioKo.length) {
+    console.log(`  ✅ les ${avecFolio.length} folios sont du bon côté (pair → gauche, impair → droite)`);
+  } else {
+    for (const r of folioKo)
+      console.log(`  🔴 p.${String(r.n).padStart(2)} — folio à ${r.folio.cote}, attendu à ${r.folio.attendu} : il tombe contre la pliure`);
+  }
+
   console.log("\n=== CORPS SOUS 7 pt ===\n");
   const min = rapport.filter((r) => r.petits.length);
   if (!min.length) console.log("  ✅ aucun");
@@ -159,7 +186,7 @@ const BLEED = 3 * MM;
   for (const r of img)
     console.log(`  🔴 p.${String(r.n).padStart(2)} — ` + r.images.map((i) => `${i.dpi} dpi ${i.src}`).join(" · "));
 
-  const alertes = vides.length + bords.length + img.length;
+  const alertes = vides.length + bords.length + img.length + folioKo.length;
   console.log(`\n=== ${alertes === 0 ? "✅ rien à signaler" : `${alertes} page(s) à regarder`} ===`);
 })().catch((e) => {
   console.error(e);
