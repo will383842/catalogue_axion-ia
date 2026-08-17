@@ -77,7 +77,7 @@ const SOMMAIRE = [
     ["20", "Accompagnement 1-to-1 — 3 formules", "Dirigeant · collaborateur · coaching régulier"],
     ["24", "Audit IA — 4 niveaux", "Méthode en 8 étapes · recommandations chiffrées"],
     ["30", "Implémentation &amp; automatisation", "5 domaines — processus, chatbots, agents, documents"],
-    ["37", "Tarifs toutes offres &amp; témoignages", "Une page de prix · 6 retours clients, 1 QR chacun"],
+    ["37", "Tarifs toutes offres &amp; témoignages", "Une page de prix · 6 témoignages à scanner"],
     ["48", "Visibilité offerte &amp; avis clients ✦", "Podcast · interviews · page entreprise + backlink"],
   ],
 ];

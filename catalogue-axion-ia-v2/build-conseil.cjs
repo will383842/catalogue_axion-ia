@@ -8,9 +8,9 @@
 
    PRINCIPE — on ne tape aucune page à la main.
 
-   Les 25 nouvelles pages dérivent de deux SSOT déjà écrites pour le livre
-   KDP (`../catalogue-kdp/coaching-audit-data.json` et
-   `temoignages-data.json`). Les 23 pages existantes sont reprises TELLES
+   Les 25 nouvelles pages dérivent d'une SSOT déjà écrite pour le livre KDP
+   (`../catalogue-kdp/coaching-audit-data.json`). Les 23 pages existantes
+   sont reprises TELLES
    QUELLES, à l'octet près : seul leur numéro de pied de page change, et il
    est recalculé par `renumber.cjs`. Les fiches formations ne sont jamais
    réécrites.
@@ -27,10 +27,11 @@
        vérifiés ») : une note agrégée et le mot « vérifiés » sont des
        allégations opposables. Non reprises tant que la base d'avis n'est
        pas rattachée à des justificatifs.
-     - 6 des 12 témoignages : seuls ceux retrouvés mot pour mot sur
-       /fr/avis en production sont imprimés (cf. TEMOIGNAGES ci-dessous).
+     - aucun texte de témoignage (décision Will 2026-08-17). Les pages 38-39
+       ne portent que six emplacements numérotés et leur QR. Voir plus bas.
 
    Usage : node build-conseil.cjs && node renumber.cjs
+          (lit pages-source.html — 24 pages figées — et écrit index.html)
    ============================================================= */
 const fs = require("fs");
 const path = require("path");
@@ -38,10 +39,22 @@ const { svgVerifie } = require("./lib-qr.cjs");
 
 const DIR = __dirname;
 const KDP = path.join(DIR, "..", "catalogue-kdp");
-const SRC = path.join(DIR, "index.html");
+
+// ⚠️ ENTRÉE ET SORTIE SONT DEUX FICHIERS DISTINCTS.
+//
+// `index.html` était à la fois la source et le rendu. Ça tenait tant que rien
+// ne le transformait. Dès que ce script s'est mis à REMPLACER une page
+// d'origine (l'ancienne « Trois façons de travailler ensemble » devenue
+// « Cinq façons »), la transformation est devenue irréversible : relancer le
+// build sur sa propre sortie ne retrouvait plus que 23 pages d'origine sur 24,
+// et la page perdue l'était définitivement.
+//
+// `pages-source.html` porte donc les 24 pages d'origine, figées, jamais
+// écrites par le build. `index.html` est une SORTIE, régénérable à volonté.
+const SRC = path.join(DIR, "pages-source.html");
+const OUT = path.join(DIR, "index.html");
 
 const offres = JSON.parse(fs.readFileSync(path.join(KDP, "coaching-audit-data.json"), "utf8"));
-const avisSrc = JSON.parse(fs.readFileSync(path.join(KDP, "temoignages-data.json"), "utf8"));
 
 // ---------------------------------------------------------------------------
 // SLUGS QR — un par page actionnable.
@@ -102,39 +115,31 @@ function qrBoite(slug, taille, legende) {
 }
 
 // ---------------------------------------------------------------------------
-// TÉMOIGNAGES — 6 retenus sur 12, un QR chacun.
+// TÉMOIGNAGES — six emplacements NUMÉROTÉS, sans aucun texte.
 //
-// Sélection par VÉRIFICATION, pas par goût : seuls sont imprimés les avis
-// retrouvés mot pour mot sur https://axion-ia.com/fr/avis en production le
-// 2026-08-17. Les 6 écartés (Christine F., Raphaël B., Camille R.,
-// Philippe G., Stéphanie W. et le 12e) n'ont pas pu être confirmés — le flux
-// public est tronqué à 48 des 77 avis publiés. Ils ne sont pas faux : ils
-// sont NON VÉRIFIÉS, et un témoignage nominatif imprimé ne se corrige pas.
+// Décision Will 2026-08-17 : le papier ne porte que « Témoignage 1 … 6 » et
+// un QR chacun. Ni citation, ni nom, ni ville, ni mention du type de
+// prestation (formation / audit / coaching / implémentation).
 //
-// ⚠️ Chaque QR pointe pour l'instant sur /fr/avis. Il basculera sur
-// l'interview filmée de la personne, sans réimprimer, une fois les tournages
-// faits — c'est exactement ce que permet la redirection dynamique.
+// Ce n'est pas un appauvrissement, c'est le bon usage du QR dynamique : le
+// contenu vit en ligne et se change quand on veut, sans réimprimer. Un
+// témoignage imprimé, lui, est figé pour la durée du tirage — et un
+// témoignage nominatif figé ne se corrige pas.
+//
+// Effet de bord utile : plus aucune allégation n'est imprimée. La question
+// des avis non retrouvés en production ne se pose plus pour le catalogue —
+// elle reste entière côté site, où le contenu, lui, est publié.
+//
+// ⚠️ Les six slugs pointent aujourd'hui sur /fr/avis. Chacun doit être
+// repointé, en console, vers le témoignage qu'il doit ouvrir.
 // ---------------------------------------------------------------------------
-const TEMOIGNAGES = [
-  { cat: "formation", nom: "Maxime D.", slug: "cat-avis-1" },
-  { cat: "formation", nom: "Robert M.", slug: "cat-avis-2" },
-  { cat: "coaching", nom: "Christophe V.", slug: "cat-avis-3" },
-  { cat: "audit", nom: "Solène B.", slug: "cat-avis-4" },
-  { cat: "audit", nom: "Lucie A.", slug: "cat-avis-5" },
-  { cat: "implementation", nom: "Thibault F.", slug: "cat-avis-6" },
-];
+const NB_TEMOIGNAGES = 6;
 
-function avisRetenus() {
-  const parNom = new Map();
-  for (const c of avisSrc.categories)
-    for (const it of c.items) parNom.set(it.name, { ...it, cat: c.key, label: c.label, accent: c.accent });
-  return TEMOIGNAGES.map((t) => {
-    const a = parNom.get(t.nom);
-    if (!a) throw new Error(`[build-conseil] témoignage introuvable : ${t.nom}`);
-    if (a.cat !== t.cat) throw new Error(`[build-conseil] ${t.nom} : catégorie ${a.cat} ≠ ${t.cat}`);
-    return { ...a, slug: t.slug };
-  });
-}
+const emplacements = () =>
+  Array.from({ length: NB_TEMOIGNAGES }, (_, i) => ({
+    numero: i + 1,
+    slug: `cat-avis-${i + 1}`,
+  }));
 
 // ---------------------------------------------------------------------------
 // Briques de page
@@ -603,37 +608,30 @@ ${footer("Un devis sous 48 h", "axion-ia.com/appel")}`,
 // ---------------------------------------------------------------------------
 // Témoignages — un QR par témoignage
 // ---------------------------------------------------------------------------
-function pageTemoignages(avis, num, total) {
+function pageTemoignages(slots, num, total) {
   return page(
-    `${runhead("Ils l'ont fait")}
+    `${runhead("Témoignages clients")}
 
   <div style="text-align:center">
-    <div class="eyebrow">Retours clients ${num} / ${total}</div>
-    <h2 class="display" style="font-size:30pt;margin:3mm 0 0">Ce qu'ils en disent,
-      <span class="display-it" style="color:var(--terra)">avec leurs mots et leurs chiffres.</span></h2>
-    <p style="font-size:10.5pt;color:var(--ink-soft);max-width:156mm;margin:3mm auto 0;line-height:1.5">
-      Chaque avis a son propre code : il ouvre la fiche de cette personne sur axion-ia.com — et, quand le tournage sera fait, son interview filmée.</p>
+    <div class="eyebrow">Témoignages ${num} / ${total}</div>
+    <h2 class="display" style="font-size:31pt;margin:3mm 0 0">Ce qu'ils en disent,
+      <span class="display-it" style="color:var(--terra)">de leur propre voix.</span></h2>
+    <p style="font-size:10.5pt;color:var(--ink-soft);max-width:150mm;margin:3mm auto 0;line-height:1.5">
+      Scannez un code pour découvrir le retour d'un client. Les témoignages sont mis à jour en ligne — ce catalogue reste à jour sans être réimprimé.</p>
+    <div class="rule" style="margin:4mm auto 0"></div>
   </div>
 
-  <div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:5mm;margin-top:5mm">
-    ${avis
+  <div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:6mm;margin-top:4mm">
+    ${slots
       .map(
-        (a) => `<div class="card" style="padding:5mm 6mm;display:flex;gap:6mm;align-items:flex-start;border-left:5px solid ${a.accent}">
-      <div style="flex:1">
-        <div class="fchip" style="background:${a.accent};color:#fff;margin-bottom:2.5mm">${esc(a.label)}</div>
-        <div style="font-family:'Fraunces',serif;font-style:italic;font-weight:600;font-size:14pt;line-height:1.2;color:var(--ink)">« ${esc(a.quote)} »</div>
-        <p style="font-size:9.6pt;line-height:1.45;color:var(--ink-soft);margin:2.5mm 0 0">${esc(a.body)}</p>
-        <div style="margin-top:2.5mm;font-size:9.5pt;font-weight:800;color:var(--ink)">${esc(a.name)}
-          <span style="font-weight:600;color:var(--ink-muted)"> — ${esc(a.context)}</span></div>
-      </div>
-      ${qrBoite(a.slug, "23mm", "Son avis<br>en ligne")}
+        (t) => `<div class="card" style="padding:6mm 8mm;display:flex;align-items:center;gap:8mm">
+      <div style="flex:none;width:14mm;height:14mm;border-radius:50%;background:var(--terra);color:#fff;font-family:'Fraunces',serif;font-weight:600;font-size:17pt;display:flex;align-items:center;justify-content:center">${t.numero}</div>
+      <div style="flex:1;font-family:'Fraunces',serif;font-weight:600;font-size:20pt;color:var(--ink);line-height:1.1">Témoignage ${t.numero}</div>
+      <div class="card" style="flex:none;padding:5px;background:#fff">${qr(t.slug, "32mm")}</div>
     </div>`,
       )
       .join("")}
   </div>
-
-  <div style="margin-top:4mm;font-size:8.5pt;color:var(--ink-muted);line-height:1.45;text-align:center">
-    Avis recueillis auprès de clients ayant réellement bénéficié de la prestation et publiés sur axion-ia.com/avis. Les résultats dépendent de votre contexte, de vos outils et de vos processus.</div>
 
 ${footer("Tous les avis clients", "axion-ia.com/avis")}`,
   );
@@ -799,11 +797,19 @@ ${footer("Réservez un appel découverte", "axion-ia.com/appel")}`,
 
   const corps = html.slice(iDeck, iFin);
   const blocs = corps.split(/(?=<section class="page")/).filter((s) => s.trim().startsWith("<section"));
-  // Idempotence : on jette ce qu'une exécution précédente avait ajouté.
+  // La source ne doit JAMAIS contenir de page générée : si c'est le cas, on a
+  // pointé le build sur sa propre sortie.
   const E = blocs.filter((b) => !b.includes("GEN:conseil"));
+  if (E.length !== blocs.length) {
+    throw new Error(
+      `[build-conseil] ${blocs.length - E.length} page(s) générée(s) trouvée(s) dans ${path.basename(SRC)}.
+` +
+        `  La source a été écrasée par une sortie. La restaurer avant de relancer.`,
+    );
+  }
   if (E.length !== 24) throw new Error(`[build-conseil] attendu 24 pages d'origine, trouvé ${E.length}`);
 
-  const av = avisRetenus();
+  const slots = emplacements();
   const co = offres.coaching, au = offres.audit, im = offres.implementation;
 
   // 3. L'ordre voulu : formations → séminaire → coaching → audit →
@@ -838,8 +844,8 @@ ${footer("Réservez un appel découverte", "axion-ia.com/appel")}`,
     fichePrestation(im[3], "implementation", 4, "cat-i04"),  // 35
     fichePrestation(im[4], "implementation", 5, "cat-i05"),  // 36
     pageTarifsRecap(),                      // 37
-    pageTemoignages(av.slice(0, 3), 1, 2),  // 38
-    pageTemoignages(av.slice(3, 6), 2, 2),  // 39
+    pageTemoignages(slots.slice(0, 3), 1, 2),  // 38
+    pageTemoignages(slots.slice(3, 6), 2, 2),  // 39
     E[18], E[19], E[20], E[21],             // 40-43 Moteur · automatisations · et chez vous
     pageFinancement(),                      // 44
     pageConformite(),                       // 45
@@ -856,13 +862,13 @@ ${footer("Réservez un appel découverte", "axion-ia.com/appel")}`,
     );
   }
 
-  fs.writeFileSync(SRC, tete + "\n" + ORDRE.join("\n") + "\n" + queue, "utf8");
+  fs.writeFileSync(OUT, tete + "\n" + ORDRE.join("\n") + "\n" + queue, "utf8");
 
   const ajoutees = ORDRE.filter((p) => p.includes("GEN:conseil")).length;
   console.log(`Catalogue assemblé : ${ORDRE.length} pages (${ORDRE.length / 4} feuillets)`);
   console.log(`  ${ORDRE.length - ajoutees} pages d'origine reprises telles quelles`);
   console.log(`  ${ajoutees} pages générées`);
-  console.log(`  témoignages imprimés : ${av.length} (vérifiés en production), 1 QR chacun`);
+  console.log(`  témoignages : ${slots.length} emplacements numérotés, 1 QR chacun, aucun texte`);
   console.log(`\nEnchaîner : node renumber.cjs && node scan-qr.cjs`);
 })().catch((e) => {
   console.error(e.message || e);
