@@ -72,18 +72,16 @@ const L = 210, H = 297; // format FINI, fond perdu rogné
     const neuf = document.createElement("div");
     neuf.className = "deck";
     planches.forEach((pp, idx) => {
+      // Les couvertures sont CENTRÉES sur la planche, pas calées d'un côté par
+      // une page blanche. Une 1re de couverture ne se présente pas avec une
+      // page vide à sa gauche : elle se présente seule, au milieu. Idem pour
+      // le dos. Les doubles intérieures, elles, occupent toute la largeur.
+      const seule = pp.length === 1;
       const ligne = document.createElement("div");
       ligne.style.cssText =
-        `display:flex;width:${L * 2}mm;height:${H}mm;page-break-after:always;break-after:page;background:#fff`;
-      const vide = () => {
-        const d = document.createElement("div");
-        d.style.cssText = `width:${L}mm;height:${H}mm;background:#fff;flex:none`;
-        return d;
-      };
-      // la couverture ouvre à DROITE, le dos ferme à GAUCHE
-      if (idx === 0) ligne.appendChild(vide());
+        `display:flex;${seule ? "justify-content:center;" : ""}` +
+        `width:${L * 2}mm;height:${H}mm;page-break-after:always;break-after:page;background:#fff`;
       pp.forEach((p) => ligne.appendChild(enFenetre(p)));
-      if (idx === planches.length - 1) ligne.appendChild(vide());
       neuf.appendChild(ligne);
     });
     deck.replaceWith(neuf);
