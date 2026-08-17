@@ -15,10 +15,11 @@
 | **PDF livré** | `export/catalogue-web.pdf` → `Downloads\catalogue-axion-ia-48p.pdf` |
 | **PDF imprimeur CMJN** | `export/catalogue-axion-ia-CMYK.pdf` → `Downloads\catalogue-axion-ia-CMJN-imprimeur.pdf` |
 | **PDF de relecture, planches doubles** | `export/catalogue-planches-verification.pdf` → `Downloads\catalogue-axion-ia-PLANCHES-verification.pdf` — **ne pas envoyer à l'imprimeur** |
-| **Dépôt** | `C:\Users\willi\Documents\Projets\Catalogue_formations_Axion_IA` (git, branche `main`) |
+| **Dépôt catalogue** | `C:\Users\willi\Documents\Projets\Catalogue_formations_Axion_IA` (git, branche `main`) |
 | **Contenu des 12 prestations de conseil** | `../catalogue-kdp/coaching-audit-data.json` |
 | **Vérité des prix** | `C:\Users\willi\Documents\Projets\Axion-IA\axionia\src\content\pricing.ts` |
 | **Console QR** | `https://axion-ia.com/fr/admin-xfz5hk0j7hrk/qr-codes` |
+| **Publication en ligne** | PR **#689** sur `will383842/axion-ia`, branche `feat/catalogue-a4-48-pages`, worktree isolé `Projets/axionia-wt-catalogue48` |
 
 ## 1. La chaîne de build, dans l'ordre
 
@@ -128,10 +129,16 @@ node check-dpi.cjs          # toutes les images ≥ 300 dpi effectifs
    de 4,5 mm : le texte est remonté dans la partie visible du bandeau et se
    tient désormais à 4,0-4,3 mm du trait. Règle partagée injectée dans la
    sortie, aucune page réécrite.
-8. **Le QR de la page 3 mène au mauvais document** : il pointe sur
-   `/fr/catalogue`, qui sert le LIVRE KDP de 46 pages, pas le catalogue A4.
-   La page promet « Découvrez CE catalogue ». Soit on publie le A4, soit on
-   repointe le slug `cat-catalogue`.
+8. **Publication en ligne — PR #689 ouverte, en attente des gates.**
+   Elle remplace `public/catalogue-formations-ia-axion-ia.pdf` (édition 24 p.
+   du 28 juillet) par l'édition 48 pages. Même chemin, donc les liens existants
+   continuent de fonctionner. Un seul fichier, aucun code.
+   ⚠️ `axionia` était en HEAD DÉTACHÉ avec 15 fichiers modifiés par un autre
+   chantier : le travail est passé par un **worktree isolé**, jamais par le
+   working tree partagé.
+   Une fois la PR fusionnée et le déploiement passé (~25 min), **repointer le
+   slug `cat-catalogue`** vers l'édition A4 si l'on veut que le QR de la p.3
+   ouvre bien CE catalogue et non le livre KDP.
 
 ### Décisions Will — ne pas revenir dessus
 
