@@ -80,6 +80,15 @@ const QUALITY = 0.72;
   await page.pdf({ path: DEST, printBackground: true, preferCSSPageSize: true });
   await browser.close();
 
+  // Affichage en doubles pages (p.1 seule, puis 2-3, 4-5 …, dernière seule).
+  // Playwright n'expose pas /PageLayout : on l'ajoute en mise à jour
+  // incrémentale juste après l'export, pour que l'étape ne s'oublie jamais.
+  require('child_process').execFileSync(
+    process.execPath,
+    [path.join(DIR, 'pdf-doubles-pages.cjs'), DEST],
+    { stdio: 'inherit' },
+  );
+
   const mb = (fs.statSync(DEST).size / 1048576).toFixed(1);
   console.log(`images ré-échantillonnées : ${stats.converted} (${stats.unique} fichiers uniques)`);
   console.log(`PDF web : ${path.basename(DEST)} — ${mb} Mo`);
