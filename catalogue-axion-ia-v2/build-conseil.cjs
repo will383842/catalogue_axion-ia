@@ -1027,6 +1027,32 @@ function pageContact(src) {
     .replace('<b style="color:#fff">ACTIONS DE FORMATION</b>', '<b style="color:var(--ink)">ACTIONS DE FORMATION</b>')
     // le bandeau Qualiopi n'a plus besoin de son fond blanc
     .replace('style="height:20mm;background:#fff;border-radius:8px;padding:5px"', 'style="height:20mm"')
+    // — MENTIONS LÉGALES RÉELLES (demande Will 2026-08-17).
+    //
+    // Le catalogue imprimait « SIRET 000 000 000 00000 », « n° 00 00 00000 00 »
+    // et « [adresse] ». Des zéros de remplissage sur du papier valent moins que
+    // rien : ils donnent l'apparence d'une identité déclarée là où il n'y en a
+    // pas. Les valeurs viennent des mentions légales publiées sur axion-ia.com,
+    // qui font foi.
+    //
+    // ⚠️ LE NUMÉRO DE DÉCLARATION D'ACTIVITÉ N'EST PAS INVENTÉ, ET NE PEUT PAS
+    // L'ÊTRE. L'ADR 0036 du dépôt axionia (accepté le 2026-07-31) l'établit :
+    // l'art. L.6351-1 fait courir le délai de déclaration à compter de la
+    // conclusion de la PREMIÈRE convention de formation. Au moment d'imprimer,
+    // l'organisme n'a légalement pas encore de numéro. On écrit donc la
+    // situation réelle plutôt qu'un faux numéro — c'est déjà le traitement
+    // retenu dans les documents contractuels générés par le back-office.
+    //
+    // La mention Qualiopi complète (catégorie d'actions) figure ICI et nulle
+    // part ailleurs : le logo reste tel quel sur les autres pages.
+    .replace(
+      /<b style="color:var\(--ink-soft\)">Mentions légales — à compléter :<\/b>[\s\S]*?Directeur de la publication : Williams Jullin\./,
+      `<b style="color:var(--ink)">Mentions légales.</b>
+      <b>AXION IA SAS</b>, société par actions simplifiée au capital de 1 000 € · Siège social : ELITE BUREAUX — boîte 53, 11 avenue Paul Verlaine, 38100 Grenoble · RCS Grenoble, <b>SIREN 108 018 631</b> · <b>SIRET</b> (siège) 108 018 631 00011 · TVA intracommunautaire FR51 108 018 631 · Directeur de la publication : Williams Jullin, président · contact@axion-ia.com<br>
+      <b style="color:var(--ink)">Organisme de formation certifié Qualiopi.</b> La certification qualité a été délivrée au titre de la catégorie d'actions suivante : <b>Actions de formation</b>.<br>
+      <b style="color:var(--ink)">Déclaration d'activité de prestataire de formation :</b> le délai de déclaration court à compter de la conclusion de la première convention de formation (art. L.6351-1 du code du travail). Le numéro d'enregistrement sera porté ici dès sa délivrance par la DREETS Auvergne-Rhône-Alpes.`,
+    )
+
     // Le grand vide central passait pour de la respiration sur fond mocha ;
     // sur fond clair il fait page inachevée. On le remplit par les étapes
     // concrètes — c'est la dernière page lue avant la 4e de couverture.
