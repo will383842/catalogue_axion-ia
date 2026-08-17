@@ -160,7 +160,13 @@ node check-dpi.cjs          # toutes les images ≥ 300 dpi effectifs
    de 4,5 mm : le texte est remonté dans la partie visible du bandeau et se
    tient désormais à 4,0-4,3 mm du trait. Règle partagée injectée dans la
    sortie, aucune page réécrite.
-8. **Publication en ligne — PR #689 ouverte, en attente des gates.**
+8. ~~Publication en ligne~~ — **PR #689 FUSIONNEE le 2026-08-17 a 16h02**
+   (squash `3e75665`, les 4 gates vertes). Deploiement en cours.
+   Historique : les gates etaient deja toutes vertes une premiere fois quand
+   la relecture visuelle a sorti les 5 defauts (§ 5bis-ter). Le correctif a
+   relance un tour complet de ~40 min. Fusionner la version d'avant aurait mis
+   en ligne trois renvois faux et un logo casse.
+8bis. **Detail de ce que la PR remplacait**
    Elle remplace `public/catalogue-formations-ia-axion-ia.pdf` (édition 24 p.
    du 28 juillet) par l'édition 48 pages. Même chemin, donc les liens existants
    continuent de fonctionner. Un seul fichier, aucun code.
