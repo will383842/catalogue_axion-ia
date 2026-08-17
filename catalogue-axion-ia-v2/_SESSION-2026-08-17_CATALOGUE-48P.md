@@ -122,10 +122,11 @@ node check-dpi.cjs          # toutes les images ≥ 300 dpi effectifs
 
 ## 4. ⛔ CE QUI RESTE — reste Will
 
-0. 🔴 **CHANGER LE PRÉFIXE DE LA CONSOLE D'ADMINISTRATION.** J'ai publié son URL
-   sur un dépôt public (§ 5sexies). Retirée de l'état courant, mais **toujours
-   lisible dans l'historique, au commit `42ecac3`**. Aucune opération sur le
-   dépôt ne rattrape ça : seul le changement de préfixe le fait.
+0. ~~Changer le préfixe de la console~~ — **TRANCHÉ PAR WILL le 2026-08-17 :
+   NON, il le changera plus tard s'il le veut.** L'URL reste lisible dans
+   l'historique public au commit `42ecac3` (§ 5sexies). Décision prise en
+   connaissance de cause : la console reste derrière l'authentification, le
+   préfixe n'est qu'une obscurité. **NE PAS REPOSER LA QUESTION.**
 0bis. **Trancher les pages blanches** si ma lecture est fausse (§ 5quater) : j'ai
    compris la demande comme portant sur l'affichage — couverture seule et
    centrée, ce qui est livré. Deux blanches PHYSIQUES coûteraient soit la page
@@ -336,9 +337,9 @@ prefixe secret, et je l'ai poussee sur `catalogue_axion-ia`, depot **PUBLIC**.
 - retiree de l'etat courant au commit `904a40a`
 - `axionia` n'est PAS touche (verifie)
 
-**Retirer du HEAD ne retire pas de l'historique.** La seule remediation qui
-vaille est de CHANGER LE PREFIXE de la console : une URL secrete publiee n'est
-plus secrete, et la reecriture d'historique ne rattrape pas les copies faites.
+**Retirer du HEAD ne retire pas de l'historique.** J'ai recommande de changer
+le prefixe. **Will a tranche le 2026-08-17 : non, plus tard s'il le veut.**
+Decision enregistree, ne pas la reposer.
 
 Portee reelle : ce prefixe est une obscurite, pas un controle d'acces. La console
 reste derriere l'authentification. L'exposition abaisse une barriere, elle
