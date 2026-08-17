@@ -178,5 +178,37 @@ const sansCommentaires = html
 const dosSurCouv = /couv1\.jpg|couv\d/.test(sansCommentaires);
 dire(!dosSurCouv, dosSurCouv ? "un test porte sur un NOM DE FICHIER de couverture — piège KDP" : "aucun test sur un nom de fichier de couverture");
 
+// ── 6. L'aperçu de partage ──────────────────────────────────────────────────
+// Sans lui, le lien s'affiche en URL nue dans WhatsApp, LinkedIn ou un mail.
+// C'est LE lien qu'on partage — celui qui ouvre le catalogue : il doit se
+// présenter. Un PDF ne peut jamais porter d'aperçu, donc tout repose ici.
+console.log("\n=== 5. APERÇU DE PARTAGE (Open Graph) ===\n");
+const meta = (cle) => {
+  const m = html.match(
+    new RegExp('<meta[^>]+(?:property|name)="' + cle + '"[^>]*content="([^"]*)"', "i"),
+  );
+  return m ? m[1] : null;
+};
+for (const cle of ["og:title", "og:description", "og:image", "og:url", "twitter:card"]) {
+  const v = meta(cle);
+  dire(!!v, v ? `${cle} = ${v.slice(0, 74)}` : `${cle} ABSENT — le lien se partagerait en URL nue`);
+}
+const imgOg = meta("og:image");
+if (imgOg) {
+  // Les robots des réseaux sociaux ne résolvent PAS les chemins relatifs.
+  const absolue = /^https:\/\//.test(imgOg);
+  dire(absolue, absolue ? "og:image est une URL absolue" : `og:image n'est pas absolue (${imgOg}) : aucun réseau ne la résoudra`);
+  // Et le fichier doit exister à côté du feuilletoir, sinon l'aperçu est vide.
+  const nom = imgOg.split("/").pop();
+  const surDisque = path.join(path.dirname(cible), nom);
+  const la = fs.existsSync(surDisque);
+  dire(
+    la,
+    la
+      ? `${nom} présent (${(fs.statSync(surDisque).size / 1024).toFixed(0)} Ko)`
+      : `${nom} ABSENT à côté du feuilletoir — l'aperçu serait vide`,
+  );
+}
+
 console.log(ko === 0 ? "\n=== ✅ feuilletoir vérifié — appariement conforme au livret ===" : `\n=== 🔴 ${ko} anomalie(s) ===`);
 process.exit(ko === 0 ? 0 : 1);

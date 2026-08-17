@@ -294,6 +294,89 @@ exactement les memes `/BaseFont`. Il n'y a jamais eu de probleme.
 regarder ce que la page CHARGE (`document.fonts`) et comparer deux rendus a
 l'oeil. Ne jamais conclure d'un balayage d'octets sur un PDF Chrome.
 
+## 5bis-quinquies. LE FEUILLETOIR APPARIAIT MAL — trouve EN L'OUVRANT
+
+`check-ordre.cjs` verifiait le MANIFESTE : 48 images, dans l'ordre, cote
+gauche/droite correct. Tout etait vert, et l'est reste apres le deploiement.
+Puis j'ai ouvert le feuilletoir en production et saute a la page 45.
+
+Il a affiche **45|46**. En piqure a cheval, 45 se lit avec 44.
+
+| Defaut | Portee |
+|---|---|
+| Saut direct cale sur la mauvaise page | **les 46 pages numerotees** |
+| Marche arriere : page 47 SEULE depuis la 4e de couv. | vue que la marche avant ne produit jamais |
+
+**Causes.** Le calage se faisait sur la parite de l'INDEX en la traitant comme
+celle du FOLIO. `PAGES[0]` est la page 1, donc une double commence a un index
+IMPAIR. Le test venait du feuilletoir KDP, ou les couvertures sont des entrees
+separees et ou la parite est inversee : **il faisait le contraire de ce que son
+propre commentaire annoncait.** Et la fonction de pas regarde `i` et `i+1` —
+c'est le pas pour AVANCER ; l'employer pour reculer s'arrete entre deux doubles.
+D'ou `pasArriere()`, son miroir.
+
+🔑 **VERIFIER UNE LISTE NE VERIFIE PAS LA NAVIGATION QUI LA PARCOURT.** Meme
+lecon que les renvois du § 5bis-ter : le controle mesurait la donnee, pas
+l'usage. `check-feuilletoir.cjs` rejoue desormais les TROIS chemins d'un
+lecteur — saut direct pour chaque page, marche avant, marche arriere — et exige
+que les trois donnent le meme decoupage. Il lit le HTML PUBLIE et rejoue les
+regles telles qu'elles y sont ecrites, jamais sa propre idee du code.
+
+🔑 **Ma garde a d'abord signale un 3e defaut : un faux.** Elle trouvait
+`couv1.jpg` dans un COMMENTAIRE documentant un piege deja corrige. Un test
+statique trouve ses propres commentaires — retirer les commentaires avant de
+chercher.
+
+⛔ **4 fois cette session** j'ai casse un build avec des backticks dans un
+commentaire a l'interieur d'un litteral gabarit. Le savoir ne suffit pas.
+
+## 5bis-sexies. IMAGE DE PARTAGE (Open Graph) — demande Will
+
+Colle dans WhatsApp ou LinkedIn, `/catalogue/index.html` s'affichait en URL
+nue : ni `og:image`, ni `og:title`, ni carte Twitter. `/fr/catalogue` avait
+deja une carte complete via `/api/og` du site — le trou etait sur le
+feuilletoir seul.
+
+🔑 **UN PDF NE PEUT JAMAIS PORTER D'APERCU** : aucun reseau ne lit les
+metadonnees d'un PDF. Le lien a partager est donc toujours une PAGE.
+
+`build-og.cjs` produit `export/og-catalogue.jpg`, 1200 x 630 rendue en x2, dans
+la charte : Fraunces, Manrope, la palette imprimee. Elle montre le VRAI
+catalogue — une double ouverte, la couverture posee devant, le repere
+« 48 pages ». Rendue dans Chromium comme le catalogue lui-meme, et **le
+generateur VERIFIE que les polices sont chargees** puis echoue sinon, plutot
+que de sortir une carte hors charte en silence.
+
+⚠️ `og:image` doit etre une URL **ABSOLUE** : les robots des reseaux ne
+resolvent pas les chemins relatifs. La garde le controle.
+
+⚠️ WhatsApp met les apercus en cache longtemps. Un lien deja partage reste nu :
+ajouter `?v=2` pour forcer la relecture.
+
+## 5bis-septies. CONSOLE — acces au catalogue A4 (PR #708)
+
+Will : « est-ce que j'y ai acces directement depuis la console ? » Non.
+L'onglet `catalogue-imprime` existait mais ne parlait que des PRIX du livre KDP.
+Il devient « Catalogues imprimes » et liste les 4 livrables A4, cliquables,
+avec leur poids lu sur le disque du conteneur — l'octet reellement servi.
+
+🔑 **Aucune date affichee.** Dans une image Docker, les dates de fichier sont
+celles de la COPIE, pas de la fabrication. C'est la regle que la page s'etait
+deja donnee pour les PDF KDP : ne pas afficher ce qu'on ne mesure pas.
+
+⛔ Le CMJN imprimeur reste HORS de `public/` — 25 Mo, fond perdu et reperes ;
+le publier le rendrait telechargeable par n'importe qui. La page dit ou il est,
+et rappelle que le PDF de RELECTURE ne part jamais a l'imprimeur non plus.
+
+## 5bis-octies. ⚠️ GITHUB EN PANNE le 2026-08-17 au soir
+
+Ne pas rejouer le diagnostic : un deploiement a **echoue sans que le code soit
+en cause**. `codeload.github.com` a rendu 503 puis **429 Too Many Requests** en
+telechargeant `docker/setup-buildx-action`. Leur API GraphQL rendait 503/504 en
+rafale au meme moment. `gh run rerun --failed` a suffi.
+
+🔑 Devant un deploiement rouge : **lire l'erreur avant d'accuser le patch.**
+
 ## 5quater. Pages blanches — TRANCHE, hypothese explicite
 
 Demande de Will : « une page blanche juste apres la page de couverture (verso de
