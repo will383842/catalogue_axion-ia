@@ -35,6 +35,7 @@ node build-planches.cjs     # PDF de RELECTURE en planches doubles réelles
 node check-harmonie.cjs     # A4 vs livre KDP : prix, titres, décomptes
 node check-maquette.cjs     # remplissage, marges de coupe, corps, dpi des images
 node check-ordre.cjs        # folios, manifeste, appariement, sequence editoriale
+node check-renvois.cjs      # chaque « p. NN » verifie contre le CONTENU cite
 node render-pages-web.cjs   # 48 images pour le feuilletoir, fond perdu rogne
 node build-feuilletoir.cjs  # export/feuilletoir/ : index.html + pages-web/
 node build-pdf-doubles-web.cjs  # 25 planches 420x297, pour la lecture en ligne
@@ -55,6 +56,7 @@ node check-dpi.cjs          # toutes les images ≥ 300 dpi effectifs
 | `pdf-doubles-pages.cjs` | `/PageLayout /TwoPageRight` en mise à jour incrémentale |
 | `maj-logo.cjs` | installe et recadre le logo officiel |
 | `pages-source.html` | les 24 pages d'origine, figées |
+| `check-renvois.cjs` | renvois verifies contre le contenu cite + images existantes |
 
 ---
 
@@ -68,19 +70,24 @@ node check-dpi.cjs          # toutes les images ≥ 300 dpi effectifs
   « Catalogue A4 · p.NN — … ». `scan-qr.cjs` est VERT : 27 slugs vivants,
   0 anomalie. `probe-dest.cjs` confirme que les 17 destinations répondent 200.
 - **Bandes de section** pleine hauteur sur la tranche extérieure — 29 bandes,
-  toutes du bon côté (droite sur impaires, gauche sur paires).
+  toutes du bon cote (droite sur impaires, gauche sur paires). **30 apres**
+  correction de la plage p.6.
 - **PDF en doubles pages** : p.1 seule · (2-3) … (46-47) · p.48 seule.
   Chaîne xref revalidée : 2 sections, 12 420 objets, tous les offsets vérifiés.
 - **Logo officiel** installé (`logo_entièrement détouré.png`), recadré sur ses
   pixels opaques → 1227×517, 779 dpi à 40 mm.
-- **Couverture réécrite** : « Catalogue de prestations IA en entreprise » /
-  « Former. Auditer. Construire. » / les 5 familles nommées / « 34 prestations
-  IA · 5 familles ». Elle ne vendait qu'une famille sur cinq.
+- **Couverture reecrite** : « Catalogue de prestations IA en entreprise » /
+  « L'IA, de l'idee a l'impact. » / « Former · Accompagner · Auditer ·
+  Implementer — un seul partenaire ». Elle ne vendait qu'une famille sur
+  quatre. Le bloc de decompte a ete RETIRE a la demande de Will (« trop
+  lourd pour une couverture ») et remplace par une invitation a ouvrir :
+  « Par ou commencer ? La reponse page 6. »
 - **Mention OPCO « sans avance »** dans le pied des 11 pages formation.
 - **Mentions légales réelles** (SIREN 108 018 631, SIRET 108 018 631 00011,
   TVA FR51 108 018 631, siège Grenoble). Plus aucun zéro de remplissage.
 - **6 emplacements de témoignage** numérotés, un QR chacun, **aucun texte**.
-- **5 renvois de page périmés** de la version 24 pages, corrigés.
+- **8 renvois de page perimes** de la version 24 pages, corriges — 5 au
+  balayage initial, **3 de plus trouves en relisant a l'oeil** (§ 5bis-ter).
 - **Harmonie A4 ↔ livre KDP vérifiée** (`check-harmonie.cjs`) : 0 divergence sur
   les décomptes (21 + 1 + 12), les 5 prix de formation, les 10 prix de conseil,
   les 12 titres de prestation ; aucun montant orphelin.
@@ -137,12 +144,18 @@ node check-dpi.cjs          # toutes les images ≥ 300 dpi effectifs
    CMJN 25,2 Mo, RGB 15,4 Mo, 48 JPEG 300 dpi + soft-proofs CMJN.
    `check-tac.cjs` : **TAC max 305 % (p.48), sous le seuil de 320 %** ✅
    `check-dpi.cjs` : **toutes les images ≥ 300 dpi** ✅
-6. **40 pages sur 48 jamais regardées visuellement.** Un contrôle automatique
-   (`check-maquette.cjs`) couvre désormais remplissage, marges de coupe, corps
-   de texte et résolution des images — aucune page sous 80 % de remplissage,
-   aucun contenu courant trop près du bord, aucune image sous 300 dpi. Mais
-   il ne juge pas la COMPOSITION : ça reste à faire à l'œil, sur le PDF de
-   planches.
+6. ~~40 pages sur 48 jamais regardées visuellement~~ — **FAIT le 2026-08-17**,
+   en planches-contact de 12 pages. **Cinq défauts factuels trouvés** (§ 5bis-ter),
+   dont trois renvois faux et une image cassée depuis sa création. Corrigés,
+   avec les gardes qui manquaient. Reste vraiment à Will : le jugement
+   éditorial (équilibre, ton, hiérarchie), sur le PDF de planches.
+6bis. ⚠️ **Échelle de prix des audits, à regarder.** `pricing.ts` est la source,
+   et le catalogue lui est fidèle : Ciblé « dès 1 900 € », Stratégique **PME**
+   « 4 900 / 9 900 € », Stratégique **ETI** « dès 1 900 € » (décision Will du
+   2026-06-03, verrouillée par le test D-ETI-PRIX). Sur le site les paliers ne
+   se voisinent pas ; **en page 36 ils sont dans le même tableau**, et l'ETI
+   affiche un plancher inférieur à la PME. Rien à corriger côté catalogue —
+   c'est une question de grille tarifaire, pas d'impression.
 7. ~~Texte du bandeau de pied à 1,8-2 mm du trait~~ — **CORRIGÉ.** Retrait bas
    de 4,5 mm : le texte est remonté dans la partie visible du bandeau et se
    tient désormais à 4,0-4,3 mm du trait. Règle partagée injectée dans la
@@ -217,6 +230,41 @@ Reprendre un generateur eprouve fait gagner du temps et importe ses hypotheses :
   reprise : la-bas la couverture est une image a part, ici la page 1 EST la
   couverture. La reprendre decalait l'appariement d'un rang.
 
+## 5bis-ter. CINQ DEFAUTS QUE SIX CONTROLES VERTS NE VOYAIENT PAS
+
+Le point 6 du « reste Will » disait : 40 pages sur 48 jamais regardees a l'oeil,
+et le controle automatique « ne juge pas la COMPOSITION ». Fait le 2026-08-17,
+en planches-contact de 12 pages. Il n'a pas trouve un probleme de composition :
+il a trouve **cinq erreurs factuelles** que rien d'automatique ne pouvait voir.
+
+| p. | Defaut | Vrai |
+|---|---|---|
+| 7 | « Seminaire IA … voir p. 15 » | p. **17** |
+| 18 | « Seminaire IA … (voir p. 15) » | p. **17** |
+| 44 | « IA pour l'automatisation, p. 9 » | p. **11** |
+| 6 | tuile « … 1 seminaire — p. 8 a 16 » | le seminaire est en **17** : la plage ne couvrait pas ce qu'elle annoncait |
+| 45 | `assets/qualiopi.png` | le fichier s'appelle `qualiopi-**logo**.png` — image cassee depuis sa creation |
+
+**Pourquoi ils sont passes.** Cinq renvois du meme lot avaient deja ete repris,
+en cherchant des TOURNURES (« voir p. »). Deux de ceux-ci portent une espace
+insecable, le troisieme est glisse au milieu d'une phrase. Un balayage qui part
+de la formulation rate tout ce qui ne l'emploie pas.
+
+🔑 **UN DEFAUT EN CACHAIT UN AUTRE.** `check-dpi` ignore les images dont
+`naturalWidth` vaut 0. Une image cassee ne charge pas, donc ne se mesure pas,
+donc ne peut pas etre sous-definie : **le controle rendait VERT sur une
+absence**. Repare, le logo Qualiopi tombait a 282 dpi. Hauteur d'impression
+36 → 33,5 mm pour repasser au-dessus de 300. Le logo n'est pas touche.
+
+**Gardes posees** — et vues ROUGIR avant d'etre retenues :
+- `check-renvois.cjs` (nouveau) part des NUMEROS. Il releve tous les « p. NN »
+  et exige que chacun soit DECLARE avec le repere que la page citee doit
+  contenir, verifie dans son CONTENU, **aux deux bouts des plages**. Un renvoi
+  non declare fait rougir. Il verifie aussi que chaque `src` d'image existe.
+- `build-conseil.cjs` : une reprise qui ne trouve plus sa cible **arrete** le
+  build (elle se contentait d'un `console.warn` noye dans la sortie).
+- `check-dpi.cjs` : une image qui ne charge pas est signalee, plus ignoree.
+
 ## 5quater. Pages blanches — TRANCHE, hypothese explicite
 
 Demande de Will : « une page blanche juste apres la page de couverture (verso de
@@ -274,6 +322,10 @@ portent la meme URL.
 ## 6. Historique des commits
 
 ```
+6835892  Cinq défauts trouvés en relisant les 48 pages à l'œil, et les gardes qui manquaient
+904a40a  Retire l'URL d'administration du journal — le dépôt est PUBLIC
+865ac65  Le folio passe en marge extérieure, et une garde permanente le vérifie
+42ecac3  Journal de session — tenu au fil de l'eau  ⚠️ porte l'URL d'admin (§ 5sexies)
 73d87ad  Mentions légales : retire le capital social et le paragraphe déclaration d'activité
 b81aab7  Mentions légales réelles — plus aucun zéro de remplissage
 83ec6cd  Couverture réécrite, logo officiel, mention OPCO sans avance, renvois réparés
