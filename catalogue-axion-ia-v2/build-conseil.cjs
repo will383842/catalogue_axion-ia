@@ -1026,12 +1026,16 @@ function pageCouverture(src) {
       `style="background:#fff;border-radius:12px;padding:6px 13px;box-shadow:0 4mm 16mm -6mm rgba(0,0,0,.7)"`,
       `style="border-radius:12px;filter:drop-shadow(0 4mm 16mm rgba(0,0,0,.55))"`,
     )
-    // — décompte : les cinq familles, pas les seules formations
+    // — décompte. « 34 prestations IA · 5 familles » se lisait « 34 formations »
+    //   (Will, 2026-08-17). L'arithmétique était juste — 21+1+3+4+5 — mais un
+    //   chiffre qu'un lecteur additionne mal est un chiffre faux. On garde donc
+    //   le repère que tout le monde connaît (21 + 1) et on ajoute le conseil
+    //   à part, sans total agrégé.
     .replace(
       `<div class="display" style="font-size:30pt;color:#fff;line-height:1">21 formations<span style="color:var(--terra-bright)"> + </span>1 séminaire</div>
         <div style="font-size:10.5pt;color:var(--sand);margin-top:2.5mm">Offres générales · par métier · par secteur — intra, présentiel &amp; distanciel</div>`,
-      `<div class="display" style="font-size:26pt;color:#fff;line-height:1">34 prestations IA<span style="color:var(--terra-bright)"> ·</span> 5 familles</div>
-        <div style="font-size:10pt;color:var(--sand);margin-top:2.5mm;line-height:1.45">21 formations · 1 séminaire · 3 accompagnements 1-to-1 · 4 audits · 5 implémentations<br>Intra-entreprise, présentiel &amp; distanciel</div>`,
+      `<div class="display" style="font-size:26pt;color:#fff;line-height:1.05">21 formations<span style="color:var(--terra-bright)"> + </span>1 séminaire<br><span style="font-size:19pt">et <span style="color:var(--terra-bright)">12 prestations de conseil</span></span></div>
+        <div style="font-size:9.6pt;color:var(--sand);margin-top:2.5mm;line-height:1.45">Accompagnement 1-to-1 · Audit IA · Implémentation &amp; automatisation<br>Intra-entreprise, présentiel &amp; distanciel</div>`,
     )
     // — OPCO : « en partie ou en totalité », et surtout SANS AVANCE (subrogation)
     .replace(
