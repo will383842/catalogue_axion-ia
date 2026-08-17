@@ -98,12 +98,39 @@ for (const [famille, offres] of Object.entries(conseilKdp)) {
 }
 
 // ── 4. Titres des prestations de conseil ──────────────────────────────────
+//
+// RENOMMAGES ASSUMÉS. L'audit a montré que la famille 1-to-1 portait QUATRE
+// noms, et sa deuxième prestation TROIS. Le catalogue A4 a été unifié sur
+// `pricing.ts`. Le livre KDP, lui, n'a pas été touché : il garde ses libellés.
+//
+// Une divergence voulue reste une divergence. On la DÉCLARE ici plutôt que de
+// la faire disparaître, pour qu'elle se voie à chaque contrôle et qu'on pense
+// à réaligner le KDP à sa prochaine réimpression. Un tableau d'exceptions qui
+// grossit est le signal que les deux supports sont en train de diverger.
+const RENOMMAGES = {
+  "coaching-collaborateur": {
+    kdp: "Coaching IA · Collaborateur",
+    a4: "Optimisation du poste",
+    motif: "nom unique aligné pricing.ts — KDP à réaligner",
+  },
+};
+
 console.log("\n=== 4. TITRES DU CONSEIL ===\n");
 for (const [famille, offres] of Object.entries(conseilKdp)) {
   for (const o of offres) {
+    const renomme = RENOMMAGES[o.slug];
+    if (renomme) {
+      const ok = toutLeTexte.includes(norme(renomme.a4));
+      dire(ok, `${famille}/${o.slug} : « ${renomme.kdp} » → « ${renomme.a4} » (${renomme.motif})`);
+      continue;
+    }
     const present = toutLeTexte.includes(norme(o.title));
     dire(present, `${famille}/${o.slug} : « ${o.title} » ${present ? "présent" : "ABSENT ou renommé"}`);
   }
+}
+const nbRenommes = Object.keys(RENOMMAGES).length;
+if (nbRenommes) {
+  console.log(`\n⚠️  ${nbRenommes} libellé(s) volontairement différent(s) du livre KDP — à réaligner côté KDP.`);
 }
 
 // ── 5. Prix orphelins du A4 (présents ici, inconnus du KDP) ───────────────

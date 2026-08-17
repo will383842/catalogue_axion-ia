@@ -108,11 +108,12 @@ const P = {
   moteur: [41, 44],          // « le moteur Axion-IA » + ce que nous automatisons
   seminaire: 17,
   tarifsFormations: 18,
-  coaching: [20, 23],
-  audit: [24, 29],
-  implementation: [30, 36],
-  tarifsToutes: 37,
-  financement: 38,
+  coaching: [19, 22],
+  audit: [23, 28],
+  implementation: [29, 35],
+  services: 6,               // « Quatre façons de travailler ensemble »
+  tarifsToutes: 36,
+  financement: 37,
   temoignages: [39, 40],
   visibilite: 48,
 };
@@ -234,7 +235,7 @@ function fichePrestation(o, famille, numero, slugQr) {
         <div class="fnum" style="color:${f.barre}">${esc(f.badge)} · nº ${numero}</div>
         <h1 class="display" style="font-size:31pt;margin-top:2mm;color:var(--ink)">${esc(o.title)}</h1>
         <div class="fchipline">
-          <span class="fchip" style="${f.pastille}">${esc(o.pillarBadge)}</span>
+          <span class="fchip" style="${f.pastille}">${esc(f.badge)}</span>
           <span class="fchip" style="background:var(--sand);color:var(--ink)">⏱ ${esc(o.duration)}</span>
           <span class="fchip" style="background:var(--mocha);color:#fff">${esc(o.participants)}</span>
           <span class="fchip" style="background:${f.barre};color:#fff">${esc(o.price)}</span>
@@ -340,32 +341,25 @@ function pageServices5() {
 
   <div style="text-align:center;margin-top:1mm">
     <div class="eyebrow">De l'idée à l'impact — un seul partenaire</div>
-    <h2 class="display" style="font-size:36pt;margin:3.5mm 0 0;line-height:1.02">Cinq façons de
+    <h2 class="display" style="font-size:36pt;margin:3.5mm 0 0;line-height:1.02">Quatre façons de
       <span class="display-it" style="color:var(--terra)">travailler ensemble.</span></h2>
     <p style="font-size:11.5pt;color:var(--ink-soft);margin:4mm auto 0;max-width:156mm;line-height:1.5">
-      Former une équipe, fédérer toute l'entreprise, accompagner une personne, auditer vos process, construire vos automatisations. <b>Vous n'avez pas à choisir tout de suite</b> — on cadre ensemble.</p>
+      Former vos équipes, accompagner une personne, auditer vos process, construire vos automatisations. <b>Vous n'avez pas à choisir tout de suite</b> — on cadre ensemble.</p>
   </div>
 
-  <div style="flex:1;display:flex;flex-direction:column;gap:4.5mm;margin-top:6mm">
-    <div style="display:grid;grid-template-columns:1.35fr 1fr;gap:4.5mm;flex:.82">
-      ${tuile({ ic: "🎓", nom: "Formations IA", prix: "Dès 1 200 € HT", c: "var(--terra)", grand: true,
-        txt: "<b>21 formations</b> en intra-entreprise, présentiel ou distanciel. Sur vos vraies tâches — chacun repart avec un livrable terminé, pas des notes.",
-        detail: "4 offres générales · 9 par métier · 8 par secteur", pg: pp(P.formations) })}
-      ${tuile({ ic: "🎤", nom: "Séminaire IA", prix: "Sur devis", c: "var(--terra-deep)",
-        txt: "Une journée pour mettre <b>toute l'entreprise</b> au diapason, jusqu'à 50 personnes, tous services réunis.",
-        detail: "Événement fédérateur, 1 journée", pg: pp(P.seminaire) })}
-    </div>
-    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:4.5mm;flex:1.18">
-      ${tuile({ ic: "🤝", nom: "Accompagnement 1-to-1", prix: "Dès 990 € HT", c: "var(--ochre)",
-        txt: "Une personne, un expert, une journée sur <b>ses propres dossiers</b> — ou 790 € / session en contrat régulier.",
-        detail: "Dirigeant · collaborateur · régulier", pg: pp(P.coaching) })}
-      ${tuile({ ic: "🔍", nom: "Audit IA", prix: "Dès 1 190 € HT", c: "var(--blue)",
-        txt: "On cartographie vos usages, on <b>chiffre chaque opportunité</b> et on livre une feuille de route priorisée.",
-        detail: "4 niveaux, de la TPE à l'ETI", pg: pp(P.audit) })}
-      ${tuile({ ic: "🚀", nom: "Implémentation", prix: "Dès 990 € HT", c: "var(--sage)",
-        txt: "Le clé en main : on conçoit, on développe, on met en production. <b>Code et documentation livrés.</b>",
-        detail: "Processus · chatbots · agents · données", pg: pp(P.implementation) })}
-    </div>
+  <div style="flex:1;display:grid;grid-template-columns:1fr 1fr;grid-auto-rows:1fr;gap:4.5mm;margin-top:6mm">
+    ${tuile({ ic: "🎓", nom: "Formations IA", prix: "Dès 1 200 € HT", c: "var(--terra)",
+      txt: "<b>21 formations</b> en intra-entreprise, présentiel ou distanciel — et le <b>séminaire IA</b>, une journée pour mettre jusqu'à 50 personnes au diapason. Sur vos vraies tâches.",
+      detail: "4 générales · 9 par métier · 8 par secteur · 1 séminaire", pg: pp(P.formations) })}
+    ${tuile({ ic: "🤝", nom: "Accompagnement 1-to-1", prix: "Dès 990 € HT", c: "var(--ochre)",
+      txt: "Une personne, un expert, une journée sur <b>ses propres dossiers</b> — ou 790 € / session en contrat régulier.",
+      detail: "Dirigeant · collaborateur · suivi régulier", pg: pp(P.coaching) })}
+    ${tuile({ ic: "🔍", nom: "Audit IA", prix: "Dès 1 190 € HT", c: "var(--blue)",
+      txt: "On cartographie vos usages, on <b>chiffre chaque opportunité</b> et on livre une feuille de route priorisée.",
+      detail: "4 niveaux, de la TPE à l'ETI", pg: pp(P.audit) })}
+    ${tuile({ ic: "🚀", nom: "Implémentation", prix: "Dès 990 € HT", c: "var(--sage)",
+      txt: "Le clé en main : on conçoit, on développe, on met en production. <b>Code et documentation livrés.</b>",
+      detail: "Processus · chatbots · agents · données", pg: pp(P.implementation) })}
   </div>
 
   <div style="margin-top:5mm;background:var(--mocha);border-radius:16px;padding:4.5mm 8mm;color:#fff;display:flex;align-items:center;gap:8mm">
@@ -387,7 +381,7 @@ ${footer("Réservez votre appel de cadrage", "axion-ia.com/appel")}`,
 const OUVREURS = {
   coaching: {
     slug: "cat-coaching",
-    eyebrow: "Accompagnement individuel",
+    eyebrow: "Accompagnement 1-to-1",
     titre: "Une personne,",
     titreIt: "une journée, ses vrais dossiers.",
     chapo:
@@ -941,18 +935,21 @@ function mentionOpco(htmlPage) {
 // Largeur 9 mm dont 3 mm de fond perdu : 6 mm restent après coupe. Le texte
 // est décalé de 3 mm vers l'intérieur pour rester dans la partie visible.
 // ---------------------------------------------------------------------------
+// QUATRE familles, pas cinq. Une famille commerciale = une promesse + un
+// acheteur + un régime de financement. Le séminaire partage les trois avec les
+// formations — le catalogue le range lui-même avec elles sur la page tarifs et
+// sur la page financement (« finançable OPCO »). C'est un FORMAT (grand
+// effectif, une journée), pas un métier. Le compter comme famille faisait
+// passer l'offre de quatre verbes mémorisables à cinq rayons.
 const BANDES = [
   { de: 8, a: 18, label: "Formations IA", couleur: "var(--terra)" },
-  { de: 20, a: 23, label: "Accompagnement 1-to-1", couleur: "var(--ochre)" },
-  { de: 24, a: 29, label: "Audit IA", couleur: "var(--blue)" },
-  { de: 30, a: 36, label: "Implémentation & automatisation", couleur: "var(--sage)" },
-  { de: 37, a: 38, label: "Tarifs & financement", couleur: "var(--mocha)" },
+  { de: 19, a: 22, label: "Accompagnement 1-to-1", couleur: "var(--ochre)" },
+  { de: 23, a: 28, label: "Audit IA", couleur: "var(--blue)" },
+  { de: 29, a: 35, label: "Implémentation & automatisation", couleur: "var(--sage)" },
+  { de: 36, a: 37, label: "Tarifs & financement", couleur: "var(--mocha)" },
 ];
-// Le séminaire vit dans la plage « Formations » mais porte son propre nom.
-const BANDE_SEMINAIRE = { page: 17, label: "Séminaire IA", couleur: "var(--terra-deep)" };
 
 function bandePour(n) {
-  if (n === BANDE_SEMINAIRE.page) return BANDE_SEMINAIRE;
   return BANDES.find((b) => n >= b.de && n <= b.a) || null;
 }
 
@@ -1012,30 +1009,31 @@ function pageCouverture(src) {
     // — titre : trois verbes, les trois modes d'intervention
     .replace(
       /Formations <span class="display-it" style="color:var\(--terra-bright\)">IA<\/span>/,
-      `Former. Auditer.<br><span class="display-it" style="color:var(--terra-bright)">Construire.</span>`,
+      `L'IA,<br><span class="display-it" style="color:var(--terra-bright)">de l'idée à l'impact.</span>`,
     )
     // 72 pt tenait sur une ligne ; le titre en fait deux désormais
-    .replace("font-size:72pt;margin:3mm 0 0", "font-size:56pt;margin:3mm 0 0")
+    .replace("font-size:72pt;margin:3mm 0 0", "font-size:52pt;margin:3mm 0 0")
     // — baseline : les cinq familles, nommées
     .replace(
       `Former · Accompagner · Auditer — <span style="color:#ffb894">de l'idée à l'impact.</span>`,
-      `Formations · Séminaire · Coaching 1-to-1 · Audit · Implémentation — <span style="color:#ffb894">un seul partenaire, de l'idée à l'impact.</span>`,
+      `Former · Accompagner · Auditer · Implémenter — <span style="color:#ffb894">un seul partenaire.</span>`,
     )
     // — le logo porte désormais sa propre pastille blanche : la boîte fait doublon
     .replace(
       `style="background:#fff;border-radius:12px;padding:6px 13px;box-shadow:0 4mm 16mm -6mm rgba(0,0,0,.7)"`,
       `style="border-radius:12px;filter:drop-shadow(0 4mm 16mm rgba(0,0,0,.55))"`,
     )
-    // — décompte. « 34 prestations IA · 5 familles » se lisait « 34 formations »
-    //   (Will, 2026-08-17). L'arithmétique était juste — 21+1+3+4+5 — mais un
-    //   chiffre qu'un lecteur additionne mal est un chiffre faux. On garde donc
-    //   le repère que tout le monde connaît (21 + 1) et on ajoute le conseil
-    //   à part, sans total agrégé.
+    // — le pavé de décomptes est remplacé par une INVITATION.
+    //   « 34 prestations IA · 5 familles » se lisait « 34 formations » (Will) ;
+    //   « 21 formations + 1 séminaire et 12 prestations de conseil » était juste
+    //   mais lourd pour une couverture. Une couverture doit faire OUVRIR, pas
+    //   inventorier : les nombres vivent au sommaire et sur chaque section.
     .replace(
       `<div class="display" style="font-size:30pt;color:#fff;line-height:1">21 formations<span style="color:var(--terra-bright)"> + </span>1 séminaire</div>
         <div style="font-size:10.5pt;color:var(--sand);margin-top:2.5mm">Offres générales · par métier · par secteur — intra, présentiel &amp; distanciel</div>`,
-      `<div class="display" style="font-size:26pt;color:#fff;line-height:1.05">21 formations<span style="color:var(--terra-bright)"> + </span>1 séminaire<br><span style="font-size:19pt">et <span style="color:var(--terra-bright)">12 prestations de conseil</span></span></div>
-        <div style="font-size:9.6pt;color:var(--sand);margin-top:2.5mm;line-height:1.45">Accompagnement 1-to-1 · Audit IA · Implémentation &amp; automatisation<br>Intra-entreprise, présentiel &amp; distanciel</div>`,
+      `<div class="display" style="font-size:23pt;color:#fff;line-height:1.1">Par où commencer&nbsp;?
+          <span style="color:var(--terra-bright)">La réponse page ${P.services}.</span></div>
+        <div style="font-size:9.6pt;color:var(--sand);margin-top:2.5mm;line-height:1.45">Formations · Accompagnement 1-to-1 · Audit IA · Implémentation &amp; automatisation<br>Intra-entreprise, présentiel &amp; distanciel</div>`,
     )
     // — OPCO : « en partie ou en totalité », et surtout SANS AVANCE (subrogation)
     .replace(
@@ -1046,7 +1044,7 @@ function pageCouverture(src) {
     )
     // — le bloc bas gagne du contenu (5 familles + réserve) : on le resserre
     //   d'autant, sinon la page déborde de 15,6 mm (mesuré par check-overflow)
-    .replace("padding:10mm var(--pad) 13mm", "padding:6mm var(--pad) 9mm")
+    .replace("padding:10mm var(--pad) 13mm", "padding:5mm var(--pad) 7.5mm")
     .replace(
       `<img src="assets/qualiopi-logo.png" alt="Qualiopi — actions de formation" style="height:26mm;width:auto;display:block">`,
       `<img src="assets/qualiopi-logo.png" alt="Qualiopi — actions de formation" style="height:21mm;width:auto;display:block">`,
@@ -1189,6 +1187,12 @@ function pageVisibilite(src) {
   const slots = emplacements();
   const co = offres.coaching, au = offres.audit, im = offres.implementation;
 
+  // Nom unique par prestation, aligné pricing.ts et sur la grille de la page
+  // tarifs. La 2e portait trois noms selon les pages : « Coaching IA ·
+  // Collaborateur », « Collaborateur · Optimisation du poste », « Coaching
+  // individuel dirigeant ou collaborateur ».
+  co[1] = { ...co[1], title: "Optimisation du poste" };
+
   // 3. L'ordre voulu : formations → séminaire → coaching → audit →
   //    implémentation, Visibilité en 4e de couverture.
   //
@@ -1211,26 +1215,29 @@ function pageVisibilite(src) {
     E[12], E[13],                           // 15-16 Par secteur
     E[14],                                  // 17 Séminaire IA
     E[15],                                  // 18 Tarifs formations
-    E[16],                                  // 19 Cas d'usage
-    pageOuvreur("coaching"),                // 20
-    fichePrestation(co[0], "coaching", 1, "cat-c01"),        // 21
-    fichePrestation(co[1], "coaching", 2, "cat-c02"),        // 22
-    fichePrestation(co[2], "coaching", 3, "cat-c03"),        // 23
-    pageOuvreur("audit"),                   // 24
-    pageMethodeAudit(),                     // 25
-    fichePrestation(au[0], "audit", 1, "cat-a01"),           // 26
-    fichePrestation(au[1], "audit", 2, "cat-a02"),           // 27
-    fichePrestation(au[2], "audit", 3, "cat-a03"),           // 28
-    fichePrestation(au[3], "audit", 4, "cat-a04"),           // 29
-    pageOuvreur("implementation"),          // 30
-    pageMethodeImplementation(),            // 31
-    fichePrestation(im[0], "implementation", 1, "cat-i01"),  // 32
-    fichePrestation(im[1], "implementation", 2, "cat-i02"),  // 33
-    fichePrestation(im[2], "implementation", 3, "cat-i03"),  // 34
-    fichePrestation(im[3], "implementation", 4, "cat-i04"),  // 35
-    fichePrestation(im[4], "implementation", 5, "cat-i05"),  // 36
-    pageTarifsRecap(),                      // 37 ─┐ tout l'argent
-    pageFinancement(),                      // 38 ─┘ au même endroit
+    pageOuvreur("coaching"),                // 19
+    fichePrestation(co[0], "coaching", 1, "cat-c01"),        // 20
+    fichePrestation(co[1], "coaching", 2, "cat-c02"),        // 21
+    fichePrestation(co[2], "coaching", 3, "cat-c03"),        // 22
+    pageOuvreur("audit"),                   // 23
+    pageMethodeAudit(),                     // 24
+    fichePrestation(au[0], "audit", 1, "cat-a01"),           // 25
+    fichePrestation(au[1], "audit", 2, "cat-a02"),           // 26
+    fichePrestation(au[2], "audit", 3, "cat-a03"),           // 27
+    fichePrestation(au[3], "audit", 4, "cat-a04"),           // 28
+    pageOuvreur("implementation"),          // 29
+    pageMethodeImplementation(),            // 30
+    fichePrestation(im[0], "implementation", 1, "cat-i01"),  // 31
+    fichePrestation(im[1], "implementation", 2, "cat-i02"),  // 32
+    fichePrestation(im[2], "implementation", 3, "cat-i03"),  // 33
+    fichePrestation(im[3], "implementation", 4, "cat-i04"),  // 34
+    fichePrestation(im[4], "implementation", 5, "cat-i05"),  // 35
+    // 36 | 37 forment une DOUBLE PAGE : en piqûre à cheval, les pages paires
+    // sont à gauche. Tarifs et Financement — la paire qui décide de l'achat —
+    // étaient en 37|38, donc séparées par le pli et jamais lues ensemble.
+    pageTarifsRecap(),                      // 36  ┐ visibles
+    pageFinancement(),                      // 37  ┘ ENSEMBLE
+    E[16],                                  // 38 Cas d'usage — la preuve, après le prix
     pageTemoignages(slots.slice(0, 3), 1, 2),  // 39
     pageTemoignages(slots.slice(3, 6), 2, 2),  // 40
     E[18], E[19], E[20], E[21],             // 41-44 Moteur · automatisations · et chez vous
@@ -1279,7 +1286,7 @@ function pageVisibilite(src) {
   // et un renvoi faux ne se voit qu'une fois le catalogue chez le client.
   const attendus = [
     [P.seminaire, "Séminaire IA"],
-    [P.coaching[0], "Accompagnement individuel"],
+    [P.coaching[0], "une journée, ses vrais dossiers"],
     [P.audit[0], "Avant d'investir, savoir"],
     [P.implementation[0], "Le clé en main"],
     [P.tarifsToutes, "Tous nos tarifs"],
