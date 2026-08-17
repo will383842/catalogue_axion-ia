@@ -12,7 +12,8 @@
 |---|---|
 | **Source figée, 24 pages d'origine** | `catalogue-axion-ia-v2/pages-source.html` — jamais écrite par le build |
 | **Sortie, 48 pages** | `catalogue-axion-ia-v2/index.html` — régénérable, ne pas éditer à la main |
-| **PDF livré** | `catalogue-axion-ia-v2/export/catalogue-web.pdf`, copié dans `C:\Users\willi\Downloads\catalogue-axion-ia-48p.pdf` |
+| **PDF livré** | `export/catalogue-web.pdf` → `Downloads\catalogue-axion-ia-48p.pdf` |
+| **PDF de relecture, planches doubles** | `export/catalogue-planches-verification.pdf` → `Downloads\catalogue-axion-ia-PLANCHES-verification.pdf` — **ne pas envoyer à l'imprimeur** |
 | **Dépôt** | `C:\Users\willi\Documents\Projets\Catalogue_formations_Axion_IA` (git, branche `main`) |
 | **Contenu des 12 prestations de conseil** | `../catalogue-kdp/coaching-audit-data.json` |
 | **Vérité des prix** | `C:\Users\willi\Documents\Projets\Axion-IA\axionia\src\content\pricing.ts` |
@@ -27,6 +28,8 @@ node renumber.cjs           # folios + sommaire, dérivés de l'ordre réel
 node check-overflow.cjs     # AUCUNE page ne doit être rognée
 node scan-qr.cjs            # décodage + résolution en prod — rouge aujourd'hui, voir §4
 node build-webpdf.cjs       # PDF + /PageLayout doubles pages (enchaîné)
+node build-planches.cjs     # PDF de RELECTURE en planches doubles réelles
+node check-harmonie.cjs     # A4 vs livre KDP : prix, titres, décomptes
 ```
 
 **Idempotent** : deux passes complètes donnent le même `index.html` à l'octet près.
@@ -64,6 +67,12 @@ node build-webpdf.cjs       # PDF + /PageLayout doubles pages (enchaîné)
   TVA FR51 108 018 631, siège Grenoble). Plus aucun zéro de remplissage.
 - **6 emplacements de témoignage** numérotés, un QR chacun, **aucun texte**.
 - **5 renvois de page périmés** de la version 24 pages, corrigés.
+- **Harmonie A4 ↔ livre KDP vérifiée** (`check-harmonie.cjs`) : 0 divergence sur
+  les décomptes (21 + 1 + 12), les 5 prix de formation, les 10 prix de conseil,
+  les 12 titres de prestation ; aucun montant orphelin.
+- **Audit rendu** : 107 agents, 48 constats, 45 retenus. 3 reprises appliquées
+  (niveau d'audit fantôme « Flash terrain » p.7, renvoi circulaire p.18, prix
+  d'appel 790 € impayable p.6). Synthèse : `scratchpad/AUDIT-SYNTHESE.md`.
 
 ## 3. Défauts trouvés et corrigés en route
 
