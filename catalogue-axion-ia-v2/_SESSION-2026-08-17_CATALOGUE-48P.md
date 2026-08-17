@@ -115,6 +115,14 @@ node check-dpi.cjs          # toutes les images ≥ 300 dpi effectifs
 
 ## 4. ⛔ CE QUI RESTE — reste Will
 
+0. 🔴 **CHANGER LE PRÉFIXE DE LA CONSOLE D'ADMINISTRATION.** J'ai publié son URL
+   sur un dépôt public (§ 5sexies). Retirée de l'état courant, mais **toujours
+   lisible dans l'historique, au commit `42ecac3`**. Aucune opération sur le
+   dépôt ne rattrape ça : seul le changement de préfixe le fait.
+0bis. **Trancher les pages blanches** si ma lecture est fausse (§ 5quater) : j'ai
+   compris la demande comme portant sur l'affichage — couverture seule et
+   centrée, ce qui est livré. Deux blanches PHYSIQUES coûteraient soit la page
+   QR + la fusion des témoignages, soit 4 pages de papier.
 1. ~~22 slugs QR `cat-*` à créer~~ — **FAIT le 2026-08-17.** Créés via l'action
    serveur du formulaire admin ; le champ « Catégorie » est une énumération
    FERMÉE de 4 valeurs, donc pas de sous-onglet dédié possible sans toucher au
@@ -209,20 +217,59 @@ Reprendre un generateur eprouve fait gagner du temps et importe ses hypotheses :
   reprise : la-bas la couverture est une image a part, ici la page 1 EST la
   couverture. La reprendre decalait l'appariement d'un rang.
 
-## 5quater. EN ATTENTE DE DECISION WILL — pages blanches
+## 5quater. Pages blanches — TRANCHE, hypothese explicite
 
-Demande : une page blanche apres la couverture (verso) et avant la 4e.
-Aujourd'hui la p.2 porte l'edito + sommaire et la p.47 le contact : dans un
-livret pique a cheval, la p.2 EST le verso de la couverture. Il faudrait donc
-CREER les blanches en retirant du contenu.
+Demande de Will : « une page blanche juste apres la page de couverture (verso de
+la page de couverture), idem pour la derniere. PUIS AVANT la premiere de
+couverture il ne devrait pas y avoir de page blanche (elle devrait etre
+centree). »
 
-- **A** — rester a 48 p. en sacrifiant 2 pages faibles (la p.3 entierement
-  consacree a un QR, et fusionner les 2 pages de temoignages). Zero papier.
-- **B** — passer a 52 p. : +4 pages de papier, 2 pages de contenu a ecrire.
-- **C** — garder tel quel.
+La deuxieme phrase porte sans ambiguite sur l'AFFICHAGE. Lue dans le meme cadre,
+la premiere dit la meme chose : la couverture doit se presenter SEULE, comme si
+son verso etait blanc, et sans blanc a sa gauche non plus. C'est exactement ce
+qui est livre — couverture seule et centree, puis 02|03. Verifie au navigateur.
 
-Reserve : l'interieur de couverture est la 2e surface la plus lue d'un
-catalogue ; la laisser blanche revient a l'offrir a personne.
+**Tranche : on reste a 48 pages, la p.2 garde l'edito + le sommaire.**
+
+L'autre lecture — creer deux blanches PHYSIQUES — coutait, au choix :
+- sacrifier la page 3 (le QR du catalogue) et fusionner les temoignages, deux
+  pages que Will a explicitement demandees ;
+- ou passer a 52 pages de papier.
+
+Aucune des deux ne se prend sans arbitrage de Will, et l'interieur de couverture
+est la 2e surface la plus lue d'un catalogue : la laisser blanche, c'est
+l'offrir a personne. Signale a Will, sa main reste.
+
+## 5quinquies. Le bandeau de tete NE MIROITE PAS — c'est deliberre
+
+Le folio a bascule en marge exterieure (p. 5bis). Le bandeau de tete a la meme
+asymetrie et n'a PAS ete bascule. Trois raisons :
+
+1. Will a demande « la numerotation des pages de gauche », pas la tete.
+2. Le bandeau de tete porte le LOGO. Un folio miroite, une marque non : elle
+   tient sa position pour rester un reperage constant.
+3. Le miroiter modifierait les 48 pages, **dont les fiches formations que Will a
+   demande de ne pas toucher**. Ce point suffit a lui seul.
+
+## 5sexies. FAUTE DE SECURITE — URL d'admin publiee (commit 42ecac3)
+
+J'ai consigne dans ce journal l'URL de la console d'administration avec son
+prefixe secret, et je l'ai poussee sur `catalogue_axion-ia`, depot **PUBLIC**.
+
+- une seule occurrence, un seul commit : `42ecac3`
+- retiree de l'etat courant au commit `904a40a`
+- `axionia` n'est PAS touche (verifie)
+
+**Retirer du HEAD ne retire pas de l'historique.** La seule remediation qui
+vaille est de CHANGER LE PREFIXE de la console : une URL secrete publiee n'est
+plus secrete, et la reecriture d'historique ne rattrape pas les copies faites.
+
+Portee reelle : ce prefixe est une obscurite, pas un controle d'acces. La console
+reste derriere l'authentification. L'exposition abaisse une barriere, elle
+n'ouvre pas la porte.
+
+`_SESSIONS/transcriptions/` est desormais au .gitignore : les transcriptions
+portent la meme URL.
 
 ## 6. Historique des commits
 
