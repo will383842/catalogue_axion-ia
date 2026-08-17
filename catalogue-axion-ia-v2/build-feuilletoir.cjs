@@ -1,0 +1,480 @@
+// Le feuilletoir web du CATALOGUE A4 48 pages (2026-08-17).
+//
+// Repris du feuilletoir du livre KDP (`../catalogue-kdp/build-flipbook.cjs`),
+// dont le mécanisme est éprouvé. Deux différences, toutes deux dans
+// l'appariement — voir le bloc « APPARIEMENT » plus bas.
+//
+// Consomme `pages-web/` produit par `render-pages.cjs` et écrit un
+// `catalogue-feuilletoir.html` autonome : une page HTML légère (~15 Ko) qui
+// charge les images à la demande, au lieu du monolithe de 4,1 Mo.
+//
+// Cf. l'en-tête de render-pages.cjs pour le pourquoi du changement de support.
+//
+// CE QUI FAIT QUE ÇA TOURNE VRAIMENT
+//
+// L'animation ne porte que sur des <img> déjà décodées : on ne fait pivoter
+// aucun sous-arbre DOM. La feuille qui tourne est un seul élément à deux faces,
+// chaque face étant une image. Le navigateur n'a qu'une texture à transformer,
+// ce qui tient dans une image d'affichage — c'est précisément ce que la version
+// « tout en un fichier » ne pouvait pas faire.
+//
+// Le voisinage (±2 pages) est préchargé pendant la lecture, jamais pendant le
+// tournage : au moment du geste, l'image d'arrivée est déjà en cache.
+//
+// Usage : node build-flipbook.cjs
+
+const fs = require('fs');
+const path = require('path');
+
+const dir = __dirname;
+const SRC = path.join(dir, 'pages-web');
+// On écrit dans la STRUCTURE EXACTE du déploiement — index.html + pages-web/
+// côte à côte — pour pouvoir tester en local ce qui partira en ligne, sans
+// réécrire un seul chemin au moment de publier.
+const DOSSIER = path.join(dir, 'export', 'feuilletoir');
+const OUT = path.join(DOSSIER, 'index.html');
+
+const manifeste = JSON.parse(fs.readFileSync(path.join(SRC, 'manifest.json'), 'utf8'));
+const pages = manifeste.pages;
+if (!pages.length) throw new Error('manifeste vide — lancer render-pages.cjs');
+
+const ratio = (pages[0].h / pages[0].l).toFixed(4);
+
+// ---------------------------------------------------------------------------
+// APPARIEMENT DES DOUBLES-PAGES — la page 01 est une BELLE PAGE (un recto).
+//
+// Le manifeste ne marque `seule` que les deux couvertures. Le feuilletoir
+// appariait donc les pages deux par deux a partir de la 01 : (01|02), (03|04),
+// (05|06)... ce qui posait les pages IMPAIRES a GAUCHE et les PAIRES a DROITE.
+// C'est l'inverse du livre imprime, ou la page 01 est un recto — `export-pdf.cjs`
+// le dit noir sur blanc : « page 01 = recto, donc impaire = recto ».
+//
+// CE QUE CA DONNAIT A L'ECRAN, et pourquoi ca se voyait tout de suite : la
+// maquette pose folios et bandes de section en marge EXTERIEURE
+// (`.page-avant .page-num { left }` / `.page-apres .page-num { right }`, et les
+// onglets `.section-tab` du meme cote). Apparier a contretemps retourne chaque
+// page de bord : les deux bandes et les deux folios de la double-page se
+// retrouvaient colles CONTRE LA PLIURE, au centre. Verifie sur les 84 images :
+// 58 portent une bande, 58 sont du bon cote dans l'image — le defaut n'a jamais
+// ete dans le rendu des pages, seulement dans leur appariement ici.
+//
+// Correctif : la premiere page de contenu s'affiche SEULE, comme le recto qui
+// ouvre un livre. Les doubles-pages suivantes deviennent (paire|impaire),
+// c'est-a-dire (verso|recto) — l'appariement du livre imprime.
+//
+// NE PAS « corriger » ce defaut en inversant la CSS des folios ou des onglets :
+// le PDF imprime, lui, est juste, et il part chez KDP.
+// ⚠️ NE PAS reprendre ici la règle du livre KDP
+// (`pages[iPremiereContenu].seule = true`). Dans le livre, la couverture est une
+// image à part et la première page de CONTENU doit s'afficher seule. Ici la
+// page 1 EST la couverture, et `render-pages-web.cjs` l'a déjà marquée `seule`
+// — comme la page 48. Réappliquer la règle marquerait la page 2 seule et
+// décalerait tout l'appariement d'un rang : les doubles deviendraient
+// (3|4), (5|6)… c'est-à-dire (recto|verso), l'inverse du livret plié.
+//
+// L'appariement voulu, celui du piqué à cheval :
+//     [1]  (2|3)  (4|5) … (46|47)  [48]
+// Les pages PAIRES à gauche, les IMPAIRES à droite. Les bandes de section et
+// les folios sont en marge EXTÉRIEURE : à contretemps, ils se retrouveraient
+// collés contre la pliure.
+const seules = pages.filter(function (p) { return p.seule; }).length;
+if (seules !== 2) {
+  throw new Error('[feuilletoir] attendu 2 pages seules (les couvertures), trouvé ' + seules);
+}
+
+// Borne haute du champ « aller a la page ». Lue des pages, jamais ecrite en
+// dur : le nombre de pages bouge des qu'une offre entre au catalogue.
+const pageMax = pages.reduce(function (max, p) {
+  const n = parseInt(p.numero, 10);
+  return Number.isFinite(n) && n > max ? n : max;
+}, 0);
+
+const html = `<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Catalogue Axion-IA 2026-2027 — à feuilleter</title>
+<meta name="description" content="Le catalogue Axion-IA 2026-2027, 48 pages : 21 formations et un séminaire, accompagnement 1-to-1, audit IA, implémentation et automatisation. À feuilleter en doubles pages.">
+<style>
+  :root { --creme:#faf8f3; --encre:#1a1613; --terracotta:#b23f16; --ratio:${ratio}; }
+  * { box-sizing: border-box; }
+  html, body { margin:0; padding:0; height:100%; background:#14100e; color:var(--creme);
+    font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; overscroll-behavior: none; }
+
+  .barre { position:fixed; inset:0 0 auto 0; z-index:30; display:flex; flex-wrap:wrap; gap:10px;
+    align-items:center; justify-content:space-between; padding:10px 16px;
+    background:rgba(20,16,14,.92); backdrop-filter:blur(8px); }
+  .barre h1 { margin:0; font-size:15px; font-weight:800; letter-spacing:-.01em; }
+  .barre .sous { margin:0; font-size:12px; opacity:.62; }
+  .dl { display:inline-block; padding:7px 15px; border-radius:999px; background:var(--terracotta);
+    color:var(--creme); font-weight:700; font-size:13px; text-decoration:none; white-space:nowrap; }
+  .dl:hover { background:#8f320f; }
+
+  /* La scène tient dans l'écran : le livre se cale sur la plus contraignante des
+     deux dimensions, pour qu'aucune page ne soit jamais coupée. */
+  .scene { position:fixed; inset:58px 0 62px 0; display:grid; place-items:center;
+    perspective:2600px; padding:10px; }
+  .livre { position:relative; display:grid; grid-template-columns:1fr 1fr; gap:0;
+    width:min(96vw, calc((100vh - 132px) * 2 / var(--ratio)));
+    aspect-ratio: 2 / var(--ratio);
+    box-shadow:0 18px 50px rgba(0,0,0,.55); transform-style:preserve-3d; }
+  /* Couverture : une page centree, moitie moins large. */
+  .livre.solo { grid-template-columns:1fr;
+    width:min(52vw, calc((100vh - 132px) / var(--ratio)));
+    aspect-ratio: 1 / var(--ratio); }
+  .livre.solo::after { display:none; }
+  .livre img { display:block; width:100%; height:100%; object-fit:contain; background:var(--creme); }
+  /* Le pli central : deux dégradés symétriques, sinon les deux pages semblent
+     une seule image coupée en deux. */
+  .livre::after { content:''; position:absolute; top:0; bottom:0; left:50%; width:34px;
+    transform:translateX(-50%); pointer-events:none; z-index:5;
+    background:linear-gradient(to right, rgba(0,0,0,0), rgba(0,0,0,.16) 46%, rgba(0,0,0,.16) 54%, rgba(0,0,0,0)); }
+
+  /* ---- la feuille qui tourne ---- */
+  .feuille { position:absolute; top:0; bottom:0; width:50%; z-index:10;
+    transform-style:preserve-3d; transition:transform 640ms cubic-bezier(.31,.06,.24,1); }
+  .feuille.droite { left:50%; transform-origin:left center; }
+  .feuille.gauche { left:0; transform-origin:right center; }
+  .feuille.droite.va { transform:rotateY(-178deg); }
+  .feuille.gauche.va { transform:rotateY(178deg); }
+  .feuille .face { position:absolute; inset:0; backface-visibility:hidden; overflow:hidden;
+    background:var(--creme); }
+  .feuille .face.verso { transform:rotateY(180deg); }
+  .feuille .face::after { content:''; position:absolute; inset:0; opacity:0; pointer-events:none;
+    transition:opacity 640ms; }
+  .feuille.droite .face::after { background:linear-gradient(to left, rgba(0,0,0,.3), rgba(0,0,0,0) 38%); }
+  .feuille.gauche .face::after { background:linear-gradient(to right, rgba(0,0,0,.3), rgba(0,0,0,0) 38%); }
+  .feuille.va .face::after { opacity:1; }
+
+  /* ---- navigation ---- */
+  .nav { position:fixed; left:50%; transform:translateX(-50%); bottom:12px; z-index:30;
+    display:flex; align-items:center; gap:10px; padding:7px 10px; border-radius:999px;
+    background:rgba(250,248,243,.1); backdrop-filter:blur(10px);
+    border:1px solid rgba(250,248,243,.16); }
+  .nav button { appearance:none; border:0; cursor:pointer; width:40px; height:40px; border-radius:50%;
+    background:var(--creme); color:var(--encre); font-size:18px; font-weight:700;
+    display:grid; place-items:center; }
+  .nav button:disabled { opacity:.3; cursor:default; }
+  .nav .compte { font-size:13px; font-weight:600; font-variant-numeric:tabular-nums;
+    min-width:96px; text-align:center; }
+  /* Retour au debut et saut a un numero : sur 84 pages, tourner une par une
+     n'est pas une navigation. Les deux commandes sont dans la meme barre, pour
+     rester atteignables au pouce sur mobile. */
+  .nav .rond-sec { width:34px; height:34px; font-size:15px;
+    background:rgba(250,248,243,.16); color:var(--creme); }
+  .nav .rond-sec:hover { background:rgba(250,248,243,.28); }
+  .aller { display:flex; align-items:center; gap:6px; margin:0; }
+  .aller input { width:62px; height:34px; border-radius:999px; border:1px solid rgba(250,248,243,.24);
+    background:rgba(250,248,243,.1); color:var(--creme); font:inherit; font-size:13px;
+    font-weight:600; text-align:center; font-variant-numeric:tabular-nums; }
+  .aller input::placeholder { color:rgba(250,248,243,.5); font-weight:500; }
+  /* Les fleches natives du champ nombre volent la moitie d'une cible deja
+     petite au pouce : on les retire, le clavier numerique reste. */
+  .aller input::-webkit-outer-spin-button,
+  .aller input::-webkit-inner-spin-button { appearance:none; margin:0; }
+  .aller input[type=number] { -moz-appearance:textfield; }
+  .aller button { width:auto; height:34px; padding:0 13px; border-radius:999px; font-size:13px; }
+  .sr { position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; }
+  .aide { position:fixed; left:50%; transform:translateX(-50%); bottom:64px; z-index:30;
+    padding:6px 14px; border-radius:999px; background:rgba(250,248,243,.12);
+    font-size:12px; font-weight:600; transition:opacity .4s; }
+
+  /* ---- mobile : une page par écran, zoom natif conservé ---- */
+  @media (max-width: 720px) {
+    .scene { inset:74px 0 60px 0; padding:0; }
+    .livre { grid-template-columns:1fr; width:100vw;
+      width:min(100vw, calc((100vh - 140px) / var(--ratio)));
+      aspect-ratio: 1 / var(--ratio); }
+    .livre::after { display:none; }
+    .feuille { display:none; }
+    .barre { padding:8px 12px; }
+    .barre h1 { font-size:14px; }
+    /* La barre porte maintenant six commandes : sans repli elle deborderait de
+       l'ecran sur un telephone etroit, et le bouton « Aller » sortirait du
+       champ tactile. */
+    .nav { bottom:max(10px, env(safe-area-inset-bottom, 0px));
+      flex-wrap:wrap; justify-content:center; max-width:94vw; row-gap:8px; }
+    .nav .compte { min-width:0; order:-1; width:100%; }
+  }
+</style>
+
+<div class="barre">
+  <div>
+    <h1>Catalogue Axion-IA</h1>
+    <p class="sous">Formations, coaching 1-to-1, audits et implémentation · Organisme certifié Qualiopi</p>
+  </div>
+  <a class="dl" href="./catalogue-axion-ia.pdf" download>Télécharger le PDF</a>
+</div>
+
+<div class="scene">
+  <div class="livre" id="livre">
+    <img id="pgG" alt="" decoding="async">
+    <img id="pgD" alt="" decoding="async">
+  </div>
+</div>
+
+<div class="nav" role="group" aria-label="Navigation dans le catalogue">
+  <button type="button" class="rond-sec" id="debut" aria-label="Revenir à la couverture" title="Revenir à la couverture">&#8676;</button>
+  <button type="button" id="prec" aria-label="Page précédente">&#8249;</button>
+  <span class="compte" id="compte" aria-live="polite"></span>
+  <button type="button" id="suiv" aria-label="Page suivante">&#8250;</button>
+  <form class="aller" id="aller">
+    <label class="sr" for="numPage">Aller à la page</label>
+    <input id="numPage" type="number" inputmode="numeric" min="1" max="${pageMax}" step="1" placeholder="p." title="Aller à la page (1 à ${pageMax})">
+    <button type="submit" title="Aller à cette page">Aller</button>
+  </form>
+</div>
+<div class="aide" id="aide"></div>
+
+<script>
+(function () {
+  'use strict';
+  // Champ c = couverture. Seules les couvertures sont CENTREES — un livre
+  // ferme se regarde de face. Une page interieure isolee (la 01, la 84) n'est
+  // pas centree : elle occupe la moitie qui lui revient, l'autre restant
+  // blanche, parce que c'est la seule chose qui puisse exister sur papier.
+  var PAGES = ${JSON.stringify(pages.map(function (p) {
+    return { f: p.fichier, n: p.numero, s: !!p.seule, c: /couverture/.test(p.cote || '') };
+  }))};
+  var BASE = 'pages-web/';
+  var livre = document.getElementById('livre');
+  var pgG = document.getElementById('pgG'), pgD = document.getElementById('pgD');
+  var bPrec = document.getElementById('prec'), bSuiv = document.getElementById('suiv');
+  var bDebut = document.getElementById('debut');
+  var formAller = document.getElementById('aller'), champPage = document.getElementById('numPage');
+  var compte = document.getElementById('compte'), aide = document.getElementById('aide');
+
+  var MOBILE = function () { return window.matchMedia('(max-width: 720px)').matches; };
+  var i = 0;            // index de la page de GAUCHE de la vue courante
+  var enCours = false;
+
+  // Une couverture n'a pas de vis-a-vis : elle avance d'un cran, pas de deux.
+  // La page 01 non plus — c'est le recto qui ouvre le livre (cf. l'appariement
+  // en tete de build-flipbook.cjs).
+  function seule(k) { return !!(PAGES[k] && PAGES[k].s); }
+  function estCouv(k) { return !!(PAGES[k] && PAGES[k].c); }
+  // Demi-page blanche : un GIF transparent 1x1 etire par la cellule, dont le
+  // fond creme vient de la regle .livre img. Pas de src vide, qui afficherait
+  // l'icone d'image cassee du navigateur a la place du contre-plat.
+  var VIDE = 'data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==';
+  // La page d'EN FACE compte aussi : si elle est seule, la vue est solo, et
+  // avancer de deux la sauterait. Sans ce terme, la 4e de couverture devenait
+  // inatteignable des que la 84 se retrouvait seule en fin de livre.
+  function pas() { return (MOBILE() || seule(i) || seule(i + 1)) ? 1 : 2; }
+  function url(k) { return PAGES[k] ? BASE + PAGES[k].f : ''; }
+
+  // Préchargement du voisinage. Fait PENDANT la lecture, jamais pendant le
+  // tournage : au moment du geste l'image d'arrivée est déjà décodée.
+  var cache = {};
+  function precharger(k) {
+    for (var d = -2; d <= 3; d++) {
+      var j = k + d;
+      if (j < 0 || j >= PAGES.length || cache[j]) continue;
+      var im = new Image();
+      im.decoding = 'async';
+      im.src = url(j);
+      cache[j] = im;
+    }
+  }
+
+  function libelle() {
+    var g = PAGES[i], d = PAGES[i + 1];
+    // Le test portait sur s (page isolee) et non sur c (couverture). Depuis
+    // que la 01 est isolee pour ouvrir le livre sur une belle page, elle
+    // s'annoncait « dos de couverture ». On nomme ce qu'on montre.
+    if (g && g.c) return g.f === 'couv1.jpg' ? 'couverture' : 'dos de couverture';
+    var isole = MOBILE() || seule(i) || seule(i + 1);
+    if (isole) return g && g.n ? 'page ' + g.n : (i + 1) + ' / ' + PAGES.length;
+    if (g && g.n && d && d.n) return 'pages ' + g.n + '–' + d.n;
+    return (i + 1) + ' / ' + PAGES.length;
+  }
+
+  function rendre() {
+    var isole = MOBILE() || seule(i) || seule(i + 1);
+    // Centre UNIQUEMENT pour une couverture. La 01 et la 84 sont des pages du
+    // livre : les centrer donnerait une ouverture qui n'existe pas sur papier.
+    var centre = isole && (MOBILE() || estCouv(i));
+    livre.classList.toggle('solo', centre);
+
+    if (!isole) {
+      pgG.style.display = ''; pgD.style.display = '';
+      pgG.src = url(i); pgD.src = url(i + 1);
+    } else if (centre) {
+      pgG.style.display = ''; pgD.style.display = 'none';
+      pgG.src = url(i);
+    } else {
+      // Page interieure isolee : impaire = recto = moitie DROITE, paire = verso
+      // = moitie GAUCHE. En face, une demi-page blanche — le contre-plat pour
+      // la 01, l'interieur de la 4e pour la 84.
+      var n = parseInt(PAGES[i].n, 10);
+      var aDroite = n % 2 === 1;
+      pgG.style.display = ''; pgD.style.display = '';
+      pgG.src = aDroite ? VIDE : url(i);
+      pgD.src = aDroite ? url(i) : VIDE;
+    }
+    compte.textContent = libelle();
+    bPrec.disabled = i <= 0;
+    bDebut.disabled = i <= 0;
+    bSuiv.disabled = i + pas() >= PAGES.length;
+    precharger(i);
+  }
+
+  // Une feuille = un élément, deux faces, deux images. Rien d'autre à animer :
+  // c'est ce qui permet au tournage de tenir dans une image d'affichage.
+  function tourner(sens, fin) {
+    if (MOBILE() || seule(i) || seule(i + 1) || seule(i + pas())) { fin(); return; }
+    var rectoIdx = sens > 0 ? i + 1 : i;           // la face qu'on soulève
+    var versoIdx = sens > 0 ? i + 2 : i - 1;       // ce qu'on découvre au dos
+    if (!PAGES[rectoIdx] || !PAGES[versoIdx]) { fin(); return; }
+
+    var f = document.createElement('div');
+    f.className = 'feuille ' + (sens > 0 ? 'droite' : 'gauche');
+    var recto = document.createElement('div'); recto.className = 'face';
+    var verso = document.createElement('div'); verso.className = 'face verso';
+    var iR = new Image(); iR.src = url(rectoIdx); iR.style.cssText = 'width:100%;height:100%;object-fit:contain;display:block';
+    var iV = new Image(); iV.src = url(versoIdx); iV.style.cssText = 'width:100%;height:100%;object-fit:contain;display:block';
+    recto.appendChild(iR); verso.appendChild(iV);
+    f.appendChild(recto); f.appendChild(verso);
+    livre.appendChild(f);
+
+    // On découvre déjà la page d'arrivée SOUS la feuille : quand celle-ci passe
+    // le quart de tour, ce qui apparaît est la bonne page, pas un trou.
+    if (sens > 0) pgD.src = url(i + 3 <= PAGES.length ? i + 3 : rectoIdx);
+    else pgG.src = url(Math.max(0, i - 2));
+
+    enCours = true;
+    requestAnimationFrame(function () {
+      requestAnimationFrame(function () { f.classList.add('va'); });
+    });
+
+    var fait = false;
+    var finir = function () {
+      if (fait) return; fait = true;
+      if (f.parentNode) f.parentNode.removeChild(f);
+      enCours = false; fin();
+    };
+    // 'transitionend' remonte le DOM : sans ce filtre, la transition d'ombre
+    // d'une face couperait le tournage avant qu'il ait commencé.
+    f.addEventListener('transitionend', function (e) {
+      if (e.target === f && e.propertyName === 'transform') finir();
+    });
+    setTimeout(finir, 900);
+  }
+
+  function suivant() {
+    cacherAide();
+    if (enCours || i + pas() >= PAGES.length) return;
+    tourner(1, function () { i += pas(); rendre(); });
+  }
+  function precedent() {
+    cacherAide();
+    if (enCours || i <= 0) return;
+    tourner(-1, function () { i = Math.max(0, i - pas()); rendre(); });
+  }
+
+  // Aller directement a une page imprimee. Un saut ne s'anime pas : on ne
+  // tourne pas quarante feuilles, on repose le livre a l'endroit demande.
+  //
+  // Le numero saisi est celui IMPRIME sur la page, pas un index : on le cherche
+  // dans PAGES au lieu de calculer un decalage. Les couvertures n'en portent
+  // pas, elles ne sont donc jamais des cibles — et le jour ou la pagination
+  // bouge, ce code n'a pas a le savoir.
+  function indexDeLaPage(n) {
+    for (var j = 0; j < PAGES.length; j++) {
+      if (PAGES[j].n && parseInt(PAGES[j].n, 10) === n) return j;
+    }
+    return -1;
+  }
+
+  function allerA(n) {
+    if (enCours) return false;
+    var k = indexDeLaPage(n);
+    if (k < 0) return false;
+    // On se cale sur le DEBUT de la double-page qui contient la page demandee,
+    // sinon demander la 21 afficherait 21|22 — un appariement que le livre n'a
+    // pas. Les pages affichees seules gardent leur position.
+    if (!MOBILE() && !seule(k) && k % 2 === 1) k -= 1;
+    i = k;
+    cacherAide();
+    rendre();
+    return true;
+  }
+
+  function auDebut() { if (enCours) return; i = 0; cacherAide(); rendre(); }
+
+  bSuiv.addEventListener('click', suivant);
+  bPrec.addEventListener('click', precedent);
+  bDebut.addEventListener('click', auDebut);
+
+  formAller.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var n = parseInt(champPage.value, 10);
+    if (!allerA(n)) {
+      // Numero hors catalogue : on le dit par le champ lui-meme plutot que par
+      // une alerte, qui ferait perdre la page en cours de lecture.
+      champPage.setCustomValidity('Page 1 à ' + ${pageMax});
+      champPage.reportValidity();
+      return;
+    }
+    champPage.value = '';
+    champPage.blur();
+  });
+  champPage.addEventListener('input', function () { champPage.setCustomValidity(''); });
+
+  document.addEventListener('keydown', function (e) {
+    // Le champ « aller a la page » garde ses touches : sans ce garde-fou, taper
+    // un numero au clavier tournerait les pages sous les doigts.
+    if (e.target === champPage) return;
+    if (e.key === 'ArrowRight' || e.key === 'PageDown') { e.preventDefault(); suivant(); }
+    else if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); precedent(); }
+    else if (e.key === 'Home') { e.preventDefault(); auDebut(); }
+    else if (e.key === 'End') { i = Math.max(0, PAGES.length - pas()); rendre(); }
+  });
+
+  // Balayage : seuil à 45px et garde verticale, pour ne pas voler le geste au
+  // lecteur qui a zoomé et fait glisser la page.
+  var x0 = null, y0 = null;
+  document.addEventListener('touchstart', function (e) {
+    if (e.touches.length !== 1) { x0 = null; return; }
+    x0 = e.touches[0].clientX; y0 = e.touches[0].clientY;
+  }, { passive: true });
+  document.addEventListener('touchend', function (e) {
+    if (x0 === null || !e.changedTouches.length) return;
+    var dx = e.changedTouches[0].clientX - x0, dy = e.changedTouches[0].clientY - y0;
+    x0 = null;
+    if (Math.abs(dx) < 45 || Math.abs(dx) < Math.abs(dy) * 1.4) return;
+    if (dx < 0) suivant(); else precedent();
+  }, { passive: true });
+
+  var aideVue = false;
+  function cacherAide() {
+    if (aideVue) return; aideVue = true;
+    aide.style.opacity = '0'; setTimeout(function () { aide.style.display = 'none'; }, 400);
+  }
+  aide.textContent = MOBILE()
+    ? 'Balayez pour tourner · saisissez un numéro pour y aller'
+    : 'Flèches ← → pour tourner · saisissez un numéro pour y aller';
+  setTimeout(cacherAide, 6000);
+
+  var etaitMobile = MOBILE();
+  window.addEventListener('resize', function () {
+    var m = MOBILE();
+    if (m === etaitMobile) return;
+    etaitMobile = m;
+    // En double-page on se recale sur un debut de double-page, c'est-a-dire sur
+    // une page PAIRE (le verso de gauche). Les pages qui s'affichent SEULES —
+    // les deux couvertures et la 01 — sont exclues du recalage : ce sont des
+    // positions valides, et les bouger ferait sauter la vue au retour du mobile.
+    if (!m && !seule(i) && i % 2 === 1) i -= 1;
+    rendre();
+  });
+
+  rendre();
+})();
+</script>
+`;
+
+fs.mkdirSync(DOSSIER, { recursive: true });
+// les images vivent à côté du HTML, comme en ligne
+fs.cpSync(SRC, path.join(DOSSIER, 'pages-web'), { recursive: true });
+fs.writeFileSync(OUT, html, 'utf8');
+console.log('[build-flipbook] ' + pages.length + ' pages · '
+  + (html.length / 1024).toFixed(1) + ' Ko de HTML → ' + OUT);
