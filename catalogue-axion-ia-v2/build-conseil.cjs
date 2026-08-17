@@ -102,6 +102,10 @@ const QR = {
 // ---------------------------------------------------------------------------
 const P = {
   formations: [8, 16],       // offres générales + métier + secteur
+  generales: [8, 11],
+  metier: [12, 14],
+  secteur: [15, 16],
+  moteur: [41, 44],          // « le moteur Axion-IA » + ce que nous automatisons
   seminaire: 17,
   tarifsFormations: 18,
   coaching: [20, 23],
@@ -210,7 +214,13 @@ function fichePrestation(o, famille, numero, slugQr) {
     famille === "coaching"
       ? `<div class="fsub o">Confidentialité</div><div class="ftxt">${esc(o.confidentialite)}</div>`
       : famille === "implementation"
-        ? `<div class="fsub o">Nos engagements</div><ul class="fl">${o.garanties.map((g) => `<li>${esc(g)}</li>`).join("")}</ul>`
+        // ⚠️ NE PAS remettre `garanties` ici : elles sont déjà rendues plus bas,
+        // dans « Ce que vous obtenez ». Le bloc était imprimé deux fois sur la
+        // même page, sur les cinq fiches d'implémentation.
+        ? `<div class="fsub o">Comment on travaille</div><ul class="fl">` +
+          `<li>Sprints courts et démos régulières — pas d'effet tunnel</li>` +
+          `<li>On se branche sur vos outils existants, on ne remplace pas tout</li>` +
+          `<li>Vos équipes sont formées pour reprendre la main</li></ul>`
         : `<div class="fsub o">Notre approche</div><ul class="fl">` +
           `<li>On comprend d'abord comment vous travaillez vraiment — avant de parler d'outils</li>` +
           `<li>Entretiens dirigeants et collaborateurs, sur le terrain</li>` +
@@ -825,6 +835,50 @@ ${footer("Réservez un appel découverte", "axion-ia.com/appel")}`,
 }
 
 // ---------------------------------------------------------------------------
+/// ---------------------------------------------------------------------------
+// RENVOIS PÉRIMÉS DES PAGES D'ORIGINE
+//
+// Les pages reprises telles quelles portent des « voir p. XX » écrits pour le
+// catalogue 24 pages. Ils ont survécu au passage à 48 et pointent tous à côté :
+// « voir p. 23 » désigne aujourd'hui une fiche d'audit, pas la page visibilité.
+// Un renvoi faux ne se voit qu'une fois le catalogue chez le client.
+//
+// Ces reprises sont faites sur la SORTIE ; `pages-source.html` reste intact.
+// ---------------------------------------------------------------------------
+const RENVOIS_PERIMES = [
+  { page: 5, de: "(voir p. 23)", vers: () => `(voir ${pp(P.visibilite)})` },
+  { page: 7, de: "pages 6-9", vers: () => `pages ${P.generales[0]}-${P.generales[1]}` },
+  { page: 7, de: "pages 10-12", vers: () => `pages ${P.metier[0]}-${P.metier[1]}` },
+  { page: 7, de: "pages 13-14", vers: () => `pages ${P.secteur[0]}-${P.secteur[1]}` },
+  { page: 11, de: "voir p. 19-22", vers: () => `voir p. ${P.moteur[0]}-${P.moteur[1]}` },
+];
+
+// ---------------------------------------------------------------------------
+// MENTION OPCO SUR LES PAGES FORMATION
+//
+// Demande Will : le lecteur doit savoir, sur les pages formation elles-mêmes,
+// que la prestation est prise en charge en partie ou en totalité par son OPCO,
+// et surtout QU'IL N'A RIEN À AVANCER. L'argument n'existait qu'en couverture
+// et sur la page tarifs — pas sur les onze pages qu'on lui met sous les yeux.
+//
+// On l'écrit dans le bandeau de pied : pleine largeur, présent sur chaque page
+// de la section, et sans aucun risque de débordement puisque le bandeau a une
+// hauteur fixe. Le lien reste, l'accroche change.
+//
+// Formulation : « en subrogation » est le terme exact — l'OPCO règle
+// directement l'organisme, donc l'entreprise n'avance pas les fonds. C'est
+// conditionné à l'accord de l'OPCO, d'où « possible » plutôt qu'un absolu.
+// ---------------------------------------------------------------------------
+const MENTION_OPCO =
+  "Pris en charge par votre OPCO, en partie ou en totalité — sans avance de votre part";
+
+function mentionOpco(htmlPage) {
+  return htmlPage.replace(
+    /(<div class="footer">\s*<div class="l">)([\s\S]*?)(<\/div>)/,
+    `$1${MENTION_OPCO} <b>→</b> axion-ia.com/formations$3`,
+  );
+}
+
 // BANDES DE SECTION — repère pleine hauteur, comme dans le livre KDP.
 //
 // Une bande verticale sur la tranche extérieure dit, sans qu'on ait à lire,
@@ -886,6 +940,78 @@ const CSS_BANDE = `
 // sur ivoire et du mocha sur mocha. Les remplacements ci-dessous sont donc
 // ciblés, et volontairement peu nombreux — le reste de la maquette ne bouge pas.
 // ---------------------------------------------------------------------------
+
+/**
+ * p.1 — COUVERTURE. Elle ne vendait qu'une famille sur cinq.
+ *
+ * Le catalogue portait « Catalogue de formations en entreprise », « Formations
+ * IA », « 21 formations + 1 séminaire » et « Votre formation peut ne rien vous
+ * coûter » — pas un mot du coaching, de l'audit ni de l'implémentation, qui
+ * occupent pourtant 19 des 48 pages. Un lecteur classait Axion-IA en organisme
+ * de formation et ne cherchait jamais l'audit.
+ *
+ * Reprises ciblées : sur-titre, titre, baseline, décompte des offres et bloc
+ * OPCO. La photo, les dégradés et la structure ne bougent pas.
+ */
+function pageCouverture(src) {
+  const p = src
+    // — sur-titre : le document n'est plus un catalogue de formations
+    .replace(
+      ">Catalogue de formations en entreprise<",
+      ">Catalogue de prestations IA en entreprise<",
+    )
+    // — titre : trois verbes, les trois modes d'intervention
+    .replace(
+      /Formations <span class="display-it" style="color:var\(--terra-bright\)">IA<\/span>/,
+      `Former. Auditer.<br><span class="display-it" style="color:var(--terra-bright)">Construire.</span>`,
+    )
+    // 72 pt tenait sur une ligne ; le titre en fait deux désormais
+    .replace("font-size:72pt;margin:3mm 0 0", "font-size:56pt;margin:3mm 0 0")
+    // — baseline : les cinq familles, nommées
+    .replace(
+      `Former · Accompagner · Auditer — <span style="color:#ffb894">de l'idée à l'impact.</span>`,
+      `Formations · Séminaire · Coaching 1-to-1 · Audit · Implémentation — <span style="color:#ffb894">un seul partenaire, de l'idée à l'impact.</span>`,
+    )
+    // — le logo porte désormais sa propre pastille blanche : la boîte fait doublon
+    .replace(
+      `style="background:#fff;border-radius:12px;padding:6px 13px;box-shadow:0 4mm 16mm -6mm rgba(0,0,0,.7)"`,
+      `style="border-radius:12px;filter:drop-shadow(0 4mm 16mm rgba(0,0,0,.55))"`,
+    )
+    // — décompte : les cinq familles, pas les seules formations
+    .replace(
+      `<div class="display" style="font-size:30pt;color:#fff;line-height:1">21 formations<span style="color:var(--terra-bright)"> + </span>1 séminaire</div>
+        <div style="font-size:10.5pt;color:var(--sand);margin-top:2.5mm">Offres générales · par métier · par secteur — intra, présentiel &amp; distanciel</div>`,
+      `<div class="display" style="font-size:26pt;color:#fff;line-height:1">34 prestations IA<span style="color:var(--terra-bright)"> ·</span> 5 familles</div>
+        <div style="font-size:10pt;color:var(--sand);margin-top:2.5mm;line-height:1.45">21 formations · 1 séminaire · 3 accompagnements 1-to-1 · 4 audits · 5 implémentations<br>Intra-entreprise, présentiel &amp; distanciel</div>`,
+    )
+    // — OPCO : « en partie ou en totalité », et surtout SANS AVANCE (subrogation)
+    .replace(
+      `<div style="font-size:13.5pt;font-weight:800;color:#fff;line-height:1.15">Votre formation peut ne rien vous coûter</div>
+          <div style="font-size:9.5pt;color:#ffe9df;margin-top:2mm;line-height:1.45">Financée par votre <b style="color:#fff">OPCO</b> — vous avez déjà cotisé pour ça. Et <b style="color:#fff">nous montons tout le dossier pour vous</b>, de A à Z.</div>`,
+      `<div style="font-size:13pt;font-weight:800;color:#fff;line-height:1.15">Vos formations peuvent ne rien vous coûter</div>
+          <div style="font-size:9.2pt;color:#ffe9df;margin-top:2mm;line-height:1.42">Prises en charge par votre <b style="color:#fff">OPCO</b>, en partie ou en totalité — vous avez déjà cotisé pour ça. <b style="color:#fff">En subrogation, l'OPCO nous règle directement : vous n'avancez rien.</b> Nous montons le dossier de A à Z.</div>`,
+    )
+    // — le bloc bas gagne du contenu (5 familles + réserve) : on le resserre
+    //   d'autant, sinon la page déborde de 15,6 mm (mesuré par check-overflow)
+    .replace("padding:10mm var(--pad) 13mm", "padding:6mm var(--pad) 9mm")
+    .replace(
+      `<img src="assets/qualiopi-logo.png" alt="Qualiopi — actions de formation" style="height:26mm;width:auto;display:block">`,
+      `<img src="assets/qualiopi-logo.png" alt="Qualiopi — actions de formation" style="height:21mm;width:auto;display:block">`,
+    )
+    .replace('style="flex:none;width:47mm;background:#fff;border-radius:14px;padding:5mm', 'style="flex:none;width:44mm;background:#fff;border-radius:14px;padding:4mm')
+    .replace("border-radius:14px;padding:5mm 7mm;display:flex;align-items:center;gap:6mm;box-shadow", "border-radius:14px;padding:4mm 6mm;display:flex;align-items:center;gap:5mm;box-shadow")
+    // — le QR de couverture ouvre le catalogue entier, plus seulement les formations
+    .replace(">Scannez : toutes nos formations<", ">Scannez : toutes nos offres<")
+    // — réserve honnête : le reste à charge s'entend hors taxes, et le conseil
+    //   n'est pas finançable. Sans cette ligne, « 0 € » est une promesse nue.
+    .replace(
+      `<div style="font-size:13pt;font-weight:800;color:#fff;margin-top:2.5mm">axion-ia.com</div>`,
+      `<div style="font-size:13pt;font-weight:800;color:#fff;margin-top:2.5mm">axion-ia.com</div>
+        <div style="font-size:7.2pt;color:rgba(226,209,176,.75);margin-top:2mm;line-height:1.35;max-width:112mm">Prise en charge applicable aux formations et au séminaire, sur montants HT, selon votre OPCO et votre situation. Accompagnement, audit et implémentation sont des prestations de conseil, non finançables.</div>`,
+    );
+
+  return p.replace(/(<section class="page"[^>]*)>/, "$1>\n  <!-- GEN:conseil -->");
+}
 
 /** p.47 — « Parlons de vos équipes » repasse en clair. */
 function pageContact(src) {
@@ -1001,7 +1127,7 @@ function pageVisibilite(src) {
   // Les trois pages « argent » se suivent désormais (37 tarifs, 38 financement)
   // au lieu d'être dispersées : il y avait trois endroits où l'on parlait prix.
   const ORDRE = [
-    E[0],                                   //  1 Couverture
+    pageCouverture(E[0]),                   //  1 Couverture — réécrite (5 familles)
     E[1],                                   //  2 Édito + sommaire
     pageQrCatalogue(),                      //  3 Le catalogue en ligne
     E[2], E[3],                             //  4-5 Pourquoi · Comment ça se passe
@@ -1049,6 +1175,23 @@ function pageVisibilite(src) {
     if (bande) ORDRE[i] = injecteBande(ORDRE[i], bande, (i + 1) % 2 === 1);
   }
 
+  // Renvois périmés hérités de la version 24 pages.
+  let corriges = 0;
+  for (const r of RENVOIS_PERIMES) {
+    const avant = ORDRE[r.page - 1];
+    ORDRE[r.page - 1] = avant.split(r.de).join(r.vers());
+    if (ORDRE[r.page - 1] !== avant) corriges++;
+    else console.warn(`  renvoi introuvable p.${r.page} : « ${r.de} »`);
+  }
+
+  // Mention OPCO sur les pages formation + séminaire.
+  let opco = 0;
+  for (let n = P.formations[0]; n <= P.tarifsFormations; n++) {
+    const avant = ORDRE[n - 1];
+    ORDRE[n - 1] = mentionOpco(avant);
+    if (ORDRE[n - 1] !== avant) opco++;
+  }
+
   // 3bis. Les renvois de P doivent désigner la bonne page. Sans cette garde,
   // déplacer une section laisserait tous les « voir p. XX » faux en silence —
   // et un renvoi faux ne se voit qu'une fois le catalogue chez le client.
@@ -1085,6 +1228,8 @@ function pageVisibilite(src) {
   console.log(`  ${ORDRE.length - ajoutees} pages d'origine reprises telles quelles`);
   console.log(`  ${ajoutees} pages générées`);
   console.log(`  témoignages : ${slots.length} emplacements numérotés, 1 QR chacun, aucun texte`);
+  console.log(`  renvois périmés corrigés : ${corriges}/${RENVOIS_PERIMES.length}`);
+  console.log(`  mention OPCO « sans avance » posée sur ${opco} pages formation`);
   console.log(`\nEnchaîner : node renumber.cjs && node scan-qr.cjs`);
 })().catch((e) => {
   console.error(e.message || e);
