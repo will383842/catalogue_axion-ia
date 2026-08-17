@@ -262,6 +262,23 @@ ul.fl.blue li::before{background:radial-gradient(circle at 35% 35%, #4d78e6, var
 .sect-band span{writing-mode:vertical-rl;font-weight:800;font-size:8pt;letter-spacing:.18em;
   text-transform:uppercase;color:#fff;white-space:nowrap}
 .sect-band.left span{transform:rotate(180deg)}
+
+/* ---- Bandeau de pied : centrer le texte dans la partie VISIBLE ----
+   Le bandeau descend jusqu'au bord de la feuille (fond perdu). Son texte était
+   centré dans les 14 mm du bandeau ENTIER, donc dans une zone dont 3 mm
+   partent à la coupe : le folio et la flèche se retrouvaient à 1,8-2 mm du
+   trait — mesuré par check-maquette.cjs. Trop peu pour du texte, surtout sur
+   un livret de 48 pages où les cahiers centraux perdent encore de la chasse.
+
+   Le retrait bas remonte le texte dans ce que le lecteur voit RÉELLEMENT
+   (289→300 mm et non 289→303). À 3 mm il est exactement centré sur la partie
+   visible et se tient à 3,3 mm du trait ; à 4,5 mm il monte de 0,75 mm — un
+   décentrage imperceptible — et gagne 1,4 mm de marge. On prend 4,5 mm : sur
+   du texte au bord d'une coupe, la marge vaut mieux que la symétrie parfaite.
+
+   C'est une règle partagée, injectée dans la SORTIE : aucune page n'est
+   réécrite, les fiches formations ne bougent pas d'un pixel. */
+.footer{padding-bottom:4.5mm}
 </style>
 </head>
 <body>

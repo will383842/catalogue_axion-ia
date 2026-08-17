@@ -13,6 +13,7 @@
 | **Source figée, 24 pages d'origine** | `catalogue-axion-ia-v2/pages-source.html` — jamais écrite par le build |
 | **Sortie, 48 pages** | `catalogue-axion-ia-v2/index.html` — régénérable, ne pas éditer à la main |
 | **PDF livré** | `export/catalogue-web.pdf` → `Downloads\catalogue-axion-ia-48p.pdf` |
+| **PDF imprimeur CMJN** | `export/catalogue-axion-ia-CMYK.pdf` → `Downloads\catalogue-axion-ia-CMJN-imprimeur.pdf` |
 | **PDF de relecture, planches doubles** | `export/catalogue-planches-verification.pdf` → `Downloads\catalogue-axion-ia-PLANCHES-verification.pdf` — **ne pas envoyer à l'imprimeur** |
 | **Dépôt** | `C:\Users\willi\Documents\Projets\Catalogue_formations_Axion_IA` (git, branche `main`) |
 | **Contenu des 12 prestations de conseil** | `../catalogue-kdp/coaching-audit-data.json` |
@@ -32,6 +33,9 @@ node build-webpdf.cjs       # PDF + /PageLayout doubles pages (enchaîné)
 node build-planches.cjs     # PDF de RELECTURE en planches doubles réelles
 node check-harmonie.cjs     # A4 vs livre KDP : prix, titres, décomptes
 node check-maquette.cjs     # remplissage, marges de coupe, corps, dpi des images
+node build.cjs              # PDF RGB + CMJN imprimeur + JPEG 300 dpi + soft-proofs
+node check-tac.cjs          # taux d'encre du CMJN, page par page
+node check-dpi.cjs          # toutes les images ≥ 300 dpi effectifs
 ```
 
 **Idempotent** : deux passes complètes donnent le même `index.html` à l'octet près.
@@ -110,25 +114,30 @@ node check-maquette.cjs     # remplissage, marges de coupe, corps, dpi des image
 3. **Confirmer que la certification Qualiopi est délivrée.** Note de session du
    15/08 disant l'inverse. Irréversible une fois imprimé.
 4. **Organisme certificateur Qualiopi** — à nommer, une seule fois, p.47.
-5. **Fichiers d'impression périmés** : `catalogue-axion-ia-CMYK.pdf` et
-   `-RGB.pdf` datent du 21 juillet et font encore **24 pages**. Contrôle
-   d'encre (`check-tac.cjs`) non relancé.
+5. ~~Fichiers d'impression périmés~~ — **RÉGÉNÉRÉS** en 48 pages le 2026-08-17.
+   CMJN 25,2 Mo, RGB 15,4 Mo, 48 JPEG 300 dpi + soft-proofs CMJN.
+   `check-tac.cjs` : **TAC max 305 % (p.48), sous le seuil de 320 %** ✅
+   `check-dpi.cjs` : **toutes les images ≥ 300 dpi** ✅
 6. **40 pages sur 48 jamais regardées visuellement.** Un contrôle automatique
    (`check-maquette.cjs`) couvre désormais remplissage, marges de coupe, corps
    de texte et résolution des images — aucune page sous 80 % de remplissage,
    aucun contenu courant trop près du bord, aucune image sous 300 dpi. Mais
    il ne juge pas la COMPOSITION : ça reste à faire à l'œil, sur le PDF de
    planches.
-7. ⚠️ **Le texte du bandeau de pied est à 1,8-2 mm du trait de coupe**
-   (« → », folio, accroche). C'est la maquette d'origine, elle a déjà été
-   imprimée ainsi — mais c'est tendu pour du texte. À valider avec l'imprimeur
-   au BAT, ou remonter le texte de 2 mm dans le bandeau.
+7. ~~Texte du bandeau de pied à 1,8-2 mm du trait~~ — **CORRIGÉ.** Retrait bas
+   de 4,5 mm : le texte est remonté dans la partie visible du bandeau et se
+   tient désormais à 4,0-4,3 mm du trait. Règle partagée injectée dans la
+   sortie, aucune page réécrite.
 8. **Le QR de la page 3 mène au mauvais document** : il pointe sur
    `/fr/catalogue`, qui sert le LIVRE KDP de 46 pages, pas le catalogue A4.
    La page promet « Découvrez CE catalogue ». Soit on publie le A4, soit on
    repointe le slug `cat-catalogue`.
 
 ### Décisions Will — ne pas revenir dessus
+
+- **Qualiopi : ne rien faire.** Ni la mention, ni le logo, ni le certificateur,
+  ni les manques relevés par l'audit (accessibilité, référent handicap,
+  modalités d'évaluation, délais d'accès). Décision explicite du 2026-08-17.
 
 - Les **17 logos clients page 2** : inchangés.
 - Le **logo Qualiopi** : inchangé partout ; mention complète à un seul endroit.
