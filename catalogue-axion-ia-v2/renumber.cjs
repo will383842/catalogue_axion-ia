@@ -68,22 +68,30 @@ html = tete + renumerotees.join("");
 // 6 entrées par colonne : au-delà, la page 2 déborde (l'édito et le bandeau
 // de logos occupent déjà les deux tiers). Vérifié par `check-overflow.cjs` —
 // 8 par colonne rognaient 27 mm.
+// 4e valeur = MARQUEUR : un fragment qui doit se trouver sur la page visée.
+//
+// ⚠️ Sans lui, ce tableau dérive en silence. C'est arrivé : après avoir déplacé
+// « Cas d'usage » pour mettre Tarifs et Financement face à face, cinq renvois
+// sur douze pointaient à côté — « Accompagnement 1-to-1 » désignait la première
+// fiche au lieu de l'ouvreur, « Tarifs » désignait Financement. La garde qui
+// existait déjà ne contrôlait que la table `P` de build-conseil.cjs, pas ce
+// sommaire-ci. Elle le contrôle maintenant (voir plus bas).
 const SOMMAIRE = [
   [
-    ["03", "Le catalogue en ligne", "Toutes les offres à jour — un QR, un lien"],
-    ["04", "Pourquoi former vos équipes à l'IA", "Temps gagné · conformité AI&nbsp;Act"],
-    ["06", "Cinq façons de travailler ensemble", "La carte de toute l'offre, en une page"],
-    ["07", "Quelle formation pour vous ?", "Le guide pour choisir en une minute"],
-    ["08", "Les offres générales", "4 fiches détaillées — le socle pour toute l'équipe"],
-    ["12", "L'IA par métier — 9 formations", "RH · Marketing · Commercial · Finance · Juridique…"],
+    ["03", "Le catalogue en ligne", "Toutes les offres à jour — un QR, un lien", "catalogue en ligne"],
+    ["04", "Pourquoi former vos équipes à l'IA", "Temps gagné · conformité AI&nbsp;Act", "Pourquoi se former"],
+    ["06", "Quatre façons de travailler ensemble", "La carte de toute l'offre, en une page", "Quatre façons de"],
+    ["07", "Quelle formation pour vous ?", "Le guide pour choisir en une minute", "Quelle formation"],
+    ["08", "Les offres générales", "4 fiches détaillées — le socle pour toute l'équipe", "Offre générale · nº 1"],
+    ["12", "L'IA par métier — 9 formations", "RH · Marketing · Commercial · Finance · Juridique…", "votre métier"],
   ],
   [
-    ["15", "L'IA par secteur — 8 formations", "Santé · BTP · Immobilier · Commerce · Industrie…"],
-    ["17", "Séminaire IA — toute l'entreprise", "Jusqu'à 50 personnes, en une journée"],
-    ["20", "Accompagnement 1-to-1 — 3 formules", "Dirigeant · collaborateur · coaching régulier"],
-    ["24", "Audit IA — 4 niveaux", "Méthode en 8 étapes · recommandations chiffrées"],
-    ["30", "Implémentation &amp; automatisation", "5 domaines — processus, chatbots, agents, documents"],
-    ["37", "Tarifs, financement &amp; témoignages", "Toutes les offres · 6 témoignages à scanner"],
+    ["15", "L'IA par secteur — 8 formations", "Santé · BTP · Immobilier · Commerce · Industrie…", "votre secteur"],
+    ["17", "Séminaire IA — toute l'entreprise", "Jusqu'à 50 personnes, en une journée", "Séminaire IA"],
+    ["19", "Accompagnement 1-to-1 — 3 formules", "Dirigeant · collaborateur · coaching régulier", "une journée, ses vrais dossiers"],
+    ["23", "Audit IA — 4 niveaux", "Méthode en 8 étapes · recommandations chiffrées", "Avant d'investir, savoir"],
+    ["29", "Implémentation &amp; automatisation", "5 domaines — processus, chatbots, agents, documents", "Le clé en main"],
+    ["36", "Tarifs, financement &amp; témoignages", "Toutes les offres · 6 témoignages à scanner", "Tous nos tarifs"],
   ],
 ];
 
@@ -127,9 +135,41 @@ console.log(`Pagination : ${total} pages (${total / 4} feuillets), ${avecFolio} 
 console.log(`  sans folio : ${total - avecFolio} (1re et 4e de couverture, page contact)`);
 console.log(`Sommaire : ${entrees} entrées régénérées`);
 
-// Garde : tout renvoi du sommaire doit désigner une page qui existe.
+// ---------------------------------------------------------------------------
+// GARDE DU SOMMAIRE
+//
+// Deux contrôles, dont le second manquait — et son absence a laissé cinq
+// renvois faux passer après une réorganisation des pages.
+// ---------------------------------------------------------------------------
+
+// (a) le renvoi désigne-t-il une page qui existe ?
 const hors = SOMMAIRE.flat().filter(([pg]) => Number(pg) < 1 || Number(pg) > total);
 if (hors.length) {
   console.error(`🔴 renvois hors du document : ${hors.map((h) => h[0]).join(", ")}`);
   process.exit(1);
 }
+
+// (b) le renvoi désigne-t-il la BONNE page ? Un numéro valide qui pointe à côté
+//     ne se voit qu'une fois le catalogue entre les mains d'un client.
+const sansTexte = (h) =>
+  h
+    .replace(/<svg[\s\S]*?<\/svg>/g, " ")
+    .replace(/<!--[\s\S]*?-->/g, " ")
+    .replace(/<[^>]+>/g, " ")
+    .replace(/&nbsp;|&#8209;/g, " ")
+    .replace(/&amp;/g, "&")
+    .replace(/\s+/g, " ");
+
+const pagesFinales = html.split(/(?=<section class="page")/).slice(1).map(sansTexte);
+const faux = SOMMAIRE.flat().filter(([pg, , , marqueur]) => {
+  if (!marqueur) return false; // entrée sans marqueur : non contrôlable
+  return !(pagesFinales[Number(pg) - 1] || "").includes(marqueur);
+});
+if (faux.length) {
+  console.error("🔴 le sommaire pointe à côté :");
+  for (const [pg, titre, , marqueur] of faux) {
+    console.error(`   p.${pg} « ${titre} » — « ${marqueur} » introuvable sur cette page`);
+  }
+  process.exit(1);
+}
+console.log(`  renvois vérifiés : ${SOMMAIRE.flat().filter((e) => e[3]).length}/${entrees} pointent la bonne page`);
