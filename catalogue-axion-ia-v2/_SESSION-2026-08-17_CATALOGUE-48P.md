@@ -34,6 +34,10 @@ node build-webpdf.cjs       # PDF + /PageLayout doubles pages (enchaîné)
 node build-planches.cjs     # PDF de RELECTURE en planches doubles réelles
 node check-harmonie.cjs     # A4 vs livre KDP : prix, titres, décomptes
 node check-maquette.cjs     # remplissage, marges de coupe, corps, dpi des images
+node check-ordre.cjs        # folios, manifeste, appariement, sequence editoriale
+node render-pages-web.cjs   # 48 images pour le feuilletoir, fond perdu rogne
+node build-feuilletoir.cjs  # export/feuilletoir/ : index.html + pages-web/
+node build-pdf-doubles-web.cjs  # 25 planches 420x297, pour la lecture en ligne
 node build.cjs              # PDF RGB + CMJN imprimeur + JPEG 300 dpi + soft-proofs
 node check-tac.cjs          # taux d'encre du CMJN, page par page
 node check-dpi.cjs          # toutes les images ≥ 300 dpi effectifs
@@ -87,6 +91,12 @@ node check-dpi.cjs          # toutes les images ≥ 300 dpi effectifs
 - **Bande de section réparée** : son libellé était à **1,1 mm du trait de
   coupe**, donc rogné au façonnage. Bande élargie à 13 mm, retrait 4,5 mm →
   le texte revient à 3,9 mm. Trouvé par `check-maquette.cjs`.
+- **Feuilletoir web + PDF doubles pages** livres, testes en navigateur :
+  couverture seule et centree, double 02|03, folios en marge exterieure,
+  aucune erreur. Structure de deploiement `export/feuilletoir/`.
+- **Ordre verifie de bout en bout** (`check-ordre.cjs`) : folios, manifeste,
+  appariement `[1] (2|3) ... (46|47) [48]`, cote des bandes, 15 reperes
+  editoriaux. Tout en ordre.
 - **Audit rendu** : 107 agents, 48 constats, 45 retenus. 3 reprises appliquées
   (niveau d'audit fantôme « Flash terrain » p.7, renvoi circulaire p.18, prix
   d'appel 790 € impayable p.6). Synthèse : `scratchpad/AUDIT-SYNTHESE.md`.
@@ -176,6 +186,43 @@ Lecture : `scratchpad/lire-audit.cjs`.
 - Le **sommaire ignore 11 pages** ; les bandes de tranche s'arrêtent p.38.
 
 ---
+
+## 5bis. QUATRE PDF, un par usage — ne pas les confondre
+
+| Fichier | Usage | Fond perdu | Reperes |
+|---|---|---|---|
+| `catalogue-axion-ia-CMYK.pdf` | l'imprimeur | oui | — |
+| `catalogue-web.pdf` | l'e-mail, pages a l'unite | oui | — |
+| `catalogue-doubles-web.pdf` | la lecture en ligne, 25 planches | **rogne** | non |
+| `catalogue-planches-verification.pdf` | la relecture | oui | **oui** |
+
+Les deux derniers se ressemblent et ne servent PAS a la meme chose : celui de
+relecture garde volontairement les traits de coupe, il ne doit pas etre publie.
+
+## 5ter. Deux defauts d'heritage du feuilletoir KDP
+
+Reprendre un generateur eprouve fait gagner du temps et importe ses hypotheses :
+
+- la 1re de couverture s'annoncait « dos de couverture » : le test portait sur
+  le NOM DE FICHIER (`couv1.jpg`), nos images s'appellent `p01.jpg`.
+- la regle qui force la premiere page de CONTENU a s'afficher seule n'a PAS ete
+  reprise : la-bas la couverture est une image a part, ici la page 1 EST la
+  couverture. La reprendre decalait l'appariement d'un rang.
+
+## 5quater. EN ATTENTE DE DECISION WILL — pages blanches
+
+Demande : une page blanche apres la couverture (verso) et avant la 4e.
+Aujourd'hui la p.2 porte l'edito + sommaire et la p.47 le contact : dans un
+livret pique a cheval, la p.2 EST le verso de la couverture. Il faudrait donc
+CREER les blanches en retirant du contenu.
+
+- **A** — rester a 48 p. en sacrifiant 2 pages faibles (la p.3 entierement
+  consacree a un QR, et fusionner les 2 pages de temoignages). Zero papier.
+- **B** — passer a 52 p. : +4 pages de papier, 2 pages de contenu a ecrire.
+- **C** — garder tel quel.
+
+Reserve : l'interieur de couverture est la 2e surface la plus lue d'un
+catalogue ; la laisser blanche revient a l'offrir a personne.
 
 ## 6. Historique des commits
 
