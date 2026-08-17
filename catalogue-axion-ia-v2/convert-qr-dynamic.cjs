@@ -4,7 +4,11 @@
 // (déjà dynamiques). Régénère aussi les assets qr-*.svg racine.
 const fs = require("fs");
 const path = require("path");
-const QRCode = require("C:/Users/willi/Documents/Projets/Axion-IA/axionia-wt-qr/node_modules/qrcode");
+// ⚠️ 2026-08-17 — chargeait qrcode depuis `axionia-wt-qr/node_modules`, un
+// worktree git supprimé : le script plantait au require, donc plus aucun QR
+// n'était régénérable. Passe par lib-qr.cjs, qui cherche la dépendance à
+// plusieurs endroits connus et échoue avec un message explicite.
+const { QRCode } = require("./lib-qr.cjs");
 
 const BASE = "https://axion-ia.com/qr/";
 // slug -> { url encodée, labels aria à cibler dans le HTML }
