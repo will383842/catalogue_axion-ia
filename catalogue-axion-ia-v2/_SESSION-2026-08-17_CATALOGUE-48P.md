@@ -265,6 +265,28 @@ absence**. Repare, le logo Qualiopi tombait a 282 dpi. Hauteur d'impression
   build (elle se contentait d'un `console.warn` noye dans la sortie).
 - `check-dpi.cjs` : une image qui ne charge pas est signalee, plus ignoree.
 
+## 5bis-quater. 🔑 NE PAS REJOUER : « les polices de marque manquent »
+
+**Fausse alerte, deux fois dans la meme session.** Un balayage des `/BaseFont`
+d'un PDF produit par `page.pdf()` de Chrome ne renvoie que SegoeUI, Georgia,
+Consolas, TimesNewRomanPSMT. On en conclut que Fraunces / Manrope /
+Inconsolata ne sont pas embarquees. **C'est faux.**
+
+Deux preuves independantes :
+
+1. `document.fonts` dans la page : `Fraunces [loaded]`, `Manrope [loaded]`,
+   `Inconsolata [loaded]`, `document.fonts.check` vrai, **aucune requete de
+   police en echec**.
+2. La page 6 du PDF rasterisee et la capture d'ecran de la meme page sont
+   **superposables** — meme Fraunces d'affichage, meme italique, meme oeil.
+
+Et le PDF **en production** (edition 24 p., imprimee et validee par Will) porte
+exactement les memes `/BaseFont`. Il n'y a jamais eu de probleme.
+
+🔑 **Un `/BaseFont` absent ne prouve pas une police absente.** Pour trancher :
+regarder ce que la page CHARGE (`document.fonts`) et comparer deux rendus a
+l'oeil. Ne jamais conclure d'un balayage d'octets sur un PDF Chrome.
+
 ## 5quater. Pages blanches — TRANCHE, hypothese explicite
 
 Demande de Will : « une page blanche juste apres la page de couverture (verso de
