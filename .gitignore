@@ -14,3 +14,6 @@ catalogue-kdp/
 
 # Espace de travail de l'agent (93 Mo de transcriptions et de worktrees)
 .claude/
+
+# Transcriptions de session — contiennent des URL d admin et des jetons
+_SESSIONS/transcriptions/

@@ -18,7 +18,7 @@
 | **Dépôt catalogue** | `C:\Users\willi\Documents\Projets\Catalogue_formations_Axion_IA` (git, branche `main`) |
 | **Contenu des 12 prestations de conseil** | `../catalogue-kdp/coaching-audit-data.json` |
 | **Vérité des prix** | `C:\Users\willi\Documents\Projets\Axion-IA\axionia\src\content\pricing.ts` |
-| **Console QR** | `https://axion-ia.com/fr/admin-xfz5hk0j7hrk/qr-codes` |
+| **Console QR** | console admin → **QR codes & liens** (URL à préfixe secret, non consignée ici) |
 | **Publication en ligne** | PR **#689** sur `will383842/axion-ia`, branche `feat/catalogue-a4-48-pages`, worktree isolé `Projets/axionia-wt-catalogue48` |
 
 ## 1. La chaîne de build, dans l'ordre
