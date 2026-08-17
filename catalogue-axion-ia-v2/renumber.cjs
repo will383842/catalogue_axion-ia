@@ -43,6 +43,11 @@ if (total % 4 !== 0) {
 let avecFolio = 0;
 const renumerotees = pages.map((p, i) => {
   const num = String(i + 1).padStart(2, "0");
+  // La 4e de couverture ne porte pas de folio — pas plus que la 1re. Le bandeau
+  // de pied reste (il porte l'appel à l'action), seul le numéro disparaît.
+  if (i === pages.length - 1) {
+    return p.replace(/(<div class="footer">[\s\S]*?<div class="r">)([^<]*)(<\/div>)/, "$1$3");
+  }
   return p.replace(
     /(<div class="footer">[\s\S]*?<div class="r">)([^<]*)(<\/div>)/,
     (m, avant, _ancien, apres) => {
@@ -67,18 +72,18 @@ const SOMMAIRE = [
   [
     ["03", "Le catalogue en ligne", "Toutes les offres à jour — un QR, un lien"],
     ["04", "Pourquoi former vos équipes à l'IA", "Temps gagné · conformité AI&nbsp;Act"],
-    ["06", "Quelle formation pour vous ?", "Le guide pour choisir en une minute"],
-    ["07", "Les offres générales", "4 fiches détaillées — le socle pour toute l'équipe"],
-    ["11", "L'IA par métier — 9 formations", "RH · Marketing · Commercial · Finance · Juridique…"],
-    ["14", "L'IA par secteur — 8 formations", "Santé · BTP · Immobilier · Commerce · Industrie…"],
+    ["06", "Cinq façons de travailler ensemble", "La carte de toute l'offre, en une page"],
+    ["07", "Quelle formation pour vous ?", "Le guide pour choisir en une minute"],
+    ["08", "Les offres générales", "4 fiches détaillées — le socle pour toute l'équipe"],
+    ["12", "L'IA par métier — 9 formations", "RH · Marketing · Commercial · Finance · Juridique…"],
   ],
   [
-    ["16", "Séminaire IA — toute l'entreprise", "Jusqu'à 50 personnes, en une journée"],
+    ["15", "L'IA par secteur — 8 formations", "Santé · BTP · Immobilier · Commerce · Industrie…"],
+    ["17", "Séminaire IA — toute l'entreprise", "Jusqu'à 50 personnes, en une journée"],
     ["20", "Accompagnement 1-to-1 — 3 formules", "Dirigeant · collaborateur · coaching régulier"],
     ["24", "Audit IA — 4 niveaux", "Méthode en 8 étapes · recommandations chiffrées"],
     ["30", "Implémentation &amp; automatisation", "5 domaines — processus, chatbots, agents, documents"],
-    ["37", "Tarifs toutes offres &amp; témoignages", "Une page de prix · 6 témoignages à scanner"],
-    ["48", "Visibilité offerte &amp; avis clients ✦", "Podcast · interviews · page entreprise + backlink"],
+    ["37", "Tarifs, financement &amp; témoignages", "Toutes les offres · 6 témoignages à scanner"],
   ],
 ];
 
@@ -119,7 +124,7 @@ fs.writeFileSync(SRC, html, "utf8");
 
 const entrees = SOMMAIRE.flat().length;
 console.log(`Pagination : ${total} pages (${total / 4} feuillets), ${avecFolio} folios écrits`);
-console.log(`  sans folio : ${total - avecFolio} (couverture et 4e de couverture)`);
+console.log(`  sans folio : ${total - avecFolio} (1re et 4e de couverture, page contact)`);
 console.log(`Sommaire : ${entrees} entrées régénérées`);
 
 // Garde : tout renvoi du sommaire doit désigner une page qui existe.

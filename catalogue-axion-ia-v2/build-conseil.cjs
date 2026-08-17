@@ -92,6 +92,28 @@ const QR = {
   "cat-avis-6": "https://axion-ia.com/fr/avis",
 };
 
+// ---------------------------------------------------------------------------
+// RENVOIS DE PAGE — déclarés ici, jamais tapés dans une phrase.
+//
+// Les « voir p. 24 » étaient écrits en dur dans le texte des pages. Déplacer
+// une section les rendait tous faux d'un coup, en silence : un renvoi faux ne
+// se voit qu'une fois le catalogue entre les mains d'un client. Ils dérivent
+// maintenant de l'ORDRE réel (contrôlé plus bas par une garde).
+// ---------------------------------------------------------------------------
+const P = {
+  formations: [8, 16],       // offres générales + métier + secteur
+  seminaire: 17,
+  tarifsFormations: 18,
+  coaching: [20, 23],
+  audit: [24, 29],
+  implementation: [30, 36],
+  tarifsToutes: 37,
+  financement: 38,
+  temoignages: [39, 40],
+  visibilite: 48,
+};
+const pp = (r) => (Array.isArray(r) ? `p. ${r[0]} à ${r[1]}` : `p. ${r}`);
+
 // slug -> { viewBox, paths }, rempli au démarrage (génération + relecture)
 const qrCache = {};
 function qr(slug, taille) {
@@ -286,41 +308,63 @@ ${footer("Le catalogue complet en ligne", "axion-ia.com/catalogue")}`,
 // Page 19 — les 5 façons de travailler ensemble (remplace « Trois façons »)
 // ---------------------------------------------------------------------------
 function pageServices5() {
-  const l = (ic, titre, compl, txt, detail, prix) =>
-    `<div class="svc" style="padding:3.4mm 0">
-      <div class="ic">${ic}</div>
-      <div style="flex:1"><h4>${titre}${compl ? ` <span style="font-weight:600;color:var(--ink-muted);font-size:9.5pt">— ${compl}</span>` : ""}</h4>
-        <p style="margin-bottom:${detail ? "1.5mm" : "0"}">${txt}</p>
-        ${detail ? `<div style="font-size:9pt;color:var(--ink-muted);line-height:1.55">${detail}</div>` : ""}</div>
-      <div class="mono" style="font-weight:700;color:var(--terra);white-space:nowrap">${prix}</div>
+  // Une tuile par famille. Le bandeau de couleur reprend celui de la bande de
+  // tranche : le lecteur associe une couleur à une famille dès cette page, et
+  // la retrouve ensuite sur la tranche de chaque section.
+  const tuile = (o) => `<div class="card" style="padding:0;overflow:hidden;display:flex;flex-direction:column">
+      <div style="background:${o.c};color:#fff;padding:2.6mm 4.5mm;${o.grand ? "display:flex;align-items:center;justify-content:space-between;gap:3mm" : ""}">
+        <div style="font-family:'Fraunces',serif;font-weight:600;font-size:${o.grand ? "15pt" : "12.5pt"};line-height:1.12">${o.ic} ${o.nom}</div>
+        <div class="mono" style="font-weight:700;font-size:${o.grand ? "11pt" : "9pt"};white-space:nowrap;opacity:.95${o.grand ? "" : ";margin-top:.9mm"}">${o.prix}</div>
+      </div>
+      <div style="padding:3.4mm 4.5mm;display:flex;flex-direction:column;flex:1">
+        <div style="font-size:${o.grand ? "10.5pt" : "9.6pt"};line-height:1.45;color:var(--ink-soft)">${o.txt}</div>
+        <div style="margin-top:auto;padding-top:2.6mm;display:flex;align-items:baseline;justify-content:space-between;gap:3mm">
+          <span style="font-size:8.4pt;color:var(--ink-muted);line-height:1.3">${o.detail}</span>
+          <span class="mono" style="flex:none;font-weight:700;font-size:9pt;color:${o.c}">${o.pg} →</span>
+        </div>
+      </div>
     </div>`;
 
   return page(
     `${runhead("Nos offres")}
 
-  <div style="text-align:center">
-    <h2 class="display" style="font-size:28pt;margin:0">Cinq façons de
-      <span class="display-it" style="color:var(--terra)">travailler ensemble</span></h2>
-    <p style="font-size:11pt;color:var(--ink-soft);margin:3mm auto 0;max-width:158mm">
-      Former vos équipes, fédérer toute l'entreprise, accompagner une personne, auditer vos process, construire vos automatisations — de l'idée à l'impact.</p>
-    <div class="rule" style="margin:4mm auto 0"></div>
+  <div style="text-align:center;margin-top:1mm">
+    <div class="eyebrow">De l'idée à l'impact — un seul partenaire</div>
+    <h2 class="display" style="font-size:36pt;margin:3.5mm 0 0;line-height:1.02">Cinq façons de
+      <span class="display-it" style="color:var(--terra)">travailler ensemble.</span></h2>
+    <p style="font-size:11.5pt;color:var(--ink-soft);margin:4mm auto 0;max-width:156mm;line-height:1.5">
+      Former une équipe, fédérer toute l'entreprise, accompagner une personne, auditer vos process, construire vos automatisations. <b>Vous n'avez pas à choisir tout de suite</b> — on cadre ensemble.</p>
   </div>
 
-  <div style="margin-top:4mm">
-    ${l("🎓", "Formations IA", "21 formations", "En intra-entreprise, présentiel ou distanciel, sur vos vraies tâches. Chacun repart avec un livrable terminé.", "<b>4 offres générales</b> &nbsp;·&nbsp; <b>9 par métier</b> &nbsp;·&nbsp; <b>8 par secteur</b> &nbsp;— voir p. 7 à 15", "Dès 1 200 € HT")}
-    ${l("🎤", "Séminaire IA", "toute l'entreprise", "Une journée pour cadrer les usages et mettre tous vos services au diapason, jusqu'à 50 participants.", "Voir p. 16", "Sur devis")}
-    ${l("🤝", "Accompagnement 1-to-1", "3 formules", "Une personne, un expert, une journée sur ses vrais dossiers — ou un suivi régulier dans la durée.", "<b>Dirigeant · Vision IA stratégique</b> &nbsp;·&nbsp; <b>Collaborateur</b> &nbsp;·&nbsp; <b>Coaching régulier</b> — voir p. 20 à 23", "Dès 790 € HT")}
-    ${l("🔍", "Audit IA", "4 niveaux", "On cartographie vos usages, on chiffre chaque opportunité et on livre une feuille de route priorisée.", "<b>Sur place (TPE)</b> &nbsp;·&nbsp; <b>Ciblé</b> &nbsp;·&nbsp; <b>Stratégique PME</b> &nbsp;·&nbsp; <b>Stratégique ETI</b> — voir p. 24 à 29", "Dès 1 190 € HT")}
-    ${l("🚀", "Implémentation & automatisation", "5 domaines", "Vous préférez le clé en main ? Nous concevons, développons et livrons — code et documentation compris.", "<b>Processus</b> &nbsp;·&nbsp; <b>Chatbots</b> &nbsp;·&nbsp; <b>Agents IA</b> &nbsp;·&nbsp; <b>Documents</b> &nbsp;·&nbsp; <b>IA custom</b> — voir p. 30 à 36", "Pilote dès 990 € HT")}
-  </div>
-
-  <div style="margin-top:auto;background:var(--mocha);border-radius:16px;padding:4.5mm 8mm;color:#fff;display:flex;align-items:center;gap:8mm">
-    <div style="flex:1">
-      <div class="eyebrow" style="color:var(--terra-bright);margin-bottom:1.5mm">Vous ne savez pas par où commencer ?</div>
-      <div style="font-family:'Fraunces',serif;font-size:18pt;font-weight:600;line-height:1.12;color:#fff">Un appel de cadrage de 30 minutes, <span class="display-it" style="color:var(--terra-bright)">et on vous dit franchement.</span></div>
-      <p style="font-size:10pt;color:var(--sand);line-height:1.5;margin:2.5mm 0 0;max-width:118mm">Parfois la bonne réponse est une demi-journée de formation. Parfois c'est un audit. Parfois c'est d'attendre. <b style="color:#fff">On vous le dira.</b> Sans engagement.</p>
+  <div style="flex:1;display:flex;flex-direction:column;gap:4.5mm;margin-top:6mm">
+    <div style="display:grid;grid-template-columns:1.35fr 1fr;gap:4.5mm;flex:.82">
+      ${tuile({ ic: "🎓", nom: "Formations IA", prix: "Dès 1 200 € HT", c: "var(--terra)", grand: true,
+        txt: "<b>21 formations</b> en intra-entreprise, présentiel ou distanciel. Sur vos vraies tâches — chacun repart avec un livrable terminé, pas des notes.",
+        detail: "4 offres générales · 9 par métier · 8 par secteur", pg: pp(P.formations) })}
+      ${tuile({ ic: "🎤", nom: "Séminaire IA", prix: "Sur devis", c: "var(--terra-deep)",
+        txt: "Une journée pour mettre <b>toute l'entreprise</b> au diapason, jusqu'à 50 personnes, tous services réunis.",
+        detail: "Événement fédérateur, 1 journée", pg: pp(P.seminaire) })}
     </div>
-    ${qrBoite("cat-catalogue", "26mm", "")}
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:4.5mm;flex:1.18">
+      ${tuile({ ic: "🤝", nom: "Coaching 1-to-1", prix: "Dès 790 € HT", c: "var(--ochre)",
+        txt: "Une personne, un expert, une journée sur <b>ses propres dossiers</b> — ou un suivi régulier dans la durée.",
+        detail: "Dirigeant · collaborateur · régulier", pg: pp(P.coaching) })}
+      ${tuile({ ic: "🔍", nom: "Audit IA", prix: "Dès 1 190 € HT", c: "var(--blue)",
+        txt: "On cartographie vos usages, on <b>chiffre chaque opportunité</b> et on livre une feuille de route priorisée.",
+        detail: "4 niveaux, de la TPE à l'ETI", pg: pp(P.audit) })}
+      ${tuile({ ic: "🚀", nom: "Implémentation", prix: "Dès 990 € HT", c: "var(--sage)",
+        txt: "Le clé en main : on conçoit, on développe, on met en production. <b>Code et documentation livrés.</b>",
+        detail: "Processus · chatbots · agents · données", pg: pp(P.implementation) })}
+    </div>
+  </div>
+
+  <div style="margin-top:5mm;background:var(--mocha);border-radius:16px;padding:4.5mm 8mm;color:#fff;display:flex;align-items:center;gap:8mm">
+    <div style="flex:1">
+      <div style="font-family:'Fraunces',serif;font-size:18pt;font-weight:600;color:#fff;line-height:1.15">Vous ne savez pas par où commencer ?
+        <span class="display-it" style="color:var(--terra-bright)">On vous le dira franchement.</span></div>
+      <p style="font-size:10pt;color:var(--sand);line-height:1.5;margin:2.5mm 0 0">Parfois la bonne réponse est une demi-journée de formation. Parfois un audit. Parfois attendre. <b style="color:#fff">30 minutes suffisent pour le savoir.</b></p>
+    </div>
+    ${qrBoite("cat-catalogue", "23mm", "")}
   </div>
 
 ${footer("Réservez votre appel de cadrage", "axion-ia.com/appel")}`,
@@ -344,7 +388,7 @@ const OUVREURS = {
       ["🤝", "Journée en tête-à-tête, 7 à 8 h", "Sur site, à distance ou en hybride, selon votre préférence. On travaille sur vos vrais dossiers ; rien n'est conservé."],
       ["📄", "Livrable écrit sous 7 jours", "Note de cadrage pour un dirigeant, cahier de prompts et plan d'action pour un collaborateur. Nominatif, réutilisable sans nous."],
     ],
-    encart: "⚠️ Une prestation de conseil, pas une action de formation — donc pas d'objectifs pédagogiques, pas d'évaluation, et pas de financement OPCO. Voir p. 44.",
+    encart: "⚠️ Une prestation de conseil, pas une action de formation — donc pas d'objectifs pédagogiques, pas d'évaluation, et pas de financement OPCO. Voir PAGE_FIN.",
   },
   audit: {
     slug: "cat-audit",
@@ -359,7 +403,7 @@ const OUVREURS = {
       ["🗺", "Une feuille de route", "Par quoi commencer, quand, avec quelles ressources — des gains rapides aux chantiers de fond."],
       ["🔓", "Sans obligation de suite", "Le rapport est à vous. Vous implémentez avec nous, en interne, ou avec un tiers. C'est écrit dans nos conditions."],
     ],
-    encart: "⚠️ Prestation de conseil, hors action de formation : non finançable par un OPCO. Voir p. 44.",
+    encart: "⚠️ Prestation de conseil, hors action de formation : non finançable par un OPCO. Voir PAGE_FIN.",
   },
   implementation: {
     slug: "cat-implementation",
@@ -374,7 +418,7 @@ const OUVREURS = {
       ["📦", "Code et doc livrés", "Dans vos comptes, documentés, modifiables par vos équipes. Aucun abonnement imposé."],
       ["🛟", "30 jours de support inclus", "Pour les ajustements après mise en production. Un contrat de maintenance existe, il est optionnel."],
     ],
-    encart: "⚠️ Prestation de conception et de développement, hors action de formation : non finançable par un OPCO. Voir p. 44.",
+    encart: "⚠️ Prestation de conception et de développement, hors action de formation : non finançable par un OPCO. Voir PAGE_FIN.",
   },
 };
 
@@ -405,7 +449,7 @@ function pageOuvreur(famille) {
         .join("")}
     </div>
 
-    <div style="background:var(--sand);border-radius:13px;padding:4mm 6mm;font-size:10pt;color:var(--ink-soft);line-height:1.5">${esc(o.encart)}</div>
+    <div style="background:var(--sand);border-radius:13px;padding:4mm 6mm;font-size:10pt;color:var(--ink-soft);line-height:1.5">${esc(o.encart.replace("PAGE_FIN", pp(P.financement)))}</div>
 
     <div style="background:var(--mocha);border-radius:16px;padding:5.5mm 8mm;color:#fff;display:flex;align-items:center;gap:8mm">
       <div style="flex:1">
@@ -524,84 +568,84 @@ ${footer(f.pied, f.lien)}`,
 // Tarifs — récapitulatif toutes offres
 // ---------------------------------------------------------------------------
 function pageTarifsRecap() {
-  const bloc = (titre, couleur, lignes, note) =>
-    `<div style="margin-top:3.4mm">
-      <div style="display:flex;align-items:center;gap:3mm;margin-bottom:1.6mm">
-        <span style="width:4mm;height:4mm;border-radius:2px;background:${couleur};flex:none"></span>
-        <span style="font-family:'Fraunces',serif;font-weight:600;font-size:13pt">${esc(titre)}</span></div>
-      <table class="ptable" style="font-size:9.2pt">
-        <tbody>${lignes
+  // Quatre cartes plutôt que quatre tableaux empilés. Les tableaux rayés,
+  // leurs notes en petit et leurs prix en orange donnaient une page très
+  // chargée pour une information qu'on vient chercher précisément.
+  const carte = (titre, couleur, lignes, note) =>
+    `<div class="card" style="padding:0;overflow:hidden;display:flex;flex-direction:column">
+      <div style="background:${couleur};color:#fff;padding:2.4mm 4.5mm;font-family:'Fraunces',serif;font-weight:600;font-size:13pt">${esc(titre)}</div>
+      <div style="padding:2.6mm 4.5mm 3mm;flex:1;display:flex;flex-direction:column">
+        ${lignes
           .map(
-            ([a, b, c]) =>
-              // padding resserré : quatre tableaux sur une page rognaient 42 mm
-              // avec le 3,1 mm par défaut (mesuré par check-overflow.cjs).
-              `<tr><td class="g" style="padding:1.5mm 5mm">${esc(a)}</td>` +
-              `<td style="padding:1.5mm 5mm;color:var(--ink-muted)">${esc(b)}</td>` +
-              `<td style="padding:1.5mm 5mm;font-size:10.5pt">${esc(c)}</td></tr>`,
+            ([a, b, c], i) => `<div style="display:flex;align-items:baseline;gap:3mm;padding:1.7mm 0${i ? ";border-top:1px solid #eee3cd" : ""}">
+            <div style="flex:1">
+              <div style="font-weight:800;font-size:9.4pt;line-height:1.25;color:var(--ink)">${esc(a)}</div>
+              ${b ? `<div style="font-size:8.2pt;color:var(--ink-muted);margin-top:.4mm">${esc(b)}</div>` : ""}
+            </div>
+            <div class="mono" style="flex:none;font-weight:700;font-size:10.5pt;color:${couleur};white-space:nowrap">${esc(c)}</div>
+          </div>`,
           )
-          .join("")}</tbody>
-      </table>
-      ${note ? `<div style="font-size:8.2pt;color:var(--ink-muted);margin-top:1.2mm;line-height:1.35">${note}</div>` : ""}
+          .join("")}
+        ${note ? `<div style="margin-top:auto;padding-top:2.4mm;font-size:8.2pt;color:var(--ink-muted);line-height:1.35">${note}</div>` : ""}
+      </div>
     </div>`;
 
   return page(
     `${runhead("Tarifs · toutes les offres")}
 
   <div style="text-align:center">
-    <h2 class="display" style="font-size:26pt;margin:0">Tous nos tarifs,
-      <span class="display-it" style="color:var(--terra)">en une page</span></h2>
-    <p style="font-size:10.5pt;color:var(--ink-soft);margin:2.5mm auto 0;max-width:158mm">
-      Prix publics hors taxes. Formations : <b>par groupe</b>, pas par personne. Hors frais de déplacement.</p>
+    <h2 class="display" style="font-size:30pt;margin:0">Tous nos tarifs,
+      <span class="display-it" style="color:var(--terra)">en une page.</span></h2>
+    <p style="font-size:10.8pt;color:var(--ink-soft);margin:3mm auto 0;max-width:154mm;line-height:1.5">
+      Prix publics <b>hors taxes</b>. Les formations se facturent <b>par groupe</b>, pas par personne.</p>
   </div>
 
-  ${bloc("Formations & séminaire", "var(--terra)", [
-    ["Offres générales — 4 h (½ j)", "2 à 15 pers.", "1 200 €"],
-    ["Offres générales — 1 jour", "2 à 15 pers.", "1 900 €"],
-    ["Offres générales — 2 jours", "2 à 15 pers.", "3 600 €"],
-    ["Formations par métier — 1 j / 2 j", "2 à 15 pers.", "1 900 € / 3 600 €"],
-    ["Formations par secteur — 1 j / 2 j", "2 à 15 pers.", "2 200 € / 3 900 €"],
-    ["Séminaire IA — 1 journée", "jusqu'à 50 pers.", "Sur devis"],
-  ], "Finançable OPCO / France Travail — jusqu'à 100 %. Montage du dossier inclus. Voir p. 17 et 44.")}
+  <div style="flex:1;display:grid;grid-template-columns:1fr 1fr;grid-auto-rows:1fr;gap:4.5mm;margin-top:5mm">
+    ${carte("Formations & séminaire", "var(--terra)", [
+      ["Offres générales — 4 h (½ journée)", "2 à 15 personnes", "1 200 €"],
+      ["Offres générales — 1 jour / 2 jours", "2 à 15 personnes", "1 900 € / 3 600 €"],
+      ["Par métier — 1 jour / 2 jours", "2 à 15 personnes", "1 900 € / 3 600 €"],
+      ["Par secteur — 1 jour / 2 jours", "2 à 15 personnes", "2 200 € / 3 900 €"],
+      ["Séminaire IA — 1 journée", "jusqu'à 50 personnes", "Sur devis"],
+    ], `<b>Finançable OPCO / France Travail</b>, jusqu'à 100 %. Montage du dossier inclus — voir ${pp(P.financement)}.`)}
 
-  ${bloc("Accompagnement 1-to-1", "var(--ochre)", [
-    ["Dirigeant · Vision IA stratégique — 1 j / 2 j", "1 dirigeant", "1 390 € / 2 590 €"],
-    ["Collaborateur · Optimisation du poste — 1 j / 2 j", "1 collaborateur", "990 € / 1 830 €"],
-    ["Coaching régulier", "1 session / mois", "790 € / session"],
-  ], "Conseil — non finançable OPCO. Contrat de 6, 12 ou 24 mois pour le coaching régulier.")}
+    ${carte("Accompagnement 1-to-1", "var(--ochre)", [
+      ["Dirigeant · Vision IA stratégique", "1 jour / 2 jours", "1 390 € / 2 590 €"],
+      ["Collaborateur · Optimisation du poste", "1 jour / 2 jours", "990 € / 1 830 €"],
+      ["Coaching régulier", "1 session par mois", "790 € / session"],
+    ], "Prestation de <b>conseil</b> — non finançable OPCO. Contrat de 6, 12 ou 24 mois pour le coaching régulier.")}
 
-  ${bloc("Audit IA", "var(--blue)", [
-    ["Audit sur place — 1 journée (TPE)", "toute l'entreprise", "À partir de 1 190 €"],
-    ["Audit Ciblé — Solo / Standard / Avancé", "1 département", "1 900 € → 3 900 €"],
-    ["Audit Stratégique PME", "20-50 / 50-250 salariés", "4 900 € / 9 900 €"],
-    ["Audit Stratégique ETI", "1-2 BU · multi-BU", "À partir de 1 900 €"],
-  ], "Conseil — non finançable OPCO. Chiffrage au cas par cas selon le périmètre réel.")}
+    ${carte("Audit IA", "var(--blue)", [
+      ["Audit sur place — 1 journée", "TPE · toute l'entreprise", "Dès 1 190 €"],
+      ["Audit Ciblé — Solo / Standard / Avancé", "1 département", "1 900 → 3 900 €"],
+      ["Audit Stratégique PME", "20-50 / 50-250 salariés", "4 900 € / 9 900 €"],
+      ["Audit Stratégique ETI", "1-2 BU · multi-BU sur devis", "Dès 1 900 €"],
+    ], "Prestation de <b>conseil</b> — non finançable OPCO. Chiffrage au cas par cas selon le périmètre réel.")}
 
-  ${bloc("Implémentation & automatisation", "var(--sage)", [
-    ["Pilote IA — un cas d'usage prioritaire", "TPE / PME", "Dès 990 €"],
-    ["Mission PME / ETI / Grand programme", "multi-cas, transverse", "Sur devis"],
-    ["IA custom d'entreprise", "4 à 16 semaines", "Sur devis"],
-    ["Maintenance (optionnelle, après les 30 j inclus)", "forfait 4 h / mois", "290 € / mois"],
-  ], "Conception et développement — non finançable OPCO. Forfait fixe, devis ferme.")}
+    ${carte("Implémentation & automatisation", "var(--sage)", [
+      ["Pilote IA — un cas d'usage prioritaire", "TPE / PME", "Dès 990 €"],
+      ["Mission PME / ETI / Grand programme", "multi-cas, transverse", "Sur devis"],
+      ["IA custom d'entreprise", "4 à 16 semaines", "Sur devis"],
+      ["Maintenance (optionnelle)", "après les 30 jours inclus", "290 € / mois"],
+    ], "Conception et développement — non finançable OPCO. <b>Forfait fixe, devis ferme.</b>")}
+  </div>
 
-  <div style="margin-top:auto;display:grid;grid-template-columns:1fr 1fr 1fr;gap:3.5mm">
-    <div class="card" style="padding:3.2mm 4.2mm">
-      <div class="eyebrow" style="font-size:8pt">Ce qui est compris</div>
-      <div style="font-size:8.6pt;color:var(--ink-soft);line-height:1.4;margin-top:1.4mm">
-        Préparation, animation, supports et livrables. Pour les formations : convention, convocations, émargements et attestations.</div>
+  <div style="margin-top:4.5mm;display:grid;grid-template-columns:1fr 1fr 1fr;gap:4mm">
+    <div style="background:var(--sand);border-radius:11px;padding:3mm 4.2mm">
+      <div class="eyebrow" style="font-size:7.6pt;color:var(--terra-deep)">Compris</div>
+      <div style="font-size:8.6pt;color:var(--ink-soft);line-height:1.4;margin-top:1.2mm">Préparation, animation, supports et livrables. Pour les formations : convention, convocations, émargements, attestations.</div>
     </div>
-    <div class="card" style="padding:3.2mm 4.2mm">
-      <div class="eyebrow" style="font-size:8pt">Ce qui s'ajoute</div>
-      <div style="font-size:8.6pt;color:var(--ink-soft);line-height:1.4;margin-top:1.4mm">
-        Frais de déplacement, d'hébergement et de repas, au réel et sur justificatifs, quand l'intervention a lieu sur site.</div>
+    <div style="background:var(--sand);border-radius:11px;padding:3mm 4.2mm">
+      <div class="eyebrow" style="font-size:7.6pt;color:var(--terra-deep)">En sus</div>
+      <div style="font-size:8.6pt;color:var(--ink-soft);line-height:1.4;margin-top:1.2mm">Frais de déplacement, d'hébergement et de repas, au réel et sur justificatifs, pour les interventions sur site.</div>
     </div>
-    <div class="card" style="padding:3.2mm 4.2mm">
-      <div class="eyebrow" style="font-size:8pt">TVA</div>
-      <div style="font-size:8.6pt;color:var(--ink-soft);line-height:1.4;margin-top:1.4mm">
-        Tous les prix sont hors taxes. <b>La TVA au taux en vigueur s'applique à toutes nos prestations</b>, formations comprises.</div>
+    <div style="background:var(--sand);border-radius:11px;padding:3mm 4.2mm">
+      <div class="eyebrow" style="font-size:7.6pt;color:var(--terra-deep)">TVA</div>
+      <div style="font-size:8.6pt;color:var(--ink-soft);line-height:1.4;margin-top:1.2mm">Tous les prix sont hors taxes. <b>La TVA au taux en vigueur s'applique à toutes nos prestations</b>, formations comprises.</div>
     </div>
   </div>
 
-${footer("Un devis sous 48 h", "axion-ia.com/appel")}`,
+${footer("Un devis chiffré sous 48 h", "axion-ia.com/appel")}`,
   );
 }
 
@@ -781,6 +825,126 @@ ${footer("Réservez un appel découverte", "axion-ia.com/appel")}`,
 }
 
 // ---------------------------------------------------------------------------
+// BANDES DE SECTION — repère pleine hauteur, comme dans le livre KDP.
+//
+// Une bande verticale sur la tranche extérieure dit, sans qu'on ait à lire,
+// dans quelle famille d'offre on se trouve. Elle sert d'onglet : catalogue
+// fermé, on voit les sections sur la tranche.
+//
+// Tranche EXTÉRIEURE : à droite sur les pages impaires (recto), à gauche sur
+// les paires (verso). Une bande toujours du même côté tomberait dans le pli
+// une page sur deux, donc invisible.
+//
+// Largeur 9 mm dont 3 mm de fond perdu : 6 mm restent après coupe. Le texte
+// est décalé de 3 mm vers l'intérieur pour rester dans la partie visible.
+// ---------------------------------------------------------------------------
+const BANDES = [
+  { de: 8, a: 18, label: "Formations IA", couleur: "var(--terra)" },
+  { de: 20, a: 23, label: "Accompagnement 1-to-1", couleur: "var(--ochre)" },
+  { de: 24, a: 29, label: "Audit IA", couleur: "var(--blue)" },
+  { de: 30, a: 36, label: "Implémentation & automatisation", couleur: "var(--sage)" },
+  { de: 37, a: 38, label: "Tarifs & financement", couleur: "var(--mocha)" },
+];
+// Le séminaire vit dans la plage « Formations » mais porte son propre nom.
+const BANDE_SEMINAIRE = { page: 17, label: "Séminaire IA", couleur: "var(--terra-deep)" };
+
+function bandePour(n) {
+  if (n === BANDE_SEMINAIRE.page) return BANDE_SEMINAIRE;
+  return BANDES.find((b) => n >= b.de && n <= b.a) || null;
+}
+
+/** Insère la bande juste après l'ouverture de <section class="page" …>. */
+function injecteBande(htmlPage, bande, estPageImpaire) {
+  const cote = estPageImpaire ? "right" : "left";
+  const div =
+    `<div class="sect-band ${cote}" aria-hidden="true" style="background:${bande.couleur}">` +
+    `<span>${esc(bande.label)}</span></div>`;
+  return htmlPage.replace(/(<section class="page"[^>]*>)/, `$1\n  ${div}`);
+}
+
+/** Règles CSS de la bande, injectées dans le <head> pour ne pas toucher la source. */
+const CSS_BANDE = `
+/* ---- Bande de section (onglet de tranche) — injectée par build-conseil.cjs ---- */
+.sect-band{position:absolute;top:0;bottom:0;width:9mm;z-index:3;
+  display:flex;align-items:center;justify-content:center}
+.sect-band.right{right:0;padding-right:3mm}
+.sect-band.left{left:0;padding-left:3mm}
+.sect-band span{writing-mode:vertical-rl;font-weight:800;font-size:8pt;letter-spacing:.18em;
+  text-transform:uppercase;color:#fff;white-space:nowrap}
+.sect-band.left span{transform:rotate(180deg)}
+`;
+
+// ---------------------------------------------------------------------------
+// COUVERTURES — la 4e reprend le fond de la 1re.
+//
+// La 1re de couverture est MOCHA sous la photo. La 4e (Visibilité) était
+// ivoire, et la page 47 (Nous contacter) mocha : les deux extrêmes du
+// catalogue ne se répondaient pas.
+//
+// On échange donc les fonds. Ce n'est pas qu'une couleur : chaque page a ses
+// textes réglés pour SON fond. Un simple changement d'aplat rendrait du blanc
+// sur ivoire et du mocha sur mocha. Les remplacements ci-dessous sont donc
+// ciblés, et volontairement peu nombreux — le reste de la maquette ne bouge pas.
+// ---------------------------------------------------------------------------
+
+/** p.47 — « Parlons de vos équipes » repasse en clair. */
+function pageContact(src) {
+  let p = src
+    .replace('<div class="page__bg" style="background:var(--mocha)"></div>', "")
+    .replace('<div style="color:#fff;height:100%', '<div style="color:var(--ink);height:100%')
+    .replace(/color:#fff"\>Parlons de vos/, 'color:var(--ink)">Parlons de vos')
+    // le logo n'a plus besoin de sa pastille blanche sur fond clair
+    .replace('style="height:15mm;background:#fff;border-radius:8px;padding:6px 10px"', 'style="height:15mm"')
+    .replace(/color:var\(--sand\)/g, "color:var(--ink-soft)")
+    .replace('border-top:1px solid rgba(255,255,255,.2)', "border-top:1px solid var(--line)")
+    .replace('color:rgba(247,243,234,.6)', "color:var(--ink-muted)")
+    .replace('<b style="color:#fff">ACTIONS DE FORMATION</b>', '<b style="color:var(--ink)">ACTIONS DE FORMATION</b>')
+    // le bandeau Qualiopi n'a plus besoin de son fond blanc
+    .replace('style="height:20mm;background:#fff;border-radius:8px;padding:5px"', 'style="height:20mm"')
+    // Le grand vide central passait pour de la respiration sur fond mocha ;
+    // sur fond clair il fait page inachevée. On le remplit par les étapes
+    // concrètes — c'est la dernière page lue avant la 4e de couverture.
+    .replace(
+      '<div style="flex:1"></div>',
+      `<div style="flex:1;display:flex;flex-direction:column;justify-content:center">
+      <div style="background:var(--mocha);border-radius:16px;padding:5.5mm 8mm;color:#fff">
+        <div class="eyebrow" style="color:var(--terra-bright);margin-bottom:3mm">Et concrètement, maintenant ?</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:7mm">
+          ${[
+            ["1", "Vous réservez", "30 minutes, sans engagement. On comprend votre métier et vos tâches chronophages."],
+            ["2", "On vous répond", "Un devis chiffré sous 48 h — et franchement, si aucune de nos offres n'est utile."],
+            ["3", "On monte le dossier", "Pour les formations : la prise en charge OPCO, montée de A à Z par nos soins."],
+          ]
+            .map(
+              ([n, t, d]) => `<div>
+            <div style="display:flex;align-items:center;gap:2.5mm;margin-bottom:1.5mm">
+              <span style="flex:none;width:7mm;height:7mm;border-radius:50%;background:var(--terra);color:#fff;font-family:'Fraunces',serif;font-weight:600;font-size:10pt;display:flex;align-items:center;justify-content:center">${n}</span>
+              <span style="font-weight:800;font-size:10.5pt;color:#fff">${t}</span></div>
+            <div style="font-size:9.2pt;line-height:1.42;color:var(--sand)">${d}</div></div>`,
+            )
+            .join("")}
+        </div>
+      </div>
+    </div>`,
+    );
+  return p.replace(/(<section class="page"[^>]*)>/, "$1>\n  <!-- GEN:conseil -->");
+}
+
+/** p.48 — Visibilité passe en mocha, comme la 1re de couverture. */
+function pageVisibilite(src) {
+  let p = src
+    .replace(
+      /(<section class="page"[^>]*>)/,
+      '$1\n  <div class="page__bg" style="background:var(--mocha)"></div>\n  <!-- GEN:conseil -->',
+    )
+    // les trois seuls textes posés directement sur le fond de page
+    .replace('<span class="sec">Inclus · visibilité offerte</span>', '<span class="sec" style="color:var(--sand)">Inclus · visibilité offerte</span>')
+    .replace('style="color:var(--blue)"', 'style="color:#7ea2ff"')
+    .replace(/color:var\(--ink-muted\)/g, "color:var(--sand)");
+  return p;
+}
+
+// ---------------------------------------------------------------------------
 // ASSEMBLAGE
 // ---------------------------------------------------------------------------
 (async () => {
@@ -792,7 +956,21 @@ ${footer("Réservez un appel découverte", "axion-ia.com/appel")}`,
   let html = fs.readFileSync(SRC, "utf8");
   const iDeck = html.indexOf('<div class="deck">') + '<div class="deck">'.length;
   const iFin = html.lastIndexOf("</div>");
-  const tete = html.slice(0, iDeck);
+  // CSS de la bande ajoutée au <head> de la sortie : la source reste intacte.
+  //
+  // ⚠️ La feuille d'origine porte
+  //   `.page > *:not(.page__bg):not(.footer):not(.trim):not(.foldline){position:relative}`
+  // — ses quatre :not() lui donnent une spécificité (0,5,0), qui écrase le
+  // `position:absolute` d'une simple classe. Sans l'exception ajoutée ici, la
+  // bande redevient un élément de flux, prend de la hauteur et pousse le
+  // contenu hors de la page : 19 pages rognées, constaté par check-overflow.
+  const tete = html
+    .slice(0, iDeck)
+    .replace(
+      ".page > *:not(.page__bg):not(.footer):not(.trim):not(.foldline)",
+      ".page > *:not(.page__bg):not(.footer):not(.trim):not(.foldline):not(.sect-band)",
+    )
+    .replace("</style>", CSS_BANDE + "</style>");
   const queue = html.slice(iFin);
 
   const corps = html.slice(iDeck, iFin);
@@ -814,18 +992,27 @@ ${footer("Réservez un appel découverte", "axion-ia.com/appel")}`,
 
   // 3. L'ordre voulu : formations → séminaire → coaching → audit →
   //    implémentation, Visibilité en 4e de couverture.
+  //
+  // « Cinq façons de travailler ensemble » est remontée en p.6, avant le guide
+  // de choix des formations : c'est la carte de TOUTE l'offre, elle doit être
+  // lue avant qu'on entre dans une famille. Elle était en p.19, où elle arrivait
+  // après 12 pages de formations — trop tard pour servir de carte.
+  //
+  // Les trois pages « argent » se suivent désormais (37 tarifs, 38 financement)
+  // au lieu d'être dispersées : il y avait trois endroits où l'on parlait prix.
   const ORDRE = [
     E[0],                                   //  1 Couverture
     E[1],                                   //  2 Édito + sommaire
     pageQrCatalogue(),                      //  3 Le catalogue en ligne
-    E[2], E[3], E[4],                       //  4-6 Pourquoi · Comment · Quelle formation
-    E[5], E[6], E[7], E[8],                 //  7-10 Offres générales
-    E[9], E[10], E[11],                     // 11-13 Par métier
-    E[12], E[13],                           // 14-15 Par secteur
-    E[14],                                  // 16 Séminaire IA
-    E[15],                                  // 17 Tarifs formations
-    E[16],                                  // 18 Cas d'usage
-    pageServices5(),                        // 19 Cinq façons (remplace E[17])
+    E[2], E[3],                             //  4-5 Pourquoi · Comment ça se passe
+    pageServices5(),                        //  6 Cinq façons (remplace E[17])
+    E[4],                                   //  7 Quelle formation pour vous
+    E[5], E[6], E[7], E[8],                 //  8-11 Offres générales
+    E[9], E[10], E[11],                     // 12-14 Par métier
+    E[12], E[13],                           // 15-16 Par secteur
+    E[14],                                  // 17 Séminaire IA
+    E[15],                                  // 18 Tarifs formations
+    E[16],                                  // 19 Cas d'usage
     pageOuvreur("coaching"),                // 20
     fichePrestation(co[0], "coaching", 1, "cat-c01"),        // 21
     fichePrestation(co[1], "coaching", 2, "cat-c02"),        // 22
@@ -843,16 +1030,45 @@ ${footer("Réservez un appel découverte", "axion-ia.com/appel")}`,
     fichePrestation(im[2], "implementation", 3, "cat-i03"),  // 34
     fichePrestation(im[3], "implementation", 4, "cat-i04"),  // 35
     fichePrestation(im[4], "implementation", 5, "cat-i05"),  // 36
-    pageTarifsRecap(),                      // 37
-    pageTemoignages(slots.slice(0, 3), 1, 2),  // 38
-    pageTemoignages(slots.slice(3, 6), 2, 2),  // 39
-    E[18], E[19], E[20], E[21],             // 40-43 Moteur · automatisations · et chez vous
-    pageFinancement(),                      // 44
+    pageTarifsRecap(),                      // 37 ─┐ tout l'argent
+    pageFinancement(),                      // 38 ─┘ au même endroit
+    pageTemoignages(slots.slice(0, 3), 1, 2),  // 39
+    pageTemoignages(slots.slice(3, 6), 2, 2),  // 40
+    E[18], E[19], E[20], E[21],             // 41-44 Moteur · automatisations · et chez vous
     pageConformite(),                       // 45
     pageFaq(),                              // 46
-    E[23],                                  // 47 Nous contacter
-    E[22],                                  // 48 Visibilité offerte — 4e de couverture
+    pageContact(E[23]),                     // 47 Nous contacter — repassée en clair
+    pageVisibilite(E[22]),                  // 48 Visibilité — mocha, comme la 1re de couv
   ];
+
+  // Bandes de section pleine hauteur (voir BANDES). Injectées ici plutôt que
+  // dans les pages : la source reste intacte, et les plages suivent l'ordre
+  // ci-dessus sans qu'on ait à les recopier page par page.
+  for (let i = 0; i < ORDRE.length; i++) {
+    const bande = bandePour(i + 1);
+    if (bande) ORDRE[i] = injecteBande(ORDRE[i], bande, (i + 1) % 2 === 1);
+  }
+
+  // 3bis. Les renvois de P doivent désigner la bonne page. Sans cette garde,
+  // déplacer une section laisserait tous les « voir p. XX » faux en silence —
+  // et un renvoi faux ne se voit qu'une fois le catalogue chez le client.
+  const attendus = [
+    [P.seminaire, "Séminaire IA"],
+    [P.coaching[0], "Accompagnement individuel"],
+    [P.audit[0], "Avant d'investir, savoir"],
+    [P.implementation[0], "Le clé en main"],
+    [P.tarifsToutes, "Tous nos tarifs"],
+    [P.financement, "Ce qui est finançable"],
+    [P.temoignages[0], "Témoignage 1"],
+    [P.visibilite, "coup de projecteur"],
+  ];
+  const faux = attendus.filter(([n, marqueur]) => !(ORDRE[n - 1] || "").includes(marqueur));
+  if (faux.length) {
+    throw new Error(
+      `[build-conseil] renvois faux — la table P ne suit plus l'ORDRE :\n` +
+        faux.map(([n, m]) => `  p.${n} devrait contenir « ${m} »`).join("\n"),
+    );
+  }
 
   // 4. Contrainte d'impression : piqûre à cheval = multiple de 4.
   if (ORDRE.length % 4 !== 0) {
