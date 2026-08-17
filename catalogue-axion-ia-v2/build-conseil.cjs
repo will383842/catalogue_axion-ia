@@ -356,8 +356,8 @@ function pageServices5() {
         detail: "Événement fédérateur, 1 journée", pg: pp(P.seminaire) })}
     </div>
     <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:4.5mm;flex:1.18">
-      ${tuile({ ic: "🤝", nom: "Coaching 1-to-1", prix: "Dès 790 € HT", c: "var(--ochre)",
-        txt: "Une personne, un expert, une journée sur <b>ses propres dossiers</b> — ou un suivi régulier dans la durée.",
+      ${tuile({ ic: "🤝", nom: "Accompagnement 1-to-1", prix: "Dès 990 € HT", c: "var(--ochre)",
+        txt: "Une personne, un expert, une journée sur <b>ses propres dossiers</b> — ou 790 € / session en contrat régulier.",
         detail: "Dirigeant · collaborateur · régulier", pg: pp(P.coaching) })}
       ${tuile({ ic: "🔍", nom: "Audit IA", prix: "Dès 1 190 € HT", c: "var(--blue)",
         txt: "On cartographie vos usages, on <b>chiffre chaque opportunité</b> et on livre une feuille de route priorisée.",
@@ -854,6 +854,55 @@ const RENVOIS_PERIMES = [
 ];
 
 // ---------------------------------------------------------------------------
+/// ---------------------------------------------------------------------------
+// REPRISES ISSUES DE L'AUDIT MULTI-AGENTS (run wf_1a396362-ae5, 107 agents)
+//
+// Trois défauts que le balayage automatique des renvois n'attrapait pas, parce
+// qu'ils ne sont pas de simples numéros de page :
+//
+//  1. p.7 — « 4 formules, du Flash terrain à l'audit stratégique. Sur devis. »
+//     « Flash terrain » ne désigne AUCUN des quatre niveaux d'audit du
+//     catalogue (sur place, Ciblé, Stratégique PME, Stratégique ETI). Le
+//     lecteur cherche un niveau qui n'existe nulle part. Et « Sur devis »
+//     contredit les p.6 et 37, qui affichent « Dès 1 190 € ».
+//
+//  2. p.18 — « Accompagnement 1-to-1 & Audit IA : sur devis (voir p. 18) »,
+//     imprimé EN PAGE 18. Renvoi circulaire. Il portait une espace insécable
+//     (`p.&nbsp;18`), ce qui l'a fait échapper au balayage : une entité HTML
+//     n'est pas une espace tant qu'on ne l'a pas décodée.
+//
+//  3. p.6 — « Coaching 1-to-1 · Dès 790 € HT ». Les 790 € sont le prix d'UNE
+//     SESSION d'un contrat de 6, 12 ou 24 mois (p.23) : le premier engagement
+//     réel est de 6 × 790 = 4 740 € HT. Le vrai ticket d'entrée est le
+//     Collaborateur à 990 €. `pricing.ts` tranche explicitement dans ce sens
+//     (`UN_A_UN_TIERS`, commentaire Will 2026-06-23 : le Collaborateur est
+//     placé en premier pour que le prix d'entrée affiché soit 990 €). Le
+//     catalogue papier annonçait donc un prix plus bas que le site ET
+//     impossible à payer tel quel — sur la page qui sert de carte à l'offre.
+// ---------------------------------------------------------------------------
+const REPRISES_AUDIT = [
+  {
+    page: 7,
+    // le « Sur devis. » qui suivait est repris dans la même passe : laissé seul,
+    // il contredisait le prix plancher qu'on venait d'écrire deux mots avant
+    de: `4 formules, du Flash terrain à l'audit stratégique. <span style="color:#ffc93c">Sur devis.</span>`,
+    vers: () =>
+      `4 niveaux, de l'audit sur place en TPE à l'audit stratégique ETI. <span style="color:#ffc93c">Dès 1 190 € HT.</span>`,
+  },
+  {
+    page: 7,
+    de: "Coaching individuel dirigeant ou collaborateur, 100&nbsp;% sur mesure — voir p.&nbsp;18.",
+    vers: () =>
+      `Accompagnement 1-to-1, dirigeant ou collaborateur, 100&nbsp;% sur mesure — dès 990 € HT, voir ${pp(P.coaching)}.`,
+  },
+  {
+    page: 18,
+    de: "Accompagnement 1-to-1 &amp; Audit IA : sur devis (voir p.&nbsp;18).",
+    vers: () =>
+      `Accompagnement 1-to-1 dès 990 € HT, Audit IA dès 1 190 € HT, implémentation dès 990 € HT — grille complète ${pp(P.tarifsToutes)}.`,
+  },
+];
+
 // MENTION OPCO SUR LES PAGES FORMATION
 //
 // Demande Will : le lecteur doit savoir, sur les pages formation elles-mêmes,
@@ -1204,6 +1253,15 @@ function pageVisibilite(src) {
     else console.warn(`  renvoi introuvable p.${r.page} : « ${r.de} »`);
   }
 
+  // Reprises issues de l'audit multi-agents.
+  let audites = 0;
+  for (const r of REPRISES_AUDIT) {
+    const avant = ORDRE[r.page - 1];
+    ORDRE[r.page - 1] = avant.split(r.de).join(r.vers());
+    if (ORDRE[r.page - 1] !== avant) audites++;
+    else console.warn(`  reprise audit introuvable p.${r.page} : « ${r.de.slice(0, 45)}… »`);
+  }
+
   // Mention OPCO sur les pages formation + séminaire.
   let opco = 0;
   for (let n = P.formations[0]; n <= P.tarifsFormations; n++) {
@@ -1249,6 +1307,7 @@ function pageVisibilite(src) {
   console.log(`  ${ajoutees} pages générées`);
   console.log(`  témoignages : ${slots.length} emplacements numérotés, 1 QR chacun, aucun texte`);
   console.log(`  renvois périmés corrigés : ${corriges}/${RENVOIS_PERIMES.length}`);
+  console.log(`  reprises d'audit appliquées : ${audites}/${REPRISES_AUDIT.length}`);
   console.log(`  mention OPCO « sans avance » posée sur ${opco} pages formation`);
   console.log(`\nEnchaîner : node renumber.cjs && node scan-qr.cjs`);
 })().catch((e) => {
