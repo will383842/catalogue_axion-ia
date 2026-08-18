@@ -138,8 +138,12 @@ console.log("\n=== 5. MONTANTS DU A4 INCONNUS DU KDP ===\n");
 const connus = new Set([...prixKdp]);
 for (const offres of Object.values(conseilKdp))
   for (const o of offres) for (const m of montants(o.price)) connus.add(m);
-// montants légitimes hors offres : maintenance, valeur visibilité, sous-tiers audit
-const tolerés = new Set(["290", "650", "2590", "1830", "2900", "3900", "4900", "9900", "1000"]);
+// montants légitimes hors offres : maintenance, sous-tiers audit
+// 2026-08-18 — "650" RETIRÉ de cette liste. Il y figurait comme "valeur visibilité",
+// mais aucune grille ne vend la visibilité : ce contrôle l'avait justement détecté
+// comme orphelin, et le tolérer revenait à le faire taire. Le montant est supprimé
+// du catalogue et du flyer ; si "650" reapparaît ici, c'est un vrai signal.
+const tolerés = new Set(["290", "2590", "1830", "2900", "3900", "4900", "9900", "1000"]);
 const trouvés = new Set(montants(toutLeTexte).filter((m) => m.length >= 3));
 const orphelins = [...trouvés].filter((m) => !connus.has(m) && !tolerés.has(m));
 if (orphelins.length === 0) console.log("✅ aucun montant orphelin");
