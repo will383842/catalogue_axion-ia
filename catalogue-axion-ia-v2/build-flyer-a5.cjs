@@ -217,6 +217,7 @@ const ETAPES = [
     <div style="background:var(--terra);border-radius:14px;padding:5.5mm 5.5mm 6mm;
                 display:flex;gap:4mm;align-items:center">
       <div style="flex:none;text-align:center;min-width:24mm">
+        <div style="font-size:8.2pt;color:rgba(255,255,255,.72);text-decoration:line-through">650 €</div>
         <div class="display" style="font-size:34pt;line-height:.9;color:#fff">0 €</div>
       </div>
       <div style="flex:1">

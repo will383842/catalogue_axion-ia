@@ -138,12 +138,22 @@ console.log("\n=== 5. MONTANTS DU A4 INCONNUS DU KDP ===\n");
 const connus = new Set([...prixKdp]);
 for (const offres of Object.values(conseilKdp))
   for (const o of offres) for (const m of montants(o.price)) connus.add(m);
-// montants légitimes hors offres : maintenance, sous-tiers audit
-// 2026-08-18 — "650" RETIRÉ de cette liste. Il y figurait comme "valeur visibilité",
-// mais aucune grille ne vend la visibilité : ce contrôle l'avait justement détecté
-// comme orphelin, et le tolérer revenait à le faire taire. Le montant est supprimé
-// du catalogue et du flyer ; si "650" reapparaît ici, c'est un vrai signal.
-const tolerés = new Set(["290", "2590", "1830", "2900", "3900", "4900", "9900", "1000"]);
+// montants légitimes hors offres : maintenance, valeur visibilité, sous-tiers audit
+//
+// ⚠️ « 650 » = le prix de référence BARRÉ du coup de projecteur (p.48 + flyer A5).
+// Décision Will 2026-08-18 : c'est bien le prix du podcast, il RESTE barré en
+// regard du 0 €. Il est toléré ici parce qu'il n'appartient pas à la grille KDP
+// — la visibilité ne se vend jamais — et NON parce qu'il serait sans source :
+// sa source est `VALEUR_REFERENCE_COUP_DE_PROJECTEUR_EUR`, dans le `pricing.ts`
+// du site (dépôt axionia).
+//
+// Histoire à ne pas rejouer : ce montant a figuré dans cette liste SANS aucune
+// justification écrite. Un audit du 2026-08-17 l'a classé [MAJEUR] — « seul prix
+// imprimé hors SSOT » — et le 2026-08-18 je l'ai supprimé du catalogue en
+// concluant qu'il n'existait pas. C'était FAUX, et il a fallu tout rétablir.
+// Une tolérance sans source écrite finit par être supprimée par quelqu'un
+// d'honnête : ces lignes sont là pour que ça n'arrive plus.
+const tolerés = new Set(["290", "650", "2590", "1830", "2900", "3900", "4900", "9900", "1000"]);
 const trouvés = new Set(montants(toutLeTexte).filter((m) => m.length >= 3));
 const orphelins = [...trouvés].filter((m) => !connus.has(m) && !tolerés.has(m));
 if (orphelins.length === 0) console.log("✅ aucun montant orphelin");
