@@ -11,7 +11,8 @@ const fs = require('fs');
 const { execFileSync } = require('child_process');
 const { chromium } = require('playwright');
 
-const GS = 'C:/Users/willi/gs10040/bin/gswin64c.exe';
+// Poste de fabrication (Windows) d'abord ; sinon le `gs` du PATH (Linux/macOS).
+const GS = ['C:/Users/willi/gs10040/bin/gswin64c.exe'].find((p) => require('fs').existsSync(p)) || 'gs';
 const DIR = __dirname;
 const OUT = path.join(DIR, 'export');
 const PROOF = path.join(OUT, 'apercu-cmyk');
