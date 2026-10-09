@@ -14,7 +14,7 @@ Contenu : **21 formations + 1 séminaire** en 3 catégories (4 offres générale
 | `catalogue-axion-ia-v2/check-dpi.cjs` | Contrôle : toutes les images ≥ 300 dpi effectifs |
 | `catalogue-axion-ia-v2/check-tac.cjs` | Contrôle : taux d'encre total du PDF CMJN, page par page |
 | `catalogue-axion-ia-v2/assets/` | Logo, Qualiopi, photos |
-| `catalogue-axion-ia-v2/qr-*.svg` | QR codes vectoriels — 5 slugs dynamiques : `formations`, `appel`, `linkedin`, `avis-catalogue-1`, `avis-catalogue-2` |
+| `catalogue-axion-ia-v2/qr-*.svg` | QR codes vectoriels — slugs dynamiques imprimés : `formations`, `appel`, `linkedin` (les fichiers `qr-avis-catalogue-*.svg` restent, mais ne sont plus imprimés depuis le 2026-10-09) |
 | `catalogue-axion-ia-v2/scan-qr.cjs` | Décode les QR du catalogue pour vérifier leur destination |
 | `catalogue-axion-ia-v2/export/` | **Livrables** : `catalogue-axion-ia-CMYK.pdf` (imprimeur), `-RGB.pdf` (écran), `page-01..24.jpg` (300 dpi) |
 | `AUDIT-CATALOGUE-2026.md` | Audit de la maquette v1 d'origine |
@@ -51,13 +51,12 @@ Le PDF CMJN est un export généré — on n'édite jamais le PDF à la main.
 
 Tous les QR imprimés pointent sur `/qr/<slug>` — une redirection 302 **modifiable après impression** depuis la console admin du site, avec compteur de scans. Les 5 slugs imprimés (`formations`, `appel`, `linkedin`, `avis-catalogue-1`, `avis-catalogue-2`) **ne doivent jamais être renommés ni supprimés**.
 
-Les deux QR « avis » (p. 23) ont une destination **provisoire** (`/fr/avis`) : ils basculeront sur les vidéos interview et podcast une fois les tournages faits, sans réimprimer.
+Les QR « avis » (`avis-catalogue-1/2`, `cat-avis-1..6`) **ne sont plus imprimés** depuis le 2026-10-09 ; leurs slugs restent en base (redirigés vers `/fr/formations`), puisqu'un QR déjà imprimé ne se renomme jamais.
 
 ## À compléter avant impression finale
 
 - **Mentions légales** (p. 24 : SIRET, n° NDA, adresse, organisme certificateur) et **téléphone** — à fournir par Will
-- Destinations réelles des QR « avis », quand les vidéos seront tournées
 - Optionnel : remplacer les photos Unsplash de substitution par de vraies photos client
 - Puis **BAT / épreuve papier** chez l'imprimeur
 
-> Pas d'avis clients inventés dans ce catalogue : la page 23 présente deux **teasers d'interview vidéo**, sans nom ni citation, puisqu'on ne connaît pas encore les personnes interviewées. Ne pas y ajouter de faux témoignages.
+> ⛔ **Aucun logo de client, aucun avis, aucun témoignage, aucune note** (décision Will du 2026-10-09, après un message de la DGCCRF). Le bandeau de logos (p. 2), les deux pages « Témoignages » (p. 39-40, devenues deux pages de notes) et le bloc « Leurs retours, bientôt en vidéo » (4e de couverture) sont retirés, et les logos de marques clientes supprimés de `assets/logos/` (restent ceux des outils IA cités dans les fiches). « Certifié Qualiopi » reste, sans numéro à trous. Ne rien réintroduire, et ne rien inventer à la place.

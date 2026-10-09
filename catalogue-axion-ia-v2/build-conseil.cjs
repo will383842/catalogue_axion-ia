@@ -2,7 +2,7 @@
    BUILD-CONSEIL — passe le catalogue de 24 à 48 pages.
 
    Ajoute les prestations de conseil (coaching 1-to-1, audit,
-   implémentation), les témoignages et le QR « catalogue en ligne »,
+   implémentation), deux pages de notes et le QR « catalogue en ligne »,
    dans l'ordre voulu : formations → séminaire → coaching → audit →
    implémentation, et la page Visibilité en 4e de couverture.
 
@@ -27,8 +27,9 @@
        vérifiés ») : une note agrégée et le mot « vérifiés » sont des
        allégations opposables. Non reprises tant que la base d'avis n'est
        pas rattachée à des justificatifs.
-     - aucun texte de témoignage (décision Will 2026-08-17). Les pages 38-39
-       ne portent que six emplacements numérotés et leur QR. Voir plus bas.
+     - aucun témoignage, aucun avis, aucun logo de client (décision Will
+       2026-10-09, après un message de la DGCCRF). Les anciennes pages
+       « Témoignages » (39-40) sont devenues deux pages de notes. Voir plus bas.
 
    Usage : node build-conseil.cjs && node renumber.cjs
           (lit pages-source.html — 24 pages figées — et écrit index.html)
@@ -84,12 +85,8 @@ const QR = {
   "cat-i03": "https://axion-ia.com/fr/implementation/agents",
   "cat-i04": "https://axion-ia.com/fr/implementation/documents",
   "cat-i05": "https://axion-ia.com/fr/implementation/ia-custom",
-  "cat-avis-1": "https://axion-ia.com/fr/avis",
-  "cat-avis-2": "https://axion-ia.com/fr/avis",
-  "cat-avis-3": "https://axion-ia.com/fr/avis",
-  "cat-avis-4": "https://axion-ia.com/fr/avis",
-  "cat-avis-5": "https://axion-ia.com/fr/avis",
-  "cat-avis-6": "https://axion-ia.com/fr/avis",
+  // cat-avis-1 … 6 : plus imprimés depuis le 2026-10-09 (pages témoignages
+  // retirées). Les slugs restent en base — un QR imprimé ne se renomme pas.
 };
 
 // ---------------------------------------------------------------------------
@@ -114,7 +111,7 @@ const P = {
   services: 6,               // « Quatre façons de travailler ensemble »
   tarifsToutes: 36,
   financement: 37,
-  temoignages: [39, 40],
+  notes: [39, 40],          // ex-témoignages (retirés le 2026-10-09)
   visibilite: 48,
 };
 const pp = (r) => (Array.isArray(r) ? `p. ${r[0]} à ${r[1]}` : `p. ${r}`);
@@ -142,31 +139,15 @@ function qrBoite(slug, taille, legende) {
 }
 
 // ---------------------------------------------------------------------------
-// TÉMOIGNAGES — six emplacements NUMÉROTÉS, sans aucun texte.
+// PLUS DE TÉMOIGNAGES — décision Will 2026-10-09 (message de la DGCCRF).
 //
-// Décision Will 2026-08-17 : le papier ne porte que « Témoignage 1 … 6 » et
-// un QR chacun. Ni citation, ni nom, ni ville, ni mention du type de
-// prestation (formation / audit / coaching / implémentation).
-//
-// Ce n'est pas un appauvrissement, c'est le bon usage du QR dynamique : le
-// contenu vit en ligne et se change quand on veut, sans réimprimer. Un
-// témoignage imprimé, lui, est figé pour la durée du tirage — et un
-// témoignage nominatif figé ne se corrige pas.
-//
-// Effet de bord utile : plus aucune allégation n'est imprimée. La question
-// des avis non retrouvés en production ne se pose plus pour le catalogue —
-// elle reste entière côté site, où le contenu, lui, est publié.
-//
-// ⚠️ Les six slugs pointent aujourd'hui sur /fr/avis. Chacun doit être
-// repointé, en console, vers le témoignage qu'il doit ouvrir.
+// Aucun avis, aucun témoignage, aucune note, aucun logo de client n'est
+// imprimé. Les six emplacements « Témoignage 1 … 6 » et leurs QR cat-avis-*
+// sont retirés ; les deux pages qu'ils occupaient (39-40) deviennent des
+// pages de notes, pour garder un multiple de 4 sans inventer de contenu.
+// On n'imprime RIEN à la place qui ressemble à une preuve : ni client, ni
+// chiffre, ni citation.
 // ---------------------------------------------------------------------------
-const NB_TEMOIGNAGES = 6;
-
-const emplacements = () =>
-  Array.from({ length: NB_TEMOIGNAGES }, (_, i) => ({
-    numero: i + 1,
-    slug: `cat-avis-${i + 1}`,
-  }));
 
 // ---------------------------------------------------------------------------
 // Briques de page
@@ -658,34 +639,27 @@ ${footer("Un devis chiffré sous 48 h", "axion-ia.com/appel")}`,
 }
 
 // ---------------------------------------------------------------------------
-// Témoignages — un QR par témoignage
+// Notes — deux pages lignées, à la place des anciens témoignages
 // ---------------------------------------------------------------------------
-function pageTemoignages(slots, num, total) {
+function pageNotes(num, total) {
+  const intro = num === 1
+    ? ["Ce que vous", "retenez.", "Les formations et les prestations repérées, les équipes concernées, les pages à relire."]
+    : ["Ce que vous", "demanderez.", "Vos questions pour l'appel découverte : 30 minutes, sans engagement, et un devis chiffré sous 48 h."];
   return page(
-    `${runhead("Témoignages clients")}
+    `${runhead("Vos notes")}
 
   <div style="text-align:center">
-    <div class="eyebrow">Témoignages ${num} / ${total}</div>
-    <h2 class="display" style="font-size:31pt;margin:3mm 0 0">Ce qu'ils en disent,
-      <span class="display-it" style="color:var(--terra)">de leur propre voix.</span></h2>
+    <div class="eyebrow">Vos notes ${num} / ${total}</div>
+    <h2 class="display" style="font-size:31pt;margin:3mm 0 0">${intro[0]}
+      <span class="display-it" style="color:var(--terra)">${intro[1]}</span></h2>
     <p style="font-size:10.5pt;color:var(--ink-soft);max-width:150mm;margin:3mm auto 0;line-height:1.5">
-      Scannez un code pour découvrir le retour d'un client. Les témoignages sont mis à jour en ligne — ce catalogue reste à jour sans être réimprimé.</p>
+      ${intro[2]}</p>
     <div class="rule" style="margin:4mm auto 0"></div>
   </div>
 
-  <div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:6mm;margin-top:4mm">
-    ${slots
-      .map(
-        (t) => `<div class="card" style="padding:6mm 8mm;display:flex;align-items:center;gap:8mm">
-      <div style="flex:none;width:14mm;height:14mm;border-radius:50%;background:var(--terra);color:#fff;font-family:'Fraunces',serif;font-weight:600;font-size:17pt;display:flex;align-items:center;justify-content:center">${t.numero}</div>
-      <div style="flex:1;font-family:'Fraunces',serif;font-weight:600;font-size:20pt;color:var(--ink);line-height:1.1">Témoignage ${t.numero}</div>
-      <div class="card" style="flex:none;padding:5px;background:#fff">${qr(t.slug, "32mm")}</div>
-    </div>`,
-      )
-      .join("")}
-  </div>
+  <div style="flex:1;margin:8mm 0 4mm;background:repeating-linear-gradient(to bottom,transparent 0,transparent calc(10mm - 1px),var(--line) calc(10mm - 1px),var(--line) 10mm)"></div>
 
-${footer("Tous les avis clients", "axion-ia.com/avis")}`,
+${footer("Réservez un appel découverte", "axion-ia.com/appel")}`,
   );
 }
 
@@ -1255,7 +1229,6 @@ function pageVisibilite(src) {
   }
   if (E.length !== 24) throw new Error(`[build-conseil] attendu 24 pages d'origine, trouvé ${E.length}`);
 
-  const slots = emplacements();
   const co = offres.coaching, au = offres.audit, im = offres.implementation;
 
   // Nom unique par prestation, aligné pricing.ts et sur la grille de la page
@@ -1309,8 +1282,8 @@ function pageVisibilite(src) {
     pageTarifsRecap(),                      // 36  ┐ visibles
     pageFinancement(),                      // 37  ┘ ENSEMBLE
     E[16],                                  // 38 Cas d'usage — la preuve, après le prix
-    pageTemoignages(slots.slice(0, 3), 1, 2),  // 39
-    pageTemoignages(slots.slice(3, 6), 2, 2),  // 40
+    pageNotes(1, 2),                        // 39 Vos notes (ex-témoignages)
+    pageNotes(2, 2),                        // 40
     E[18], E[19], E[20], E[21],             // 41-44 Moteur · automatisations · et chez vous
     pageConformite(),                       // 45
     pageFaq(),                              // 46
@@ -1391,7 +1364,7 @@ function pageVisibilite(src) {
     [P.implementation[0], "Le clé en main"],
     [P.tarifsToutes, "Tous nos tarifs"],
     [P.financement, "Ce qui est finançable"],
-    [P.temoignages[0], "Témoignage 1"],
+    [P.notes[0], "Vos notes 1 / 2"],
     [P.visibilite, "coup de projecteur"],
   ];
   const faux = attendus.filter(([n, marqueur]) => !(ORDRE[n - 1] || "").includes(marqueur));
@@ -1416,7 +1389,7 @@ function pageVisibilite(src) {
   console.log(`Catalogue assemblé : ${ORDRE.length} pages (${ORDRE.length / 4} feuillets)`);
   console.log(`  ${ORDRE.length - ajoutees} pages d'origine reprises telles quelles`);
   console.log(`  ${ajoutees} pages générées`);
-  console.log(`  témoignages : ${slots.length} emplacements numérotés, 1 QR chacun, aucun texte`);
+  console.log(`  notes : 2 pages (aucun témoignage, aucun avis, aucun logo client)`);
   console.log(`  renvois périmés corrigés : ${corriges}/${RENVOIS_PERIMES.length}`);
   console.log(`  reprises d'audit appliquées : ${audites}/${REPRISES_AUDIT.length}`);
   console.log(`  mention OPCO « sans avance » posée sur ${opco} pages formation`);

@@ -65,8 +65,8 @@ html = tete + renumerotees.join("");
 // Les renvois sont déclarés ici, en un seul endroit. Si une page bouge, on
 // corrige ce tableau — pas douze fragments de HTML disséminés.
 // ---------------------------------------------------------------------------
-// 6 entrées par colonne : au-delà, la page 2 déborde (l'édito et le bandeau
-// de logos occupent déjà les deux tiers). Vérifié par `check-overflow.cjs` —
+// 6 entrées par colonne tant que la page 2 portait le bandeau de logos ;
+// 6 + 8 depuis son retrait (2026-10-09) — l'édito occupe la moitié haute. Vérifié par `check-overflow.cjs` —
 // 8 par colonne rognaient 27 mm.
 // 4e valeur = MARQUEUR : un fragment qui doit se trouver sur la page visée.
 //
@@ -91,7 +91,9 @@ const SOMMAIRE = [
     ["19", "Accompagnement 1-to-1 — 3 formules", "Dirigeant · collaborateur · coaching régulier", "une journée, ses vrais dossiers"],
     ["23", "Audit IA — 4 niveaux", "Méthode en 8 étapes · recommandations chiffrées", "Avant d'investir, savoir"],
     ["29", "Implémentation &amp; automatisation", "5 domaines — processus, chatbots, agents, documents", "Le clé en main"],
-    ["36", "Tarifs, financement &amp; témoignages", "Toutes les offres · 6 témoignages à scanner", "Tous nos tarifs"],
+    ["36", "Tarifs &amp; financement", "Toutes les offres · ce qui est finançable, ce qui ne l'est pas", "Tous nos tarifs"],
+    ["45", "Conformité &amp; confidentialité", "AI&nbsp;Act · RGPD · vos données restent les vôtres", "Vos données ne sortent pas"],
+    ["46", "Questions fréquentes", "Les questions qu'on nous pose vraiment", "Les questions qu"],
   ],
 ];
 
