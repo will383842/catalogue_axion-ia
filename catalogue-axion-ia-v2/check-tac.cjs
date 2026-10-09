@@ -23,7 +23,8 @@ const fs = require('fs');
 const os = require('os');
 const { execFileSync } = require('child_process');
 
-const GS = 'C:/Users/willi/gs10040/bin/gswin64c.exe';
+// Poste de fabrication (Windows) d'abord ; sinon le `gs` du PATH (Linux/macOS).
+const GS = ['C:/Users/willi/gs10040/bin/gswin64c.exe'].find((p) => require('fs').existsSync(p)) || 'gs';
 const SEUIL = 320; // % d'encre max toléré
 const PDF = process.argv[2]
   ? path.resolve(process.argv[2])

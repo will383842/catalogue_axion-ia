@@ -6,7 +6,7 @@ const { execFileSync } = require("child_process");
 const fs = require("fs");
 
 const GS = ["C:/Users/willi/gs10040/bin/gswin64c.exe"]
-  .find((p) => fs.existsSync(p)) || "gswin64c";
+  .find((p) => fs.existsSync(p)) || (process.platform === "win32" ? "gswin64c" : "gs");
 const SRC = "export/catalogue-axion-ia-RGB.pdf";
 const OUT = "export/catalogue-axion-ia-A4-epreuve-maison.pdf";
 const BLEED_PT = 8.504; // 3 mm
