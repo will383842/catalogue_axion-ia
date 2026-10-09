@@ -1,0 +1,1013 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8">
+<title>Axion-IA — Catalogue 2026</title><style>
+:root{
+  --ink:#171310; --ink2:#3b332c; --muted:#6b6157; --paper:#ffffff; --paper2:#faf6ef; --paper3:#f2ebe0;
+  --line:#e7ddce; --orange:#e14a1b; --orange-d:#b5371a; --form:#e14a1b; --one:#1d4e6f; --aud:#0f766e; --gold:#caa24a;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{ -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+body{ font-family:"Inter","Segoe UI",Arial,sans-serif; color:var(--ink); background:#d8d2c8; }
+@page{ size:A4; margin:0; }
+.page{ position:relative; width:210mm; height:297mm; background:var(--paper); overflow:hidden; page-break-after:always; }
+.page:last-child{ page-break-after:auto; }
+h1,h2,h3,.h2,.h3,.det-title,.act-title,.cov-title,.back-h{ font-family:"Fraunces","Playfair Display",Georgia,serif; font-weight:600; letter-spacing:-.01em; }
+b{font-weight:700}
+
+/* Footer */
+.foot{ position:absolute; left:14mm; right:14mm; bottom:7mm; display:flex; align-items:center; justify-content:space-between;
+  font-size:8pt; color:var(--muted); border-top:1px solid var(--line); padding-top:3mm; }
+.foot-l b{color:var(--ink2)} .foot-c{ font-weight:700; color:var(--ink2) }
+.foot-r{ display:flex; align-items:center; gap:2mm } .foot-r b{color:var(--orange-d)}
+.qmini{ height:8mm; width:auto; object-fit:contain }
+
+/* Padded content page */
+.pad{ padding:16mm 14mm 20mm; }
+.eyebrow{ font-size:9pt; letter-spacing:.22em; text-transform:uppercase; color:var(--orange-d); font-weight:700; margin-bottom:5mm; }
+.h2{ font-size:26pt; line-height:1.08; margin-bottom:5mm; }
+.h3{ font-size:13pt; margin:6mm 0 3mm; }
+.lead{ font-size:11.5pt; line-height:1.5; color:var(--ink2); max-width:165mm; }
+.mt{ margin-top:7mm; }
+
+/* Cover */
+.cover{ background:linear-gradient(160deg,#1c1712 0%,#241b13 45%,#3a2415 100%); color:#f6efe6; padding:15mm 14mm 0; display:flex; flex-direction:column; }
+.cover-top{ display:flex; justify-content:space-between; align-items:center; }
+.cov-logo{ height:16mm; width:auto; object-fit:contain }
+.cov-year{ font-size:10pt; letter-spacing:.28em; color:#e7c9a3; font-weight:700 }
+.cover-mid{ margin-top:20mm; flex:1 }
+.cov-kicker{ font-size:11pt; letter-spacing:.2em; text-transform:uppercase; color:var(--orange); font-weight:700 }
+.cov-title{ font-size:40pt; line-height:1.05; margin:6mm 0 6mm; }
+.cov-title span{ color:#f0b483 }
+.cov-sub{ font-size:12.5pt; line-height:1.55; color:#d9cbb b; color:#d9cbbb; max-width:150mm }
+.cov-pills{ display:flex; gap:3mm; margin-top:8mm; flex-wrap:wrap }
+.cov-pills span{ border:1px solid #6a4e34; color:#f0dcc4; border-radius:999px; padding:2.5mm 5mm; font-size:9.5pt }
+.cover-clients{ margin-bottom:5mm }
+.cov-clab{ font-size:8.5pt; letter-spacing:.2em; text-transform:uppercase; color:#a98d6f; margin-bottom:3mm; text-align:center }
+.cbar{ background:#fff; border-radius:4mm; padding:5mm 6mm; display:flex; flex-wrap:wrap; gap:6mm 8mm; align-items:center; justify-content:center }
+.cbar img{ height:7mm; max-width:26mm; width:auto; object-fit:contain; filter:grayscale(1); opacity:.72 }
+.cover-band{ background:#0f0b08; margin:0 -14mm; padding:6mm 14mm; display:flex; justify-content:space-between; align-items:center }
+.cb-q{ display:flex; align-items:center; gap:3mm; font-size:9pt; color:#e9dcc9 }
+.cb-q img{ height:12mm; background:#fff; border-radius:2mm; padding:1mm }
+.cb-q b{ color:#fff } .cb-q span{ color:#b49a7c }
+.cb-opco{ font-size:12pt; color:#fff } .cb-opco b{ color:var(--orange) }
+
+/* Édito */
+.grid4{ display:grid; grid-template-columns:repeat(4,1fr); gap:4mm; margin:7mm 0 8mm }
+.stat{ background:var(--paper2); border:1px solid var(--line); border-radius:3mm; padding:5mm }
+.stat-n{ font-family:"Fraunces",Georgia,serif; font-size:26pt; color:var(--orange-d); line-height:1 }
+.stat-l{ font-size:9pt; color:var(--muted); margin-top:2mm }
+.two{ display:grid; grid-template-columns:1fr 1fr; gap:9mm }
+.check{ list-style:none } .check li{ position:relative; padding-left:7mm; margin-bottom:3mm; font-size:10.5pt; line-height:1.45; color:var(--ink2) }
+.check li::before{ content:""; position:absolute; left:0; top:2mm; width:3.4mm; height:3.4mm; border-radius:50%; background:var(--orange); }
+.check.tight li{ font-size:10pt; margin-bottom:2mm } .check.sm li{ font-size:9.5pt; margin-bottom:2mm; padding-left:6mm } .check.sm li::before{width:2.6mm;height:2.6mm;top:1.8mm}
+.steps{ margin-top:2mm } .step{ display:flex; gap:4mm; margin-bottom:4mm; align-items:flex-start }
+.step span{ flex:none; width:8mm; height:8mm; border-radius:50%; background:var(--ink); color:#fff; font-weight:700; display:flex; align-items:center; justify-content:center; font-size:11pt }
+.step div{ font-size:10pt; line-height:1.4; color:var(--ink2) }
+.callout{ margin-top:6mm; background:#fdf1e9; border-left:3px solid var(--orange); border-radius:2mm; padding:4mm 5mm; font-size:10pt; line-height:1.45; color:var(--ink2) }
+
+/* Sommaire */
+.somm{ margin:6mm 0 }
+.somm-row{ display:flex; align-items:baseline; gap:3mm; padding:3.5mm 0; border-bottom:1px solid var(--line); font-size:12pt }
+.somm-t{ font-weight:600; color:var(--ink) } .somm-d{ flex:1; border-bottom:1px dotted #cfc3b0; transform:translateY(-1mm) }
+.somm-p{ color:var(--orange-d); font-weight:700; font-variant-numeric:tabular-nums }
+.minicard{ background:var(--paper2); border:1px solid var(--line); border-radius:3mm; padding:5mm; }
+.minicard.wide{ margin-top:5mm } .minicard p{ font-size:10pt; color:var(--ink2); line-height:1.45; margin-top:1mm }
+.mc-k{ margin-bottom:2mm }
+.minicard .cta{ margin-top:3mm; font-weight:700; color:var(--orange-d); font-size:10pt }
+.t-form-b{ border-top:3px solid var(--form) } .t-one-b{ border-top:3px solid var(--one) } .t-aud-b{ border-top:3px solid var(--aud) }
+
+/* Type badges */
+.tbadge{ display:inline-block; font-size:8.5pt; font-weight:800; letter-spacing:.14em; padding:1.6mm 3.4mm; border-radius:999px; color:#fff }
+.t-form .tbadge, .tbadge.t-form{ background:var(--form) } .t-one .tbadge, .tbadge.t-one{ background:var(--one) } .t-aud .tbadge, .tbadge.t-aud{ background:var(--aud) }
+
+/* Activity pages */
+.act{ display:flex; flex-direction:column }
+.act-photo{ height:120mm; background-size:cover; background-position:center; position:relative }
+.act-photo::after{ content:""; position:absolute; inset:0; background:linear-gradient(180deg,rgba(20,15,10,.15),rgba(20,15,10,.55)) }
+.act-body{ padding:10mm 14mm 0; flex:1 }
+.act .act-badge{ margin-bottom:4mm } .act-title{ font-size:30pt; line-height:1.05 } .act-sub{ font-size:12pt; color:var(--ink2); line-height:1.5; margin:4mm 0 6mm; max-width:170mm }
+.gammes{ display:flex; flex-direction:column; gap:3mm; margin-bottom:5mm }
+.gam{ background:var(--paper2); border:1px solid var(--line); border-left:3px solid var(--orange); border-radius:2mm; padding:4mm 5mm }
+.gam b{ font-size:11pt } .gam span{ display:block; font-size:9.5pt; color:var(--muted); margin-top:1mm; line-height:1.4 }
+.act-price{ position:absolute; bottom:20mm; left:14mm; right:14mm; background:var(--ink); color:#fff; border-radius:3mm; padding:5mm 6mm; font-size:12.5pt; font-weight:700 }
+.act-price em{ font-style:normal; font-weight:400; color:#c9b9a5; font-size:10pt }
+.form .act-photo::after{}
+
+/* Sectors */
+.sectors{ display:grid; grid-template-columns:repeat(3,1fr); gap:4mm; margin:7mm 0 }
+.sector{ background:var(--paper2); border:1px solid var(--line); border-radius:2.5mm; padding:5mm; font-size:11.5pt; font-weight:600; text-align:center; position:relative }
+.sector::before{ content:""; display:block; width:5mm; height:1.4mm; background:var(--orange); border-radius:2px; margin:0 auto 3mm }
+
+/* Detail pages */
+.detail{ padding:0 }
+.det-banner{ display:flex; align-items:center; gap:4mm; padding:8mm 14mm 5mm; }
+.det-banner.t-form{ border-top:6mm solid var(--form) } .det-banner.t-one{ border-top:6mm solid var(--one) } .det-banner.t-aud{ border-top:6mm solid var(--aud) }
+.ban-gamme{ font-size:9.5pt; color:var(--muted); font-weight:600 } .ban-no{ margin-left:auto; font-size:9pt; color:var(--muted) }
+.feat{ background:var(--gold); color:#3a2b06; font-size:8.5pt; font-weight:800; padding:1.4mm 3mm; border-radius:999px }
+.det-head{ padding:0 14mm } .det-title{ font-size:25pt; line-height:1.06 } .det-accroche{ font-size:11.5pt; color:var(--ink2); line-height:1.45; margin-top:2mm; max-width:170mm }
+.det-facts{ display:grid; grid-template-columns:repeat(4,1fr); gap:0; margin:6mm 14mm; border:1px solid var(--line); border-radius:3mm; overflow:hidden }
+.det-facts .fact{ padding:4mm 5mm; border-right:1px solid var(--line) } .det-facts .fact:last-child{ border-right:none }
+.fact span{ display:block; font-size:8pt; text-transform:uppercase; letter-spacing:.1em; color:var(--muted); margin-bottom:1.5mm } .fact b{ font-size:10.5pt; line-height:1.25 }
+.fact.price{ background:var(--ink); } .fact.price span{ color:#c9b9a5 } .fact.price b{ color:#fff } .fact.price.wide{ grid-column:span 1 }
+.det-cols{ display:grid; grid-template-columns:1.55fr 1fr; gap:8mm; padding:2mm 14mm }
+.prog{ display:flex; flex-direction:column; gap:3mm }
+.prog-b{ background:var(--paper2); border:1px solid var(--line); border-radius:2mm; padding:3.5mm 4mm }
+.prog-h{ font-weight:700; font-size:10pt; color:var(--orange-d); margin-bottom:1.5mm }
+.prog-b ul{ list-style:none } .prog-b li{ font-size:9pt; color:var(--ink2); line-height:1.45; padding-left:4mm; position:relative }
+.prog-b li::before{ content:""; position:absolute; left:0; top:1.7mm; width:1.6mm; height:1.6mm; background:#c9bba6; border-radius:50% }
+.det-side{ display:flex; flex-direction:column; gap:3.5mm }
+.side-b{ background:#fff; border:1px solid var(--line); border-radius:2.5mm; padding:4mm }
+.side-b.roi{ background:#fdf1e9; border-color:#f2cdb6 }
+.side-t{ font-size:8pt; text-transform:uppercase; letter-spacing:.12em; color:var(--orange-d); font-weight:800; margin-bottom:2mm }
+.side-b p{ font-size:9.5pt; color:var(--ink2); line-height:1.45 }
+.chips{ display:flex; flex-wrap:wrap; gap:2.5mm; padding:0 14mm; margin-bottom:2mm }
+.chips span{ background:var(--paper3); border-radius:999px; padding:2mm 4mm; font-size:9.5pt; font-weight:600; color:var(--ink2) }
+
+/* Back */
+.back{ background:linear-gradient(160deg,#1c1712,#3a2415); color:#f6efe6; padding:16mm 14mm 0; display:flex; flex-direction:column }
+.back-top{ } .back-mid{ flex:1; margin-top:14mm }
+.back-h{ font-size:34pt; line-height:1.05 } .back-sub{ font-size:12.5pt; color:#d9cbbb; line-height:1.55; margin:5mm 0 8mm; max-width:150mm }
+.back-contact{ display:flex; gap:10mm; margin-bottom:8mm } .back-contact span{ font-size:8.5pt; letter-spacing:.15em; text-transform:uppercase; color:#a98d6f; display:block } .back-contact b{ font-size:14pt; color:#fff }
+.back-pills{ display:flex; gap:3mm } .back-pills span{ border:1px solid #6a4e34; color:#f0dcc4; border-radius:999px; padding:2.5mm 5mm; font-size:10pt }
+.back-clients{ margin-bottom:5mm }
+</style></head>
+<body><div class="page cover">
+  <div class="cover-top">
+    <img class="cov-logo" src="assets/axion-blanc.webp" alt="Axion-IA" onerror="this.style.display='none'">
+    <div class="cov-year">CATALOGUE 2026</div>
+  </div>
+  <div class="cover-mid">
+    <div class="cov-kicker">Formations · Coaching 1-to-1 · Audits</div>
+    <h1 class="cov-title">L’IA appliquée à votre entreprise,<br><span>par ceux qui la mettent en production.</span></h1>
+    <p class="cov-sub">17 formations intra-entreprise, un coaching dirigeant en tête-à-tête et 4 formats d’audit. Sur site, sur vos vrais cas — pas de théorie hors-sol.</p>
+    <div class="cov-pills">
+      <span>Sur site, sur vos cas</span><span>70 % de pratique</span><span>Formateur certifié Claude</span>
+    </div>
+  </div>
+  
+  <div class="cover-band">
+    <div class="cb-q"><img src="assets/qualiopi.png" onerror="this.style.display='none'"><div><b>Certifié Qualiopi</b><br><span>Actions de formation</span></div></div>
+    <div class="cb-opco"><b>Financé à 100 %</b> par votre OPCO</div>
+  </div>
+</div>
+<div class="page pad">
+  <div class="eyebrow">Le parti pris</div>
+  <h2 class="h2">On ne vend pas des slides. On transforme des façons de travailler.</h2>
+  <p class="lead">La plupart des formations IA laissent les équipes avec des concepts. Nous, on repart de vos vraies tâches : chaque participant produit dès la séance, sur ses propres dossiers, et l’entreprise garde un actif — gabarits, chartes, kits, outils configurés, code source.</p>
+  <div class="grid4">
+    <div class="stat"><div class="stat-n">17</div><div class="stat-l">formations, de 4 h à 3 jours</div></div>
+    <div class="stat"><div class="stat-n">70 %</div><div class="stat-l">de pratique minimum</div></div>
+    <div class="stat"><div class="stat-n">3</div><div class="stat-l">métiers : former, accompagner, auditer</div></div>
+    <div class="stat"><div class="stat-n">100 %</div><div class="stat-l">sur site, dans vos locaux</div></div>
+  </div>
+  <div class="two">
+    <div>
+      <h3 class="h3">Ce qui nous distingue</h3>
+      <ul class="check">
+        <li><b>Sur vos vrais cas.</b> On travaille vos dossiers, votre pipeline, vos courriers — pas des exemples génériques.</li>
+        <li><b>Ce qui reste à l’entreprise.</b> Chaque formation produit un livrable réutilisable, indépendant des personnes.</li>
+        <li><b>Formateur certifié Claude (Anthropic).</b> Une expertise rare en France sur l’écosystème le plus avancé.</li>
+        <li><b>Sécurité & conformité intégrées.</b> Liste rouge, anonymisation, charte d’usage, cadrage AI Act.</li>
+      </ul>
+    </div>
+    <div>
+      <h3 class="h3">Votre parcours</h3>
+      <div class="steps">
+        <div class="step"><span>1</span><div><b>Diagnostic</b><br>Audit ou cadrage : on repère où l’IA fait gagner du temps.</div></div>
+        <div class="step"><span>2</span><div><b>Montée en compétence</b><br>Formations collectives ou coaching 1-to-1, sur vos tâches.</div></div>
+        <div class="step"><span>3</span><div><b>Autonomie</b><br>Référents internes, kits et outils : l’équipe continue seule.</div></div>
+      </div>
+      <div class="callout"><b>Financement.</b> Nos actions de formation sont <b>finançables à 100 % par votre OPCO</b> (prise en charge selon votre branche et votre solde).</div>
+    </div>
+  </div>
+  <div class="foot">
+    <div class="foot-l"><b>Axion-IA</b> · axion-ia.com · Organisme de formation & conseil IA</div>
+    <div class="foot-c">2</div>
+    <div class="foot-r"><img class="qmini" src="assets/qualiopi.png" onerror="this.style.display='none'"><span>Actions <b>finançables à 100 %</b> par votre OPCO</span></div>
+  </div>
+</div>
+<div class="page pad">
+  <div class="eyebrow">Sommaire</div>
+  <h2 class="h2">Ce que vous trouverez dans ce catalogue</h2>
+  <div class="somm">
+    <div class="somm-row"><span class="somm-t">Le parti pris</span><span class="somm-d"></span><span class="somm-p">02</span></div><div class="somm-row"><span class="somm-t">Nos 3 métiers</span><span class="somm-d"></span><span class="somm-p">04 – 06</span></div><div class="somm-row"><span class="somm-t">Financement & déroulé</span><span class="somm-d"></span><span class="somm-p">07</span></div><div class="somm-row"><span class="somm-t">Tous les secteurs</span><span class="somm-d"></span><span class="somm-p">08</span></div><div class="somm-row"><span class="somm-t">Formations — les 17 programmes</span><span class="somm-d"></span><span class="somm-p">09 – 25</span></div><div class="somm-row"><span class="somm-t">Coaching 1-to-1</span><span class="somm-d"></span><span class="somm-p">26 – 27</span></div><div class="somm-row"><span class="somm-t">Audits IA</span><span class="somm-d"></span><span class="somm-p">28 – 31</span></div><div class="somm-row"><span class="somm-t">Nous contacter</span><span class="somm-d"></span><span class="somm-p">32</span></div>
+  </div>
+  <div class="two mt">
+    <div class="minicard t-form-b"><div class="mc-k"><span class="tbadge t-form">FORMATION</span></div><h3 class="h3">Formations</h3><p>17 programmes intra-entreprise, 3 gammes, de 4 h à 3 jours. Dès 1 200 € HT / groupe.</p></div>
+    <div class="minicard t-one-b"><div class="mc-k"><span class="tbadge t-one">COACHING 1-TO-1</span></div><h3 class="h3">Coaching 1-to-1</h3><p>Dirigeant ou collaborateur clé, une journée en tête-à-tête. Dès 990 € HT / jour.</p></div>
+  </div>
+  <div class="minicard wide t-aud-b"><div class="mc-k"><span class="tbadge t-aud">AUDIT</span></div><h3 class="h3">Audits IA</h3><p>4 formats, de la journée sur site (1 190 € HT, livrables sous 48 h) à l’audit stratégique board-ready.</p></div>
+  <div class="foot">
+    <div class="foot-l"><b>Axion-IA</b> · axion-ia.com · Organisme de formation & conseil IA</div>
+    <div class="foot-c">3</div>
+    <div class="foot-r"><img class="qmini" src="assets/qualiopi.png" onerror="this.style.display='none'"><span>Actions <b>finançables à 100 %</b> par votre OPCO</span></div>
+  </div>
+</div>
+<div class="page act formation">
+    <div class="act-photo" style="background-image:url('assets/photos/formations.webp')"></div>
+    <div class="act-body">
+      <div class="act-badge"><span class="tbadge t-form">FORMATION</span></div>
+      <h2 class="act-title">Formations intra-entreprise</h2>
+      <p class="act-sub">Vos équipes montent en compétence sur leurs vraies tâches, dans vos locaux. 17 programmes, 3 gammes, sans prérequis (sauf mention).</p>
+      <div class="gammes">
+     <div class="gam"><b>IA Standard</b><span>12 formations · 4 h → 3 jours · prise en main, montée en compétence, transformation des tâches et des processus.</span></div>
+     <div class="gam"><b>Agents & Automatisations</b><span>2 formations · groupe ≤ 12 · créer et déployer ses automatisations en code source, propriété de l’entreprise.</span></div>
+     <div class="gam"><b>Claude — formateur certifié</b><span>3 formations · évaluer, construire et industrialiser son outil dans l’écosystème Claude (Anthropic).</span></div>
+   </div>
+   <ul class="check tight"><li>Sur site, sur vos vrais cas · 70 % de pratique</li><li>Un livrable réutilisable qui reste à l’entreprise</li><li>Finançable à 100 % par votre OPCO</li></ul>
+      <div class="act-price"><em>À partir de</em> 1 200 € HT / groupe · jusqu’à 30 personnes</div>
+    </div>
+    <div class="foot">
+    <div class="foot-l"><b>Axion-IA</b> · axion-ia.com · Organisme de formation & conseil IA</div>
+    <div class="foot-c">4</div>
+    <div class="foot-r"><img class="qmini" src="assets/qualiopi.png" onerror="this.style.display='none'"><span>Actions <b>finançables à 100 %</b> par votre OPCO</span></div>
+  </div>
+  </div>
+<div class="page act 1to1">
+    <div class="act-photo" style="background-image:url('assets/photos/coaching.webp')"></div>
+    <div class="act-body">
+      <div class="act-badge"><span class="tbadge t-one">COACHING 1-TO-1</span></div>
+      <h2 class="act-title">Coaching 1-to-1</h2>
+      <p class="act-sub">Un accompagnement en tête-à-tête, sur site, pour un dirigeant ou un collaborateur clé. Format AFEST (formation en situation de travail).</p>
+      <div class="gammes">
+     <div class="gam"><b>Dirigeant · Vision IA stratégique</b><span>Ouvrir les yeux du dirigeant sur les opportunités IA de son secteur, chiffrer les gains, repartir avec une feuille de route.</span></div>
+     <div class="gam"><b>Collaborateur · Optimisation du poste</b><span>Faire monter un collaborateur clé sur ses propres cas : cartographie du poste, tâches transformées, plan d’automatisation.</span></div>
+   </div>
+   <ul class="check tight"><li>1 à 2 jours · 100 % personnalisé</li><li>Sur les vrais dossiers de la personne</li><li>Éligible au financement de la formation</li></ul>
+      <div class="act-price"><em>À partir de</em> 1 390 € HT/jour (dirigeant) · 990 € HT/jour (collaborateur)</div>
+    </div>
+    <div class="foot">
+    <div class="foot-l"><b>Axion-IA</b> · axion-ia.com · Organisme de formation & conseil IA</div>
+    <div class="foot-c">5</div>
+    <div class="foot-r"><img class="qmini" src="assets/qualiopi.png" onerror="this.style.display='none'"><span>Actions <b>finançables à 100 %</b> par votre OPCO</span></div>
+  </div>
+  </div>
+<div class="page act audit">
+    <div class="act-photo" style="background-image:url('assets/photos/audit.webp')"></div>
+    <div class="act-body">
+      <div class="act-badge"><span class="tbadge t-aud">AUDIT</span></div>
+      <h2 class="act-title">Audits IA</h2>
+      <p class="act-sub">Un diagnostic clair de ce que l’IA peut vous rapporter, avec un plan d’action chiffré. De la journée sur site à l’audit stratégique board-ready.</p>
+      <div class="gammes">
+     <div class="gam"><b>Audit sur place</b><span>1 journée sur site, livrables sous 48 h — rapport, prompts testés, quick-wins.</span></div>
+     <div class="gam"><b>Audit Ciblé</b><span>1 département, 3 semaines : cartographie, scoring ROI, plan chiffré.</span></div>
+     <div class="gam"><b>Audit Stratégique</b><span>PME multi-départements ou ETI transverse : roadmap 12-24 mois, gouvernance, board-ready.</span></div>
+   </div>
+   <ul class="check tight"><li>Confidentialité totale · souveraineté & RGPD</li><li>Un livrable actionnable, pas un rapport théorique</li><li>Quick-wins activables tout de suite</li></ul>
+      <div class="act-price"><em>De</em> 1 190 € HT (journée) <em>à</em> sur devis (stratégique)</div>
+    </div>
+    <div class="foot">
+    <div class="foot-l"><b>Axion-IA</b> · axion-ia.com · Organisme de formation & conseil IA</div>
+    <div class="foot-c">6</div>
+    <div class="foot-r"><img class="qmini" src="assets/qualiopi.png" onerror="this.style.display='none'"><span>Actions <b>finançables à 100 %</b> par votre OPCO</span></div>
+  </div>
+  </div>
+<div class="page pad">
+  <div class="eyebrow">Passer à l’action</div>
+  <h2 class="h2">Financement OPCO & comment on démarre</h2>
+  <div class="two">
+    <div>
+      <h3 class="h3">Finançable à 100 % par votre OPCO</h3>
+      <p>En tant qu’organisme de formation certifié Qualiopi, nos actions de formation sont <b>prises en charge par les OPCO</b>. Selon votre branche professionnelle et votre solde disponible, le reste à charge peut être nul.</p>
+      <ul class="check">
+        <li><b>On monte le dossier avec vous.</b> Convention, programme, émargement, attestations : tout est fourni.</li>
+        <li><b>Demande de prise en charge</b> déposée auprès de votre OPCO avant la formation.</li>
+        <li><b>Devis sous 24-48 h</b> après un court cadrage.</li>
+      </ul>
+      <div class="callout"><b>Bon à savoir.</b> Le coaching 1-to-1 est conçu en format <b>AFEST</b> (formation en situation de travail) — également éligible au financement.</div>
+    </div>
+    <div>
+      <h3 class="h3">4 étapes, sans friction</h3>
+      <div class="steps">
+        <div class="step"><span>1</span><div><b>Cadrage (15-30 min)</b><br>On comprend vos objectifs, vos postes, vos contraintes.</div></div>
+        <div class="step"><span>2</span><div><b>Devis + dossier OPCO</b><br>Proposition chiffrée et montage du financement.</div></div>
+        <div class="step"><span>3</span><div><b>La formation, sur site</b><br>Sur vos vrais cas, 70 % de pratique.</div></div>
+        <div class="step"><span>4</span><div><b>Suivi & autonomie</b><br>Kits, référents internes, attestations.</div></div>
+      </div>
+      <div class="minicard mt t-form-b"><h3 class="h3">Prêt à démarrer ?</h3><p>Un échange de 15 minutes suffit pour identifier la formule adaptée et lancer le financement.</p><div class="cta">axion-ia.com · contact@axion-ia.com</div></div>
+    </div>
+  </div>
+  <div class="foot">
+    <div class="foot-l"><b>Axion-IA</b> · axion-ia.com · Organisme de formation & conseil IA</div>
+    <div class="foot-c">7</div>
+    <div class="foot-r"><img class="qmini" src="assets/qualiopi.png" onerror="this.style.display='none'"><span>Actions <b>finançables à 100 %</b> par votre OPCO</span></div>
+  </div>
+</div>
+<div class="page pad">
+  <div class="eyebrow">Tous secteurs</div>
+  <h2 class="h2">Nous intervenons dans tous les secteurs d’activité</h2>
+  <p class="lead">Nos formations et audits s’adaptent à votre métier : on part de vos vrais cas, quel que soit votre secteur. TPE, PME, ETI et grandes entreprises.</p>
+  <div class="sectors">
+    <div class="sector">Industrie</div><div class="sector">Retail & e-commerce</div><div class="sector">Santé & pharmacie</div><div class="sector">Finance & assurance</div><div class="sector">RH & recrutement</div><div class="sector">Logistique & transport</div><div class="sector">Immobilier</div><div class="sector">Conseil & services</div><div class="sector">Éducation & formation</div><div class="sector">Juridique</div><div class="sector">BTP & construction</div><div class="sector">Agroalimentaire</div><div class="sector">Automobile</div><div class="sector">Tourisme & hôtellerie</div><div class="sector">Médias & édition</div><div class="sector">Énergie</div>
+  </div>
+  <div class="two mt">
+    <div class="minicard"><h3 class="h3">Des packs sectoriels</h3><p>BTP, santé, immobilier, expertise comptable, hôtellerie-restauration, industrie, juridique, transport-logistique, collectivités, commerce : des cas d’usage prêts à l’emploi par secteur.</p></div>
+    <div class="minicard"><h3 class="h3">4 tailles d’entreprise</h3><p>De l’artisan et la TPE (2-15 personnes) à l’ETI et la grande entreprise (jusqu’à 30 par session, groupe ≤ 12 pour les gammes avancées).</p></div>
+  </div>
+  <div class="foot">
+    <div class="foot-l"><b>Axion-IA</b> · axion-ia.com · Organisme de formation & conseil IA</div>
+    <div class="foot-c">8</div>
+    <div class="foot-r"><img class="qmini" src="assets/qualiopi.png" onerror="this.style.display='none'"><span>Actions <b>finançables à 100 %</b> par votre OPCO</span></div>
+  </div>
+</div>
+<div class="page detail">
+    <div class="det-banner t-form"><span class="tbadge t-form">FORMATION</span><span class="ban-gamme">IA Standard</span><span class="ban-no">Formation 01/17</span></div>
+    <div class="det-head">
+      <h2 class="det-title">IA Express</h2>
+      <p class="det-accroche">4 heures pour que toute votre équipe travaille avec l’IA, dès demain.</p>
+    </div>
+    <div class="det-facts">
+      <div class="fact"><span>Durée</span><b>4 h · ½ journée</b></div>
+      <div class="fact"><span>Effectif</span><b>2 à 15 · 16 à 30</b></div>
+      <div class="fact price"><span>Tarif HT / groupe</span><b>1 200 € / 1 900 €</b></div>
+      <div class="fact"><span>Prérequis</span><b>Aucun — un smartphone suffit</b></div>
+    </div>
+    <div class="det-cols">
+      <div class="det-main">
+        <h3 class="h3">Objectifs — ce que chacun saura faire</h3>
+        <ul class="check"><li>Produire un texte pro au clavier ou en dictée vocale</li><li>Formuler une demande efficace du premier coup (méthode CRFE)</li><li>Comprendre vite un document long : essentiel, vigilances, actions</li><li>Faire refaire jusqu’au résultat voulu et repérer les inventions</li><li>Anonymiser en 30 s et respecter la liste rouge des données</li></ul>
+        <h3 class="h3">Programme</h3>
+        <div class="prog"><div class="prog-b"><div class="prog-h">Demi-journée (ex. 08h30–12h30)</div><ul><li>15’ Accueil et mise en route</li><li>25’ Première production réelle de chacun</li><li>35’ La méthode CRFE : Contexte, Rôle, Format, Exemple</li><li>30’ Comprendre un document long</li><li>30’ Faire refaire + détecter les inventions</li><li>20’ Ligne rouge sécurité + anonymiser</li><li>45’ Atelier libre sur SA tâche de demain</li><li>25’ Clôture, quiz, engagement</li></ul></div></div>
+      </div>
+      <div class="det-side">
+        <div class="side-b"><div class="side-t">Pour qui</div><p>Tous postes mélangés (bureau, terrain, commercial, atelier, accueil), managers et dirigeants. Aucun profil technique requis.</p></div>
+        <div class="side-b roi"><div class="side-t">Retour sur investissement</div><p>4 h investies par salarié → 30 à 60 min gagnées par jour dès la semaine suivante. Rentabilisée en moins de 2 semaines.</p></div>
+        <div class="side-b"><div class="side-t">Modalités</div><p>Présentiel dans vos locaux — distanciel possible. Pédagogie active, quiz de clôture, attestation. Accessible aux situations de handicap (référent dédié).</p></div>
+      </div>
+    </div>
+    <div class="foot">
+    <div class="foot-l"><b>Axion-IA</b> · axion-ia.com · Organisme de formation & conseil IA</div>
+    <div class="foot-c">9</div>
+    <div class="foot-r"><img class="qmini" src="assets/qualiopi.png" onerror="this.style.display='none'"><span>Actions <b>finançables à 100 %</b> par votre OPCO</span></div>
+  </div>
+  </div>
+<div class="page detail">
+    <div class="det-banner t-form"><span class="tbadge t-form">FORMATION</span><span class="ban-gamme">IA Standard</span><span class="ban-no">Formation 02/17</span></div>
+    <div class="det-head">
+      <h2 class="det-title">L’Art du Prompt — Niveau 2</h2>
+      <p class="det-accroche">Vos équipes utilisent déjà l’IA mais les résultats sont moyens ? La compétence qui change tout.</p>
+    </div>
+    <div class="det-facts">
+      <div class="fact"><span>Durée</span><b>4 h · ½ journée</b></div>
+      <div class="fact"><span>Effectif</span><b>2 à 15 · 16 à 30</b></div>
+      <div class="fact price"><span>Tarif HT / groupe</span><b>1 200 € / 1 900 €</b></div>
+      <div class="fact"><span>Prérequis</span><b>Utiliser déjà l’IA (vérifié au cadrage)</b></div>
+    </div>
+    <div class="det-cols">
+      <div class="det-main">
+        <h3 class="h3">Objectifs — ce que chacun saura faire</h3>
+        <ul class="check"><li>Construire une demande avec les 6 leviers d’un prompt qui marche</li><li>Itérer jusqu’à un niveau diffusable (critiques précises)</li><li>Adapter un même contenu à 3 destinataires</li><li>Créer des gabarits réutilisables sans donnée sensible</li><li>Repérer quand l’IA invente et la recadrer</li></ul>
+        <h3 class="h3">Programme</h3>
+        <div class="prog"><div class="prog-b"><div class="prog-h">Demi-journée</div><ul><li>10’ Diagnostic éclair des prompts actuels</li><li>35’ Anatomie d’un prompt : les 6 leviers</li><li>35’ L’itération experte : rôle de relecteur</li><li>30’ Adapter un contenu à 3 destinataires</li><li>35’ Exemples et gabarits réutilisables</li><li>25’ Chasse aux inventions + confidentialité</li><li>40’ Atelier : ma bibliothèque de 5 gabarits</li><li>15’ Clôture et quiz</li></ul></div></div>
+      </div>
+      <div class="det-side">
+        <div class="side-b"><div class="side-t">Pour qui</div><p>Salariés qui pratiquent déjà l’IA et plafonnent : résultats génériques, reprises multiples, outil sous-exploité.</p></div>
+        <div class="side-b roi"><div class="side-t">Retour sur investissement</div><p>4 h investies → chaque tâche IA existante faite 2 à 3× plus vite. Rentabilisée en 1 à 2 semaines.</p></div>
+        <div class="side-b"><div class="side-t">Modalités</div><p>Présentiel dans vos locaux — distanciel possible. Pédagogie active, quiz de clôture, attestation. Accessible aux situations de handicap (référent dédié).</p></div>
+      </div>
+    </div>
+    <div class="foot">
+    <div class="foot-l"><b>Axion-IA</b> · axion-ia.com · Organisme de formation & conseil IA</div>
+    <div class="foot-c">10</div>
+    <div class="foot-r"><img class="qmini" src="assets/qualiopi.png" onerror="this.style.display='none'"><span>Actions <b>finançables à 100 %</b> par votre OPCO</span></div>
+  </div>
+  </div>
+<div class="page detail">
+    <div class="det-banner t-form"><span class="tbadge t-form">FORMATION</span><span class="ban-gamme">IA Standard</span><span class="ban-no">Formation 03/17</span></div>
+    <div class="det-head">
+      <h2 class="det-title">IA & Sécurité</h2>
+      <p class="det-accroche">Vos salariés utilisent déjà l’IA. Apprenez-leur à le faire sans risque pour l’entreprise.</p>
+    </div>
+    <div class="det-facts">
+      <div class="fact"><span>Durée</span><b>4 h · ½ journée</b></div>
+      <div class="fact"><span>Effectif</span><b>2 à 15 · 16 à 30</b></div>
+      <div class="fact price"><span>Tarif HT / groupe</span><b>1 200 € / 1 900 €</b></div>
+      <div class="fact"><span>Prérequis</span><b>Aucun · Livrable : votre charte d’usage IA</b></div>
+    </div>
+    <div class="det-cols">
+      <div class="det-main">
+        <h3 class="h3">Objectifs — ce que chacun saura faire</h3>
+        <ul class="check"><li>Identifier les données qui ne doivent jamais sortir de l’entreprise</li><li>Anonymiser correctement un document ou une photo</li><li>Distinguer les outils sûrs des outils à risque</li><li>Vérifier une production avant diffusion (client, administration)</li><li>Appliquer les 4 réflexes RGPD et la charte d’usage</li></ul>
+        <h3 class="h3">Programme</h3>
+        <div class="prog"><div class="prog-b"><div class="prog-h">Demi-journée</div><ul><li>10’ Sondage dédramatisant</li><li>30’ Où vont vos données : gratuit vs pro</li><li>35’ La ligne rouge : 15 situations + votre liste rouge</li><li>30’ Anonymiser en 30 s sur ses documents</li><li>30’ Vérifier avant de diffuser</li><li>35’ RGPD sans jargon + circuit d’alerte</li><li>35’ La charte d’usage rédigée en séance</li><li>20’ Clôture et quiz</li></ul></div></div>
+      </div>
+      <div class="det-side">
+        <div class="side-b"><div class="side-t">Pour qui</div><p>Tout salarié qui utilise l’IA ou s’apprête à le faire, ainsi que dirigeants, DSI et référents.</p></div>
+        <div class="side-b roi"><div class="side-t">Retour sur investissement</div><p>Un seul incident évité (fuite de données, doc confidentiel dans un outil public) vaut des dizaines de fois le coût. Une assurance au prix d’une demi-journée.</p></div>
+        <div class="side-b"><div class="side-t">Modalités</div><p>Présentiel dans vos locaux — distanciel possible. Pédagogie active, quiz de clôture, attestation. Accessible aux situations de handicap (référent dédié).</p></div>
+      </div>
+    </div>
+    <div class="foot">
+    <div class="foot-l"><b>Axion-IA</b> · axion-ia.com · Organisme de formation & conseil IA</div>
+    <div class="foot-c">11</div>
+    <div class="foot-r"><img class="qmini" src="assets/qualiopi.png" onerror="this.style.display='none'"><span>Actions <b>finançables à 100 %</b> par votre OPCO</span></div>
+  </div>
+  </div>
+<div class="page detail">
+    <div class="det-banner t-form"><span class="tbadge t-form">FORMATION</span><span class="ban-gamme">IA Standard</span><span class="feat">★ À la une</span><span class="ban-no">Formation 04/17</span></div>
+    <div class="det-head">
+      <h2 class="det-title">IA & Conformité</h2>
+      <p class="det-accroche">Vos obligations d’employeur quand vos équipes utilisent l’IA — l’AI Act transformé en feuille de route.</p>
+    </div>
+    <div class="det-facts">
+      <div class="fact"><span>Durée</span><b>4 h · ½ journée</b></div>
+      <div class="fact"><span>Effectif</span><b>2 à 15 · 16 à 30</b></div>
+      <div class="fact price"><span>Tarif HT / groupe</span><b>1 200 € / 1 900 €</b></div>
+      <div class="fact"><span>Prérequis</span><b>Aucun · 4 livrables construits en séance</b></div>
+    </div>
+    <div class="det-cols">
+      <div class="det-main">
+        <h3 class="h3">Objectifs — ce que chacun saura faire</h3>
+        <ul class="check"><li>Identifier les obligations (AI Act, RGPD, droit du travail) sans jargon</li><li>Cartographier et classer les usages IA (shadow AI compris)</li><li>Constituer le dossier de conformité (registre, charte, preuves)</li><li>Piloter le plan de mise en conformité 90 jours</li><li>Communiquer le cadre sans freiner l’adoption</li></ul>
+        <h3 class="h3">Programme</h3>
+        <div class="prog"><div class="prog-b"><div class="prog-h">Demi-journée</div><ul><li>10’ État des lieux : le shadow AI révélé</li><li>35’ Ce que la réglementation impose vraiment</li><li>35’ Cartographier les usages réels</li><li>30’ Qui est responsable de quoi</li><li>40’ Le registre v1 construit en séance</li><li>35’ Le plan de conformité 90 jours</li><li>25’ Communiquer : « on encadre, on n’interdit pas »</li><li>15’ Clôture et quiz</li></ul></div></div>
+      </div>
+      <div class="det-side">
+        <div class="side-b"><div class="side-t">Pour qui</div><p>Dirigeants, DRH/RH, managers, référents IA, DPO et responsables conformité de TPE, PME et ETI.</p></div>
+        <div class="side-b roi"><div class="side-t">Retour sur investissement</div><p>4 livrables de conformité construits en séance (cartographie, registre, plan 90 jours, communication), qui auraient coûté plusieurs jours de conseil.</p></div>
+        <div class="side-b"><div class="side-t">Modalités</div><p>Présentiel dans vos locaux — distanciel possible. Pédagogie active, quiz de clôture, attestation. Accessible aux situations de handicap (référent dédié).</p></div>
+      </div>
+    </div>
+    <div class="foot">
+    <div class="foot-l"><b>Axion-IA</b> · axion-ia.com · Organisme de formation & conseil IA</div>
+    <div class="foot-c">12</div>
+    <div class="foot-r"><img class="qmini" src="assets/qualiopi.png" onerror="this.style.display='none'"><span>Actions <b>finançables à 100 %</b> par votre OPCO</span></div>
+  </div>
+  </div>
+<div class="page detail">
+    <div class="det-banner t-form"><span class="tbadge t-form">FORMATION</span><span class="ban-gamme">IA Standard</span><span class="ban-no">Formation 05/17</span></div>
+    <div class="det-head">
+      <h2 class="det-title">IA Fondamentaux</h2>
+      <p class="det-accroche">Une journée pour passer toute l’équipe de débutant à autonome.</p>
+    </div>
+    <div class="det-facts">
+      <div class="fact"><span>Durée</span><b>1 jour · 7 h</b></div>
+      <div class="fact"><span>Effectif</span><b>2 à 15 · 16 à 30</b></div>
+      <div class="fact price"><span>Tarif HT / groupe</span><b>1 900 € / 3 200 €</b></div>
+      <div class="fact"><span>Prérequis</span><b>Aucun · Livrable + boîte à outils perso</b></div>
+    </div>
+    <div class="det-cols">
+      <div class="det-main">
+        <h3 class="h3">Objectifs — ce que chacun saura faire</h3>
+        <ul class="check"><li>Tout le contenu d’IA Express, ancré par une journée de pratique</li><li>Analyser un document long et complexe, synthèse vérifiée</li><li>Produire un livrable complet de A à Z</li><li>Travailler en étapes : brouillon → critique → version finale</li><li>Choisir le bon outil et bâtir sa boîte à outils</li></ul>
+        <h3 class="h3">Programme</h3>
+        <div class="prog"><div class="prog-b"><div class="prog-h">Matin</div><ul><li>60’ Mise en route + méthode CRFE</li><li>45’ Analyse d’un document complexe</li><li>60’ Livrable A à Z (partie 1)</li><li>30’ Vérification et chasse aux inventions</li></ul></div><div class="prog-b"><div class="prog-h">Après-midi</div><ul><li>30’ Réactivation + sécurité/anonymisation</li><li>60’ Livrable A à Z (partie 2) « diffusable »</li><li>45’ Panorama des outils : lequel pour quoi</li><li>50’ Atelier boîte à outils (5-8 gabarits)</li><li>25’ Clôture + livrable constaté</li></ul></div></div>
+      </div>
+      <div class="det-side">
+        <div class="side-b"><div class="side-t">Pour qui</div><p>Tout salarié de tous services, managers, dirigeants, professions libérales et indépendants.</p></div>
+        <div class="side-b roi"><div class="side-t">Retour sur investissement</div><p>~1 h gagnée par jour et par salarié. Sur une équipe de 8, l’équivalent d’un temps plein récupéré chaque mois.</p></div>
+        <div class="side-b"><div class="side-t">Modalités</div><p>Présentiel dans vos locaux — distanciel possible. Pédagogie active, quiz de clôture, attestation. Accessible aux situations de handicap (référent dédié).</p></div>
+      </div>
+    </div>
+    <div class="foot">
+    <div class="foot-l"><b>Axion-IA</b> · axion-ia.com · Organisme de formation & conseil IA</div>
+    <div class="foot-c">13</div>
+    <div class="foot-r"><img class="qmini" src="assets/qualiopi.png" onerror="this.style.display='none'"><span>Actions <b>finançables à 100 %</b> par votre OPCO</span></div>
+  </div>
+  </div>
+<div class="page detail">
+    <div class="det-banner t-form"><span class="tbadge t-form">FORMATION</span><span class="ban-gamme">IA Standard</span><span class="ban-no">Formation 06/17</span></div>
+    <div class="det-head">
+      <h2 class="det-title">IA & Commercial</h2>
+      <p class="det-accroche">Devis, propositions, relances : répondre plus vite et mieux que vos concurrents.</p>
+    </div>
+    <div class="det-facts">
+      <div class="fact"><span>Durée</span><b>1 jour · 7 h</b></div>
+      <div class="fact"><span>Effectif</span><b>2 à 15 · 16 à 30</b></div>
+      <div class="fact price"><span>Tarif HT / groupe</span><b>1 900 € / 3 200 €</b></div>
+      <div class="fact"><span>Prérequis</span><b>Aucun · Gabarit de devis + biblio d’équipe</b></div>
+    </div>
+    <div class="det-cols">
+      <div class="det-main">
+        <h3 class="h3">Objectifs — ce que chacun saura faire</h3>
+        <ul class="check"><li>Traiter une demande client complexe dans la journée</li><li>Produire devis et propositions depuis son gabarit</li><li>Désamorcer une réclamation difficile par écrit</li><li>Préparer un rendez-vous en 10 minutes</li><li>Relancer avec des séquences personnalisées</li></ul>
+        <h3 class="h3">Programme</h3>
+        <div class="prog"><div class="prog-b"><div class="prog-h">Matin — répondre</div><ul><li>40’ Bases express vente + anonymisation client</li><li>45’ La demande client complexe traitée le jour même</li><li>60’ Devis 3× plus vite : gabarit construit et testé</li><li>30’ La réclamation désamorcée par écrit</li></ul></div><div class="prog-b"><div class="prog-h">Après-midi — conquérir</div><ul><li>45’ Préparer un RDV en 10 min + jeu de rôle</li><li>45’ Séquence de 3 relances qui obtiennent des réponses</li><li>60’ Atelier pipeline : on vide les dossiers en attente</li><li>35’ Bibliothèque commerciale d’équipe</li><li>25’ Clôture</li></ul></div></div>
+      </div>
+      <div class="det-side">
+        <div class="side-b"><div class="side-t">Pour qui</div><p>Commerciaux, ADV, assistants commerciaux, SAV, responsables commerciaux et dirigeants qui vendent (B2B/B2C).</p></div>
+        <div class="side-b roi"><div class="side-t">Retour sur investissement</div><p>Des propositions 2 à 3× plus rapides. Un seul devis signé en plus rembourse la formation ; le reste de l’année est du gain net.</p></div>
+        <div class="side-b"><div class="side-t">Modalités</div><p>Présentiel dans vos locaux — distanciel possible. Pédagogie active, quiz de clôture, attestation. Accessible aux situations de handicap (référent dédié).</p></div>
+      </div>
+    </div>
+    <div class="foot">
+    <div class="foot-l"><b>Axion-IA</b> · axion-ia.com · Organisme de formation & conseil IA</div>
+    <div class="foot-c">14</div>
+    <div class="foot-r"><img class="qmini" src="assets/qualiopi.png" onerror="this.style.display='none'"><span>Actions <b>finançables à 100 %</b> par votre OPCO</span></div>
+  </div>
+  </div>
+<div class="page detail">
+    <div class="det-banner t-form"><span class="tbadge t-form">FORMATION</span><span class="ban-gamme">IA Standard</span><span class="ban-no">Formation 07/17</span></div>
+    <div class="det-head">
+      <h2 class="det-title">IA au bureau</h2>
+      <p class="det-accroche">Documents, courriers, dossiers : produire deux fois plus vite.</p>
+    </div>
+    <div class="det-facts">
+      <div class="fact"><span>Durée</span><b>1 jour · 7 h</b></div>
+      <div class="fact"><span>Effectif</span><b>2 à 15 · 16 à 30</b></div>
+      <div class="fact price"><span>Tarif HT / groupe</span><b>1 900 € / 3 200 €</b></div>
+      <div class="fact"><span>Prérequis</span><b>Aucun · Banque de gabarits remise</b></div>
+    </div>
+    <div class="det-cols">
+      <div class="det-main">
+        <h3 class="h3">Objectifs — ce que chacun saura faire</h3>
+        <ul class="check"><li>Créer ses gabarits de documents et courriers récurrents</li><li>Transformer des notes en vrac en document diffusable</li><li>Dépouiller un dossier épais : synthèse, échéancier, pièces</li><li>Préparer les réponses aux administrations et organismes</li><li>Tenir un suivi sans ressaisie</li></ul>
+        <h3 class="h3">Programme</h3>
+        <div class="prog"><div class="prog-b"><div class="prog-h">Matin — produire</div><ul><li>60’ Inventaire des 5 documents récurrents + bases</li><li>45’ L’usine à courriers : gabarits à variables</li><li>45’ Notes en vrac → document propre</li><li>45’ Le dossier épais dépouillé</li></ul></div><div class="prog-b"><div class="prog-h">Après-midi — fiabiliser & suivre</div><ul><li>30’ Réactivation + liste rouge renforcée (RH, paie)</li><li>60’ Réponses aux administrations (cas réel)</li><li>60’ Atelier « mon stock » : 5-8 gabarits (80 % du récurrent)</li><li>35’ Suivi sans ressaisie</li><li>25’ Clôture</li></ul></div></div>
+      </div>
+      <div class="det-side">
+        <div class="side-b"><div class="side-t">Pour qui</div><p>Assistant(e)s, secrétariat, gestion, comptabilité/paie, RH, ADV, services généraux, chefs de projet.</p></div>
+        <div class="side-b roi"><div class="side-t">Retour sur investissement</div><p>1 à 2 h gagnées par jour sur les postes administratifs. Rentabilisée en ~10 jours ouvrés.</p></div>
+        <div class="side-b"><div class="side-t">Modalités</div><p>Présentiel dans vos locaux — distanciel possible. Pédagogie active, quiz de clôture, attestation. Accessible aux situations de handicap (référent dédié).</p></div>
+      </div>
+    </div>
+    <div class="foot">
+    <div class="foot-l"><b>Axion-IA</b> · axion-ia.com · Organisme de formation & conseil IA</div>
+    <div class="foot-c">15</div>
+    <div class="foot-r"><img class="qmini" src="assets/qualiopi.png" onerror="this.style.display='none'"><span>Actions <b>finançables à 100 %</b> par votre OPCO</span></div>
+  </div>
+  </div>
+<div class="page detail">
+    <div class="det-banner t-form"><span class="tbadge t-form">FORMATION</span><span class="ban-gamme">IA Standard</span><span class="ban-no">Formation 08/17</span></div>
+    <div class="det-head">
+      <h2 class="det-title">IA sur le terrain</h2>
+      <p class="det-accroche">Comptes rendus, photos, dictée vocale : tout depuis son téléphone.</p>
+    </div>
+    <div class="det-facts">
+      <div class="fact"><span>Durée</span><b>1 jour · 7 h</b></div>
+      <div class="fact"><span>Effectif</span><b>2 à 15 · 16 à 30</b></div>
+      <div class="fact price"><span>Tarif HT / groupe</span><b>1 900 € / 3 200 €</b></div>
+      <div class="fact"><span>Prérequis</span><b>Aucun — smartphone, aucun ordinateur</b></div>
+    </div>
+    <div class="det-cols">
+      <div class="det-main">
+        <h3 class="h3">Objectifs — ce que chacun saura faire</h3>
+        <ul class="check"><li>Produire un compte rendu structuré à la voix en quittant le site</li><li>Rédiger un signalement depuis une photo (constat/cause/action/urgence)</li><li>Reformuler un message délicat avant envoi</li><li>Comprendre une consigne ou une notice via photo</li><li>Boucler le circuit terrain → bureau en autonomie</li></ul>
+        <h3 class="h3">Programme</h3>
+        <div class="prog"><div class="prog-b"><div class="prog-h">Matin — parler, pas taper</div><ul><li>25’ Installation et test du micro</li><li>45’ Le compte rendu dicté → CR structuré envoyé</li><li>45’ La photo qui parle : signalement</li><li>40’ Messages délicats reformulés</li><li>40’ Comprendre une notice via photo</li></ul></div><div class="prog-b"><div class="prog-h">Après-midi — ancrer</div><ul><li>20’ Sécurité version terrain</li><li>60’ Le circuit complet en binômes</li><li>60’ Atelier « ma semaine » : raccourcis, retards traités</li><li>40’ Documents récurrents en dictée</li><li>30’ Clôture (évaluation pratique)</li></ul></div></div>
+      </div>
+      <div class="det-side">
+        <div class="side-b"><div class="side-t">Pour qui</div><p>Techniciens, ouvriers, chauffeurs, agents d’exploitation, personnel d’atelier, installateurs, maintenance.</p></div>
+        <div class="side-b roi"><div class="side-t">Retour sur investissement</div><p>30 à 45 min de paperasse en moins par jour et par personne, et des heures de ressaisie économisées au bureau.</p></div>
+        <div class="side-b"><div class="side-t">Modalités</div><p>Présentiel dans vos locaux — distanciel possible. Pédagogie active, quiz de clôture, attestation. Accessible aux situations de handicap (référent dédié).</p></div>
+      </div>
+    </div>
+    <div class="foot">
+    <div class="foot-l"><b>Axion-IA</b> · axion-ia.com · Organisme de formation & conseil IA</div>
+    <div class="foot-c">16</div>
+    <div class="foot-r"><img class="qmini" src="assets/qualiopi.png" onerror="this.style.display='none'"><span>Actions <b>finançables à 100 %</b> par votre OPCO</span></div>
+  </div>
+  </div>
+<div class="page detail">
+    <div class="det-banner t-form"><span class="tbadge t-form">FORMATION</span><span class="ban-gamme">IA Standard</span><span class="ban-no">Formation 09/17</span></div>
+    <div class="det-head">
+      <h2 class="det-title">Automatisations IA Découverte</h2>
+      <p class="det-accroche">Une journée pour voir ce que l’automatisation peut faire pour votre entreprise.</p>
+    </div>
+    <div class="det-facts">
+      <div class="fact"><span>Durée</span><b>1 jour · 7 h</b></div>
+      <div class="fact"><span>Effectif</span><b>2 à 15 · 16 à 30</b></div>
+      <div class="fact price"><span>Tarif HT / groupe</span><b>1 900 € / 3 200 €</b></div>
+      <div class="fact"><span>Prérequis</span><b>Aucun · Plan d’automatisation chiffré</b></div>
+    </div>
+    <div class="det-cols">
+      <div class="det-main">
+        <h3 class="h3">Objectifs — ce que chacun saura faire</h3>
+        <ul class="check"><li>Expliquer le principe : déclencheur → traitement → action</li><li>Identifier les tâches automatisables — et celles qui ne le sont pas</li><li>Estimer les gains (temps, délais, erreurs)</li><li>Prioriser les 3-5 premières automatisations (matrice gain/difficulté)</li></ul>
+        <h3 class="h3">Programme</h3>
+        <div class="prog"><div class="prog-b"><div class="prog-h">Matin — comprendre & voir</div><ul><li>20’ La tâche que je refais sans cesse</li><li>40’ Anatomie d’une automatisation + 3 démos live</li><li>45’ Démonstrations sur VOS cas sectoriels</li><li>60’ Atelier chasse aux tâches (grille AUTO)</li><li>30’ Ce qui ne s’automatise PAS</li></ul></div><div class="prog-b"><div class="prog-h">Après-midi — chiffrer & décider</div><ul><li>60’ Chiffrage des gains : heures/an, erreurs, délais</li><li>45’ Matrice gain/difficulté : priorisation</li><li>60’ Le plan d’action détaillé</li><li>45’ Restitution au dirigeant + quiz</li></ul></div></div>
+      </div>
+      <div class="det-side">
+        <div class="side-b"><div class="side-t">Pour qui</div><p>Tout salarié et encadrement, dirigeants invités à la restitution finale, de la TPE à l’ETI.</p></div>
+        <div class="side-b roi"><div class="side-t">Retour sur investissement</div><p>Un plan d’automatisation chiffré qui aurait coûté plusieurs jours de conseil — et chaque mauvais investissement évité vaut bien plus que la journée.</p></div>
+        <div class="side-b"><div class="side-t">Modalités</div><p>Présentiel dans vos locaux — distanciel possible. Pédagogie active, quiz de clôture, attestation. Accessible aux situations de handicap (référent dédié).</p></div>
+      </div>
+    </div>
+    <div class="foot">
+    <div class="foot-l"><b>Axion-IA</b> · axion-ia.com · Organisme de formation & conseil IA</div>
+    <div class="foot-c">17</div>
+    <div class="foot-r"><img class="qmini" src="assets/qualiopi.png" onerror="this.style.display='none'"><span>Actions <b>finançables à 100 %</b> par votre OPCO</span></div>
+  </div>
+  </div>
+<div class="page detail">
+    <div class="det-banner t-form"><span class="tbadge t-form">FORMATION</span><span class="ban-gamme">IA Standard</span><span class="ban-no">Formation 10/17</span></div>
+    <div class="det-head">
+      <h2 class="det-title">IA Intégration métier</h2>
+      <p class="det-accroche">Vos 5 tâches les plus chronophages transformées avant la fin de la formation.</p>
+    </div>
+    <div class="det-facts">
+      <div class="fact"><span>Durée</span><b>2 jours · 14 h</b></div>
+      <div class="fact"><span>Effectif</span><b>2 à 15 · 16 à 30</b></div>
+      <div class="fact price"><span>Tarif HT / groupe</span><b>3 600 € / 5 800 €</b></div>
+      <div class="fact"><span>Prérequis</span><b>Aucun · Kit d’équipe remis</b></div>
+    </div>
+    <div class="det-cols">
+      <div class="det-main">
+        <h3 class="h3">Objectifs — ce que chacun saura faire</h3>
+        <ul class="check"><li>Tout le contenu d’IA Fondamentaux</li><li>Transformer réellement ses 3 à 5 tâches chronophages</li><li>Vérifier et fiabiliser systématiquement avant diffusion</li><li>Contribuer au kit d’équipe et le faire vivre</li><li>Transmettre les bonnes pratiques à un collègue</li></ul>
+        <h3 class="h3">Programme</h3>
+        <div class="prog"><div class="prog-b"><div class="prog-h">Jour 1 — la maîtrise</div><ul><li>Tout le programme IA Fondamentaux</li><li>Fin J1 : validation des 5 tâches cibles avec le formateur</li></ul></div><div class="prog-b"><div class="prog-h">Jour 2 — la transformation</div><ul><li>30’ Réactivation</li><li>75’ Tâche 1 transformée, gabarit documenté</li><li>90’ Tâches 2-3 (diffusable ET reproductible, testé 2×)</li><li>90’ Tâches 4-5, entraide organisée</li><li>45’ Fiabilisation transverse</li><li>45’ Kit d’équipe finalisé et remis</li><li>30’ Clôture + comptage des tâches</li></ul></div></div>
+      </div>
+      <div class="det-side">
+        <div class="side-b"><div class="side-t">Pour qui</div><p>Tout salarié, idéalement en équipes constituées, managers et responsables d’équipe.</p></div>
+        <div class="side-b roi"><div class="side-t">Retour sur investissement</div><p>Les 5 tâches les plus lourdes de chaque participant accélérées de 50 à 80 %, dès le retour au poste. Gains permanents.</p></div>
+        <div class="side-b"><div class="side-t">Modalités</div><p>Présentiel dans vos locaux — distanciel possible. Pédagogie active, quiz de clôture, attestation. Accessible aux situations de handicap (référent dédié).</p></div>
+      </div>
+    </div>
+    <div class="foot">
+    <div class="foot-l"><b>Axion-IA</b> · axion-ia.com · Organisme de formation & conseil IA</div>
+    <div class="foot-c">18</div>
+    <div class="foot-r"><img class="qmini" src="assets/qualiopi.png" onerror="this.style.display='none'"><span>Actions <b>finançables à 100 %</b> par votre OPCO</span></div>
+  </div>
+  </div>
+<div class="page detail">
+    <div class="det-banner t-form"><span class="tbadge t-form">FORMATION</span><span class="ban-gamme">IA Standard</span><span class="ban-no">Formation 11/17</span></div>
+    <div class="det-head">
+      <h2 class="det-title">IA & Commercial avancé</h2>
+      <p class="det-accroche">Tout le cycle de vente passé à l’IA : de la prospection à la signature.</p>
+    </div>
+    <div class="det-facts">
+      <div class="fact"><span>Durée</span><b>2 jours · 14 h</b></div>
+      <div class="fact"><span>Effectif</span><b>2 à 15 · 16 à 30</b></div>
+      <div class="fact price"><span>Tarif HT / groupe</span><b>3 600 € / 5 800 €</b></div>
+      <div class="fact"><span>Prérequis</span><b>Aucun · Biblio commerciale + rituel hebdo</b></div>
+    </div>
+    <div class="det-cols">
+      <div class="det-main">
+        <h3 class="h3">Objectifs — ce que chacun saura faire</h3>
+        <ul class="check"><li>Tout le contenu d’IA & Commercial</li><li>Prospecter en série personnalisée, dans les règles</li><li>Décortiquer un appel d’offres + matrice de conformité</li><li>Produire une proposition différenciante</li><li>Dérouler des séquences de relance multi-touches</li></ul>
+        <h3 class="h3">Programme</h3>
+        <div class="prog"><div class="prog-b"><div class="prog-h">Jour 1 — le cycle complet</div><ul><li>40’ Socle express vente</li><li>60’ Prospection : mini-campagne de 10 messages</li><li>75’ L’appel d’offres décortiqué (sur un vrai AO)</li><li>75’ La proposition qui gagne</li><li>60’ Relances 4 touches (2 dossiers dormants)</li><li>75’ Bibliothèque commerciale v1</li></ul></div><div class="prog-b"><div class="prog-h">Jour 2 — les affaires réelles</div><ul><li>30’ Tri du pipeline</li><li>165’ Sprint affaires 1 : AO/propales/relances réels</li><li>120’ Sprint affaires 2 + comptage</li><li>45’ Bibliothèque v2 + rituel hebdo</li><li>45’ Clôture</li></ul></div></div>
+      </div>
+      <div class="det-side">
+        <div class="side-b"><div class="side-t">Pour qui</div><p>Commerciaux confirmés, responsables/directeurs commerciaux, ADV impliquée dans les offres, dirigeants.</p></div>
+        <div class="side-b roi"><div class="side-t">Retour sur investissement</div><p>Capacité de prospection et de réponse multipliée à effectif constant. Une seule affaire gagnée rembourse la formation plusieurs fois.</p></div>
+        <div class="side-b"><div class="side-t">Modalités</div><p>Présentiel dans vos locaux — distanciel possible. Pédagogie active, quiz de clôture, attestation. Accessible aux situations de handicap (référent dédié).</p></div>
+      </div>
+    </div>
+    <div class="foot">
+    <div class="foot-l"><b>Axion-IA</b> · axion-ia.com · Organisme de formation & conseil IA</div>
+    <div class="foot-c">19</div>
+    <div class="foot-r"><img class="qmini" src="assets/qualiopi.png" onerror="this.style.display='none'"><span>Actions <b>finançables à 100 %</b> par votre OPCO</span></div>
+  </div>
+  </div>
+<div class="page detail">
+    <div class="det-banner t-form"><span class="tbadge t-form">FORMATION</span><span class="ban-gamme">IA Standard</span><span class="ban-no">Formation 12/17</span></div>
+    <div class="det-head">
+      <h2 class="det-title">IA Transformation d’équipe</h2>
+      <p class="det-accroche">Vos processus passés à l’IA, des référents formés, une équipe autonome.</p>
+    </div>
+    <div class="det-facts">
+      <div class="fact"><span>Durée</span><b>3 jours · 21 h</b></div>
+      <div class="fact"><span>Effectif</span><b>2 à 15 · 16 à 30</b></div>
+      <div class="fact price"><span>Tarif HT / groupe</span><b>4 900 € / 7 900 €</b></div>
+      <div class="fact"><span>Prérequis</span><b>Équipe + 1-2 référents · Tableau de bord des gains</b></div>
+    </div>
+    <div class="det-cols">
+      <div class="det-main">
+        <h3 class="h3">Objectifs — ce que chacun saura faire</h3>
+        <ul class="check"><li>Tout le contenu d’IA Intégration métier</li><li>Outiller un processus de bout en bout (contrôles humains)</li><li>Arrêter de payer des abonnements inutiles</li><li>Chiffrer ses gains, présentables à la direction</li><li>Référents : intégrer les nouveaux et faire vivre les méthodes</li></ul>
+        <h3 class="h3">Programme</h3>
+        <div class="prog"><div class="prog-b"><div class="prog-h">Jours 1-2 — maîtrise & transformation</div><ul><li>Tout le programme IA Intégration métier</li><li>5 tâches transformées par personne + kit d’équipe</li></ul></div><div class="prog-b"><div class="prog-h">Jour 3 — l’organisation</div><ul><li>30’ Bascule d’échelle</li><li>90’ Processus n°1 de bout en bout</li><li>90’ Processus n°2 conduit par les référents</li><li>45’ Ménage dans les abonnements IA</li><li>60’ Tableau de bord des gains (1 page)</li><li>45’ Atelier référents</li><li>45’ Restitution direction</li><li>15’ Clôture</li></ul></div></div>
+      </div>
+      <div class="det-side">
+        <div class="side-b"><div class="side-t">Pour qui</div><p>Équipe constituée avec 1-2 référents volontaires ; direction présente à la restitution finale.</p></div>
+        <div class="side-b roi"><div class="side-t">Retour sur investissement</div><p>Des processus accélérés en permanence, des référents qui forment les nouveaux, des abonnements inutiles résiliés. L’investissement le plus durable du catalogue.</p></div>
+        <div class="side-b"><div class="side-t">Modalités</div><p>Présentiel dans vos locaux — distanciel possible. Pédagogie active, quiz de clôture, attestation. Accessible aux situations de handicap (référent dédié).</p></div>
+      </div>
+    </div>
+    <div class="foot">
+    <div class="foot-l"><b>Axion-IA</b> · axion-ia.com · Organisme de formation & conseil IA</div>
+    <div class="foot-c">20</div>
+    <div class="foot-r"><img class="qmini" src="assets/qualiopi.png" onerror="this.style.display='none'"><span>Actions <b>finançables à 100 %</b> par votre OPCO</span></div>
+  </div>
+  </div>
+<div class="page detail">
+    <div class="det-banner t-form"><span class="tbadge t-form">FORMATION</span><span class="ban-gamme">Agents & Automatisations</span><span class="ban-no">Formation 13/17</span></div>
+    <div class="det-head">
+      <h2 class="det-title">Agents & Automatisations</h2>
+      <p class="det-accroche">Créez vos propres automatisations IA, sans savoir coder. Le code reste à l’entreprise.</p>
+    </div>
+    <div class="det-facts">
+      <div class="fact"><span>Durée</span><b>2 jours · 14 h</b></div>
+      <div class="fact"><span>Effectif</span><b>2 à 12 (groupe limité)</b></div>
+      <div class="fact price"><span>Tarif HT / groupe</span><b>3 600 €</b></div>
+      <div class="fact"><span>Prérequis</span><b>PC avec droits d’installation (réglé avec la DSI)</b></div>
+    </div>
+    <div class="det-cols">
+      <div class="det-main">
+        <h3 class="h3">Objectifs — ce que chacun saura faire</h3>
+        <ul class="check"><li>Spécifier une automatisation en français (fiche de spec)</li><li>Faire écrire, lire, tester et corriger le code avec l’IA</li><li>Sécuriser les données et les secrets</li><li>Livrer une automatisation documentée — propriété de l’entreprise</li></ul>
+        <h3 class="h3">Programme</h3>
+        <div class="prog"><div class="prog-b"><div class="prog-h">Jour 1 — comprendre & construire</div><ul><li>45’ Vérification des environnements</li><li>45’ Sans jargon : demander, lire, tester le code</li><li>105’ Automatisation collective n°1 (bug corrigé)</li><li>45’ Lire sans coder : les 5 questions</li><li>75’ Automatisation collective n°2 (gestion d’erreur)</li><li>60’ Spécifier MON automatisation</li><li>30’ Sécurité : secrets jamais en clair</li></ul></div><div class="prog-b"><div class="prog-h">Jour 2 — chacun la sienne</div><ul><li>180’ Sprint de construction individuelle</li><li>105’ Fiabiliser + documentation générée</li><li>60’ Démonstrations + inventaire remis à la DSI</li><li>45’ Clôture</li></ul></div></div>
+      </div>
+      <div class="det-side">
+        <div class="side-b"><div class="side-t">Pour qui</div><p>Tout salarié sans connaissance en programmation qui veut créer ses automatisations. L’IA écrit le code en clair.</p></div>
+        <div class="side-b roi"><div class="side-t">Retour sur investissement</div><p>Chaque automatisation fait gagner de 15 min à plusieurs heures par jour, sans coût récurrent. Une tâche quotidienne de 30 min = +100 h/an par participant.</p></div>
+        <div class="side-b"><div class="side-t">Modalités</div><p>Présentiel dans vos locaux — distanciel possible. Pédagogie active, quiz de clôture, attestation. Accessible aux situations de handicap (référent dédié).</p></div>
+      </div>
+    </div>
+    <div class="foot">
+    <div class="foot-l"><b>Axion-IA</b> · axion-ia.com · Organisme de formation & conseil IA</div>
+    <div class="foot-c">21</div>
+    <div class="foot-r"><img class="qmini" src="assets/qualiopi.png" onerror="this.style.display='none'"><span>Actions <b>finançables à 100 %</b> par votre OPCO</span></div>
+  </div>
+  </div>
+<div class="page detail">
+    <div class="det-banner t-form"><span class="tbadge t-form">FORMATION</span><span class="ban-gamme">Agents & Automatisations</span><span class="ban-no">Formation 14/17</span></div>
+    <div class="det-head">
+      <h2 class="det-title">Agents & Automatisations avancé</h2>
+      <p class="det-accroche">Chacun construit ET déploie son automatisation complète — en fonctionnement le dernier jour.</p>
+    </div>
+    <div class="det-facts">
+      <div class="fact"><span>Durée</span><b>3 jours · 21 h</b></div>
+      <div class="fact"><span>Effectif</span><b>2 à 12 (groupe limité)</b></div>
+      <div class="fact price"><span>Tarif HT / groupe</span><b>4 900 €</b></div>
+      <div class="fact"><span>Prérequis</span><b>Niveau 2 j + lieu d’exécution décidé avec la DSI</b></div>
+    </div>
+    <div class="det-cols">
+      <div class="det-main">
+        <h3 class="h3">Objectifs — ce que chacun saura faire</h3>
+        <ul class="check"><li>Tout le niveau 2 jours</li><li>Étendre : plusieurs étapes, plusieurs outils connectés</li><li>Fiabiliser (erreurs, journal, alertes, vérification)</li><li>Déployer en exécution récurrente et intervenir</li><li>Être autonome pour la prochaine automatisation</li></ul>
+        <h3 class="h3">Programme</h3>
+        <div class="prog"><div class="prog-b"><div class="prog-h">Jours 1-2 — programme Agents & Automatisations</div><ul><li>Les 2 automatisations collectives + la sienne documentée</li></ul></div><div class="prog-b"><div class="prog-h">Jour 3 — robustesse & déploiement</div><ul><li>30’ État des automatisations, incidents</li><li>90’ Monter en ambition (étape/source en plus)</li><li>90’ Fiabilisation : les 4 piliers</li><li>75’ Déployer : exécution planifiée + dépôt central</li><li>45’ Le test du chaos (3 pannes provoquées)</li><li>45’ Démonstrations devant dirigeant/DSI</li><li>45’ Autonomie : la prochaine spécifiée SEUL</li></ul></div></div>
+      </div>
+      <div class="det-side">
+        <div class="side-b"><div class="side-t">Pour qui</div><p>Salariés ayant suivi le niveau 2 jours, qui veulent déployer des automatisations robustes en production.</p></div>
+        <div class="side-b roi"><div class="side-t">Retour sur investissement</div><p>Des automatisations robustes qui tournent sans surveillance, et la capacité d’en créer chaque mois — chacune aurait coûté plusieurs milliers d’euros en développement externe.</p></div>
+        <div class="side-b"><div class="side-t">Modalités</div><p>Présentiel dans vos locaux — distanciel possible. Pédagogie active, quiz de clôture, attestation. Accessible aux situations de handicap (référent dédié).</p></div>
+      </div>
+    </div>
+    <div class="foot">
+    <div class="foot-l"><b>Axion-IA</b> · axion-ia.com · Organisme de formation & conseil IA</div>
+    <div class="foot-c">22</div>
+    <div class="foot-r"><img class="qmini" src="assets/qualiopi.png" onerror="this.style.display='none'"><span>Actions <b>finançables à 100 %</b> par votre OPCO</span></div>
+  </div>
+  </div>
+<div class="page detail">
+    <div class="det-banner t-form"><span class="tbadge t-form">FORMATION</span><span class="ban-gamme">Claude — formateur certifié</span><span class="ban-no">Formation 15/17</span></div>
+    <div class="det-head">
+      <h2 class="det-title">Claude Découverte</h2>
+      <p class="det-accroche">Découvrir Claude et tout ce qu’il rend possible — par un formateur certifié.</p>
+    </div>
+    <div class="det-facts">
+      <div class="fact"><span>Durée</span><b>1 jour · 7 h</b></div>
+      <div class="fact"><span>Effectif</span><b>2 à 15 · 16 à 30</b></div>
+      <div class="fact price"><span>Tarif HT / groupe</span><b>2 300 € / 3 850 €</b></div>
+      <div class="fact"><span>Prérequis</span><b>Comptes gratuits suffisent</b></div>
+    </div>
+    <div class="det-cols">
+      <div class="det-main">
+        <h3 class="h3">Objectifs — ce que chacun saura faire</h3>
+        <ul class="check"><li>Produire et analyser de vrais documents avec Claude</li><li>Construire un livrable fini (plan → sections → relecture)</li><li>Comprendre l’apport des Projets (instructions + base doc)</li><li>Choisir l’outil sur critères démontrés (Claude vs autres)</li><li>Appliquer la confidentialité propre à Claude</li></ul>
+        <h3 class="h3">Programme</h3>
+        <div class="prog"><div class="prog-b"><div class="prog-h">Matin</div><ul><li>40’ Claude en 40 min : prise en main</li><li>45’ L’analyse de documents (point fort)</li><li>45’ Livrables finis : plan → sections → relecture</li><li>45’ Les Projets : instructions + base documentaire</li></ul></div><div class="prog-b"><div class="prog-h">Après-midi</div><ul><li>45’ Claude vs les autres (3 tâches, factuel)</li><li>45’ Confidentialité version Claude</li><li>75’ Atelier : 2-3 tâches réelles de sa semaine</li><li>45’ Panorama Pro/Team, quiz, clôture</li></ul></div></div>
+      </div>
+      <div class="det-side">
+        <div class="side-b"><div class="side-t">Pour qui</div><p>Tout salarié curieux de l’écosystème Claude (Anthropic), dirigeants et décideurs qui veulent évaluer avant d’investir.</p></div>
+        <div class="side-b roi"><div class="side-t">Retour sur investissement</div><p>~1 h gagnée par jour et par salarié sur le travail documentaire, avec moins de reprises. Rentabilisée en moins de 2 semaines.</p></div>
+        <div class="side-b"><div class="side-t">Modalités</div><p>Présentiel dans vos locaux — distanciel possible. Pédagogie active, quiz de clôture, attestation. Accessible aux situations de handicap (référent dédié).</p></div>
+      </div>
+    </div>
+    <div class="foot">
+    <div class="foot-l"><b>Axion-IA</b> · axion-ia.com · Organisme de formation & conseil IA</div>
+    <div class="foot-c">23</div>
+    <div class="foot-r"><img class="qmini" src="assets/qualiopi.png" onerror="this.style.display='none'"><span>Actions <b>finançables à 100 %</b> par votre OPCO</span></div>
+  </div>
+  </div>
+<div class="page detail">
+    <div class="det-banner t-form"><span class="tbadge t-form">FORMATION</span><span class="ban-gamme">Claude — formateur certifié</span><span class="ban-no">Formation 16/17</span></div>
+    <div class="det-head">
+      <h2 class="det-title">Claude Créateur</h2>
+      <p class="det-accroche">Chaque participant construit son propre outil IA pour son activité — et repart avec.</p>
+    </div>
+    <div class="det-facts">
+      <div class="fact"><span>Durée</span><b>2 jours · 14 h</b></div>
+      <div class="fact"><span>Effectif</span><b>2 à 12 (groupe limité)</b></div>
+      <div class="fact price"><span>Tarif HT / groupe</span><b>4 300 €</b></div>
+      <div class="fact"><span>Prérequis</span><b>Comptes Claude Pro/Team actifs avant J1</b></div>
+    </div>
+    <div class="det-cols">
+      <div class="det-main">
+        <h3 class="h3">Objectifs — ce que chacun saura faire</h3>
+        <ul class="check"><li>Tout le contenu de Claude Découverte</li><li>Construire son assistant personnalisé (métier, ton, formats)</li><li>Organiser ses espaces : un projet par activité</li><li>Industrialiser ses tâches récurrentes (gabarits validés)</li><li>Protéger les données sensibles</li></ul>
+        <h3 class="h3">Programme</h3>
+        <div class="prog"><div class="prog-b"><div class="prog-h">Jour 1 — maîtriser l’environnement</div><ul><li>60’ Socle Claude condensé</li><li>105’ Mon premier Projet (instructions + base doc)</li><li>90’ Les 5 blocs d’instructions permanentes</li><li>90’ Industrialiser ses tâches récurrentes</li><li>30’ Préparation J2</li></ul></div><div class="prog-b"><div class="prog-h">Jour 2 — mes vrais dossiers</div><ul><li>165’ Sprint dossiers réels 1</li><li>90’ Sprint 2 + partage d’équipe</li><li>60’ Revue de l’outil sur grille</li><li>60’ Démonstrations + doc de duplication</li></ul></div></div>
+      </div>
+      <div class="det-side">
+        <div class="side-b"><div class="side-t">Pour qui</div><p>Tout salarié qui veut construire son assistant Claude sur ses vrais dossiers. Formateur certifié.</p></div>
+        <div class="side-b roi"><div class="side-t">Retour sur investissement</div><p>L’assistant configuré supprime la remise en contexte : les tâches récurrentes passent de 30 min à 5 min. Un actif qui reste dans l’entreprise.</p></div>
+        <div class="side-b"><div class="side-t">Modalités</div><p>Présentiel dans vos locaux — distanciel possible. Pédagogie active, quiz de clôture, attestation. Accessible aux situations de handicap (référent dédié).</p></div>
+      </div>
+    </div>
+    <div class="foot">
+    <div class="foot-l"><b>Axion-IA</b> · axion-ia.com · Organisme de formation & conseil IA</div>
+    <div class="foot-c">24</div>
+    <div class="foot-r"><img class="qmini" src="assets/qualiopi.png" onerror="this.style.display='none'"><span>Actions <b>finançables à 100 %</b> par votre OPCO</span></div>
+  </div>
+  </div>
+<div class="page detail">
+    <div class="det-banner t-form"><span class="tbadge t-form">FORMATION</span><span class="ban-gamme">Claude — formateur certifié</span><span class="ban-no">Formation 17/17</span></div>
+    <div class="det-head">
+      <h2 class="det-title">Claude Architecte</h2>
+      <p class="det-accroche">Son outil IA complet — assistant, automatisations, espaces de travail — opérationnel le dernier jour.</p>
+    </div>
+    <div class="det-facts">
+      <div class="fact"><span>Durée</span><b>3 jours · 21 h</b></div>
+      <div class="fact"><span>Effectif</span><b>2 à 12 (groupe limité)</b></div>
+      <div class="fact price"><span>Tarif HT / groupe</span><b>5 900 €</b></div>
+      <div class="fact"><span>Prérequis</span><b>Comptes Pro/Team + flux réels identifiés</b></div>
+    </div>
+    <div class="det-cols">
+      <div class="det-main">
+        <h3 class="h3">Objectifs — ce que chacun saura faire</h3>
+        <ul class="check"><li>Tout le contenu de Claude Créateur</li><li>Connecter l’outil au travail réel (documents, flux entrants)</li><li>Construire ses premières automatisations Claude</li><li>Fiabiliser et faire évoluer seul (versionnage, revue)</li></ul>
+        <h3 class="h3">Programme</h3>
+        <div class="prog"><div class="prog-b"><div class="prog-h">Jours 1-2 — programme Claude Créateur</div><ul><li>Projet, instructions permanentes, gabarits, vrais dossiers</li></ul></div><div class="prog-b"><div class="prog-h">Jour 3 — l’outil complet</div><ul><li>30’ Frictions de la veille traitées</li><li>90’ Connecter l’outil : la « tournée du matin »</li><li>90’ Automatiser DANS Claude (séquences)</li><li>75’ Fiabiliser : le test des 3 pièges</li><li>60’ Frontières : Claude / code source / clé en main</li><li>45’ Démonstrations finales + doc de duplication</li><li>30’ Clôture</li></ul></div></div>
+      </div>
+      <div class="det-side">
+        <div class="side-b"><div class="side-t">Pour qui</div><p>Salariés avec un usage régulier de Claude, qui veulent connecter leur outil à leurs flux réels et le faire évoluer seuls.</p></div>
+        <div class="side-b roi"><div class="side-t">Retour sur investissement</div><p>Un outil complet par participant, qui aurait coûté plusieurs milliers d’euros développé pour lui — et qu’il sait faire évoluer seul. L’actif reste, le gain se cumule.</p></div>
+        <div class="side-b"><div class="side-t">Modalités</div><p>Présentiel dans vos locaux — distanciel possible. Pédagogie active, quiz de clôture, attestation. Accessible aux situations de handicap (référent dédié).</p></div>
+      </div>
+    </div>
+    <div class="foot">
+    <div class="foot-l"><b>Axion-IA</b> · axion-ia.com · Organisme de formation & conseil IA</div>
+    <div class="foot-c">25</div>
+    <div class="foot-r"><img class="qmini" src="assets/qualiopi.png" onerror="this.style.display='none'"><span>Actions <b>finançables à 100 %</b> par votre OPCO</span></div>
+  </div>
+  </div>
+<div class="page detail">
+    <div class="det-banner t-one"><span class="tbadge t-one">COACHING 1-TO-1</span><span class="ban-gamme">Accompagnement individuel · AFEST</span><span class="ban-no">Sur site</span></div>
+    <div class="det-head"><h2 class="det-title">Dirigeant · Vision IA stratégique</h2><p class="det-accroche">Une journée en tête-à-tête pour ouvrir les yeux du dirigeant sur les opportunités IA de son secteur.</p></div>
+    <div class="det-facts">
+      <div class="fact"><span>Durée</span><b>1 journée (7 h) — 2 jours possible</b></div>
+      <div class="fact"><span>Format</span><b>1 dirigeant (1-to-1)</b></div>
+      <div class="fact price"><span>Tarif HT</span><b>1 390 € /jour · 2 jours 2 590 €</b></div>
+      <div class="fact"><span>Prérequis</span><b>Aucun · sur site</b></div>
+    </div>
+    <div class="det-cols">
+      <div class="det-main">
+        <h3 class="h3">Objectifs</h3>
+        <ul class="check"><li>Cartographier l’activité et repérer les opportunités IA du secteur</li><li>Prioriser par impact et faisabilité</li><li>Chiffrer les gains de temps et de coûts</li><li>Repartir avec une feuille de route d’implémentation</li></ul>
+        <h3 class="h3">Déroulé</h3>
+        <div class="prog"><div class="prog-b"><div class="prog-h">Déroulé type d’une journée</div><ul><li>Matin — diagnostic 1-to-1 et cartographie de l’entreprise</li><li>Démonstrations IA en direct sur vos cas réels</li><li>Après-midi — priorisation impact / faisabilité</li><li>Feuille de route chiffrée (temps & coûts)</li><li>Restitution à chaud et prochaines étapes</li></ul></div></div>
+      </div>
+      <div class="det-side">
+        <div class="side-b"><div class="side-t">Pour qui</div><p>Dirigeants et fondateurs de TPE, PME et ETI qui veulent une lecture IA claire de leur activité, sans jargon.</p></div>
+        <div class="side-b roi"><div class="side-t">Bénéfice</div><p>Le dirigeant décide sur pièces : quoi lancer, dans quel ordre, pour quel gain. Format AFEST, éligible au financement de la formation professionnelle.</p></div>
+        <div class="side-b"><div class="side-t">Modalités</div><p>100 % personnalisé, sur site, sur les vrais dossiers de la personne. Attestation de fin. Éligible au financement de la formation.</p></div>
+      </div>
+    </div>
+    <div class="foot">
+    <div class="foot-l"><b>Axion-IA</b> · axion-ia.com · Organisme de formation & conseil IA</div>
+    <div class="foot-c">26</div>
+    <div class="foot-r"><img class="qmini" src="assets/qualiopi.png" onerror="this.style.display='none'"><span>Actions <b>finançables à 100 %</b> par votre OPCO</span></div>
+  </div>
+  </div>
+<div class="page detail">
+    <div class="det-banner t-one"><span class="tbadge t-one">COACHING 1-TO-1</span><span class="ban-gamme">Accompagnement individuel · AFEST</span><span class="ban-no">Sur site</span></div>
+    <div class="det-head"><h2 class="det-title">Collaborateur · Optimisation du poste</h2><p class="det-accroche">Une journée en tête-à-tête pour faire monter un collaborateur clé en compétence sur ses propres cas.</p></div>
+    <div class="det-facts">
+      <div class="fact"><span>Durée</span><b>1 journée (7 h) — 2 jours possible</b></div>
+      <div class="fact"><span>Format</span><b>1 collaborateur (1-to-1)</b></div>
+      <div class="fact price"><span>Tarif HT</span><b>990 € /jour · 2 jours 1 830 €</b></div>
+      <div class="fact"><span>Prérequis</span><b>Aucun · sur site</b></div>
+    </div>
+    <div class="det-cols">
+      <div class="det-main">
+        <h3 class="h3">Objectifs</h3>
+        <ul class="check"><li>Cartographier le fonctionnement du poste et ses irritants</li><li>Transformer ses tâches réelles avec l’IA</li><li>Bâtir un plan d’automatisation pour gagner du temps</li><li>Ancrer des réflexes durables (gabarits, méthode)</li></ul>
+        <h3 class="h3">Déroulé</h3>
+        <div class="prog"><div class="prog-b"><div class="prog-h">Déroulé type d’une journée</div><ul><li>Matin — cartographie du poste et des tâches réelles</li><li>Mises en situation sur les vrais dossiers du collaborateur</li><li>Après-midi — plan d’automatisation métier</li><li>Gabarits et méthode réutilisables</li><li>Restitution et engagement de suivi</li></ul></div></div>
+      </div>
+      <div class="det-side">
+        <div class="side-b"><div class="side-t">Pour qui</div><p>Collaborateurs clés (bureau, opérations, support, gestion) dont on veut optimiser le poste avec l’IA et l’automatisation.</p></div>
+        <div class="side-b roi"><div class="side-t">Bénéfice</div><p>Le collaborateur repart avec ses propres tâches transformées et un plan concret. Format AFEST (formation en situation de travail), éligible au financement.</p></div>
+        <div class="side-b"><div class="side-t">Modalités</div><p>100 % personnalisé, sur site, sur les vrais dossiers de la personne. Attestation de fin. Éligible au financement de la formation.</p></div>
+      </div>
+    </div>
+    <div class="foot">
+    <div class="foot-l"><b>Axion-IA</b> · axion-ia.com · Organisme de formation & conseil IA</div>
+    <div class="foot-c">27</div>
+    <div class="foot-r"><img class="qmini" src="assets/qualiopi.png" onerror="this.style.display='none'"><span>Actions <b>finançables à 100 %</b> par votre OPCO</span></div>
+  </div>
+  </div>
+<div class="page detail">
+    <div class="det-banner t-aud"><span class="tbadge t-aud">AUDIT</span><span class="ban-gamme">1 journée complète · sur site · livrables sous 48 h</span><span class="ban-no">Audit</span></div>
+    <div class="det-head"><h2 class="det-title">Audit IA sur place</h2><p class="det-accroche">Savoir si l’IA peut vraiment vous aider — sans engagement long. Un diagnostic complet en une journée, sur place.</p></div>
+    <div class="det-facts">
+      <div class="fact price wide"><span>Tarif HT</span><b>1 190 € HT</b></div>
+      <div class="fact"><span>Format</span><b>1 journée complète · sur site · livrables sous 48 h</b></div>
+    </div>
+    <div class="chips"><span>Cartographie d’une zone d’usage</span><span>Démos live sur vos vrais cas</span><span>Plan d’action sous 48 h</span><span>Confidentialité totale</span></div>
+    <div class="det-cols">
+      <div class="det-main">
+        <h3 class="h3">Déroulé</h3>
+        <div class="prog"><div class="prog-b"><div class="prog-h">Comment se déroule votre journée</div><ul><li>Café & cadrage des objectifs</li><li>Diagnostic sur site (observation, entretiens)</li><li>Démos live de l’IA sur 2-3 cas réels</li><li>Priorisation & quick-wins par impact/facilité</li><li>Restitution à chaud : vision claire, pas un rapport théorique</li><li>Sous 48 h — plan d’action chiffré envoyé</li></ul></div></div>
+      </div>
+      <div class="det-side">
+        <div class="side-b"><div class="side-t">Pour qui</div><p>TPE, artisans, commerçants et PME qui veulent un premier diagnostic IA concret et rapide.</p></div>
+        <div class="side-b roi"><div class="side-t">Ce que vous repartez avec</div><ul class="check sm"><li>Rapport d’audit de 8 à 15 pages</li><li>Bibliothèque de prompts testés, prêts à réutiliser</li><li>3 à 5 quick-wins priorisés, activables tout de suite</li></ul></div>
+        <div class="side-b"><div class="side-t">Engagement</div><p>Confidentialité totale, souveraineté des données et conformité RGPD. Un livrable directement actionnable.</p></div>
+      </div>
+    </div>
+    <div class="foot">
+    <div class="foot-l"><b>Axion-IA</b> · axion-ia.com · Organisme de formation & conseil IA</div>
+    <div class="foot-c">28</div>
+    <div class="foot-r"><img class="qmini" src="assets/qualiopi.png" onerror="this.style.display='none'"><span>Actions <b>finançables à 100 %</b> par votre OPCO</span></div>
+  </div>
+  </div>
+<div class="page detail">
+    <div class="det-banner t-aud"><span class="tbadge t-aud">AUDIT</span><span class="ban-gamme">1 département · 3 semaines</span><span class="ban-no">Audit</span></div>
+    <div class="det-head"><h2 class="det-title">Audit Ciblé</h2><p class="det-accroche">Un audit IA focalisé sur un département précis (marketing, RH, ops, finance, juridique, support).</p></div>
+    <div class="det-facts">
+      <div class="fact price wide"><span>Tarif HT</span><b>1 900 → 3 900 € HT</b></div>
+      <div class="fact"><span>Sous-formats</span><b>Solo — 1 900 € HT · Standard — 2 900 € HT · Avancé — 3 900 € HT</b></div>
+    </div>
+    <div class="chips"><span>Cartographie complète du département</span><span>Scoring opportunités ROI / complexité</span><span>Plan chiffré 3-12 mois</span><span>Souveraineté & RGPD</span></div>
+    <div class="det-cols">
+      <div class="det-main">
+        <h3 class="h3">Déroulé</h3>
+        <div class="prog"><div class="prog-b"><div class="prog-h">3 phases sur 3 à 4 semaines</div><ul><li>Phase 1 — Cadrage + interviews terrain</li><li>Phase 2 — Cartographie & scoring des opportunités</li><li>Phase 3 — Restitution + plan d’exécution priorisé</li></ul></div></div>
+      </div>
+      <div class="det-side">
+        <div class="side-b"><div class="side-t">Pour qui</div><p>PME et ETI qui veulent transformer un département en profondeur, avec un plan chiffré.</p></div>
+        <div class="side-b roi"><div class="side-t">Ce que vous repartez avec</div><ul class="check sm"><li>Cartographie complète du département</li><li>Scoring ROI / complexité des opportunités</li><li>Plan d’exécution priorisé sur 3 à 12 mois</li></ul></div>
+        <div class="side-b"><div class="side-t">Engagement</div><p>Confidentialité totale, souveraineté des données et conformité RGPD. Un livrable directement actionnable.</p></div>
+      </div>
+    </div>
+    <div class="foot">
+    <div class="foot-l"><b>Axion-IA</b> · axion-ia.com · Organisme de formation & conseil IA</div>
+    <div class="foot-c">29</div>
+    <div class="foot-r"><img class="qmini" src="assets/qualiopi.png" onerror="this.style.display='none'"><span>Actions <b>finançables à 100 %</b> par votre OPCO</span></div>
+  </div>
+  </div>
+<div class="page detail">
+    <div class="det-banner t-aud"><span class="tbadge t-aud">AUDIT</span><span class="ban-gamme">multi-départements · roadmap 12-24 mois</span><span class="ban-no">Audit</span></div>
+    <div class="det-head"><h2 class="det-title">Audit Stratégique PME</h2><p class="det-accroche">Une vision IA d’entreprise chiffrée sur 12 à 24 mois, avec quick-wins déployables sous 30 jours.</p></div>
+    <div class="det-facts">
+      <div class="fact price wide"><span>Tarif HT</span><b>À partir de 4 900 € HT · sur devis</b></div>
+      <div class="fact"><span>Format</span><b>multi-départements · roadmap 12-24 mois</b></div>
+    </div>
+    <div class="chips"><span>Cartographie multi-départements</span><span>Vision IA 12-24 mois chiffrée</span><span>Quick-wins déployables sous 30 jours</span><span>Conformité AI Act + RGPD by default</span></div>
+    <div class="det-cols">
+      <div class="det-main">
+        <h3 class="h3">Déroulé</h3>
+        <div class="prog"><div class="prog-b"><div class="prog-h">Déroulé</div><ul><li>Cadrage + 8 à 12 interviews</li><li>Cartographie + benchmark + scoring</li><li>Plan d’exécution + restitution COMEX</li></ul></div></div>
+      </div>
+      <div class="det-side">
+        <div class="side-b"><div class="side-t">Pour qui</div><p>PME de 20 à 250 salariés qui veulent une trajectoire IA à l’échelle de toute l’entreprise.</p></div>
+        <div class="side-b roi"><div class="side-t">Ce que vous repartez avec</div><ul class="check sm"><li>Cartographie multi-départements</li><li>Roadmap IA chiffrée 12-24 mois</li><li>Restitution COMEX + plan d’exécution</li></ul></div>
+        <div class="side-b"><div class="side-t">Engagement</div><p>Confidentialité totale, souveraineté des données et conformité RGPD. Un livrable directement actionnable.</p></div>
+      </div>
+    </div>
+    <div class="foot">
+    <div class="foot-l"><b>Axion-IA</b> · axion-ia.com · Organisme de formation & conseil IA</div>
+    <div class="foot-c">30</div>
+    <div class="foot-r"><img class="qmini" src="assets/qualiopi.png" onerror="this.style.display='none'"><span>Actions <b>finançables à 100 %</b> par votre OPCO</span></div>
+  </div>
+  </div>
+<div class="page detail">
+    <div class="det-banner t-aud"><span class="tbadge t-aud">AUDIT</span><span class="ban-gamme">transverse · gouvernance · board-ready</span><span class="ban-no">Audit</span></div>
+    <div class="det-head"><h2 class="det-title">Audit Stratégique ETI</h2><p class="det-accroche">Un audit transverse multi-BU, avec gouvernance IA, livrables board-ready et accompagnement post-audit inclus.</p></div>
+    <div class="det-facts">
+      <div class="fact price wide"><span>Tarif HT</span><b>Sur devis</b></div>
+      <div class="fact"><span>Format</span><b>transverse · gouvernance · board-ready</b></div>
+    </div>
+    <div class="chips"><span>Audit transverse multi-BU</span><span>Gouvernance IA + comité de pilotage</span><span>Livrables board-ready</span><span>Accompagnement post-audit inclus</span></div>
+    <div class="det-cols">
+      <div class="det-main">
+        <h3 class="h3">Déroulé</h3>
+        <div class="prog"><div class="prog-b"><div class="prog-h">Déroulé</div><ul><li>Cadrage exécutif + interviews multi-BU</li><li>Cartographie + benchmark + scoring</li><li>Plan stratégique + gouvernance + restitution board</li></ul></div></div>
+      </div>
+      <div class="det-side">
+        <div class="side-b"><div class="side-t">Pour qui</div><p>ETI et grandes entreprises (250 à 5000+ salariés) qui structurent leur stratégie IA au niveau board.</p></div>
+        <div class="side-b roi"><div class="side-t">Ce que vous repartez avec</div><ul class="check sm"><li>Cartographie transverse multi-BU</li><li>Cadre de gouvernance IA + comité de pilotage</li><li>Plan stratégique board-ready + accompagnement post-audit</li></ul></div>
+        <div class="side-b"><div class="side-t">Engagement</div><p>Confidentialité totale, souveraineté des données et conformité RGPD. Un livrable directement actionnable.</p></div>
+      </div>
+    </div>
+    <div class="foot">
+    <div class="foot-l"><b>Axion-IA</b> · axion-ia.com · Organisme de formation & conseil IA</div>
+    <div class="foot-c">31</div>
+    <div class="foot-r"><img class="qmini" src="assets/qualiopi.png" onerror="this.style.display='none'"><span>Actions <b>finançables à 100 %</b> par votre OPCO</span></div>
+  </div>
+  </div>
+<div class="page back">
+  <div class="back-top">
+    <img class="cov-logo" src="assets/axion-blanc.webp" onerror="this.style.display='none'">
+  </div>
+  <div class="back-mid">
+    <h2 class="back-h">Parlons de vos équipes.</h2>
+    <p class="back-sub">Un échange de 15 minutes suffit pour identifier la bonne formule et lancer votre financement OPCO. Devis sous 24-48 h.</p>
+    <div class="back-contact">
+      <div><span>Site</span><b>axion-ia.com</b></div>
+      <div><span>E-mail</span><b>contact@axion-ia.com</b></div>
+    </div>
+    <div class="back-pills"><span>Formations</span><span>Coaching 1-to-1</span><span>Audits IA</span></div>
+  </div>
+  
+  <div class="cover-band">
+    <div class="cb-q"><img src="assets/qualiopi.png" onerror="this.style.display='none'"><div><b>Certifié Qualiopi</b><br><span>Actions de formation</span></div></div>
+    <div class="cb-opco"><b>Financé à 100 %</b> par votre OPCO</div>
+  </div>
+</div></body></html>
