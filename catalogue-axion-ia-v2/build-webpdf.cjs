@@ -57,7 +57,7 @@ const QUALITY = 0.72;
       const g = c.getContext('2d');
       g.drawImage(img, 0, 0, w, h);
 
-      // Une image à transparence (logo Qualiopi, logo Axion-IA) convertie en
+      // Une image à transparence (logo, logo Axion-IA) convertie en
       // JPEG perd son canal alpha : le fond transparent devient NOIR. On teste
       // donc la présence d'alpha et on garde le PNG dans ce cas.
       let hasAlpha = false;

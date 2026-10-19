@@ -85,10 +85,10 @@ const ATTENDUS = [
   { ou: 18, amorce: "Séminaire IA jusqu'à 50 pers. (voir", repere: "Séminaire IA" },
   { ou: 18, amorce: "grille complète", repere: "Tous nos tarifs" },
 
-  { ou: 19, amorce: "pas de financement OPCO. Voir", repere: "Ce qui est finançable" },
-  { ou: 23, amorce: "non finançable par un OPCO. Voir", repere: "Ce qui est finançable" },
-  { ou: 29, amorce: "non finançable par un OPCO. Voir", repere: "Ce qui est finançable" },
-  { ou: 36, amorce: "Montage du dossier inclus — voir", repere: "Ce qui est finançable" },
+  { ou: 19, amorce: "pas de financement OPCO. Voir", repere: "Une frontière nette" },
+  { ou: 23, amorce: "hors action de formation. Voir", repere: "Une frontière nette" },
+  { ou: 29, amorce: "hors action de formation. Voir", repere: "Une frontière nette" },
+  { ou: 36, amorce: "lorsque l'entreprise y est éligible — voir", repere: "Une frontière nette" },
 
   { ou: 44, amorce: "IA pour l'automatisation (2 jours,", repere: "IA pour l'automatisation" },
 ];

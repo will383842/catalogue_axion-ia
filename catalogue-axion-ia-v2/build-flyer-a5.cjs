@@ -58,7 +58,6 @@ const H = 216; // 210 + 3 + 3
 function dataURI(rel, mime) {
   return `data:${mime};base64,` + fs.readFileSync(path.join(DIR, rel)).toString("base64");
 }
-const QUALIOPI = dataURI("assets/qualiopi-logo.png", "image/png");
 
 // ── LES CINQ ACTIVITES ──────────────────────────────────────────────────────
 // Deux ou trois mots chacune. Le trace est au meme trait pour toutes : c'est
@@ -110,7 +109,7 @@ function pastilleActivite(a) {
 const ETAPES = [
   ["1", "Un appel", "30 minutes, sans engagement"],
   ["2", "Un devis", "chiffré sous 48 h"],
-  ["3", "Un dossier", "monté de A à Z"],
+  ["3", "Un dossier", "de financement, si éligible"],
 ];
 
 (async () => {
@@ -163,7 +162,7 @@ const ETAPES = [
         <span style="font-size:6pt;font-weight:800;color:var(--terra-bright);letter-spacing:.05em;padding-top:2px">.com</span>
       </div>
       <div style="font-size:6.4pt;font-weight:800;letter-spacing:.13em;text-transform:uppercase;
-                  color:rgba(226,209,176,.8);text-align:right;line-height:1.35">Organisme<br>certifié Qualiopi</div>
+                  color:rgba(226,209,176,.8);text-align:right;line-height:1.35">Organisme de formation<br>déclaré · NDA 84381100438</div>
     </div>
 
     <div style="margin-top:14mm">
@@ -204,13 +203,12 @@ const ETAPES = [
     <div style="background:var(--noir);border-radius:14px;padding:5.5mm 5.5mm 6mm;
                 display:flex;gap:4mm;align-items:center">
       <div style="flex:none;text-align:center;min-width:24mm">
-        <div class="display" style="font-size:34pt;line-height:.9;color:var(--terra-bright)">0 €</div>
+        <div class="display" style="font-size:25pt;line-height:.9;color:var(--terra-bright)">OPCO</div>
       </div>
       <div style="flex:1">
-        <b style="font-size:11pt;color:var(--creme);line-height:1.2;display:block">Vos formations peuvent<br>ne rien vous coûter</b>
+        <b style="font-size:11pt;color:var(--creme);line-height:1.2;display:block">Un dossier de financement<br>monté par nos soins</b>
         <div style="font-size:8.2pt;line-height:1.42;color:var(--sand);margin-top:2mm">
-          Votre <b style="color:var(--creme)">OPCO</b> les prend en charge et nous règle
-          directement : <b style="color:var(--creme)">vous n'avancez rien.</b></div>
+          Vous cotisez déjà à un <b style="color:var(--creme)">OPCO</b> : <b style="color:var(--creme)">dossier de financement monté par nos soins lorsque l'entreprise y est éligible.</b></div>
       </div>
     </div>
 
@@ -249,15 +247,14 @@ const ETAPES = [
       <div style="flex:1">
         <div class="display" style="font-size:15pt;line-height:1.08">Parlons-en.</div>
         <div style="font-size:8.8pt;line-height:1.5;margin-top:1.5mm">
-          <b>axion-ia.com</b><br>contact@axion-ia.com<br>Grenoble · Auvergne-Rhône-Alpes</div>
+          <b>axion-ia.com</b><br>contact@axion-ia.com<br>Partout en France</div>
       </div>
-      <img src="${QUALIOPI}" alt="Certification Qualiopi" style="flex:none;height:14mm;display:block">
+      <div style="flex:none;text-align:center;border:1.5px solid var(--line);border-radius:10px;padding:2.2mm 3.2mm;line-height:1.25"><div style="font-size:5.6pt;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-muted)">Organisme de formation déclaré</div><div class="display" style="font-size:10pt;color:var(--terra-deep);margin-top:.8mm">NDA 84381100438</div></div>
     </div>
 
     <div style="font-size:5.5pt;color:var(--ink-muted);line-height:1.35">
       AXION IA SAS · ELITE BUREAUX, boîte 53, 11 avenue Paul Verlaine, 38100 Grenoble ·
-      SIREN 108 018 631 · Organisme de formation certifié Qualiopi, catégorie
-      <b>Actions de formation</b>. Prise en charge OPCO selon votre situation.
+      SIREN 108 018 631 · Organisme de formation déclaré (NDA 84381100438).
     </div>
   </div>
 </section>
@@ -282,7 +279,7 @@ const ETAPES = [
   }
 
   // Une image qui ne charge pas ARRETE le build : c'est ce qui a laisse le
-  // logo Qualiopi casse pendant toute la vie de la page 45 du catalogue.
+  // logo casse pendant toute la vie de la page 45 du catalogue.
   const imagesMortes = await page.evaluate(() =>
     [...document.querySelectorAll("img")]
       .filter((i) => !i.naturalWidth)

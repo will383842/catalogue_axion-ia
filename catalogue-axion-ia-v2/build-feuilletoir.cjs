@@ -222,7 +222,7 @@ const html = `<meta charset="UTF-8">
 <div class="barre">
   <div>
     <h1>Catalogue Axion-IA</h1>
-    <p class="sous">Formations, coaching 1-to-1, audits et implémentation · Organisme certifié Qualiopi</p>
+    <p class="sous">Formations, coaching 1-to-1, audits et implémentation · Organisme de formation déclaré (NDA 84381100438)</p>
   </div>
   <a class="dl" href="./catalogue-axion-ia.pdf" download>Télécharger le PDF</a>
 </div>
