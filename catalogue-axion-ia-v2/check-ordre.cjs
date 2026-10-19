@@ -127,7 +127,7 @@ const ATTENDU = [
   [23, "Avant d'investir, savoir", "ouvreur audit"],
   [29, "Le clé en main", "ouvreur implémentation"],
   [36, "Tous nos tarifs", "tarifs"],
-  [37, "Ce qui est finançable", "financement"],
+  [37, "Une frontière nette", "financement"],
   [39, "Vos notes 1 / 2", "notes (ex-témoignages)"],
   [47, "Parlons de vos", "contact"],
   [48, "coup de projecteur", "visibilité — 4e de couverture"],

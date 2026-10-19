@@ -392,7 +392,7 @@ const OUVREURS = {
       ["🗺", "Une feuille de route", "Par quoi commencer, quand, avec quelles ressources — des gains rapides aux chantiers de fond."],
       ["🔓", "Sans obligation de suite", "Le rapport est à vous. Vous implémentez avec nous, en interne, ou avec un tiers. C'est écrit dans nos conditions."],
     ],
-    encart: "⚠️ Prestation de conseil, hors action de formation . Voir PAGE_FIN.",
+    encart: "⚠️ Prestation de conseil, hors action de formation. Voir PAGE_FIN.",
   },
   implementation: {
     slug: "cat-implementation",
@@ -407,7 +407,7 @@ const OUVREURS = {
       ["📦", "Code et doc livrés", "Dans vos comptes, documentés, modifiables par vos équipes. Aucun abonnement imposé."],
       ["🛟", "30 jours de support inclus", "Pour les ajustements après mise en production. Un contrat de maintenance existe, il est optionnel."],
     ],
-    encart: "⚠️ Prestation de conception et de développement, hors action de formation . Voir PAGE_FIN.",
+    encart: "⚠️ Prestation de conception et de développement, hors action de formation. Voir PAGE_FIN.",
   },
 };
 
@@ -920,7 +920,7 @@ const REPRISES_AUDIT = [
 // conditionné à l'accord de l'OPCO, d'où « possible » plutôt qu'un absolu.
 // ---------------------------------------------------------------------------
 const MENTION_OPCO =
-  "Pris en charge par votre OPCO, en partie ou en totalité — sans avance de votre part";
+  "Dossier de financement monté par nos soins lorsque l'entreprise y est éligible";
 
 function mentionOpco(htmlPage) {
   return htmlPage.replace(
@@ -1097,7 +1097,7 @@ function pageCouverture(src) {
     .replace(
       `<div style="font-size:13pt;font-weight:800;color:#fff;margin-top:2.5mm">axion-ia.com</div>`,
       `<div style="font-size:13pt;font-weight:800;color:#fff;margin-top:2.5mm">axion-ia.com</div>
-        <div style="font-size:7.2pt;color:rgba(226,209,176,.75);margin-top:2mm;line-height:1.35;max-width:112mm">Prise en charge applicable aux formations et au séminaire, sur montants HT, selon votre OPCO et votre situation. Accompagnement, audit et implémentation sont des prestations de conseil, non finançables.</div>`,
+        <div style="font-size:7.2pt;color:rgba(226,209,176,.75);margin-top:2mm;line-height:1.35;max-width:112mm">Prise en charge applicable aux formations et au séminaire, sur montants HT, selon votre OPCO et votre situation. Accompagnement, audit et implémentation sont des prestations de conseil, hors action de formation.</div>`,
     );
 
   return p.replace(/(<section class="page"[^>]*)>/, "$1>\n  <!-- GEN:conseil -->");
@@ -1148,7 +1148,7 @@ function pageContact(src) {
           ${[
             ["1", "Vous réservez", "30 minutes, sans engagement. On comprend votre métier et vos tâches chronophages."],
             ["2", "On vous répond", "Un devis chiffré sous 48 h — et franchement, si aucune de nos offres n'est utile."],
-            ["3", "On monte le dossier", "Pour les formations : la prise en charge OPCO, montée de A à Z par nos soins."],
+            ["3", "On monte le dossier", "Dossier de financement monté par nos soins lorsque l'entreprise y est éligible."],
           ]
             .map(
               ([n, t, d]) => `<div>

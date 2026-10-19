@@ -25,7 +25,7 @@ const SEUIL = 300; // dpi minimum print
       const r = img.getBoundingClientRect();
       // `naturalWidth === 0` = l'image N'A PAS CHARGÉ. Passer outre en silence
       // fait rendre VERT un catalogue dont une image est cassée : c'est ce qui
-      // est arrivé au logo Qualiopi de la page 45, dont le `src` pointait sur
+      // est arrivé à un logo de la page 45, dont le `src` pointait sur
       // un fichier inexistant. Une image absente n'est pas une image conforme.
       if (r.width && r.height && !img.naturalWidth) {
         out.push({ src: img.getAttribute('src'), natural: 'NE CHARGE PAS', printMm: '—', dpi: 0 });
