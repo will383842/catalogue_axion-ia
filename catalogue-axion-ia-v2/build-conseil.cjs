@@ -392,7 +392,7 @@ const OUVREURS = {
       ["🗺", "Une feuille de route", "Par quoi commencer, quand, avec quelles ressources — des gains rapides aux chantiers de fond."],
       ["🔓", "Sans obligation de suite", "Le rapport est à vous. Vous implémentez avec nous, en interne, ou avec un tiers. C'est écrit dans nos conditions."],
     ],
-    encart: "⚠️ Prestation de conseil, hors action de formation : non finançable par un OPCO. Voir PAGE_FIN.",
+    encart: "⚠️ Prestation de conseil, hors action de formation . Voir PAGE_FIN.",
   },
   implementation: {
     slug: "cat-implementation",
@@ -407,7 +407,7 @@ const OUVREURS = {
       ["📦", "Code et doc livrés", "Dans vos comptes, documentés, modifiables par vos équipes. Aucun abonnement imposé."],
       ["🛟", "30 jours de support inclus", "Pour les ajustements après mise en production. Un contrat de maintenance existe, il est optionnel."],
     ],
-    encart: "⚠️ Prestation de conception et de développement, hors action de formation : non finançable par un OPCO. Voir PAGE_FIN.",
+    encart: "⚠️ Prestation de conception et de développement, hors action de formation . Voir PAGE_FIN.",
   },
 };
 
@@ -596,27 +596,27 @@ function pageTarifsRecap() {
       ["Par métier — 1 jour / 2 jours", "2 à 15 personnes", "1 900 € / 3 600 €"],
       ["Par secteur — 1 jour / 2 jours", "2 à 15 personnes", "2 200 € / 3 900 €"],
       ["Séminaire IA — 1 journée", "jusqu'à 50 personnes", "Sur devis"],
-    ], `<b>Finançable OPCO / France Travail</b>, jusqu'à 100 %. Montage du dossier inclus — voir ${pp(P.financement)}.`)}
+    ], `Dossier de financement monté par nos soins lorsque l'entreprise y est éligible — voir ${pp(P.financement)}.`)}
 
     ${carte("Accompagnement 1-to-1", "var(--ochre)", [
       ["Dirigeant · Vision IA stratégique", "1 jour / 2 jours", "1 390 € / 2 590 €"],
       ["Collaborateur · Optimisation du poste", "1 jour / 2 jours", "990 € / 1 830 €"],
       ["Coaching régulier", "1 session par mois", "790 € / session"],
-    ], "Prestation de <b>conseil</b> — non finançable OPCO. Contrat de 6, 12 ou 24 mois pour le coaching régulier.")}
+    ], "Prestation de <b>conseil</b> — hors action de formation. Contrat de 6, 12 ou 24 mois pour le coaching régulier.")}
 
     ${carte("Audit IA", "var(--blue)", [
       ["Audit sur place — 1 journée", "TPE · toute l'entreprise", "Dès 1 190 €"],
       ["Audit Ciblé — Solo / Standard / Avancé", "1 département", "1 900 → 3 900 €"],
       ["Audit Stratégique PME", "20-50 / 50-250 salariés", "4 900 € / 9 900 €"],
       ["Audit Stratégique ETI", "1-2 BU · multi-BU sur devis", "Dès 1 900 €"],
-    ], "Prestation de <b>conseil</b> — non finançable OPCO. Chiffrage au cas par cas selon le périmètre réel.")}
+    ], "Prestation de <b>conseil</b> — hors action de formation. Chiffrage au cas par cas selon le périmètre réel.")}
 
     ${carte("Implémentation & automatisation", "var(--sage)", [
       ["Pilote IA — un cas d'usage prioritaire", "TPE / PME", "Dès 990 €"],
       ["Mission PME / ETI / Grand programme", "multi-cas, transverse", "Sur devis"],
       ["IA custom d'entreprise", "4 à 16 semaines", "Sur devis"],
       ["Maintenance (optionnelle)", "après les 30 jours inclus", "290 € / mois"],
-    ], "Conception et développement — non finançable OPCO. <b>Forfait fixe, devis ferme.</b>")}
+    ], "Conception et développement — hors action de formation. <b>Forfait fixe, devis ferme.</b>")}
   </div>
 
   <div style="margin-top:4.5mm;display:grid;grid-template-columns:1fr 1fr 1fr;gap:4mm">
@@ -671,28 +671,27 @@ function pageFinancement() {
     `${runhead("Financement")}
 
   <div style="text-align:center">
-    <div class="eyebrow">Ce qui est finançable, ce qui ne l'est pas</div>
+    <div class="eyebrow">Formations et prestations de conseil</div>
     <h2 class="display" style="font-size:30pt;margin:3mm 0 0">Une frontière nette,
       <span class="display-it" style="color:var(--terra)">annoncée d'avance.</span></h2>
     <p style="font-size:11pt;color:var(--ink-soft);max-width:160mm;margin:3.5mm auto 0;line-height:1.55">
-      Nos formations sont des actions de formation, finançables. Nos accompagnements, audits et implémentations sont des prestations de conseil : ils ne le sont pas. Mieux vaut le savoir avant de bâtir un budget dessus.</p>
+      Nos formations sont des actions de formation. Nos accompagnements, audits et implémentations sont des prestations de conseil, qui n'ouvrent pas droit à la prise en charge par un OPCO. Mieux vaut le savoir avant de bâtir un budget dessus.</p>
   </div>
 
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:6mm;margin-top:7mm">
     <div class="card" style="padding:6mm 6.5mm;border-top:5px solid var(--terra)">
-      <div style="font-family:'Fraunces',serif;font-weight:600;font-size:17pt;color:var(--terra-deep)">✓ Finançable</div>
+      <div style="font-family:'Fraunces',serif;font-weight:600;font-size:17pt;color:var(--terra-deep)">✓ Actions de formation</div>
       <div style="font-size:10pt;color:var(--ink-soft);margin-top:1.5mm;line-height:1.5">Les <b>21 formations</b> et le <b>séminaire IA</b>.</div>
       <ul class="fl" style="margin-top:3mm">
-        <li><b>OPCO</b> — jusqu'à 100 % de prise en charge. Vous cotisez déjà.</li>
+        <li><b>OPCO</b> — dossier de financement monté par nos soins lorsque l'entreprise y est éligible. Vous cotisez déjà.</li>
         <li><b>France Travail</b> — AIF, POEI selon la situation.</li>
-        <li>Organisme certifié <b>Qualiopi</b>, catégorie Actions de formation.</li>
-        <li><b>Nous montons le dossier</b>, de A à Z.</li></ul>
+        <li>Organisme de formation déclaré (<b>NDA 84381100438</b>).</li></ul>
       <div style="margin-top:3.5mm;background:var(--terra-soft);border-radius:9px;padding:3mm 4mm;font-size:9.2pt;color:var(--terra-deep);line-height:1.4">
         Le montant réellement pris en charge dépend de votre OPCO et de votre situation. <b>Actions non éligibles au CPF.</b></div>
     </div>
 
     <div class="card" style="padding:6mm 6.5mm;border-top:5px solid var(--mocha)">
-      <div style="font-family:'Fraunces',serif;font-weight:600;font-size:17pt;color:var(--mocha)">✗ Non finançable</div>
+      <div style="font-family:'Fraunces',serif;font-weight:600;font-size:17pt;color:var(--mocha)">✗ Prestations de conseil</div>
       <div style="font-size:10pt;color:var(--ink-soft);margin-top:1.5mm;line-height:1.5">L'<b>accompagnement 1-to-1</b>, l'<b>audit IA</b> et l'<b>implémentation</b>.</div>
       <ul class="fl" style="margin-top:3mm">
         <li>Ce sont des prestations de <b>conseil</b>, pas des actions de formation.</li>
@@ -710,7 +709,7 @@ function pageFinancement() {
       Beaucoup d'entreprises font financer la <b style="color:#fff">formation de leurs équipes</b> par l'OPCO, et prennent l'<b style="color:#fff">audit</b> ou l'<b style="color:#fff">accompagnement du dirigeant</b> sur leur budget propre. C'est le montage le plus fréquent, et le plus sain : chaque prestation est appelée par son nom.</div>
   </div>
 
-${footer("Montage du dossier OPCO inclus", "axion-ia.com/appel")}`,
+${footer("Dossier de financement monté par nos soins", "axion-ia.com/appel")}`,
   );
 }
 
@@ -750,8 +749,8 @@ function pageConformite() {
         Un seul incident — un contrat confidentiel déposé dans un outil public, un dossier client recopié dans un chat — coûte des dizaines de fois le prix d'une demi-journée de formation. <b>La confidentialité n'est pas un chapitre : c'est un réflexe qu'on installe.</b></div>
     </div>
     <div style="text-align:center">
-      <img src="assets/qualiopi-logo.png" alt="Certification Qualiopi" style="max-width:100%;max-height:33.5mm;display:block;margin:0 auto">
-      <div style="font-size:8.2pt;color:var(--ink-muted);margin-top:2mm;line-height:1.4">La certification qualité a été délivrée au titre de la catégorie <b>ACTIONS DE FORMATION</b>.</div>
+      <div class="display" style="font-size:22pt;color:var(--terra-deep);line-height:1.05">NDA 84381100438</div>
+      <div style="font-size:8.2pt;color:var(--ink-muted);margin-top:2mm;line-height:1.4">Organisme de formation déclaré.</div>
     </div>
   </div>
 
@@ -1082,24 +1081,19 @@ function pageCouverture(src) {
     )
     // — OPCO : « en partie ou en totalité », et surtout SANS AVANCE (subrogation)
     .replace(
-      `<div style="font-size:13.5pt;font-weight:800;color:#fff;line-height:1.15">Votre formation peut ne rien vous coûter</div>
-          <div style="font-size:9.5pt;color:#ffe9df;margin-top:2mm;line-height:1.45">Financée par votre <b style="color:#fff">OPCO</b> — vous avez déjà cotisé pour ça. Et <b style="color:#fff">nous montons tout le dossier pour vous</b>, de A à Z.</div>`,
-      `<div style="font-size:13pt;font-weight:800;color:#fff;line-height:1.15">Vos formations peuvent ne rien vous coûter</div>
-          <div style="font-size:9.2pt;color:#ffe9df;margin-top:2mm;line-height:1.42">Prises en charge par votre <b style="color:#fff">OPCO</b>, en partie ou en totalité — vous avez déjà cotisé pour ça. <b style="color:#fff">En subrogation, l'OPCO nous règle directement : vous n'avancez rien.</b> Nous montons le dossier de A à Z.</div>`,
+      `<div style="font-size:13.5pt;font-weight:800;color:#fff;line-height:1.15">Un dossier de financement monté par nos soins</div>
+          <div style="font-size:9.5pt;color:#ffe9df;margin-top:2mm;line-height:1.45">Vous cotisez déjà à un <b style="color:#fff">OPCO</b>. <b style="color:#fff">Dossier de financement monté par nos soins lorsque l'entreprise y est éligible.</b></div>`,
+      `<div style="font-size:13pt;font-weight:800;color:#fff;line-height:1.15">Un dossier de financement monté par nos soins</div>
+          <div style="font-size:9.2pt;color:#ffe9df;margin-top:2mm;line-height:1.42">Vous cotisez déjà à un <b style="color:#fff">OPCO</b>. <b style="color:#fff">Dossier de financement monté par nos soins lorsque l'entreprise y est éligible.</b></div>`,
     )
     // — le bloc bas gagne du contenu (5 familles + réserve) : on le resserre
     //   d'autant, sinon la page déborde de 15,6 mm (mesuré par check-overflow)
     .replace("padding:10mm var(--pad) 13mm", "padding:5mm var(--pad) 7.5mm")
-    .replace(
-      `<img src="assets/qualiopi-logo.png" alt="Qualiopi — actions de formation" style="height:26mm;width:auto;display:block">`,
-      `<img src="assets/qualiopi-logo.png" alt="Qualiopi — actions de formation" style="height:21mm;width:auto;display:block">`,
-    )
     .replace('style="flex:none;width:47mm;background:#fff;border-radius:14px;padding:5mm', 'style="flex:none;width:44mm;background:#fff;border-radius:14px;padding:4mm')
     .replace("border-radius:14px;padding:5mm 7mm;display:flex;align-items:center;gap:6mm;box-shadow", "border-radius:14px;padding:4mm 6mm;display:flex;align-items:center;gap:5mm;box-shadow")
     // — le QR de couverture ouvre le catalogue entier, plus seulement les formations
     .replace(">Scannez : toutes nos formations<", ">Scannez : toutes nos offres<")
-    // — réserve honnête : le reste à charge s'entend hors taxes, et le conseil
-    //   n'est pas finançable. Sans cette ligne, « 0 € » est une promesse nue.
+    // — réserve honnête : prise en charge selon l'OPCO, et le conseil n'y ouvre pas droit.
     .replace(
       `<div style="font-size:13pt;font-weight:800;color:#fff;margin-top:2.5mm">axion-ia.com</div>`,
       `<div style="font-size:13pt;font-weight:800;color:#fff;margin-top:2.5mm">axion-ia.com</div>
@@ -1121,7 +1115,7 @@ function pageContact(src) {
     .replace('border-top:1px solid rgba(255,255,255,.2)', "border-top:1px solid var(--line)")
     .replace('color:rgba(247,243,234,.6)', "color:var(--ink-muted)")
     .replace('<b style="color:#fff">ACTIONS DE FORMATION</b>', '<b style="color:var(--ink)">ACTIONS DE FORMATION</b>')
-    // le bandeau Qualiopi n'a plus besoin de son fond blanc
+    // le bandeau NDA n'a plus besoin de son fond blanc
     .replace('style="height:20mm;background:#fff;border-radius:8px;padding:5px"', 'style="height:20mm"')
     // — MENTIONS LÉGALES RÉELLES (demande Will 2026-08-17).
     //
@@ -1134,13 +1128,12 @@ function pageContact(src) {
     // Décision Will 2026-08-17 : ni le capital social, ni le paragraphe sur la
     // déclaration d'activité ne figurent au catalogue. Ne pas les réintroduire.
     //
-    // La mention Qualiopi complète (catégorie d'actions) figure ICI et nulle
-    // part ailleurs : le logo reste tel quel sur les autres pages.
+    // La mention « Organisme de formation déclaré (NDA) » figure ICI.
     .replace(
       /<b style="color:var\(--ink-soft\)">Mentions légales — à compléter :<\/b>[\s\S]*?Directeur de la publication : Williams Jullin\./,
       `<b style="color:var(--ink)">Mentions légales.</b>
       <b>AXION IA SAS</b>, société par actions simplifiée · Siège social : ELITE BUREAUX — boîte 53, 11 avenue Paul Verlaine, 38100 Grenoble · RCS Grenoble, <b>SIREN 108 018 631</b> · <b>SIRET</b> (siège) 108 018 631 00011 · TVA intracommunautaire FR51 108 018 631 · Directeur de la publication : Williams Jullin, président · contact@axion-ia.com<br>
-      <b style="color:var(--ink)">Organisme de formation certifié Qualiopi.</b> La certification qualité a été délivrée au titre de la catégorie d'actions suivante : <b>Actions de formation</b>.`,
+      <b style="color:var(--ink)">Organisme de formation déclaré (NDA 84381100438).</b>`,
     )
 
     // Le grand vide central passait pour de la respiration sur fond mocha ;
@@ -1363,7 +1356,7 @@ function pageVisibilite(src) {
     [P.audit[0], "Avant d'investir, savoir"],
     [P.implementation[0], "Le clé en main"],
     [P.tarifsToutes, "Tous nos tarifs"],
-    [P.financement, "Ce qui est finançable"],
+    [P.financement, "Formations et prestations de conseil"],
     [P.notes[0], "Vos notes 1 / 2"],
     [P.visibilite, "coup de projecteur"],
   ];
